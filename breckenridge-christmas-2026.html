@@ -14,13 +14,13 @@
 :root {
   --ink: #1C1917;
   --stone: #44403C;
-  --warm: #78716C;
-  --muted: #A8A29E;
+  --warm: #4E4844;
+  --muted: #524D49;
   --sand: #F5F0EB;
   --paper: #FAFAF9;
   --white: #FFFFFF;
   --cranberry: #7F1D1D;
-  --copper: #B45309;
+  --copper: #783907;
   --forest: #365314;
   --forest-soft: rgba(54,83,20,0.07);
   --rule: #E7E5E4;
@@ -283,14 +283,14 @@ body {
    ITINERARY
    ═══════════════════════════════ */
 .itinerary { padding: var(--section-pad) 0; background: var(--cranberry); color: var(--white); }
-.itinerary .eyebrow { color: rgba(255,255,255,0.4); }
+.itinerary .eyebrow { color: rgba(255,255,255,0.9); }
 .itinerary h2 {
   font-family: var(--display); font-size: clamp(2rem, 4.5vw, 3rem);
   font-weight: 600; line-height: 1.05; margin: 0.75rem 0; color: var(--white);
 }
-.itinerary h2 em { font-style: italic; font-weight: 300; color: rgba(255,255,255,0.45); }
+.itinerary h2 em { font-style: italic; font-weight: 300; color: rgba(255,255,255,0.9); }
 .itinerary-intro {
-  color: rgba(255,255,255,0.4); font-size: 0.95rem; max-width: 540px;
+  color: rgba(255,255,255,0.9); font-size: 0.95rem; max-width: 540px;
   margin-bottom: 3rem; font-weight: 300;
 }
 
@@ -305,17 +305,17 @@ body {
   color: rgba(255,255,255,0.06); font-weight: 300; margin-bottom: 0.25rem;
 }
 .day-weekday { font-family: var(--ui); font-size: 0.82rem; font-weight: 600; color: var(--white); }
-.day-date { font-family: var(--ui); font-size: 0.68rem; color: rgba(255,255,255,0.3); margin-top: 0.1rem; }
+.day-date { font-family: var(--ui); font-size: 0.68rem; color: rgba(255,255,255,0.9); margin-top: 0.1rem; }
 
 .day-body h3 { font-family: var(--display); font-size: 1.4rem; font-weight: 400; margin-bottom: 0.35rem; }
 .day-body .day-desc {
-  color: rgba(255,255,255,0.4); font-size: 0.9rem; line-height: 1.6;
+  color: rgba(255,255,255,0.9); font-size: 0.9rem; line-height: 1.6;
   margin-bottom: 1rem; max-width: 520px; font-weight: 300;
 }
 
 .day-bullets { display: flex; flex-direction: column; gap: 0.35rem; }
 .day-bullets li {
-  font-family: var(--ui); font-size: 0.78rem; color: rgba(255,255,255,0.55);
+  font-family: var(--ui); font-size: 0.78rem; color: rgba(255,255,255,0.9);
   padding-left: 1rem; position: relative; line-height: 1.55;
 }
 .day-bullets li::before {
@@ -462,19 +462,19 @@ body {
   color: var(--white); text-align: center;
 }
 .cta h2 { font-family: var(--display); font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 600; margin-bottom: 2rem; }
-.cta h2 em { font-style: italic; font-weight: 300; color: rgba(255,255,255,0.5); }
+.cta h2 em { font-style: italic; font-weight: 300; color: rgba(255,255,255,0.9); }
 .cta-price { font-family: var(--display); font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 600; line-height: 1; }
 .cta-price-label {
   font-family: var(--ui); font-size: 0.68rem; font-weight: 500;
-  letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-top: 0.4rem;
+  letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.9); margin-top: 0.4rem;
 }
 .cta-includes {
   margin-top: 1.75rem; font-family: var(--ui); font-size: 0.78rem;
-  color: rgba(255,255,255,0.4); letter-spacing: 0.02em;
+  color: rgba(255,255,255,0.9); letter-spacing: 0.02em;
 }
 .cta-closer {
   margin-top: 2rem; font-family: var(--display); font-style: italic;
-  font-size: 1.1rem; color: rgba(255,255,255,0.55); font-weight: 300;
+  font-size: 1.1rem; color: rgba(255,255,255,0.9); font-weight: 300;
 }
 
 .cta-btn {
@@ -502,7 +502,7 @@ body {
    ═══════════════════════════════ */
 footer {
   background: var(--ink); text-align: center; padding: 2rem;
-  font-family: var(--ui); font-size: 0.68rem; color: rgba(255,255,255,0.2); letter-spacing: 0.06em;
+  font-family: var(--ui); font-size: 0.68rem; color: rgba(255,255,255,0.9); letter-spacing: 0.06em;
 }
 
 /* ═══════════════════════════════
@@ -520,9 +520,9 @@ footer {
   .hero-photos .hero-photo-row img { height: 140px; }
   .house-header { grid-template-columns: 1fr; }
   .house-header-desc { text-align: left; max-width: 100%; }
-  .house-photos { grid-template-columns: 1fr; }
+  .house-photos { grid-template-columns: 1fr; gap: 0.75rem; }
   .house-photos .photo-hero { min-height: 260px; grid-row: auto; }
-  .house-photos .photo-grid-right { grid-row: auto; }
+  .house-photos .photo-grid-right { grid-row: auto; gap: 0.75rem; }
   .house-stats { grid-template-columns: repeat(2, 1fr); }
   .house-stat:nth-child(2) { border-right: none; }
   .house-stat:nth-child(1), .house-stat:nth-child(2) { border-bottom: 1px solid var(--rule); }
@@ -540,11 +540,14 @@ footer {
 }
 
 @media (max-width: 600px) {
+  .hero { padding-top: 2rem; }
   .hero h1 { font-size: 2.6rem; }
   .hero-meta { flex-wrap: wrap; gap: 1rem; }
   .hero-meta-item:not(:last-child) { border-right: none; margin-right: 0; padding-right: 0; }
   .hero-meta-item { flex: 0 0 45%; }
   .nav-links { display: none; }
+  .house-photos .photo-grid-right { gap: 0.75rem; }
+  .house-photos .photo-grid-right img { min-height: 130px; }
 }
 
 /* ═══════════════════════════════
@@ -660,7 +663,7 @@ footer {
 <!-- PULL QUOTE -->
 <section class="pull-quote">
   <div class="container">
-    <blockquote class="reveal">Snow-dusted Victorian buildings. Holiday lights on every corner. Hot cocoa on Main Street. This is the Christmas you see in the movies — except you're in it.</blockquote>
+    <blockquote class="reveal">Four nights in a mountain mansion with the whole family. Breckenridge in December, with snow on the peaks and lights along Main Street.</blockquote>
   </div>
 </section>
 
@@ -721,7 +724,7 @@ footer {
   <div class="container">
     <div class="eyebrow">Day by Day</div>
     <h2>The <em>Itinerary</em></h2>
-    <p class="itinerary-intro">4 nights, 3 full days. Every day has a vibe — but nothing is mandatory. The cabin is the centerpiece. This is about being together.</p>
+    <p class="itinerary-intro">Four nights, three full days. Each day has a rhythm, but nothing is required. The house is the centerpiece.</p>
 
     <div class="day reveal">
       <div class="day-label">
@@ -750,14 +753,14 @@ footer {
       </div>
       <div class="day-body">
         <h3>Ski &amp; Snow Day</h3>
-        <p class="day-desc">Split up by interest — skiers hit the slopes, everyone else explores the trails and town. Regroup for an epic cabin evening.</p>
+        <p class="day-desc">Skiers take the mountain while everyone else explores trails or walks through town. We regroup at the cabin for the evening.</p>
         <ul class="day-bullets">
           <li>Group A: Breckenridge Ski Resort (buy advance tickets!)</li>
           <li>Group B: Snowshoeing on Burro Trail or Carter Park trails</li>
           <li>Kids: Half-day ski school program</li>
           <li>Afternoon regroup at the cabin</li>
-          <li>Evening: Game room tournament + hot tub + firepit</li>
-          <li>Big family dinner — cooking crew or order local</li>
+          <li>Evening: Game room, hot tub, firepit</li>
+          <li>Family dinner, cooked in or ordered from town</li>
         </ul>
       </div>
     </div>
@@ -769,15 +772,15 @@ footer {
         <div class="day-date">December 12</div>
       </div>
       <div class="day-body">
-        <h3>Hallmark Movie Day</h3>
-        <p class="day-desc">This is the day that looks like a Christmas movie. Snow-covered Main Street, holiday lights, hot cocoa, and the whole family together.</p>
+        <h3>Town Day</h3>
+        <p class="day-desc">Main Street in full holiday dress. Bakeries, galleries, the free gondola ride, and afternoon tubing before we settle in for the evening.</p>
         <ul class="day-bullets">
           <li>Breakfast walk to La Francaise French Bakery on Main St</li>
           <li>Browse shops and galleries along historic Main Street</li>
-          <li>Ride the FREE BreckConnect Gondola — panoramic mountain views</li>
+          <li>Ride the free BreckConnect Gondola for panoramic mountain views</li>
           <li>Afternoon: Tubing at Frisco Adventure Park (~$30/person)</li>
           <li>Evening: White elephant gift exchange at the cabin</li>
-          <li>Hot cocoa bar + holiday movie night in the game room</li>
+          <li>Movie night in the great room</li>
         </ul>
       </div>
     </div>
@@ -790,12 +793,12 @@ footer {
       </div>
       <div class="day-body">
         <h3>Family Adventure Day</h3>
-        <p class="day-desc">Our last full day — sledding, skating, exploring, and a big farewell dinner at the cabin.</p>
+        <p class="day-desc">Our last full day. Sledding, skating, free time at the house, and a family dinner to close it out.</p>
         <ul class="day-bullets">
-          <li>Morning: Sledding at Carter Park (FREE — 0.3 mi from house)</li>
+          <li>Morning: Sledding at Carter Park (free, 0.3 mi from house)</li>
           <li>Ice skating at Stephen C. West Arena ($15–20/person)</li>
-          <li>Lunch on Main Street — Breckenridge Brewery or Blue River Bistro</li>
-          <li>Afternoon: Free time — hot tub, naps, weight room, Blue River Trail</li>
+          <li>Lunch on Main Street: Breckenridge Brewery or Blue River Bistro</li>
+          <li>Afternoon free time: hot tub, naps, weight room, Blue River Trail</li>
           <li>Evening: Big family farewell dinner at the cabin</li>
           <li>Pack up for morning departure</li>
         </ul>
@@ -810,12 +813,12 @@ footer {
       </div>
       <div class="day-body">
         <h3>Travel Home</h3>
-        <p class="day-desc">One last look at the mountains, then we head back to Tampa — home with 10 days to spare before Christmas.</p>
+        <p class="day-desc">One last morning in the mountains before the drive back to Denver. Home with ten days before Christmas.</p>
         <ul class="day-bullets">
           <li>Check out by 11 AM</li>
           <li>Drive back to Denver (~1hr 45min)</li>
           <li>Return rental SUVs, afternoon flight DEN → TPA</li>
-          <li>Home by evening — 10 days before Christmas</li>
+          <li>Home by evening, ten days before Christmas</li>
         </ul>
       </div>
     </div>
@@ -826,8 +829,8 @@ footer {
 <section class="activities" id="activities">
   <div class="container">
     <div class="eyebrow">Things to Do</div>
-    <h2>Snow, Mountains <em>&amp; Magic</em></h2>
-    <p class="activities-intro">Breckenridge isn't just a ski town — it's a winter wonderland with activities for everyone, whether you're on the slopes or sipping cocoa on Main Street.</p>
+    <h2>Snow <em>&amp; Mountains</em></h2>
+    <p class="activities-intro">Breckenridge has more than skiing. Tubing, trails, a free gondola, and one of Colorado's best Main Streets are all within minutes of the house.</p>
 
     <div class="act-featured reveal">
       <div class="act-card">
@@ -835,7 +838,7 @@ footer {
         <div class="act-card-body">
           <div class="act-card-label">Every Night</div>
           <div class="act-card-title">The Cabin Itself</div>
-          <p class="act-card-desc">Hot tub under the stars, game room tournaments, firepit conversations, cooking together in the big kitchen, and holiday movie nights. The real main event.</p>
+          <p class="act-card-desc">Hot tub, game room, firepit, a full kitchen for cooking together, and movie nights in the great room. This is the main event.</p>
           <div class="act-card-price">Included</div>
         </div>
       </div>
@@ -844,7 +847,7 @@ footer {
         <div class="act-card-body">
           <div class="act-card-label">On the Mountain</div>
           <div class="act-card-title">Skiing &amp; Snowboarding</div>
-          <p class="act-card-desc">Five legendary peaks, 2,908 acres, and the highest chairlift in North America. Beginner-friendly or expert — Breck has runs for everyone.</p>
+          <p class="act-card-desc">Five peaks, 2,908 acres, and the highest chairlift in North America. Terrain for every level.</p>
           <div class="act-card-price">~$220/person advance</div>
         </div>
       </div>
@@ -856,7 +859,7 @@ footer {
         <div class="act-card-body">
           <div class="act-card-label">Family Favorite</div>
           <div class="act-card-title">Snow Tubing at Frisco</div>
-          <p class="act-card-desc">Groomed tubing lanes with a magic carpet ride back up. No skill required — just hold on and laugh.</p>
+          <p class="act-card-desc">Groomed lanes with a carpet lift back to the top. All ages, no experience necessary.</p>
           <div class="act-card-price">~$30/person</div>
         </div>
       </div>
@@ -865,7 +868,7 @@ footer {
         <div class="act-card-body">
           <div class="act-card-label">Free Activity</div>
           <div class="act-card-title">BreckConnect Gondola</div>
-          <p class="act-card-desc">A free scenic gondola ride up the mountain for panoramic views of the snow-capped Rockies. Photo opportunity of the trip.</p>
+          <p class="act-card-desc">A free scenic gondola ride up the mountain for panoramic views of the Rockies. The best views of the trip.</p>
           <div class="act-card-price">FREE</div>
         </div>
       </div>
@@ -874,7 +877,7 @@ footer {
         <div class="act-card-body">
           <div class="act-card-label">Classic Breck</div>
           <div class="act-card-title">Historic Main Street</div>
-          <p class="act-card-desc">Victorian buildings draped in holiday lights, local shops, art galleries, cozy restaurants, and après-ski vibes.</p>
+          <p class="act-card-desc">Victorian storefronts, holiday lights, local shops, art galleries, and good restaurants. Worth a full afternoon.</p>
           <div class="act-card-price">FREE (shopping extra)</div>
         </div>
       </div>
@@ -911,12 +914,12 @@ footer {
   <div class="container">
     <div class="eyebrow">The Numbers</div>
     <h2>All-In <em>Budget</em></h2>
-    <p class="budget-intro">Everything except food. Flights, the house, rental cars, lift tickets, tubing, gear — all covered.</p>
+    <p class="budget-intro">Covers everything except food: flights, the house, rental cars, lift tickets, tubing, and gear.</p>
 
     <div class="budget-grid reveal">
       <div>
         <div class="budget-amount">$1,250</div>
-        <div class="budget-label">Per Person — All In</div>
+        <div class="budget-label">Per Person, All In</div>
       </div>
       <div>
         <div class="budget-row">
@@ -937,7 +940,7 @@ footer {
         </div>
         <div class="budget-note">
           <strong>Flight price note</strong>
-          Flight prices are currently high (~$424/person RT). Historical data shows they often drop to $300–385 for these dates. We'll set fare alerts and book when prices dip — that alone could save $600–2,000 for the group.
+          Flight prices are currently around $424/person round trip. Historical data shows they often drop to $300–385 for these dates. We'll set fare alerts and book when prices dip, which could save $600–2,000 for the group.
         </div>
       </div>
     </div>
@@ -950,17 +953,17 @@ footer {
     <div class="eyebrow">Before You Go</div>
     <h2>What to <em>Pack</em></h2>
     <div class="packing-grid">
-      <div class="packing-item reveal"><strong>Winter Layers</strong><p>Jacket, gloves, hat, scarf, snow boots. Base layers and fleece — it's dry cold at altitude.</p></div>
-      <div class="packing-item reveal"><strong>Ski Gear (optional)</strong><p>Bring your own or rent in Breck. Renting saves luggage space — packages start ~$50/day.</p></div>
-      <div class="packing-item reveal"><strong>Sunglasses &amp; Sunscreen</strong><p>High altitude = intense UV. The sun reflects off the snow. You will burn without protection.</p></div>
-      <div class="packing-item reveal"><strong>Swimsuit</strong><p>For the hot tub — you'll be in it every night. Trust us.</p></div>
+      <div class="packing-item reveal"><strong>Winter Layers</strong><p>Jacket, gloves, hat, scarf, snow boots. Base layers and fleece for dry cold at altitude.</p></div>
+      <div class="packing-item reveal"><strong>Ski Gear (optional)</strong><p>Bring your own or rent in Breckenridge. Rental packages start around $50/day.</p></div>
+      <div class="packing-item reveal"><strong>Sunglasses &amp; Sunscreen</strong><p>High altitude means strong UV, even in winter. The sun reflects off the snow.</p></div>
+      <div class="packing-item reveal"><strong>Swimsuit</strong><p>For the hot tub. You'll use it every night.</p></div>
       <div class="packing-item reveal"><strong>Games &amp; Entertainment</strong><p>Board games, card games, puzzles for cabin nights. The game room has some, but bring favorites.</p></div>
       <div class="packing-item reveal"><strong>White Elephant Gift</strong><p>Set a $20–25 limit. We'll do the exchange Saturday night at the cabin.</p></div>
       <div class="packing-item reveal"><strong>Sleds</strong><p>For Carter Park. Buy cheap ones at Walmart in Frisco on the way in, or bring from home.</p></div>
       <div class="packing-item reveal"><strong>Water Bottle</strong><p>Hydration is critical at altitude. Bring a reusable bottle and drink constantly.</p></div>
       <div class="altitude-box reveal">
-        <h3>Altitude Warning — Read This</h3>
-        <p>Breckenridge sits at 9,600 feet. That's almost 2 miles above sea level. You may feel lightheaded, short of breath, or get headaches — especially the first day. The fix: drink tons of water, take it easy day 1, avoid heavy alcohol the first night, and give your body time to adjust. It gets much better by day 2.</p>
+        <h3>Altitude Advisory</h3>
+        <p>Breckenridge sits at 9,600 feet, nearly two miles above sea level. You may feel lightheaded, short of breath, or get headaches the first day. Drink plenty of water, take it easy on day one, go light on alcohol that first night, and give your body time to adjust. It gets much better by day two.</p>
       </div>
     </div>
   </div>
@@ -971,15 +974,15 @@ footer {
   <div class="container">
     <h2>Let's Make <em>It Happen</em></h2>
     <div class="cta-price">$1,250</div>
-    <div class="cta-price-label">Per Person — Everything Except Food</div>
+    <div class="cta-price-label">Per Person, Everything Except Food</div>
     <div class="cta-includes">Flights · Mountain Mansion · Rental Cars · Ski Day · Tubing · All Activities</div>
-    <p class="cta-closer">Snow. Mountains. Hot tub. Game room. Family. This is the Christmas we'll talk about forever.</p>
-    <a href="sms:+18134070629&body=I'm%20in!%20%F0%9F%8F%94%EF%B8%8F%20Breckenridge%20Christmas%202026" class="cta-btn">I'm In — Let's Go</a>
+    <p class="cta-closer">Four nights in Breckenridge. The whole family, one house, snow on the mountains.</p>
+    <a href="sms:+18134070629&body=I'm%20in!%20%F0%9F%8F%94%EF%B8%8F%20Breckenridge%20Christmas%202026" class="cta-btn">I'm In</a>
   </div>
 </section>
 
 <!-- FOOTER -->
-<footer>Family Christmas 2026 — Breckenridge, Colorado — Made with love</footer>
+<footer>Family Christmas 2026 · Breckenridge, Colorado</footer>
 
 <!-- SCRIPTS -->
 <script>
