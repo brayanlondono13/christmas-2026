@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Breckenridge — Family Christmas 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,600&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════
+   TOKENS
+   ═══════════════════════════════ */
+:root {
+  --ink: #1C1917;
+  --stone: #44403C;
+  --warm: #4E4844;
+  --muted: #524D49;
+  --sand: #F5F0EB;
+  --paper: #FAFAF9;
+  --white: #FFFFFF;
+  --cranberry: #7F1D1D;
+  --copper: #783907;
+  --forest: #365314;
+  --forest-soft: rgba(54,83,20,0.07);
+  --rule: #E7E5E4;
+  --rule-light: rgba(0,0,0,0.05);
+
+  --display: 'Fraunces', Georgia, serif;
+  --body: 'Source Serif 4', Georgia, serif;
+  --ui: 'Manrope', system-ui, sans-serif;
+
+  --section-pad: clamp(4rem, 10vw, 7rem);
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --max-w: 1120px;
+}
+
+/* ═══════════════════════════════
+   RESET
+   ═══════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; }
+ul, ol { list-style: none; }
+
+body {
+  font-family: var(--body);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 17px;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+/* ═══════════════════════════════
+   UTILITIES
+   ═══════════════════════════════ */
+.container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+.eyebrow {
+  font-family: var(--ui);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--copper);
+}
+
+/* ═══════════════════════════════
+   NAVIGATION
+   ═══════════════════════════════ */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  background: rgba(250,250,249,0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--rule);
+  transform: translateY(-100%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.nav.visible { transform: translateY(0); }
+
+.nav-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 54px;
+}
+
+.nav-brand {
+  font-family: var(--display);
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--cranberry);
+  font-weight: 400;
+}
+
+.nav-links { display: flex; gap: 2rem; }
+
+.nav-links a {
+  font-family: var(--ui);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--warm);
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--ink); }
+
+/* ═══════════════════════════════
+   HERO
+   ═══════════════════════════════ */
+.hero { padding: clamp(6rem, 16vh, 9rem) 0 var(--section-pad); }
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  align-items: end;
+}
+
+.hero-text { max-width: 560px; }
+
+.hero h1 {
+  font-family: var(--display);
+  font-size: clamp(3rem, 6.5vw, 5rem);
+  font-weight: 600;
+  line-height: 0.95;
+  color: var(--ink);
+  margin: 1.25rem 0 0;
+  letter-spacing: -0.025em;
+}
+
+.hero h1 em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--warm);
+  display: block;
+}
+
+.hero-sub {
+  font-family: var(--body);
+  font-size: 1.1rem;
+  color: var(--warm);
+  margin-top: 1rem;
+  font-weight: 300;
+}
+
+.hero-meta {
+  display: flex;
+  gap: 0;
+  margin-top: 2.25rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+}
+
+.hero-meta-item { flex: 1; padding-right: 1.5rem; }
+.hero-meta-item:not(:last-child) { border-right: 1px solid var(--rule); margin-right: 1.5rem; }
+
+.hero-meta-label {
+  font-family: var(--ui);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 0.2rem;
+}
+
+.hero-meta-value {
+  font-family: var(--display);
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--ink);
+}
+
+.hero-photos { display: flex; flex-direction: column; gap: 0.6rem; }
+.hero-photos img { width: 100%; object-fit: cover; border-radius: 3px; }
+.hero-photos .hero-photo-main { height: 280px; }
+.hero-photos .hero-photo-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+.hero-photos .hero-photo-row img { height: 180px; }
+
+/* Hero animation */
+.hero-anim { opacity: 0; transform: translateY(24px); }
+.hero-anim.in {
+  opacity: 1; transform: translateY(0);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hero-photo-anim { opacity: 0; transform: translateX(20px); }
+.hero-photo-anim.in {
+  opacity: 1; transform: translateX(0);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ═══════════════════════════════
+   PULL QUOTE
+   ═══════════════════════════════ */
+.pull-quote {
+  padding: clamp(3.5rem, 8vw, 5.5rem) 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.pull-quote blockquote {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: clamp(1.3rem, 2.8vw, 1.85rem);
+  line-height: 1.55;
+  color: var(--stone);
+  max-width: 740px;
+  margin: 0 auto;
+  text-align: center;
+  font-weight: 300;
+}
+
+/* ═══════════════════════════════
+   THE HOUSE
+   ═══════════════════════════════ */
+.house { padding: var(--section-pad) 0; background: var(--sand); }
+
+.house-header {
+  display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+.house-header h2 {
+  font-family: var(--display); font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 600; line-height: 1.05;
+}
+.house-header h2 em {
+  font-style: italic; font-weight: 300; color: var(--warm);
+  display: block; font-size: 0.72em; margin-top: 0.15em;
+}
+.house-header-desc {
+  max-width: 400px; font-size: 0.92rem; color: var(--warm);
+  line-height: 1.6; text-align: right; font-weight: 300;
+}
+
+.house-photos {
+  display: grid; grid-template-columns: 1.4fr 1fr; gap: 0.5rem;
+  margin-bottom: 2.5rem;
+}
+.house-photos .photo-hero { grid-row: 1 / 3; min-height: 420px; }
+.house-photos .photo-grid-right {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; grid-row: 1 / 3;
+}
+.house-photos img { width: 100%; height: 100%; object-fit: cover; border-radius: 3px; }
+
+.house-stats {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--rule); border-radius: 4px;
+  overflow: hidden; margin-bottom: 2rem; background: var(--white);
+}
+.house-stat { padding: 1.4rem 1.25rem; text-align: center; }
+.house-stat:not(:last-child) { border-right: 1px solid var(--rule); }
+.house-stat-val {
+  font-family: var(--display); font-size: 1.5rem; font-weight: 600;
+  color: var(--ink); line-height: 1; margin-bottom: 0.25rem;
+}
+.house-stat-lbl { font-family: var(--ui); font-size: 0.65rem; font-weight: 500; color: var(--warm); }
+.house-stat-sub { font-family: var(--ui); font-size: 0.6rem; color: var(--muted); margin-top: 0.15rem; }
+
+.amenities { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.amenities span {
+  font-family: var(--ui); font-size: 0.7rem; font-weight: 500;
+  padding: 0.38rem 0.8rem; border-radius: 100px;
+  background: rgba(0,0,0,0.04); color: var(--stone);
+}
+
+/* ═══════════════════════════════
+   ITINERARY
+   ═══════════════════════════════ */
+.itinerary { padding: var(--section-pad) 0; background: var(--cranberry); color: var(--white); }
+.itinerary .eyebrow { color: rgba(255,255,255,0.9); }
+.itinerary h2 {
+  font-family: var(--display); font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 600; line-height: 1.05; margin: 0.75rem 0; color: var(--white);
+}
+.itinerary h2 em { font-style: italic; font-weight: 300; color: rgba(255,255,255,0.9); }
+.itinerary-intro {
+  color: rgba(255,255,255,0.9); font-size: 0.95rem; max-width: 540px;
+  margin-bottom: 3rem; font-weight: 300;
+}
+
+.day {
+  display: grid; grid-template-columns: 150px 1fr; gap: 2.5rem;
+  padding: 2.5rem 0; border-top: 1px solid rgba(255,255,255,0.08); position: relative;
+}
+.day:last-child { padding-bottom: 0; }
+
+.day-num {
+  font-family: var(--display); font-size: 4rem; line-height: 1;
+  color: rgba(255,255,255,0.06); font-weight: 300; margin-bottom: 0.25rem;
+}
+.day-weekday { font-family: var(--ui); font-size: 0.82rem; font-weight: 600; color: var(--white); }
+.day-date { font-family: var(--ui); font-size: 0.68rem; color: rgba(255,255,255,0.9); margin-top: 0.1rem; }
+
+.day-body h3 { font-family: var(--display); font-size: 1.4rem; font-weight: 400; margin-bottom: 0.35rem; }
+.day-body .day-desc {
+  color: rgba(255,255,255,0.9); font-size: 0.9rem; line-height: 1.6;
+  margin-bottom: 1rem; max-width: 520px; font-weight: 300;
+}
+
+.day-bullets { display: flex; flex-direction: column; gap: 0.35rem; }
+.day-bullets li {
+  font-family: var(--ui); font-size: 0.78rem; color: rgba(255,255,255,0.9);
+  padding-left: 1rem; position: relative; line-height: 1.55;
+}
+.day-bullets li::before {
+  content: ''; position: absolute; left: 0; top: 0.55em;
+  width: 4px; height: 4px; border-radius: 50%; background: var(--copper);
+}
+
+/* ═══════════════════════════════
+   ACTIVITIES
+   ═══════════════════════════════ */
+.activities { padding: var(--section-pad) 0; background: var(--sand); }
+.activities h2 {
+  font-family: var(--display); font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 600; line-height: 1.05; margin: 0.75rem 0;
+}
+.activities h2 em { font-style: italic; font-weight: 300; color: var(--warm); }
+.activities-intro {
+  color: var(--warm); font-size: 0.95rem; max-width: 520px;
+  margin-bottom: 2.5rem; font-weight: 300;
+}
+
+.act-featured { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+
+.act-card {
+  background: var(--white); border-radius: 4px; overflow: hidden;
+  border: 1px solid var(--rule-light);
+}
+.act-card .img-wrap { overflow: hidden; }
+.act-card img {
+  width: 100%; height: 260px; object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.act-card:hover img { transform: scale(1.03); }
+.act-card-body { padding: 1.25rem 1.5rem; }
+.act-card-label {
+  font-family: var(--ui); font-size: 0.6rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--copper); margin-bottom: 0.3rem;
+}
+.act-card-title { font-family: var(--display); font-size: 1.35rem; font-weight: 400; color: var(--ink); margin-bottom: 0.3rem; }
+.act-card-desc { font-size: 0.88rem; color: var(--warm); line-height: 1.55; font-weight: 300; }
+.act-card-price { font-family: var(--ui); font-size: 0.72rem; font-weight: 600; color: var(--forest); margin-top: 0.75rem; }
+
+.act-medium { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+.act-card-sm img { height: 180px; }
+.act-card-sm .act-card-body { padding: 1rem 1.25rem; }
+.act-card-sm .act-card-title { font-size: 1.1rem; }
+
+.act-minor {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; background: var(--white);
+}
+.act-minor-item {
+  padding: 1.25rem 1.5rem; display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+}
+.act-minor-item:not(:last-child) { border-right: 1px solid var(--rule); }
+.act-minor-name { font-family: var(--display); font-size: 1rem; font-weight: 400; color: var(--ink); }
+.act-minor-detail { font-family: var(--ui); font-size: 0.7rem; color: var(--warm); text-align: right; flex-shrink: 0; }
+.act-minor-price { font-weight: 600; color: var(--forest); }
+
+/* ═══════════════════════════════
+   BUDGET
+   ═══════════════════════════════ */
+.budget { padding: var(--section-pad) 0; background: var(--paper); }
+.budget h2 {
+  font-family: var(--display); font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 600; margin: 0.75rem 0 0;
+}
+.budget h2 em { font-style: italic; font-weight: 300; color: var(--warm); }
+.budget-intro { font-size: 0.95rem; color: var(--warm); max-width: 540px; margin-top: 0.5rem; font-weight: 300; }
+
+.budget-grid {
+  display: grid; grid-template-columns: auto 1fr;
+  gap: clamp(2rem, 5vw, 4rem); align-items: start; margin-top: 2.5rem;
+}
+.budget-amount {
+  font-family: var(--display); font-size: clamp(3.5rem, 8vw, 5.5rem);
+  font-weight: 600; color: var(--cranberry); line-height: 1;
+}
+.budget-label {
+  font-family: var(--ui); font-size: 0.7rem; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--warm); margin-top: 0.4rem;
+}
+
+.budget-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1rem 0; border-bottom: 1px solid var(--rule);
+}
+.budget-row-name { font-family: var(--body); font-size: 1rem; color: var(--stone); }
+.budget-row-val { font-family: var(--ui); font-size: 0.95rem; font-weight: 600; color: var(--ink); }
+
+.budget-total {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.25rem 0 0; margin-top: 0.5rem; border-top: 2px solid var(--ink);
+}
+.budget-total-label {
+  font-family: var(--ui); font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink);
+}
+.budget-total-val { font-family: var(--display); font-size: 1.6rem; font-weight: 600; color: var(--ink); }
+
+.budget-note {
+  margin-top: 2rem; background: var(--forest-soft); border-radius: 6px;
+  padding: 1.25rem 1.5rem; font-family: var(--ui); font-size: 0.8rem;
+  color: var(--forest); line-height: 1.55;
+}
+.budget-note strong {
+  font-weight: 700; display: block; margin-bottom: 0.15rem;
+  font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase;
+}
+
+/* ═══════════════════════════════
+   PACKING
+   ═══════════════════════════════ */
+.packing { padding: var(--section-pad) 0; background: var(--sand); }
+.packing h2 {
+  font-family: var(--display); font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 600; line-height: 1.05; margin: 0.75rem 0 2.5rem;
+}
+.packing h2 em { font-style: italic; font-weight: 300; color: var(--warm); }
+
+.packing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem 4rem; }
+.packing-item { padding: 0.5rem 0; }
+.packing-item strong {
+  font-family: var(--ui); font-size: 0.85rem; font-weight: 600;
+  color: var(--ink); display: block; margin-bottom: 0.1rem;
+}
+.packing-item p { font-size: 0.88rem; color: var(--warm); font-weight: 300; line-height: 1.5; }
+
+.altitude-box {
+  grid-column: 1 / -1; margin-top: 1rem; padding: 1.5rem 2rem;
+  border: 1px solid var(--rule); border-radius: 6px; background: var(--white);
+}
+.altitude-box h3 {
+  font-family: var(--ui); font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--cranberry); margin-bottom: 0.5rem;
+}
+.altitude-box p { font-size: 0.9rem; color: var(--stone); line-height: 1.65; font-weight: 300; }
+
+/* ═══════════════════════════════
+   CTA
+   ═══════════════════════════════ */
+.cta {
+  padding: clamp(4rem, 10vw, 6rem) 0; background: var(--cranberry);
+  color: var(--white); text-align: center;
+}
+.cta h2 { font-family: var(--display); font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 600; margin-bottom: 2rem; }
+.cta h2 em { font-style: italic; font-weight: 300; color: rgba(255,255,255,0.9); }
+.cta-price { font-family: var(--display); font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 600; line-height: 1; }
+.cta-price-label {
+  font-family: var(--ui); font-size: 0.68rem; font-weight: 500;
+  letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.9); margin-top: 0.4rem;
+}
+.cta-includes {
+  margin-top: 1.75rem; font-family: var(--ui); font-size: 0.78rem;
+  color: rgba(255,255,255,0.9); letter-spacing: 0.02em;
+}
+.cta-closer {
+  margin-top: 2rem; font-family: var(--display); font-style: italic;
+  font-size: 1.1rem; color: rgba(255,255,255,0.9); font-weight: 300;
+}
+
+.cta-btn {
+  display: inline-block;
+  margin-top: 2.5rem;
+  padding: 1rem 3rem;
+  font-family: var(--ui);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cranberry);
+  background: var(--white);
+  border-radius: 100px;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+}
+.cta-btn:active {
+  transform: scale(0.97);
+  box-shadow: 0 1px 6px rgba(0,0,0,0.12);
+}
+
+/* ═══════════════════════════════
+   FOOTER
+   ═══════════════════════════════ */
+footer {
+  background: var(--ink); text-align: center; padding: 2rem;
+  font-family: var(--ui); font-size: 0.68rem; color: rgba(255,255,255,0.9); letter-spacing: 0.06em;
+}
+
+/* ═══════════════════════════════
+   SCROLL REVEAL
+   ═══════════════════════════════ */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+.reveal.in { opacity: 1; transform: translateY(0); }
+
+/* ═══════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════ */
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: 1fr; align-items: start; }
+  .hero-photos .hero-photo-main { height: 220px; }
+  .hero-photos .hero-photo-row img { height: 140px; }
+  .house-header { grid-template-columns: 1fr; }
+  .house-header-desc { text-align: left; max-width: 100%; }
+  .house-photos { grid-template-columns: 1fr; gap: 0.75rem; }
+  .house-photos .photo-hero { min-height: 260px; grid-row: auto; }
+  .house-photos .photo-grid-right { grid-row: auto; gap: 0.75rem; }
+  .house-stats { grid-template-columns: repeat(2, 1fr); }
+  .house-stat:nth-child(2) { border-right: none; }
+  .house-stat:nth-child(1), .house-stat:nth-child(2) { border-bottom: 1px solid var(--rule); }
+  .day { grid-template-columns: 1fr; gap: 0.5rem; }
+  .day-num { font-size: 2.5rem; display: inline; margin-right: 0.5rem; }
+  .day-label { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem; }
+  .act-featured { grid-template-columns: 1fr; }
+  .act-medium { grid-template-columns: 1fr; }
+  .act-minor { grid-template-columns: 1fr; }
+  .act-minor-item:not(:last-child) { border-right: none; border-bottom: 1px solid var(--rule); }
+  .budget-grid { grid-template-columns: 1fr; }
+  .packing-grid { grid-template-columns: 1fr; }
+  .nav-links { gap: 1rem; }
+  .nav-links a { font-size: 0.58rem; }
+}
+
+@media (max-width: 600px) {
+  .hero { padding-top: 2rem; }
+  .hero h1 { font-size: 2.6rem; }
+  .hero-meta { flex-wrap: wrap; gap: 1rem; }
+  .hero-meta-item:not(:last-child) { border-right: none; margin-right: 0; padding-right: 0; }
+  .hero-meta-item { flex: 0 0 45%; }
+  .nav-links { display: none; }
+  .house-photos .photo-grid-right { gap: 0.75rem; }
+  .house-photos .photo-grid-right img { min-height: 130px; }
+}
+
+/* ═══════════════════════════════
+   PRINT
+   ═══════════════════════════════ */
+@media print {
+  * { animation: none !important; transition: none !important; }
+  body { font-size: 11pt; background: #fff; color: #000; }
+  .nav { display: none !important; }
+
+  .hero { padding: 2rem 0; }
+  .hero-grid { grid-template-columns: 1.2fr 1fr; gap: 1.5rem; }
+  .hero h1 { font-size: 2.8rem; color: #000; }
+  .hero h1 em { color: #555; }
+  .hero-sub { color: #555; }
+  .hero-meta-label { color: #7F1D1D; }
+  .hero-photos .hero-photo-main { height: 180px; }
+  .hero-photos .hero-photo-row img { height: 120px; }
+  .hero-anim, .hero-photo-anim, .reveal { opacity: 1 !important; transform: none !important; }
+
+  .pull-quote { padding: 1.5rem 0; border-color: #ddd; }
+  .pull-quote blockquote { font-size: 1.1rem; color: #333; }
+
+  .house, .activities, .packing { background: #fff; }
+  .house-photos .photo-hero { min-height: auto; height: 200px; }
+
+  .itinerary, .cta { background: #fff !important; color: #000 !important; }
+  .itinerary .eyebrow { color: #7F1D1D !important; }
+  .itinerary h2, .itinerary h2 em { color: #000 !important; }
+  .itinerary-intro { color: #666 !important; }
+  .day { border-top-color: #ddd !important; }
+  .day-num { color: rgba(0,0,0,0.06) !important; }
+  .day-weekday, .day-body h3 { color: #000 !important; }
+  .day-date { color: #666 !important; }
+  .day-body .day-desc { color: #555 !important; }
+  .day-bullets li { color: #333 !important; }
+  .day-bullets li::before { background: #7F1D1D !important; }
+
+  .cta h2, .cta h2 em { color: #000 !important; }
+  .cta-price { color: #7F1D1D !important; }
+  .cta-price-label, .cta-includes { color: #666 !important; }
+  .cta-closer { color: #555 !important; }
+  .cta-btn { display: none !important; }
+
+  .budget-amount { color: #7F1D1D; }
+  .altitude-box { border-color: #ddd; }
+  .altitude-box h3 { color: #7F1D1D; }
+
+  footer { background: #fff; color: #999; border-top: 1px solid #ddd; }
+
+  section, .house, .itinerary, .activities, .budget, .packing, .cta { padding: 1.5rem 0; page-break-inside: avoid; }
+  .itinerary { page-break-before: always; }
+  .activities { page-break-before: always; }
+  .act-card img, .act-card-sm img { height: 120px; }
+  img { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <span class="nav-brand">Breckenridge 2026</span>
+    <div class="nav-links">
+      <a href="#house">The House</a>
+      <a href="#itinerary">Itinerary</a>
+      <a href="#activities">Activities</a>
+      <a href="#budget">Budget</a>
+      <a href="#packing">Packing</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <div class="eyebrow hero-anim" style="transition-delay:0s">December 2026</div>
+        <h1 class="hero-anim" style="transition-delay:0.15s">Christmas <em>in the Mountains</em></h1>
+        <p class="hero-sub hero-anim" style="transition-delay:0.3s">Breckenridge, Colorado</p>
+        <div class="hero-meta hero-anim" style="transition-delay:0.5s">
+          <div class="hero-meta-item">
+            <div class="hero-meta-label">Dates</div>
+            <div class="hero-meta-value">Dec 10–14</div>
+          </div>
+          <div class="hero-meta-item">
+            <div class="hero-meta-label">Family</div>
+            <div class="hero-meta-value">16 Members</div>
+          </div>
+          <div class="hero-meta-item">
+            <div class="hero-meta-label">Elevation</div>
+            <div class="hero-meta-value">9,600 ft</div>
+          </div>
+          <div class="hero-meta-item">
+            <div class="hero-meta-label">Per Person</div>
+            <div class="hero-meta-value">$1,250</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-photos">
+        <img class="hero-photo-main hero-photo-anim" style="transition-delay:0.4s" src="images/breckenridge/hero-breckenridge-aerial-lights.jpg" alt="Breckenridge Lighting of Breckenridge aerial view at sunset">
+        <div class="hero-photo-row">
+          <img class="hero-photo-anim" style="transition-delay:0.55s" src="images/airbnb/07-great-room-vaulted-ceiling-stone-fireplace.jpeg" alt="Great room with vaulted ceilings and stone fireplace">
+          <img class="hero-photo-anim" style="transition-delay:0.7s" src="images/airbnb/24-game-room-arcade-basketball-pool.jpeg" alt="Game room with arcade games and pool table">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PULL QUOTE -->
+<section class="pull-quote">
+  <div class="container">
+    <blockquote class="reveal">Four nights in a mountain mansion with the whole family. Breckenridge in December, with snow on the peaks and lights along Main Street.</blockquote>
+  </div>
+</section>
+
+<!-- THE HOUSE -->
+<section class="house" id="house">
+  <div class="container">
+    <div class="house-header reveal">
+      <div>
+        <div class="eyebrow">Where We're Staying</div>
+        <h2>Cherry Ridge <em>A Mountain Mansion</em></h2>
+      </div>
+      <p class="house-header-desc">An 8-bedroom estate in Breckenridge's Historic District. Game room, weight room, hot tub, firepit, grand staircase, and a full chef's kitchen. Five minutes from Main Street.</p>
+    </div>
+
+    <div class="house-photos reveal">
+      <img class="photo-hero" src="images/airbnb/01-exterior-rear-sunset-hot-tub-patio.jpeg" alt="Cherry Ridge exterior at sunset" loading="lazy">
+      <div class="photo-grid-right">
+        <img src="images/airbnb/09-great-room-piano-wide-angle.jpeg" alt="Great room with grand piano" loading="lazy">
+        <img src="images/airbnb/14-kitchen-island-granite-counters.jpeg" alt="Chef's kitchen with granite island" loading="lazy">
+        <img src="images/airbnb/26-master-bedroom-four-poster-bed.jpeg" alt="Master bedroom with four-poster bed" loading="lazy">
+        <img src="images/airbnb/05-hot-tub-stone-columns-closeup.jpeg" alt="Hot tub with stone columns" loading="lazy">
+      </div>
+    </div>
+
+    <div class="house-stats reveal">
+      <div class="house-stat">
+        <div class="house-stat-val">8</div>
+        <div class="house-stat-lbl">Bedrooms</div>
+        <div class="house-stat-sub">2 king, 5 queen, 5 double</div>
+      </div>
+      <div class="house-stat">
+        <div class="house-stat-val">6.5</div>
+        <div class="house-stat-lbl">Bathrooms</div>
+        <div class="house-stat-sub">Most rooms en-suite</div>
+      </div>
+      <div class="house-stat">
+        <div class="house-stat-val">4.81</div>
+        <div class="house-stat-lbl">Guest Rating</div>
+        <div class="house-stat-sub">83 reviews</div>
+      </div>
+      <div class="house-stat">
+        <div class="house-stat-val">3</div>
+        <div class="house-stat-lbl">Parking Spots</div>
+        <div class="house-stat-sub">Driveway, no garage</div>
+      </div>
+    </div>
+
+    <div class="amenities reveal">
+      <span>Hot Tub</span><span>Firepit</span><span>Game Room</span><span>Weight Room</span>
+      <span>Full Kitchen</span><span>Fireplace</span><span>BBQ Grill</span><span>WiFi</span>
+      <span>Washer/Dryer</span><span>Pack 'n Play</span><span>High Chair</span>
+    </div>
+  </div>
+</section>
+
+<!-- ITINERARY -->
+<section class="itinerary" id="itinerary">
+  <div class="container">
+    <div class="eyebrow">Day by Day</div>
+    <h2>The <em>Itinerary</em></h2>
+    <p class="itinerary-intro">Four nights, three full days. Each day has a rhythm, but nothing is required. The house is the centerpiece.</p>
+
+    <div class="day reveal">
+      <div class="day-label">
+        <div class="day-num">01</div>
+        <div class="day-weekday">Thursday</div>
+        <div class="day-date">December 10</div>
+      </div>
+      <div class="day-body">
+        <h3>Travel Day</h3>
+        <p class="day-desc">We fly to Denver and caravan through the mountains to Breckenridge. By evening, we're settled into our mountain mansion.</p>
+        <ul class="day-bullets">
+          <li>Morning flight TPA → DEN (~3hr 45min)</li>
+          <li>Pick up 3 rental SUVs at Denver airport</li>
+          <li>Scenic drive to Breckenridge (~1hr 45min on I-70)</li>
+          <li>Check in after 4 PM, grocery run at City Market</li>
+          <li>Settle in, explore the house, first hot tub session</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day reveal">
+      <div class="day-label">
+        <div class="day-num">02</div>
+        <div class="day-weekday">Friday</div>
+        <div class="day-date">December 11</div>
+      </div>
+      <div class="day-body">
+        <h3>Ski &amp; Snow Day</h3>
+        <p class="day-desc">Skiers take the mountain while everyone else explores trails or walks through town. We regroup at the cabin for the evening.</p>
+        <ul class="day-bullets">
+          <li>Group A: Breckenridge Ski Resort (buy advance tickets!)</li>
+          <li>Group B: Snowshoeing on Burro Trail or Carter Park trails</li>
+          <li>Kids: Half-day ski school program</li>
+          <li>Afternoon regroup at the cabin</li>
+          <li>Evening: Game room, hot tub, firepit</li>
+          <li>Family dinner, cooked in or ordered from town</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day reveal">
+      <div class="day-label">
+        <div class="day-num">03</div>
+        <div class="day-weekday">Saturday</div>
+        <div class="day-date">December 12</div>
+      </div>
+      <div class="day-body">
+        <h3>Town Day</h3>
+        <p class="day-desc">Main Street in full holiday dress. Bakeries, galleries, the free gondola ride, and afternoon tubing before we settle in for the evening.</p>
+        <ul class="day-bullets">
+          <li>Breakfast walk to La Francaise French Bakery on Main St</li>
+          <li>Browse shops and galleries along historic Main Street</li>
+          <li>Ride the free BreckConnect Gondola for panoramic mountain views</li>
+          <li>Afternoon: Tubing at Frisco Adventure Park (~$30/person)</li>
+          <li>Evening: White elephant gift exchange at the cabin</li>
+          <li>Movie night in the great room</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day reveal">
+      <div class="day-label">
+        <div class="day-num">04</div>
+        <div class="day-weekday">Sunday</div>
+        <div class="day-date">December 13</div>
+      </div>
+      <div class="day-body">
+        <h3>Family Adventure Day</h3>
+        <p class="day-desc">Our last full day. Sledding, skating, free time at the house, and a family dinner to close it out.</p>
+        <ul class="day-bullets">
+          <li>Morning: Sledding at Carter Park (free, 0.3 mi from house)</li>
+          <li>Ice skating at Stephen C. West Arena ($15–20/person)</li>
+          <li>Lunch on Main Street: Breckenridge Brewery or Blue River Bistro</li>
+          <li>Afternoon free time: hot tub, naps, weight room, Blue River Trail</li>
+          <li>Evening: Big family farewell dinner at the cabin</li>
+          <li>Pack up for morning departure</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day reveal">
+      <div class="day-label">
+        <div class="day-num">05</div>
+        <div class="day-weekday">Monday</div>
+        <div class="day-date">December 14</div>
+      </div>
+      <div class="day-body">
+        <h3>Travel Home</h3>
+        <p class="day-desc">One last morning in the mountains before the drive back to Denver. Home with ten days before Christmas.</p>
+        <ul class="day-bullets">
+          <li>Check out by 11 AM</li>
+          <li>Drive back to Denver (~1hr 45min)</li>
+          <li>Return rental SUVs, afternoon flight DEN → TPA</li>
+          <li>Home by evening, ten days before Christmas</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACTIVITIES -->
+<section class="activities" id="activities">
+  <div class="container">
+    <div class="eyebrow">Things to Do</div>
+    <h2>Snow <em>&amp; Mountains</em></h2>
+    <p class="activities-intro">Breckenridge has more than skiing. Tubing, trails, a free gondola, and one of Colorado's best Main Streets are all within minutes of the house.</p>
+
+    <div class="act-featured reveal">
+      <div class="act-card">
+        <div class="img-wrap"><img src="images/airbnb/05-hot-tub-stone-columns-closeup.jpeg" alt="Cherry Ridge hot tub under stone columns" loading="lazy"></div>
+        <div class="act-card-body">
+          <div class="act-card-label">Every Night</div>
+          <div class="act-card-title">The Cabin Itself</div>
+          <p class="act-card-desc">Hot tub, game room, firepit, a full kitchen for cooking together, and movie nights in the great room. This is the main event.</p>
+          <div class="act-card-price">Included</div>
+        </div>
+      </div>
+      <div class="act-card">
+        <div class="img-wrap"><img src="images/breckenridge/hero-breckenridge-aerial-lights.jpg" alt="Breckenridge Ski Resort aerial view" loading="lazy"></div>
+        <div class="act-card-body">
+          <div class="act-card-label">On the Mountain</div>
+          <div class="act-card-title">Skiing &amp; Snowboarding</div>
+          <p class="act-card-desc">Five peaks, 2,908 acres, and the highest chairlift in North America. Terrain for every level.</p>
+          <div class="act-card-price">~$220/person advance</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="act-medium reveal">
+      <div class="act-card act-card-sm">
+        <div class="img-wrap"><img src="images/breckenridge/tubing-frisco-adventure-park.jpg" alt="Family snow tubing at Frisco Adventure Park" loading="lazy"></div>
+        <div class="act-card-body">
+          <div class="act-card-label">Family Favorite</div>
+          <div class="act-card-title">Snow Tubing at Frisco</div>
+          <p class="act-card-desc">Groomed lanes with a carpet lift back to the top. All ages, no experience necessary.</p>
+          <div class="act-card-price">~$30/person</div>
+        </div>
+      </div>
+      <div class="act-card act-card-sm">
+        <div class="img-wrap"><img src="images/breckenridge/gondola-breckconnect.jpg" alt="BreckConnect Gondola in Breckenridge" loading="lazy"></div>
+        <div class="act-card-body">
+          <div class="act-card-label">Free Activity</div>
+          <div class="act-card-title">BreckConnect Gondola</div>
+          <p class="act-card-desc">A free scenic gondola ride up the mountain for panoramic views of the Rockies. The best views of the trip.</p>
+          <div class="act-card-price">FREE</div>
+        </div>
+      </div>
+      <div class="act-card act-card-sm">
+        <div class="img-wrap"><img src="images/breckenridge/main-street-historic.jpg" alt="Historic Main Street Breckenridge" loading="lazy"></div>
+        <div class="act-card-body">
+          <div class="act-card-label">Classic Breck</div>
+          <div class="act-card-title">Historic Main Street</div>
+          <p class="act-card-desc">Victorian storefronts, holiday lights, local shops, art galleries, and good restaurants. Worth a full afternoon.</p>
+          <div class="act-card-price">FREE (shopping extra)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="act-minor reveal">
+      <div class="act-minor-item">
+        <div>
+          <div class="act-minor-name">Snowshoeing &amp; Trails</div>
+          <div class="act-minor-detail" style="text-align:left;margin-top:0.2rem">Burro Trail or Carter Park</div>
+        </div>
+        <div class="act-minor-detail"><div class="act-minor-price">Free – $25</div></div>
+      </div>
+      <div class="act-minor-item">
+        <div>
+          <div class="act-minor-name">Sledding at Carter Park</div>
+          <div class="act-minor-detail" style="text-align:left;margin-top:0.2rem">0.3 miles from the cabin</div>
+        </div>
+        <div class="act-minor-detail"><div class="act-minor-price">FREE</div></div>
+      </div>
+      <div class="act-minor-item">
+        <div>
+          <div class="act-minor-name">Ice Skating</div>
+          <div class="act-minor-detail" style="text-align:left;margin-top:0.2rem">Stephen C. West Ice Arena</div>
+        </div>
+        <div class="act-minor-detail"><div class="act-minor-price">$15–20/person</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUDGET -->
+<section class="budget" id="budget">
+  <div class="container">
+    <div class="eyebrow">The Numbers</div>
+    <h2>All-In <em>Budget</em></h2>
+    <p class="budget-intro">Covers everything except food: flights, the house, rental cars, lift tickets, tubing, and gear.</p>
+
+    <div class="budget-grid reveal">
+      <div>
+        <div class="budget-amount">$1,250</div>
+        <div class="budget-label">Per Person, All In</div>
+      </div>
+      <div>
+        <div class="budget-row">
+          <span class="budget-row-name">Flights + Rental Cars</span>
+          <span class="budget-row-val">$8,784</span>
+        </div>
+        <div class="budget-row">
+          <span class="budget-row-name">Cherry Ridge (4 nights)</span>
+          <span class="budget-row-val">$9,003</span>
+        </div>
+        <div class="budget-row">
+          <span class="budget-row-name">Activities + Misc</span>
+          <span class="budget-row-val">$2,213</span>
+        </div>
+        <div class="budget-total">
+          <span class="budget-total-label">Total Estimated</span>
+          <span class="budget-total-val">$20,000</span>
+        </div>
+        <div class="budget-note">
+          <strong>Flight price note</strong>
+          Flight prices are currently around $424/person round trip. Historical data shows they often drop to $300–385 for these dates. We'll set fare alerts and book when prices dip, which could save $600–2,000 for the group.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PACKING -->
+<section class="packing" id="packing">
+  <div class="container">
+    <div class="eyebrow">Before You Go</div>
+    <h2>What to <em>Pack</em></h2>
+    <div class="packing-grid">
+      <div class="packing-item reveal"><strong>Winter Layers</strong><p>Jacket, gloves, hat, scarf, snow boots. Base layers and fleece for dry cold at altitude.</p></div>
+      <div class="packing-item reveal"><strong>Ski Gear (optional)</strong><p>Bring your own or rent in Breckenridge. Rental packages start around $50/day.</p></div>
+      <div class="packing-item reveal"><strong>Sunglasses &amp; Sunscreen</strong><p>High altitude means strong UV, even in winter. The sun reflects off the snow.</p></div>
+      <div class="packing-item reveal"><strong>Swimsuit</strong><p>For the hot tub. You'll use it every night.</p></div>
+      <div class="packing-item reveal"><strong>Games &amp; Entertainment</strong><p>Board games, card games, puzzles for cabin nights. The game room has some, but bring favorites.</p></div>
+      <div class="packing-item reveal"><strong>White Elephant Gift</strong><p>Set a $20–25 limit. We'll do the exchange Saturday night at the cabin.</p></div>
+      <div class="packing-item reveal"><strong>Sleds</strong><p>For Carter Park. Buy cheap ones at Walmart in Frisco on the way in, or bring from home.</p></div>
+      <div class="packing-item reveal"><strong>Water Bottle</strong><p>Hydration is critical at altitude. Bring a reusable bottle and drink constantly.</p></div>
+      <div class="altitude-box reveal">
+        <h3>Altitude Advisory</h3>
+        <p>Breckenridge sits at 9,600 feet, nearly two miles above sea level. You may feel lightheaded, short of breath, or get headaches the first day. Drink plenty of water, take it easy on day one, go light on alcohol that first night, and give your body time to adjust. It gets much better by day two.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="container">
+    <h2>Let's Make <em>It Happen</em></h2>
+    <div class="cta-price">$1,250</div>
+    <div class="cta-price-label">Per Person, Everything Except Food</div>
+    <div class="cta-includes">Flights · Mountain Mansion · Rental Cars · Ski Day · Tubing · All Activities</div>
+    <p class="cta-closer">Four nights in Breckenridge. The whole family, one house, snow on the mountains.</p>
+    <a href="sms:+18134070629&body=I'm%20in!%20%F0%9F%8F%94%EF%B8%8F%20Breckenridge%20Christmas%202026" class="cta-btn">I'm In</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>Family Christmas 2026 · Breckenridge, Colorado</footer>
+
+<!-- SCRIPTS -->
+<script>
+// Sticky nav
+const nav = document.getElementById('nav');
+const hero = document.querySelector('.hero');
+let ticking = false;
+function updateNav() {
+  const t = hero.offsetTop + hero.offsetHeight * 0.7;
+  nav.classList.toggle('visible', window.scrollY > t);
+  ticking = false;
+}
+window.addEventListener('scroll', () => { if (!ticking) { requestAnimationFrame(updateNav); ticking = true; } });
+
+// Hero stagger
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    document.querySelectorAll('.hero-anim').forEach(el => el.classList.add('in'));
+    document.querySelectorAll('.hero-photo-anim').forEach(el => el.classList.add('in'));
+  }, 100);
+});
+
+// Scroll reveal
+const ro = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); } });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+</script>
+</body>
+</html>
