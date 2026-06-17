@@ -371,6 +371,8 @@ body {
   padding: 1.25rem 1.5rem; display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
 }
 .act-minor-item:not(:last-child) { border-right: 1px solid var(--rule); }
+.act-minor-item:nth-child(3n) { border-right: none; }
+.act-minor-item:nth-child(-n+3) { border-bottom: 1px solid var(--rule); }
 .act-minor-name { font-family: var(--display); font-size: 1rem; font-weight: 400; color: var(--ink); }
 .act-minor-detail { font-family: var(--ui); font-size: 0.7rem; color: var(--warm); text-align: right; flex-shrink: 0; }
 .act-minor-price { font-weight: 600; color: var(--forest); }
@@ -650,7 +652,7 @@ footer {
         </div>
       </div>
       <div class="hero-photos">
-        <img class="hero-photo-main hero-photo-anim" style="transition-delay:0.4s" src="https://gobreck.com/wp-content/uploads/2018/01/DJI_0129-HDR-Pano.jpg" alt="Breckenridge Lighting of Breckenridge aerial view at sunset">
+        <img class="hero-photo-main hero-photo-anim" style="transition-delay:0.4s" src="https://gobreck.com/wp-content/uploads/2018/01/DJI_0129-HDR-Pano.jpg" alt="Breckenridge aglow with holiday lights at dusk">
         <div class="hero-photo-row">
           <img class="hero-photo-anim" style="transition-delay:0.55s" src="https://a0.muscache.com/im/pictures/prohost-api/Hosting-50031257/original/ad5d9720-5f8a-4168-8697-18261b4a456b.jpeg?im_w=720" alt="Great room with vaulted ceilings and stone fireplace">
           <img class="hero-photo-anim" style="transition-delay:0.7s" src="https://a0.muscache.com/im/pictures/prohost-api/Hosting-50031257/original/449d7228-f694-4727-be26-a7da16509f0f.jpeg?im_w=720" alt="Cherry Ridge aerial view with mountain backdrop">
@@ -738,7 +740,7 @@ footer {
         <ul class="day-bullets">
           <li>Morning flight TPA → DEN (~3hr 45min)</li>
           <li>Pick up 3 rental SUVs at Denver airport</li>
-          <li>Scenic drive to Breckenridge (~1hr 45min on I-70)</li>
+          <li>Scenic drive to Breckenridge (~2–2.5 hrs on I-70; longer in snow or ski traffic)</li>
           <li>Check in after 4 PM, grocery run at City Market</li>
           <li>Settle in, explore the house, first hot tub session</li>
         </ul>
@@ -755,8 +757,8 @@ footer {
         <h3>Ski &amp; Snow Day</h3>
         <p class="day-desc">Skiers take the mountain while everyone else explores trails or walks through town. We regroup at the cabin for the evening.</p>
         <ul class="day-bullets">
-          <li>Group A: Breckenridge Ski Resort (buy advance tickets!)</li>
-          <li>Group B: Snowshoeing on Burro Trail or Carter Park trails</li>
+          <li>Group A: Breckenridge Ski Resort — buy Epic Day Passes ahead (they go off sale in early December)</li>
+          <li>Group B: Free snowshoe trails (Burro Trail) or the groomed Blue River Riverwalk path</li>
           <li>Kids: Half-day ski school program</li>
           <li>Afternoon regroup at the cabin</li>
           <li>Evening: Game room, hot tub, firepit</li>
@@ -778,7 +780,8 @@ footer {
           <li>Breakfast walk to La Francaise French Bakery on Main St</li>
           <li>Browse shops and galleries along historic Main Street</li>
           <li>Ride the free BreckConnect Gondola for panoramic mountain views</li>
-          <li>Afternoon: Tubing at Frisco Adventure Park (~$30/person)</li>
+          <li>Stroll Main Street after dark — it stays wrapped in ~250,000 holiday lights all winter</li>
+          <li>Afternoon: Tubing at Frisco Adventure Park (~$44/person/hr; reservations required, open Oct 1)</li>
           <li>Evening: White elephant gift exchange at the cabin</li>
           <li>Movie night in the great room</li>
         </ul>
@@ -816,7 +819,7 @@ footer {
         <p class="day-desc">One last morning in the mountains before the drive back to Denver. Home with ten days before Christmas.</p>
         <ul class="day-bullets">
           <li>Check out by 11 AM</li>
-          <li>Drive back to Denver (~1hr 45min)</li>
+          <li>Drive back to Denver (~2–2.5 hrs; allow extra in snow or traffic)</li>
           <li>Return rental SUVs, afternoon flight DEN → TPA</li>
           <li>Home by evening, ten days before Christmas</li>
         </ul>
@@ -830,7 +833,7 @@ footer {
   <div class="container">
     <div class="eyebrow">Things to Do</div>
     <h2>Snow <em>&amp; Mountains</em></h2>
-    <p class="activities-intro">Breckenridge has more than skiing. Tubing, trails, a free gondola, and one of Colorado's best Main Streets are all within minutes of the house.</p>
+    <p class="activities-intro">Breckenridge has more than skiing. Tubing, trails, a free gondola, and one of Colorado's best Main Streets are all within minutes of the house — and Main Street stays wrapped in holiday lights all winter.</p>
 
     <div class="act-featured reveal">
       <div class="act-card">
@@ -847,8 +850,8 @@ footer {
         <div class="act-card-body">
           <div class="act-card-label">On the Mountain</div>
           <div class="act-card-title">Skiing &amp; Snowboarding</div>
-          <p class="act-card-desc">Five peaks, 2,908 acres, and the highest chairlift in North America. Terrain for every level.</p>
-          <div class="act-card-price">~$220/person advance</div>
+          <p class="act-card-desc">Five peaks, 2,908 acres, and the highest chairlift in North America. Book an Epic Day Pass weeks ahead — they go off sale in early December.</p>
+          <div class="act-card-price">Lift ~$110–280/day · rental + helmet ~$45–70/day</div>
         </div>
       </div>
     </div>
@@ -859,8 +862,8 @@ footer {
         <div class="act-card-body">
           <div class="act-card-label">Family Favorite</div>
           <div class="act-card-title">Snow Tubing at Frisco</div>
-          <p class="act-card-desc">Groomed lanes with a carpet lift back to the top. All ages, no experience necessary.</p>
-          <div class="act-card-price">~$30/person</div>
+          <p class="act-card-desc">Groomed lanes with a carpet lift back to the top. Reservations are required and open October 1 — book the group early.</p>
+          <div class="act-card-price">~$44/person/hr · reservations required</div>
         </div>
       </div>
       <div class="act-card act-card-sm">
@@ -887,9 +890,9 @@ footer {
       <div class="act-minor-item">
         <div>
           <div class="act-minor-name">Snowshoeing &amp; Trails</div>
-          <div class="act-minor-detail" style="text-align:left;margin-top:0.2rem">Burro Trail or Carter Park</div>
+          <div class="act-minor-detail" style="text-align:left;margin-top:0.2rem">Free trails or Gold Run Nordic</div>
         </div>
-        <div class="act-minor-detail"><div class="act-minor-price">Free – $25</div></div>
+        <div class="act-minor-detail"><div class="act-minor-price">Free – $35</div></div>
       </div>
       <div class="act-minor-item">
         <div>
@@ -903,8 +906,33 @@ footer {
           <div class="act-minor-name">Ice Skating</div>
           <div class="act-minor-detail" style="text-align:left;margin-top:0.2rem">Stephen C. West Ice Arena</div>
         </div>
-        <div class="act-minor-detail"><div class="act-minor-price">$15–20/person</div></div>
+        <div class="act-minor-detail"><div class="act-minor-price">$13 adult · $10 kids</div></div>
       </div>
+      <div class="act-minor-item">
+        <div>
+          <div class="act-minor-name">Historic District Walk</div>
+          <div class="act-minor-detail" style="text-align:left;margin-top:0.2rem">Self-guided Main St. plaques</div>
+        </div>
+        <div class="act-minor-detail"><div class="act-minor-price">FREE ($5 booklet)</div></div>
+      </div>
+      <div class="act-minor-item">
+        <div>
+          <div class="act-minor-name">Blue River Riverwalk</div>
+          <div class="act-minor-detail" style="text-align:left;margin-top:0.2rem">Groomed riverside path</div>
+        </div>
+        <div class="act-minor-detail"><div class="act-minor-price">FREE</div></div>
+      </div>
+      <div class="act-minor-item">
+        <div>
+          <div class="act-minor-name">Sapphire Point Overlook</div>
+          <div class="act-minor-detail" style="text-align:left;margin-top:0.2rem">Short drive, big view</div>
+        </div>
+        <div class="act-minor-detail"><div class="act-minor-price">FREE</div></div>
+      </div>
+    </div>
+    <div class="budget-note reveal" style="margin-top:1.5rem;">
+      <strong>About the holiday lights</strong>
+      We just miss the Lighting of Breckenridge &amp; Race of the Santas (the season kickoff — the first Saturday of December, Dec 5 in 2026) and Ullr Fest (Dec 17–19), which bracket our dates. But the magic stays put: all 11-plus miles and ~250,000 lights along Main Street glow every evening of our stay. Watch for a holiday play at the walkable Backstage Theatre and the final nights of Hanukkah (Dec 10–12) lit in Blue River Plaza.
     </div>
   </div>
 </section>
@@ -914,12 +942,12 @@ footer {
   <div class="container">
     <div class="eyebrow">The Numbers</div>
     <h2>All-In <em>Budget</em></h2>
-    <p class="budget-intro">Covers everything except food: flights, the house, rental cars, lift tickets, tubing, and gear.</p>
+    <p class="budget-intro">Covers the trip itself: flights, the house, rental cars, lift tickets, tubing, and gear. Food is estimated separately below.</p>
 
     <div class="budget-grid reveal">
       <div>
         <div class="budget-amount">$1,250</div>
-        <div class="budget-label">Per Person, All In</div>
+        <div class="budget-label">Per Person, Before Food</div>
       </div>
       <div>
         <div class="budget-row">
@@ -935,12 +963,20 @@ footer {
           <span class="budget-row-val">$2,213</span>
         </div>
         <div class="budget-total">
-          <span class="budget-total-label">Total Estimated</span>
+          <span class="budget-total-label">Trip Total · Before Food</span>
           <span class="budget-total-val">$20,000</span>
         </div>
         <div class="budget-note">
           <strong>Flight price note</strong>
           Flight prices are currently around $424/person round trip. Historical data shows they often drop to $300–385 for these dates. We'll set fare alerts and book when prices dip, which could save $600–2,000 for the group.
+        </div>
+        <div class="budget-note">
+          <strong>What's not locked yet — skiing</strong>
+          The $2,213 above is a working estimate, and skiing is the swing factor. Per skier, per day: lift ~$110–280 (an Epic Day Pass bought weeks ahead is cheapest, but it's non-refundable and goes off sale in early December; the window rate is higher but refundable), rental ~$30–55, helmet ~$10–15. Adult group lessons run ~$265–305; kids' full-day ski school is ~$340 with lunch. Once we confirm who's skiing and for how many days, we'll firm this up — 8–10 skiers could add $1,000–2,000.
+        </div>
+        <div class="budget-note">
+          <strong>Food &amp; groceries — estimated separately</strong>
+          Plan roughly $3,000–5,400 for the group, about $190–340 per person: most meals cooked at the house from one big City Market run, plus one casual dinner out and a farewell dinner in town (mountain prices and wine set the ceiling). With food, the all-in lands around $23,000–25,400 — roughly $1,440–1,590 per person.
         </div>
       </div>
     </div>
@@ -954,7 +990,7 @@ footer {
     <h2>What to <em>Pack</em></h2>
     <div class="packing-grid">
       <div class="packing-item reveal"><strong>Winter Layers</strong><p>Jacket, gloves, hat, scarf, snow boots. Base layers and fleece for dry cold at altitude.</p></div>
-      <div class="packing-item reveal"><strong>Ski Gear (optional)</strong><p>Bring your own or rent in Breckenridge. Rental packages start around $50/day.</p></div>
+      <div class="packing-item reveal"><strong>Ski Gear (optional)</strong><p>Bring your own or reserve in Breckenridge — booking online ahead of arrival is cheapest. Adult packages run ~$30–55/day, kids ~$20–30, plus ~$10–15/day for a helmet.</p></div>
       <div class="packing-item reveal"><strong>Sunglasses &amp; Sunscreen</strong><p>High altitude means strong UV, even in winter. The sun reflects off the snow.</p></div>
       <div class="packing-item reveal"><strong>Swimsuit</strong><p>For the hot tub. You'll use it every night.</p></div>
       <div class="packing-item reveal"><strong>Games &amp; Entertainment</strong><p>Board games, card games, puzzles for cabin nights. The game room has some, but bring favorites.</p></div>
@@ -974,7 +1010,7 @@ footer {
   <div class="container">
     <h2>Let's Make <em>It Happen</em></h2>
     <div class="cta-price">$1,250</div>
-    <div class="cta-price-label">Per Person, Everything Except Food</div>
+    <div class="cta-price-label">Per Person, Before Food</div>
     <div class="cta-includes">Flights · Mountain Mansion · Rental Cars · Ski Day · Tubing · All Activities</div>
     <p class="cta-closer">Four nights in Breckenridge. The whole family, one house, snow on the mountains.</p>
     <a href="sms:+18134070629&body=I'm%20in!%20%F0%9F%8F%94%EF%B8%8F%20Breckenridge%20Christmas%202026" class="cta-btn">I'm In</a>
