@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Breckenridge 2026</title>
-<meta name="description" content="Family Christmas 2026 in Breckenridge: the trip, your choices, and your own itinerary.">
+<meta name="description" content="Family Christmas 2026 in Breckenridge: the plan, your Friday pick, and your own days.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Manrope:wght@400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --page:#EFEAE4; --card:#FAFAF9; --ink:#1C1917; --muted:#78716C; --line:#E7E2DC; --line2:#EFEAE4; --line3:#DDD6CE; --sand:#F5F0EB;
-  --accent:#B45309; --green:#365314; --red:#7F1D1D; --ghost:#D6CFC7; --num:#D6CFC7;
+  --page:#EFEAE4; --card:#FAFAF9; --ink:#1C1917; --muted:#524D49; --line:#E7E2DC; --line2:#EFEAE4; --line3:#DDD6CE; --sand:#F5F0EB;
+  --accent:#783907; --green:#365314; --red:#7F1D1D; --ghost:#D6CFC7; --num:#D6CFC7;
   --sans:Manrope,system-ui,sans-serif; --serif:'Source Serif 4',Georgia,serif; --display:Fraunces,Georgia,serif;
 }
 *{box-sizing:border-box}
@@ -19,6 +19,7 @@ html,body{margin:0;background:var(--page);color:var(--ink);font-family:var(--san
 a{color:inherit;text-decoration:none}
 input{outline:none;font:inherit}
 button{font:inherit;cursor:pointer;background:none;border:0;padding:0;color:inherit}
+button,a,.person,.chip,.choice,.radio,.btn{touch-action:manipulation}
 @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 .rise{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
 
@@ -29,8 +30,8 @@ button{font:inherit;cursor:pointer;background:none;border:0;padding:0;color:inhe
 .h1 em{font-style:italic;font-weight:300}
 .lede{font-family:var(--serif);font-size:15px;line-height:1.55;color:var(--muted);margin-top:10px;text-wrap:pretty}
 .label{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--muted)}
-.tiny{font-family:var(--sans);font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--muted)}
-.ext{color:var(--accent);text-decoration:underline;text-underline-offset:2px;white-space:nowrap}
+.tiny{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--muted)}
+.ext{color:var(--ink);text-decoration:underline;text-underline-offset:2px;white-space:nowrap}
 
 /* phone shell */
 .shell{max-width:480px;margin:0 auto;min-height:100vh;background:var(--card);display:flex;flex-direction:column}
@@ -39,9 +40,12 @@ button{font:inherit;cursor:pointer;background:none;border:0;padding:0;color:inhe
 .top{position:sticky;top:0;z-index:5;background:rgba(250,250,249,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 .top .bar{display:flex;justify-content:space-between;align-items:center;padding:14px 20px}
 .brand{font-family:var(--display);font-style:italic;font-size:17px}
-.top .brand{cursor:pointer}
+.top .brand{cursor:pointer;padding:12px 0;margin:-12px 0}
+.top .r{display:flex;align-items:center;gap:14px}
+.top .topname{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--muted);text-decoration:underline;text-underline-offset:3px;padding:14px 0;margin:-14px 0;cursor:pointer}   /* 44px to tap, without making the bar taller */
+.top .topname b{color:var(--ink);font-weight:600}
 .todo{background:var(--sand);border-top:1px solid var(--line);padding:9px 20px;font-size:12px;line-height:1.4;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.todo a{text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+.todo a{text-decoration:underline;text-underline-offset:2px;cursor:pointer;padding:10px 0}
 .todo.done{color:var(--green);font-weight:600}
 .tabbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;display:flex;background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom);z-index:6}
 @media(min-width:481px){.tabbar{border-left:1px solid var(--line3);border-right:1px solid var(--line3)}}
@@ -50,7 +54,7 @@ button{font:inherit;cursor:pointer;background:none;border:0;padding:0;color:inhe
 .tabbar a.on{color:var(--ink)}
 .tabbar a.on span{border-bottom-color:var(--green)}
 .pad{padding:28px 20px 40px}
-section[id]{scroll-margin-top:96px}
+section[id]{scroll-margin-top:100px}
 
 /* who's this */
 .who{padding:56px 24px 32px;min-height:100vh;display:flex;flex-direction:column}
@@ -62,7 +66,7 @@ section[id]{scroll-margin-top:96px}
 .person:hover{background:var(--sand)}
 .person.kid{padding-left:16px}
 .who-foot{margin-top:auto;padding-top:32px;text-align:center;font-size:12px;color:var(--muted)}
-.who-foot a{color:var(--ink);text-decoration:underline;cursor:pointer}
+.who-foot a{color:var(--ink);text-decoration:underline;cursor:pointer;padding:12px 0}
 
 /* trip info */
 .facts{margin-top:22px;font-size:14px;font-weight:600;letter-spacing:.01em}
@@ -82,58 +86,66 @@ section[id]{scroll-margin-top:96px}
 .daydate{margin-top:4px}
 .grp{margin-top:16px}
 .grp+.grp{margin-top:22px}
-.grp-h{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:6px;border-bottom:1px solid var(--line);font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+.grp-h{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:6px;border-bottom:1px solid var(--line);font-size:13px;font-weight:700;color:var(--muted)}
 .grp-h.all{border-bottom:1.5px solid var(--ink);color:var(--ink)}
 .grp-h.ask{color:var(--accent)}
-.grp-h .sub{font-weight:600;letter-spacing:.08em;text-transform:none;font-size:11px;color:var(--muted)}
+.grp-h .sub{font-weight:500;font-size:12px;color:var(--muted)}
 .lrow{display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:11px 0;border-bottom:1px dotted var(--line3)}
 .lrow b{display:block;font-size:14px;font-weight:600;line-height:1.35}
 .lrow i{display:block;font-family:var(--serif);font-style:normal;font-size:13px;line-height:1.5;color:var(--muted);margin-top:1px}
 .lrow .tiny{flex:none}
 .cards{display:flex;flex-direction:column;gap:10px;margin-top:12px}
 .card{background:#fff;border:1px solid var(--line);border-radius:4px;padding:14px 14px 12px}
-.card.mine{border-color:var(--green)}
+.card.mine{border-color:var(--green);background:#F3F5EE}
 .card.dim{opacity:.5}
 .card-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
 .card-name{font-size:15px;font-weight:600;line-height:1.3;padding-top:1px}
 .card-price{flex:none;text-align:right;font-size:13px;font-weight:600;line-height:1.3}
-.card-price .amt{display:block;font-size:15px}
-.card-price .ontop{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--muted);margin-top:1px}
+.card-price .amt{font-size:15px}
+.card-price .ontop{font-size:13px;font-weight:600;color:var(--muted);margin-left:4px}
 .card-desc{font-family:var(--serif);font-size:14px;line-height:1.5;color:var(--muted);margin-top:6px}
 .card-extra{font-family:var(--serif);font-size:13px;line-height:1.5;color:var(--ink);margin-top:6px}
-.card-cons{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.5}
+.card-cons{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.5}
 .card-going{font-size:12px;margin-top:8px;line-height:1.5}
-.card-due{font-size:11px;color:var(--muted);margin-top:8px}
+.card-due{font-size:12px;color:var(--muted);margin-top:4px}
+.card-due .ext{display:inline-block;padding:8px 0}
 .radios{display:flex;gap:14px;margin-top:10px;flex-wrap:wrap}
-.radio{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--ink);cursor:pointer;min-height:28px}
+.radio{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--ink);cursor:pointer;min-height:44px}
 .radio i{width:14px;height:14px;border-radius:50%;border:1.5px solid var(--ink);display:inline-block;flex:none;position:relative}
 .radio.on i::after{content:'';position:absolute;inset:2.5px;border-radius:50%;background:var(--ink)}
 .radio.dis{color:var(--muted);cursor:default}
 .radio.dis i{border-color:var(--ghost)}
-.btn{margin-top:12px;width:100%;height:44px;display:flex;align-items:center;justify-content:center;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;text-align:center;padding:0 12px;border:1px solid var(--ink);color:var(--ink);background:transparent;cursor:pointer}
+.btn{margin-top:12px;width:100%;height:44px;display:flex;align-items:center;justify-content:center;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;text-align:center;padding:0 12px;border:1px solid var(--ink);color:var(--ink);background:transparent;cursor:pointer}
 .btn.in{color:var(--card);background:var(--green);border-color:var(--green)}
-.btn.full{color:var(--accent);border-color:var(--accent)}
-.btn.kid{color:var(--muted)}
+.btn.full{color:var(--accent);border-color:var(--accent);text-transform:none;letter-spacing:0;font-size:13px;font-weight:600}
+.btn.unlock{width:180px;margin:14px auto 0}
+.btn.kid{color:var(--ink)}
 .btn.off{color:var(--muted);border-color:var(--ghost);cursor:default}
-.pill{display:inline-block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--green);border:1px solid var(--green);padding:3px 9px;border-radius:999px}
-.pill.lock{color:var(--red);border-color:var(--red)}
+.pill{display:inline-block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--green);border:1px solid var(--green);padding:3px 9px;border-radius:999px}
+.pill.closed{color:var(--muted);border-color:var(--ghost)}
 .pills{margin-top:12px;display:flex}
 .note{font-family:var(--serif);font-size:13px;line-height:1.55;color:var(--muted);margin-top:14px;text-wrap:pretty}
 .daynote{font-family:var(--serif);font-size:13px;line-height:1.5;color:var(--muted);margin-top:10px;text-wrap:pretty}
 .vrow{padding:11px 0 6px;border-bottom:1px dotted var(--line3)}
 .vrow-h{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
 .vrow-h b{font-size:14px;font-weight:600;line-height:1.35}
+.vrow-r{flex:none;font-size:12px;color:var(--muted)}
+.vrow-note{font-family:var(--serif);font-size:13px;line-height:1.5;color:var(--muted);margin-top:4px}
+.vrow.kid .choice{opacity:.5}
 .crow{display:flex;gap:12px;align-items:flex-start}
-.crow .ext{flex:none;margin-top:12px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+.crow .ext{flex:none;margin-top:6px;padding:8px 0;font-size:12px;font-weight:600}
 .choice{margin-top:10px;display:block;flex:1;min-width:0;text-align:left}
 .choice.can{cursor:pointer}
-.choice-l{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:13px}
+.choice-l{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px}
+.choice-l .lbl{display:flex;align-items:center;gap:9px;min-width:0}
+.choice-l .dot{width:14px;height:14px;border-radius:50%;border:1.5px solid var(--ink);flex:none;position:relative}
+.choice.my .dot::after{content:'';position:absolute;inset:2.5px;border-radius:50%;background:var(--green)}
 .choice-l .r{display:flex;gap:10px;align-items:baseline}
-.choice-l .you{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--green);font-weight:700}
+.choice-l .you{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);font-weight:700}
 .choice-d{font-family:var(--serif);font-size:12px;line-height:1.4;color:var(--muted);margin-top:1px}
 .choice.my .choice-l{font-weight:700}
-.bar{height:3px;background:var(--line2);margin-top:5px;border-radius:2px}
-.bar i{display:block;height:3px;background:var(--green);border-radius:2px;transition:width .3s}
+.meter{height:3px;background:var(--line2);margin-top:5px;border-radius:2px}
+.meter i{display:block;height:3px;background:var(--green);border-radius:2px;transition:width .3s}
 .meal{padding:11px 0 10px;border-bottom:1px dotted var(--line3)}
 .meal-h{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
 .meal-h b{font-size:14px;font-weight:600;line-height:1.35}
@@ -142,28 +154,25 @@ section[id]{scroll-margin-top:96px}
 .role>span{min-width:72px;flex:none;font-size:12px;color:var(--muted)}
 .meal-note{font-family:var(--serif);font-size:13px;line-height:1.5;color:var(--muted);margin-top:4px;text-wrap:pretty}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
-.chip{font-size:11px;font-weight:600;padding:3px 9px;border-radius:999px;line-height:1.4;background:var(--sand);color:var(--ink);border:1px solid transparent;cursor:default}
+.chip{display:inline-flex;align-items:center;min-height:44px;font-size:12px;font-weight:600;padding:0 14px;border-radius:999px;line-height:1.4;background:var(--sand);color:var(--ink);border:1px solid transparent;cursor:default}
 .chip.me{border-color:var(--green);cursor:pointer}
 .chip.open{background:transparent;color:var(--muted);border:1px dashed var(--ghost)}
 .chip.can{cursor:pointer}
 
 /* my trip */
-.me-top{display:flex;gap:6px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
-.me-top .u{color:var(--accent)}
-.me-top button{color:var(--muted);letter-spacing:inherit;text-transform:inherit;font-weight:inherit;font-size:inherit}
-.me-top button:hover{color:var(--ink)}
 .money{margin-top:22px;border:1px solid var(--line);padding:14px;font-size:14px;font-weight:600;line-height:1.5}
 .money small{display:block;font-weight:400;font-size:12px;color:var(--muted);margin-top:2px}
 .itin{padding:26px 20px 10px;border-top:1px solid var(--line)}
 .itin .rows{margin-top:12px;border-top:1px solid var(--line)}
 .it{display:grid;grid-template-columns:76px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line2)}
 .it .t{font-size:12px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.4}
-.it .k{font-family:var(--display);font-style:italic;font-size:13px;margin-top:3px;color:var(--accent)}
+.it .k{font-family:var(--display);font-style:italic;font-size:13px;margin-top:3px;color:var(--muted)}
 .it b{display:block;font-size:15px;font-weight:600;line-height:1.35}
+.it b a{text-decoration:underline;text-underline-offset:3px}
 .it i{display:block;font-family:var(--serif);font-style:normal;font-size:14px;line-height:1.5;color:var(--muted);margin-top:2px}
 .kv{display:flex;gap:8px;margin-top:8px;font-size:11px;line-height:1.5}
 .kv+.kv{margin-top:3px}
-.kv span{width:76px;flex:none;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.kv span{width:76px;flex:none;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
 .kv em{font-style:normal;color:var(--ink)}
 
 /* planner */
@@ -172,25 +181,28 @@ section[id]{scroll-margin-top:96px}
 .pbar .brand{font-size:20px}
 .pbar .sub{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;opacity:.8;margin-left:18px}
 .pbar .r{display:flex;align-items:center;gap:24px;font-size:12px}
-.pbar .lock{font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;border:1px solid rgba(250,250,249,.5);padding:6px 10px;cursor:pointer;color:inherit}
+.pbar .lock{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;border:1px solid rgba(250,250,249,.5);padding:6px 10px;cursor:pointer;color:inherit}
 .gate{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 20px}
 .gate>div{width:360px;text-align:center}
 .pin{margin-top:24px;width:180px;padding:12px 0;text-align:center;font-size:28px;letter-spacing:.5em;font-weight:600;background:#fff;border:1px solid var(--line3);border-radius:4px}
 .hint{font-family:var(--serif);font-size:14px;line-height:1.5;color:var(--muted);margin-top:14px}
 .hint.err{color:var(--accent)}
+.back{font-size:13px;text-decoration:underline;text-underline-offset:3px;padding:12px 0}
+.pnote.laptop{display:none}
+@media(max-width:1179px){.pnote.laptop{display:block;margin-top:18px}}
 .pgrid{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:32px;padding:32px 36px 40px;min-width:1180px}
 .pmain{min-width:0}
 .ptable{margin-top:12px;border-top:1px solid var(--ink)}
-.prow{display:grid;grid-template-columns:minmax(0,1fr) 78px 150px 110px 170px;gap:10px;padding:12px 0;border-bottom:1px solid var(--line2);align-items:center;font-size:12px}
+.prow{display:grid;grid-template-columns:minmax(0,1fr) 78px 136px 104px 170px;gap:10px;padding:12px 0;border-bottom:1px solid var(--line2);align-items:center;font-size:12px}
 .prow.h{padding:10px 0;border-bottom:1px solid var(--line)}
 .prow .name b{display:block;font-weight:600}
 .prow .name i{display:block;font-style:normal;color:var(--muted);font-size:11px;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.tag{font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--sand);white-space:nowrap}
+.tag{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--sand);white-space:nowrap}
 .tag.booked{color:var(--green)}
 .tag.locked{color:var(--red)}
 .conf{width:100%;font-size:12px;font-variant-numeric:tabular-nums;padding:5px 6px;border:1px solid var(--line);border-radius:3px;background:#fff}
 .acts{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
-.act{font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--ink);border:1px solid var(--ink);padding:5px 8px;cursor:pointer;white-space:nowrap}
+.act{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--ink);border:1px solid var(--ink);padding:5px 8px;cursor:pointer;white-space:nowrap}
 .act.soft{color:var(--muted);border-color:var(--ghost)}
 .act.x{padding:2px 5px;border-color:transparent;color:var(--muted)}
 .act.x:hover{color:var(--red)}
@@ -209,16 +221,22 @@ section[id]{scroll-margin-top:96px}
 .log div{padding:9px 0;border-bottom:1px solid var(--line2);font-size:12px;line-height:1.5}
 .log div span{color:var(--muted)}
 .resp{margin-top:12px;border-top:1px solid var(--ink)}
-.rrow{display:grid;grid-template-columns:64px 1fr 76px 96px;gap:6px;padding:3px 0;border-bottom:1px solid var(--line2);font-size:11px;align-items:stretch}
+.rrow{display:grid;grid-template-columns:64px 1fr 70px 96px;gap:6px;padding:3px 0;border-bottom:1px solid var(--line2);font-size:11px;align-items:stretch}
 .rrow.h{padding:10px 0;border-bottom:1px solid var(--line)}
 .rrow>span{padding:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .rrow>span.n{font-weight:600;padding:6px 0}
 .rrow>span:last-child{white-space:normal}
+.rrow>span.fri>span{white-space:normal}
 .rrow>span.empty{background:var(--sand)}
 .rrow>span.fri{display:flex;justify-content:space-between;align-items:center;gap:4px}
 .pnote{font-family:var(--serif);font-size:13px;line-height:1.5;color:var(--muted);margin-top:12px}
-.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:var(--card);font-size:12px;padding:10px 14px;border-radius:4px;z-index:20;max-width:90vw}
-.demo{position:fixed;right:10px;bottom:calc(66px + env(safe-area-inset-bottom));font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--accent);background:var(--card);border:1px solid var(--accent);padding:3px 8px;border-radius:999px;z-index:20;opacity:.9}
+.toast{position:fixed;left:50%;bottom:calc(76px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:var(--card);font-size:12px;padding:10px 14px;border-radius:4px;z-index:20;max-width:90vw}
+.toast.bare{bottom:20px}
+.notice{position:fixed;left:50%;bottom:calc(57px + env(safe-area-inset-bottom));transform:translateX(-50%);width:100%;max-width:480px;background:var(--ink);color:var(--card);font-size:13px;line-height:1.4;padding:11px 20px;z-index:19}
+.notice.bare{bottom:0;padding-bottom:calc(11px + env(safe-area-inset-bottom))}
+.notice + .toast{bottom:calc(108px + env(safe-area-inset-bottom))}
+.notice.bare + .toast.bare{bottom:calc(52px + env(safe-area-inset-bottom))}
+.demo{position:fixed;right:10px;bottom:calc(66px + env(safe-area-inset-bottom));font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--accent);background:var(--card);border:1px solid var(--accent);padding:3px 8px;border-radius:999px;z-index:20;opacity:.9}
 </style>
 </head>
 <body>
@@ -261,12 +279,12 @@ const KID_FLIGHTS = { Camila: 250 };   // a kid's plane seat, paid from the plan
 // cap / capGroup: snowmobile and dog sledding share the SUV's 5 seats (one waitlist, keyed 'goodtimes'); the snowcat has its own 8.
 // ride: which car takes you on Friday ('suv' or 'van'); the planner settles drivers and leave times (My trip shows them).
 const OPTS = [
-  { id: 'ski', name: 'Ski / snowboard', pot: 'personal', cost: 225, desc: 'Epic Day Pass plus rental and helmet at Breckenridge Ski Resort.', constraints: 'Ages 5+', minAge: 5, due: 'Nov 28', time: '9:00 AM', place: 'Breckenridge Ski Resort', bring: 'layers, goggles, sunscreen', ride: 'van', url: 'https://www.breckenridge.com/plan-your-trip/lift-access/tickets.aspx' },
+  { id: 'ski', name: 'Ski / snowboard', pot: 'personal', cost: 225, desc: 'Lift ticket (Epic Day Pass), rental and helmet at Breckenridge Ski Resort.', constraints: 'Ages 5+', minAge: 5, due: 'Nov 28', time: '9:00 AM', place: 'Breckenridge Ski Resort', bring: 'layers, goggles, sunscreen', ride: 'van', url: 'https://www.breckenridge.com/plan-your-trip/lift-access/tickets.aspx' },
   { id: 'snowmobile', name: 'Snowmobile', pot: 'personal', desc: 'Guided tour with Good Times Adventures, about 2 hours.', constraints: '15+ to drive, 18+ with a passenger, passengers 5+', minAge: 5, cap: GOOD_TIMES_SEATS, capGroup: 'goodtimes', seats: `${GOOD_TIMES_SEATS} seats in the SUV`,
-    variants: [{ id: 'shared', label: 'Share a sled', cost: 188.5, name: 'Snowmobile, sharing a sled' }, { id: 'solo', label: 'My own sled', cost: 284, minAge: 15, name: 'Snowmobile, own sled' }],
+    variants: [{ id: 'shared', label: 'Share a sled', cost: 189, name: 'Snowmobile, sharing a sled' }, { id: 'solo', label: 'My own sled', cost: 284, minAge: 15, name: 'Snowmobile, own sled' }],
     due: 'Oct 15', time: '10:00 AM', place: 'Good Times Adventures, Tiger Road', bring: 'goggles, warm gloves, a license if you drive', ride: 'suv', url: 'https://goodtimesadventures.com/' },
   { id: 'dog', name: 'Dog sledding', pot: 'personal', cost: 211, desc: 'Drive a team of huskies through the Swan River valley.', constraints: 'Ages 5+, 275 lb limit', minAge: 5, cap: GOOD_TIMES_SEATS, capGroup: 'goodtimes', seats: `${GOOD_TIMES_SEATS} seats in the SUV`, due: 'Oct 15', time: '10:00 AM', place: 'Good Times Adventures, Tiger Road', bring: 'warm layers and a camera', ride: 'suv', url: 'https://goodtimesadventures.com/' },
-  { id: 'snowcat', name: 'Snowcat', pot: 'group', desc: '90-minute heated snowcat ride to Josie’s Cabin with s’mores and drinks.', extra: 'In the $1,250 for the first 8.', cap: 8, due: 'Oct 3', time: '1:00 PM', place: 'Breckenridge Nordic Center', bring: 'layers and sunglasses', ride: 'van', url: 'https://www.breckenridgenordic.com/' },
+  { id: 'snowcat', name: 'Snowcat', pot: 'group', desc: '90-minute heated snowcat ride to Josie’s Cabin with s’mores and drinks.', extra: 'In the $1,250 for the first 8. Mateo can ride on a lap.', cap: 8, due: 'Oct 3', time: '1:00 PM', place: 'Breckenridge Nordic Center', bring: 'layers and sunglasses', ride: 'van', url: 'https://www.breckenridgenordic.com/' },
   { id: 'nordic', name: 'Snowshoe or cross-country ski', pot: 'group', desc: 'Nordic Center trail pass and rental. Pick which at the counter.', constraints: 'Kids 12 and under: free trail pass', due: 'Nov 15', time: '10:00 AM', place: 'Breckenridge Nordic Center', bring: 'waterproof boots, layers and water', ride: 'van', url: 'https://www.breckenridgenordic.com/' },
   { id: 'gondola', name: 'Main Street + free gondola', pot: 'free', desc: 'Bakeries and galleries, then the BreckConnect Gondola up to Peak 7 and 8.', due: null, time: 'Anytime', place: 'Main Street, then the BreckConnect Gondola', bring: 'a camera', transport: 'Walk from the Airbnb, or catch the van' },
 ];
@@ -280,10 +298,8 @@ const VOTES = [
   { id: 'saturday', day: 'sat', title: 'Saturday dinner', closes: 'Oct 10', time: '6:30 PM', choices: [
     { id: 'cookin', label: 'Cook in', desc: 'at the Airbnb', place: 'the Airbnb kitchen' },
     { id: 'brewery', label: 'Breckenridge Brewery', desc: 'pub food, big tables', place: 'Breckenridge Brewery, Main Street', url: 'https://www.breckbrew.com/visit/breckenridge/food/' },
-    { id: 'erics', label: "Downstairs at Eric's", desc: 'burgers and pizza, arcade downstairs', place: "Downstairs at Eric's, Main Street", url: 'http://www.downstairsaterics.com/new/wp-content/uploads/2024/03/Erics-Menu-Web-03.11.24.pdf' },
+    { id: 'erics', label: "Downstairs at Eric's", desc: 'burgers, pizza, a kids menu', place: "Downstairs at Eric's, Main Street", url: 'http://www.downstairsaterics.com/new/wp-content/uploads/2024/03/Erics-Menu-Web-03.11.24.pdf' },
     { id: 'micasa', label: 'Mi Casa', desc: 'Mexican, margaritas', place: 'Mi Casa, Park Avenue', url: 'https://www.micasabreck.com/menu' },
-    { id: 'rootstalk', label: 'Rootstalk', desc: 'chef’s tasting menu, the splurge', place: 'Rootstalk, Main Street', url: 'https://www.rootstalkbreck.com/dinner-menu' },
-    { id: 'lafrancaise', label: 'La Française', desc: 'French bistro', place: 'La Française Bistrot, Main Street', url: 'https://www.lafrancaisebistrot.com/menus' },
   ] },
 ];
 // Travel times stay "Morning" / "Afternoon" until flights are booked.
@@ -292,21 +308,21 @@ const LOCKED = {
     { time: 'Morning', title: 'Land in Denver, drive up', place: 'Denver airport to the Airbnb, 2–2.5 hours on I-70', bring: 'ID, a water bottle, layers for the drive', transport: '12-passenger van and SUV from the airport' },
     { time: 'Around noon', title: 'Lunch on the way (on you)', place: 'Frisco or Main Street', bring: '', transport: '' },
     { time: 'Afternoon', title: 'Groceries at City Market', place: 'Main Street or Carter Park with the kids', bring: '', transport: '' },
-    { time: '4:00 PM', title: 'Check in at the Airbnb, hot tub', place: 'The Airbnb, 221 S Pine St', bring: 'a swimsuit', transport: '' },
+    { time: '4:00 PM', title: 'Check in at the Airbnb, hot tub', place: 'The Airbnb', bring: 'a swimsuit', transport: '' },
     { time: '6:30 PM', title: 'Thursday dinner — pizza or takeout', place: 'Bray orders, we split it', bring: '', transport: '' },
   ],
   fri: [
-    { time: '4:30 PM', title: 'Everyone back at the Airbnb', place: 'Hot tub, firepit, games, dinner', bring: '', transport: '' },
+    { time: 'Afternoon', title: 'Everyone back at the Airbnb', place: 'Hot tub, firepit, games, dinner', bring: '', transport: '' },
   ],
   sat: [
-    { time: '9:00 AM', title: 'Main Street morning', place: 'La Francaise bakery first, then the galleries', bring: 'walking boots', transport: 'Walk from the Airbnb' },
+    { time: '9:00 AM', title: 'Main Street morning', place: 'La Française bakery first, then the galleries', bring: 'walking boots', transport: 'Walk from the Airbnb' },
     { time: '2:00 PM', title: 'Tubing at Frisco Adventure Park', place: 'Frisco, 20 minutes away', bring: 'snow pants, waterproof boots, gloves', transport: 'Van and SUV, leaving 1:15' },
     { time: 'Dark', title: 'Main Street holiday lights', place: 'On the way back from Frisco', bring: 'a warm hat', transport: 'Van and SUV' },
     { time: '8:00 PM', title: 'White elephant and movie night', place: 'Great room', bring: 'a wrapped $20–25 gift', transport: '' },
   ],
   sun: [
     { time: '9:30 AM', title: 'Sledding at Carter Park', place: 'A short walk from the Airbnb', bring: 'sleds and snow pants', transport: 'Walk' },
-    { time: '1:00 PM', title: 'Ice skating', place: 'Stephen C. West Arena, $13–20 at the door', bring: 'thick socks and gloves', transport: 'Van and SUV' },
+    { time: '1:00 PM', title: 'Ice skating', place: 'Stephen C. West Arena · In the $1,250', bring: 'thick socks and gloves', transport: 'Van and SUV' },
     { time: 'Afternoon', title: 'Open afternoon', place: 'The Airbnb, Main Street, Blue River, or Sapphire Point', bring: '', transport: '' },
     { time: '6:30 PM', title: 'Farewell dinner, cook in', place: 'The Airbnb, our last night', bring: '', transport: '' },
   ],
@@ -328,7 +344,7 @@ const MEALS = [
   { key: 'fribf', day: 'fri', title: 'Friday breakfast', time: '8:00 AM', roles: ['Shopping'], roleLabels: { Shopping: 'City Market run' }, shopTime: '8:00 AM', shopTransport: 'Either car, before the Friday rides leave' },
   { key: 'fri', day: 'fri', title: 'Friday dinner', time: '6:30 PM', cookIn: true },
   { key: 'sat', day: 'sat', title: 'Saturday dinner', time: '6:30 PM', cookIn: true, needsVote: 'saturday', winner: 'cookin' },
-  { key: 'sun', day: 'sun', title: 'Sunday dinner', time: '6:30 PM', cookIn: true },
+  { key: 'sun', day: 'sun', title: 'Farewell dinner', time: '6:30 PM', cookIn: true },
 ];
 const ROLES = ['Cooking', 'Shopping', 'Cleanup'];
 const SLOTS = 2;
@@ -489,8 +505,8 @@ class DemoStore {
       { id: 'snowcat', sort: 1, item: 'Private snowcat · Nordic Center', status: 'Open', when_label: 'Fri Dec 11 · 1:00 PM', cost_label: '$800 · group fund', fund: 800, link: 'breckenridgenordic.com', conf: '', locked: false, option_ids: ['snowcat'] },
       { id: 'tubing', sort: 2, item: 'Tubing · Frisco Adventure Park', status: 'Booked', when_label: 'Sat Dec 12 · 2:00 PM', cost_label: '$572 · group fund', fund: 572, link: 'townoffrisco.com', conf: 'FAP-88213', locked: false, option_ids: [] },
       { id: 'skating', sort: 3, item: 'Ice skating · Stephen C. West Arena', status: 'Open', when_label: 'Sun Dec 13 · 1:00 PM', cost_label: '$260 reserve · group fund', fund: 260, link: 'walk-in', conf: '', locked: false, option_ids: [] },
-      { id: 'ski', sort: 5, item: 'Epic Day Passes', status: 'Open', when_label: 'Fri Dec 11', cost_label: '~$141 pp + gear · personal', fund: 0, link: 'epicpass.com', conf: '', locked: false, option_ids: ['ski'] },
-      { id: 'snowmobile', sort: 6, item: 'Snowmobile tours · Good Times', status: 'Open', when_label: 'Fri Dec 11 · 10:00 AM', cost_label: '$188.50–284 pp · personal', fund: 0, link: 'goodtimesadventures.com', conf: '', locked: false, option_ids: ['snowmobile:shared', 'snowmobile:solo'] },
+      { id: 'ski', sort: 5, item: 'Epic Day Passes', status: 'Open', when_label: 'Fri Dec 11', cost_label: 'about $225 pp · personal', fund: 0, link: 'epicpass.com', conf: '', locked: false, option_ids: ['ski'] },
+      { id: 'snowmobile', sort: 6, item: 'Snowmobile tours · Good Times', status: 'Open', when_label: 'Fri Dec 11 · 10:00 AM', cost_label: '$189–284 pp · personal', fund: 0, link: 'goodtimesadventures.com', conf: '', locked: false, option_ids: ['snowmobile:shared', 'snowmobile:solo'] },
       { id: 'dog', sort: 7, item: 'Dog sledding · Good Times', status: 'Open', when_label: 'Fri Dec 11 · 10:00 AM', cost_label: '$211 pp · personal', fund: 0, link: 'goodtimesadventures.com', conf: '', locked: false, option_ids: ['dog'] },
       { id: 'satdinner', sort: 8, item: 'Saturday dinner reservation', status: 'Open', when_label: 'Sat Dec 12 · 6:30 PM', cost_label: 'you pay', fund: 0, link: 'after the vote', conf: '', locked: false, option_ids: [] },
     ];
@@ -515,7 +531,19 @@ class DemoStore {
       log: [...this.logRows].sort((a, b) => b.id - a.id).slice(0, 40),
     });
   }
-  async setPick(person, id) { if (id) this.picks[person] = id; else delete this.picks[person]; this.save(); }
+  // Mirrors the database trigger: a pool that is already full refuses the pick.
+  async setPick(person, id) {
+    if (id) {
+      const o = parsePick(id);
+      if (o && o.opt.cap != null) {
+        const key = capKey(o.opt);
+        const n = Object.entries(this.picks).filter(([p, v]) => { if (p === person) return false; const pp = parsePick(v); return !!pp && pp.opt.cap != null && capKey(pp.opt) === key; }).length;
+        if (n >= o.opt.cap) throw new Error(`full: ${key === 'goodtimes' ? 'the SUV has 5 seats' : 'the snowcat has 8 spots'}`);
+      }
+      this.picks[person] = id;
+    } else delete this.picks[person];
+    this.save();
+  }
   async setWait(id, person, on) {
     this.waitlist = this.waitlist.filter(w => !(w.option_id === id && w.person === person));
     if (on) this.waitlist.push({ option_id: id, person });
@@ -535,9 +563,9 @@ class DemoStore {
   async setStatus(pin, id, status, who) { this.check(pin); const it = this.item(id); it.status = status; await this.log(`${who} marked ${it.item} ${status.toLowerCase()}`); }
   async setLocked(pin, id, locked, who) { this.check(pin); const it = this.item(id); it.locked = locked; await this.log(`${who} ${locked ? 'locked' : 'unlocked'} ${it.item}`); }
   async setConf(pin, id, conf) { this.check(pin); this.item(id).conf = conf; this.save(); }
-  async closeVote(pin, vid, closed, who) { this.check(pin); this.voteState[vid] = closed; await this.log(`${who} ${closed ? 'closed' : 'reopened'} the ${vid} vote`); }
+  async closeVote(pin, vid, closed, who) { this.check(pin); this.voteState[vid] = closed; await this.log(`${who} ${closed ? 'closed' : 'reopened'} the ${(VOTES.find(v => v.id === vid) || { title: vid }).title} vote`); }
   async clearPick(pin, person, who) { this.check(pin); delete this.picks[person]; await this.log(`${who} cleared ${person}'s Friday pick`); }
-  async setPin(pin, newPin) { this.check(pin); if (!/^[0-9]{4,8}$/.test(newPin)) throw new Error('pin must be 4–8 digits'); this.pin = newPin; this.save(); }
+  async setPin(pin, newPin) { this.check(pin); if (!/^[0-9]{4,8}$/.test(newPin)) throw new Error('PIN must be 4–8 digits'); this.pin = newPin; this.save(); }
   async setSetting(pin, key, value) { this.check(pin); this.settings[key] = value; this.save(); }
 }
 
@@ -552,10 +580,15 @@ const app = {
   user: ls.get('breck-user'),
   pin: ss.get('breck-pin'),
   plannerItems: null,     // items incl. confirmation numbers, only after the PIN
-  pinDraft: '', pinErr: false,
+  pinDraft: '', pinErr: false, pinShort: false,
+  pos: {},                // scroll position per screen, so back and forward return to where each was
+  redrawing: false,       // true while a redraw swaps the DOM (a box losing focus then is not a person leaving it)
   variant: {},            // snowmobile radio per person, before they pick
   jump: null,             // section to scroll to after the next render
+  navTop: false,          // a tab or link was tapped: the next screen starts at the top (back/forward keeps its place)
   toast: '', lastHtml: '',
+  notice: '',             // a save that failed; stays on screen until a save succeeds
+  loadNotice: '',         // the trip couldn't be loaded; stays until it can
 };
 if (app.user && !PEOPLE.includes(app.user)) { app.user = null; ls.set('breck-user', null); }
 
@@ -573,22 +606,36 @@ function say(msg) {
   clearTimeout(say.t); say.t = setTimeout(() => { app.toast = ''; render(); }, 4000);
 }
 
+let loadSeq = 0;
 async function refresh() {
+  const seq = ++loadSeq;
   try {
-    app.state = await store.load();
-    if (app.pin) {
-      try { app.plannerItems = await store.plannerItems(app.pin); }
-      catch (e) { if (/bad pin/i.test(e.message)) { app.pin = null; ss.set('breck-pin', null); app.plannerItems = null; } else throw e; }
+    const st = await store.load();
+    let items = app.plannerItems;
+    if (app.pin && route() === 'planner') {   // confirmation numbers are fetched only while the planner is on screen
+      try { items = await store.plannerItems(app.pin); }
+      catch (e) { if (/bad pin/i.test(e.message)) { app.pin = null; ss.set('breck-pin', null); items = null; } else throw e; }
     }
-  } catch (e) { say('Couldn’t reach the trip: ' + e.message); }
+    if (seq !== loadSeq) return;   // a newer load is in flight; let it win instead of showing stale data
+    app.state = st; app.plannerItems = route() === 'planner' ? items : null; app.loadNotice = '';
+  } catch (e) { if (seq === loadSeq) app.loadNotice = 'Couldn’t load the trip. Check your signal.'; }
   render();
 }
 
-// Family action: show it at once, write it, log it, then re-read the truth.
+// Family action: show it at once, write it, log it, then re-read the truth. If the write fails, put the screen back and say so.
 async function act(fn, logText, optimistic) {
+  loadSeq++;   // a load already in flight is stale now: it must not overwrite the tap
+  const before = app.state ? JSON.parse(JSON.stringify(app.state)) : null;
   if (optimistic && app.state) { optimistic(app.state); render(); }
-  try { await fn(); if (logText) await store.log(logText); }
-  catch (e) { say('That didn’t save: ' + e.message); }
+  try {
+    await fn();
+    if (logText) { try { await store.log(logText); } catch {} }   // a lost log line never turns a saved pick into "didn't save"
+    if (app.notice) { app.notice = ''; render(); }   // the bar goes the moment the save lands, not after the reload
+  } catch (e) {
+    if (before) app.state = before;
+    app.notice = /full/i.test(e.message) ? 'That didn’t save — it just filled up.' : 'That didn’t save. Check your signal and tap again.';
+    render();
+  }
   await refresh();
 }
 
@@ -663,7 +710,8 @@ function buildVotes(S, u) {
     const can = !closed && !kid;
     return {
       ...v, closed, winner, tally, can, my,
-      right: closed ? `Decided — ${winner.label}` : kid ? 'Parents vote.' : `vote by ${v.closes}`,
+      right: closed ? `Decided — ${winner.label}` : kid ? '' : `Answer by ${v.closes}`,
+      top: tally.filter(c => c.count === max), none: max === 0,
       choices: tally.map(c => ({ ...c, pct: Math.round(c.count / total * 100), my: c.id === my })),
     };
   });
@@ -677,10 +725,10 @@ function mealsFor(S, votes, dayKey) {
     return v && v.closed && v.winner.id === m.winner;
   });
 }
-// Closed votes whose winner is somewhere to go become a locked row.
+// A closed vote becomes a locked row: the restaurant, or the cook-in at the Airbnb.
 function decided(votes, dayKey) {
-  return votes.filter(v => v.day === dayKey && v.closed && v.winner.id !== 'cookin')
-    .map(v => ({ time: v.time, title: `${v.title} — ${v.winner.label}`, place: v.winner.place, bring: '', transport: 'Walk to Main Street' }));
+  return votes.filter(v => v.day === dayKey && v.closed)
+    .map(v => ({ time: v.time, title: `${v.title} — ${v.winner.label}`, place: v.winner.place, bring: '', transport: v.winner.id === 'cookin' ? '' : 'Walk from the Airbnb' }));
 }
 
 // "Getting there" for a Friday pick: the settled ride once the planner has set a leave time, otherwise a placeholder.
@@ -693,10 +741,15 @@ function rideLine(S, o) {
 }
 const waitName = key => WAIT_NAMES[key] || optName(key);
 
-// What this person still owes the group. Kids only owe a Friday pick (a parent taps it).
+// What this person still owes the group. Kids only owe a Friday pick (a parent taps it). A waitlist with a free spot is a to-do too.
 function todos(S, u) {
   const kid = isKid(u), out = [];
   if (!S.picks[u]) out.push({ target: 'friday', label: kid ? `pick ${u}’s Friday` : 'pick your Friday' });
+  for (const key of Object.keys(S.waitlist)) {
+    if (!(S.waitlist[key] || []).includes(u)) continue;
+    const o = OPTS.find(o => o.cap != null && capKey(o) === key);
+    if (o && poolOf(S, o).filter(p => p !== u).length < o.cap) out.push({ target: 'friday', label: key === 'goodtimes' ? 'an SUV seat opened — take it' : `a ${o.name} spot opened — take it` });
+  }
   if (!kid) for (const v of VOTES) if (!S.closed[v.id] && !S.votes[v.id][u]) out.push({ target: 'vote', label: `vote on ${v.title}` });
   return out;
 }
@@ -711,7 +764,7 @@ function extrasFor(S, u) {
 function moneyLine(S, u) {
   if (isKid(u)) return 'With parents.';
   const x = extrasFor(S, u), total = PER_ADULT + x;
-  return `${money(PER_ADULT)} + ${money(x)} extras = ${x ? 'about ' : ''}${money(total)}. Nothing due yet.`;
+  return x ? `${money(PER_ADULT)} + ${money(x)} extras = about ${money(total)}. Nothing due yet.` : `${money(PER_ADULT)}, no extras. Nothing due yet.`;
 }
 
 const itemsFund = S => S.items.reduce((a, it) => a + (it.fund || 0), 0);
@@ -731,29 +784,45 @@ function render() {
   else if (r === 'info') html = shell('info', viewInfo());
   else if (r === 'me') html = shell('me', viewMe());
   else html = shell('choose', viewChoose());
-  if (app.toast) html += `<div class="toast" role="status">${esc(app.toast)}</div>`;
+  const bare = r === 'planner' || !app.user || r === 'who';   // no tab bar on these screens
+  const notice = app.notice || app.loadNotice;
+  if (notice) html += `<div class="notice ${bare ? 'bare' : ''}" role="alert">${esc(notice)}</div>`;
+  if (app.toast) html += `<div class="toast ${bare ? 'bare' : ''}" role="status">${esc(app.toast)}</div>`;
   if (DEMO) html += '<div class="demo" title="No Supabase key set">Demo</div>';
   if (html !== app.lastHtml) {
-    // Don't yank the DOM out from under someone typing a confirmation number.
-    const ae = document.activeElement;
-    if (ae && ae.classList && ae.classList.contains('conf')) return;
+    // Keep the cursor where it was: remember the focused box, redraw, then put focus, text and caret back.
+    const prev = document.activeElement, focus = focusKey(prev);
     const y = window.scrollY;
+    app.redrawing = true;
     document.getElementById('app').innerHTML = html;
+    app.redrawing = false;
     app.lastHtml = html;
     window.scrollTo(0, y);
+    if (focus) { const el = document.querySelector(focus.sel); if (el) { if (el.value !== focus.value) el.value = focus.value; el.focus(); try { el.setSelectionRange(focus.s, focus.e); } catch {} } }
+    else if (r === 'planner' && !app.pin && (!prev || prev === document.body)) { const p = document.getElementById('pin'); if (p) p.focus(); }   // first paint of the gate only
   }
   if (app.jump) { const el = document.getElementById('sec-' + app.jump); app.jump = null; if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+}
+// The box that has the cursor, as a selector that survives a redraw.
+function focusKey(ae) {
+  if (!ae || ae.tagName !== 'INPUT') return null;
+  let sel = null;
+  if (ae.id === 'pin') sel = '#pin';
+  else if (ae.classList.contains('ride-in')) { const row = ae.closest('.ride'); if (row) sel = `.ride[data-ride="${row.dataset.ride}"] [data-field="${ae.dataset.field}"]`; }
+  else if (ae.classList.contains('conf') && ae.dataset.id) sel = `.conf[data-id="${ae.dataset.id}"]`;
+  return sel ? { sel, value: ae.value, s: ae.selectionStart, e: ae.selectionEnd } : null;
 }
 
 const TABS = [['info', 'Trip info'], ['choose', 'Choose'], ['me', 'My trip']];
 function shell(tab, body) {
-  const t = ([k, l]) => `<a href="#/${k}" class="${tab === k ? 'on' : ''}"><span>${l}</span></a>`;
-  return `<div class="shell nav"><div class="top"><div class="bar"><a class="brand" href="#/who" title="Switch person">Breckenridge 2026</a><span class="tiny">${esc(app.user || '')}</span></div>${todoStrip()}</div>${body}<nav class="tabbar" aria-label="Sections">${TABS.map(t).join('')}</nav></div>`;
+  const t = ([k, l]) => `<a href="#/${k}" class="${tab === k ? 'on' : ''}" data-act="nav"><span>${l}</span></a>`;
+  const planner = app.user === CONFIG.PLANNER ? `<a class="topname" href="#/planner" data-act="nav">planner</a>` : '';
+  return `<div class="shell nav"><div class="top"><div class="bar"><a class="brand" href="#/who" data-act="nav" title="Switch person">Breckenridge 2026</a><span class="r">${planner}<a class="topname" href="#/who" data-act="nav"><b>${esc(app.user || '')}</b> · not you?</a></span></div>${todoStrip()}</div>${body}<nav class="tabbar" aria-label="Sections">${TABS.map(t).join('')}</nav></div>`;
 }
 function todoStrip() {
   if (!app.state) return '';
-  const t = todos(app.state, app.user);
-  if (!t.length) return '<div class="todo done">You’re set.</div>';
+  const u = app.user, t = todos(app.state, u);
+  if (!t.length) return isKid(u) ? `<div class="todo done">${esc(u)}’s set. <a href="#/who" data-act="nav">Now tap your own name.</a></div>` : '<div class="todo done">You’re set.</div>';
   return `<div class="todo">${t.length} thing${t.length === 1 ? '' : 's'} to do: ${t.map(x => `<a data-act="todo" data-target="${x.target}">${esc(x.label)}</a>`).join(' · ')}</div>`;
 }
 
@@ -766,7 +835,7 @@ function viewWho() {
       <div class="hh-h"><span>${esc(h.parent)}</span><span class="fam">· ${esc(h.family)}</span></div>
       ${h.members.map(n => `<button class="person ${isKid(n) ? 'kid' : ''}" data-act="signin" data-name="${esc(n)}"><span>${esc(n)}</span><span class="tiny">${AGES[n] ? `age ${AGES[n]}` : n === app.user ? 'that’s you' : ''}</span></button>`).join('')}
     </div>`).join('')}
-    <div class="who-foot">${esc(CONFIG.PLANNER)}? <a href="#/planner">Enter PIN.</a></div>
+    <div class="who-foot"><a href="#/planner">${esc(CONFIG.PLANNER)}’s planner →</a></div>
   </div></div>`;
 }
 
@@ -775,7 +844,7 @@ function viewInfo() {
     <div class="eyebrow">Trip info</div>
     <div class="h1">The <em>Trip</em></div>
     <div class="facts">Dec 10–14 · ${PEOPLE.length} of us · ${money(PER_ADULT)} per adult</div>
-    <div class="copy">Everything marked ‘In the $1,250’ is already in that number. Anything with a + is extra and yours. Nothing’s collected yet — once we’ve decided, I’ll book what needs booking and tell you what you owe and when.</div>
+    <div class="copy">Everything marked ‘In the $1,250’ is already in that number. Anything with a + is extra and yours. Skiing is the one thing outside the $1,250. Nothing’s collected yet — once we’ve decided, I’ll book what needs booking and tell you what you owe and when.</div>
     <div class="assume"><h3>What we’re assuming</h3><ul>${ASSUMPTIONS.map(a => `<li>${esc(a)}</li>`).join('')}</ul></div>
     <div class="box"><div class="label">If weather turns</div><p>Rec Center, Escape Room, Main Street, or the Airbnb. Check hours first.</p></div>
   </div>`;
@@ -787,7 +856,7 @@ function viewChoose() {
   const head = `<div class="pad" style="padding-bottom:8px">
     <div class="eyebrow">Choose</div>
     <div class="h1">Five <em>Days</em></div>
-    <div class="lede">${kid ? `Pick ${esc(u)}’s Friday. Parents vote on Saturday dinner. Everything else is set.` : 'Pick your Friday. Vote on Saturday dinner. Everything else is set.'}</div>
+    <div class="lede">${!todos(S, u).length ? (kid ? `${esc(u)}’s Friday is picked. Everything else is set.` : 'You’ve picked and voted. Everything else is set.') : kid ? `Pick ${esc(u)}’s Friday. Parents vote on Saturday dinner. Everything else is set.` : 'Pick your Friday. Vote on Saturday dinner. Everything else is set.'}</div>
   </div>`;
   const days = DAYS.map(d => {
     const locked = [...(LOCKED[d.key] || []), ...decided(votes, d.key)].sort((a, b) => minutes(a.time) - minutes(b.time));
@@ -800,15 +869,16 @@ function viewChoose() {
       <div class="cards">${options.map(cardHtml).join('')}</div>
       <div class="note">${esc(FRIDAY_NOTE)}</div>
     </section>`;
-    if (vs.length) out += `<section class="grp" id="sec-vote"><div class="grp-h ask">Vote</div>${vs.map(v => `<div class="vrow">
-      <div class="vrow-h"><b>${esc(v.title)}</b><span class="tiny">${esc(v.right)}</span></div>
+    if (vs.length) out += `<section class="grp" id="sec-vote"><div class="grp-h ask">Vote</div>${vs.map(v => `<div class="vrow ${kid ? 'kid' : ''}">
+      <div class="vrow-h"><b>${esc(v.title)}</b>${v.right ? `<span class="vrow-r">${esc(v.right)}</span>` : ''}</div>
+      ${kid ? '<div class="vrow-note">Parents vote on Saturday dinner from their own name.</div>' : ''}
       ${v.choices.map(c => `<div class="crow"><button class="choice ${v.can ? 'can' : ''} ${c.my ? 'my' : ''}" ${v.can ? `data-act="vote" data-vote="${v.id}" data-choice="${c.id}"` : 'disabled'}>
-        <div class="choice-l"><span>${esc(c.label)}</span><span class="r"><span class="you">${c.my ? 'you' : ''}</span><span>${c.count}</span></span></div>
+        <div class="choice-l"><span class="lbl"><i class="dot"></i><span>${esc(c.label)}</span></span><span class="r"><span class="you">${c.my ? 'you' : ''}</span><span>${c.count}</span></span></div>
         ${c.desc ? `<div class="choice-d">${esc(c.desc)}</div>` : ''}
-        <div class="bar"><i style="width:${c.pct}%"></i></div>
+        <div class="meter"><i style="width:${c.pct}%"></i></div>
       </button>${c.url ? `<a class="ext" href="${esc(c.url)}" target="_blank" rel="noopener">Menu ↗</a>` : ''}</div>`).join('')}
     </div>`).join('')}</section>`;
-    if (ms.length) out += `<div class="grp"><div class="grp-h"><span>Who’s on meals</span><span class="sub">(2 per job)</span></div>${ms.map(m => mealHtml(S, m, u)).join('')}</div>`;
+    if (ms.length && !kid) out += `<div class="grp"><div class="grp-h"><span>Who’s on meals</span><span class="sub">(2 per job)</span></div>${ms.map(m => mealHtml(S, m, u)).join('')}</div>`;
     return out + '</section>';
   }).join('');
   return head + days + '<div style="height:24px"></div>';
@@ -816,13 +886,13 @@ function viewChoose() {
 
 function cardHtml(o) {
   let action = '';
-  if (o.frozen) action = `<div class="pills"><span class="pill ${o.frozen === 'Locked' ? 'lock' : ''}">${o.frozen}</span></div>`;
+  if (o.frozen) action = `<div class="pills"><span class="pill ${o.frozen === 'Locked' ? 'closed' : ''}">${o.frozen === 'Locked' ? 'Closed' : 'Booked'}${o.mine ? ' · yours' : ''}</span></div>${o.mine ? '' : `<div class="card-cons">${o.frozen === 'Locked' ? 'Closed, no new picks.' : 'Already booked, no new picks.'}</div>`}`;
   else if (o.btn && o.btn.action) action = `<button class="btn ${o.btn.cls}" data-act="${o.btn.action}" data-opt="${o.btn.action === 'pick' ? o.pickId : o.waitKey}">${esc(o.btn.label)}</button>`;
   else if (o.btn) action = `<div class="btn ${o.btn.cls}" data-opt="${o.id}">${esc(o.btn.label)}</div>`;
   const radios = o.radios && !o.inel && !o.frozen ? `<div class="radios">${o.radios.map(r => r.dis
-    ? `<span class="radio dis" title="15+ to drive"><i></i>${esc(r.text)}</span>`
+    ? `<span class="radio dis"><i></i>${esc(r.text)} · 15+ only</span>`
     : `<button class="radio ${r.on ? 'on' : ''}" data-act="variant" data-opt="${o.id}" data-variant="${r.id}" aria-pressed="${r.on}"><i></i>${esc(r.text)}</button>`).join('')}</div>` : '';
-  const foot = [o.deadline, o.url ? `<a class="ext" href="${esc(o.url)}" target="_blank" rel="noopener">More ↗</a>` : ''].filter(Boolean).join(' · ');
+  const foot = [!o.frozen && o.deadline, o.url ? `<a class="ext" href="${esc(o.url)}" target="_blank" rel="noopener">More ↗</a>` : ''].filter(Boolean).join(' · ');
   return `<article class="card ${o.mine ? 'mine' : ''} ${o.inel ? 'dim' : ''}" data-card="${o.id}">
     <div class="card-top"><span class="card-name">${esc(o.name)}</span><span class="card-price">${o.priceHtml}</span></div>
     <div class="card-desc">${esc(o.desc)}</div>
@@ -837,16 +907,15 @@ function cardHtml(o) {
 }
 
 function mealHtml(S, m, u) {
-  const kid = isKid(u);
   return `<div class="meal" data-meal="${m.key}"><div class="meal-h"><b>${esc(m.title)}</b><span class="tiny">${esc(m.time)}</span></div>${m.cookIn ? `<div class="meal-note">${esc(COOK_IN_NOTE)}</div>` : ''}<div class="roles">${rolesOf(m).map(role => {
-    const names = S.meals[m.key][role], chips = [];
-    for (let i = 0; i < SLOTS; i++) {
+    const names = S.meals[m.key][role], mine = names.includes(u), chips = [];
+    for (let i = 0; i < Math.max(SLOTS, names.length); i++) {   // everyone signed up is shown, even a third person from a stale tap
       const n = names[i];
-      if (n) chips.push(n === u && !kid
-        ? `<button class="chip me" data-act="meal" data-meal="${m.key}" data-role="${role}" data-on="0">You</button>`
+      if (n) chips.push(n === u
+        ? `<button class="chip me" data-act="meal" data-meal="${m.key}" data-role="${role}" data-on="0">You ×</button>`
         : `<span class="chip">${esc(n)}</span>`);
-      else chips.push(!kid && !names.includes(u)
-        ? `<button class="chip open can" data-act="meal" data-meal="${m.key}" data-role="${role}" data-on="1">open</button>`
+      else chips.push(!mine
+        ? `<button class="chip open can" data-act="meal" data-meal="${m.key}" data-role="${role}" data-on="1">+ me</button>`
         : `<span class="chip open">open</span>`);
     }
     return `<div class="role"><span>${esc(roleLabel(m, role))}</span><div class="chips">${chips.join('')}</div></div>`;
@@ -863,28 +932,29 @@ function viewMe() {
     if (d.key === 'fri') {
       const waiting = Object.keys(S.waitlist).filter(k => (S.waitlist[k] || []).includes(u)).map(waitName);
       const who = kid ? `${u}’s` : 'yours';
-      items.push(my
-        ? mk({ time: my.opt.time, title: optName(my.id), place: my.opt.place, bring: my.opt.bring, transport: rideLine(S, my.opt) }, who)
-        : waiting.length
-          ? mk({ time: '—', title: `Waitlisted: ${waiting.join(', ')}`, place: 'Pick a backup on Choose in case a spot doesn’t open.', bring: '', transport: '' }, who)
-          : mk({ time: '—', title: 'No Friday pick yet', place: kid ? `Pick for ${u} on Choose.` : 'Pick one on Choose. Snowcat answers by Oct 3.', bring: '', transport: '' }, who));
+      if (my) {
+        items.push(mk({ time: my.opt.time, title: optName(my.id), place: my.opt.place, bring: my.opt.bring, transport: rideLine(S, my.opt) }, who));
+        if (waiting.length) items.push(mk({ time: '—', title: `Still waiting on ${waiting.join(', ')}`, place: 'You’ll see it at the top of the page if a spot opens.', bring: '', transport: '', href: '#/choose' }, who));
+      } else if (waiting.length) items.push(mk({ time: '—', title: `On the list for ${waiting.join(', ')}`, place: 'Pick a backup below in case a spot doesn’t open.', bring: '', transport: '', href: '#/choose' }, who));
+      else items.push(mk({ time: '—', title: 'No Friday pick yet', place: kid ? `Tap Choose below and pick for ${u}.` : 'Tap Choose below and pick one. Answer by Oct 3 if you want the snowcat.', bring: '', transport: '', href: '#/choose' }, who));
+      // A parent sees each kid's Friday too.
+      if (!kid) for (const k of (household(u) || { members: [] }).members.filter(isKid)) { const kp = parsePick(S.picks[k]); if (kp) items.push(mk({ time: kp.opt.time, title: optName(kp.id), place: kp.opt.place, bring: kp.opt.bring, transport: rideLine(S, kp.opt) }, `${k}’s`)); }
     }
-    votes.filter(v => v.day === d.key && !v.closed).forEach(v => items.push(mk({ time: v.time, title: v.title, place: kid ? 'Parents vote.' : `Vote by ${v.closes}`, bring: '', transport: '' }, 'vote')));
+    votes.filter(v => v.day === d.key && !v.closed).forEach(v => items.push(mk({ time: v.time, title: v.title, place: kid ? 'Parents vote from their own name.' : `Answer by ${v.closes}`, bring: '', transport: '' }, 'vote')));
     mealsFor(S, votes, d.key).forEach(m => rolesOf(m).forEach(role => {
       if (!S.meals[m.key][role].includes(u)) return;
       const shop = role === 'Shopping';
-      items.push(mk({ time: shop ? (m.shopTime || '4:30 PM') : m.time, title: `${m.title} — ${jobName(m, role)}`, place: shop ? 'City Market, Breckenridge' : 'the Airbnb kitchen', bring: shop ? 'the list' : '', transport: shop ? (m.shopTransport || 'SUV') : '' }, 'you’re on'));
+      items.push(mk({ time: shop ? (m.shopTime || 'Afternoon') : m.time, title: `${m.title} — ${jobName(m, role)}`, place: shop ? 'City Market, Breckenridge' : 'the Airbnb kitchen', bring: shop ? 'the list' : '', transport: shop ? (m.shopTransport || 'SUV') : '' }, 'you’re on'));
     }));
     items.sort((a, b) => minutes(a.time) - minutes(b.time));
     return { ...d, items };
   });
   const kidsWithExtras = kid ? [] : (household(u) || { members: [] }).members.filter(k => isKid(k) && pickCost(S.picks[k]));
   return `<div class="pad" style="padding-bottom:20px">
-    <div class="me-top"><span class="u">${esc(u)}</span><button data-act="signout">· not you?</button></div>
-    <div class="h1">${kid ? `${esc(u)}’s` : 'My'} <em>Trip</em></div>
+    <div class="h1">${kid ? `${esc(u)}’s` : 'My'} <em>trip</em></div>
     <div class="money" data-money>${esc(moneyLine(S, u))}${kidsWithExtras.length ? `<small>Extras include ${kidsWithExtras.map(k => `${k}’s ${optName(S.picks[k])} (${plus(pickCost(S.picks[k]))})`).join(' and ')}.</small>` : ''}</div>
   </div>` + days.map(d => `<section class="itin"><div class="day-h"><span class="daynum">${d.num}</span><div><div class="dayname">${d.name}</div><div class="label daydate">${d.date}</div></div></div>
-    <div class="rows">${d.items.map(it => `<div class="it"><div><div class="t">${esc(it.time)}</div>${it.kind ? `<div class="k">${esc(it.kind)}</div>` : ''}</div><div style="min-width:0"><b>${esc(it.title)}</b><i>${esc(it.place)}</i>
+    <div class="rows">${d.items.map(it => `<div class="it"><div><div class="t">${esc(it.time)}</div>${it.kind ? `<div class="k">${esc(it.kind)}</div>` : ''}</div><div style="min-width:0"><b>${it.href ? `<a href="${it.href}" data-act="nav">${esc(it.title)}</a>` : esc(it.title)}</b><i>${esc(it.place)}</i>
       ${it.bring ? `<div class="kv"><span>Bring</span><em>${esc(it.bring)}</em></div>` : ''}
       ${it.transport ? `<div class="kv"><span>Getting there</span><em>${esc(it.transport)}</em></div>` : ''}
     </div></div>`).join('')}</div>${d.note ? `<div class="daynote">${esc(d.note)}</div>` : ''}</section>`).join('') + '<div style="height:24px"></div>';
@@ -897,21 +967,24 @@ function viewPlanner() {
     const nOpen = buildVotes(S, CONFIG.PLANNER).filter(v => !v.closed).length;
     summary = `Room left inside the $1,250 plan: ${money(roomLeft(S))}. ${unchosen(S).length} haven’t picked Friday. ${nOpen} vote${nOpen === 1 ? '' : 's'} open.`;
   }
-  if (!open && app.pin && !S) {
+  if (!open && app.pin && (!S || !app.plannerItems)) {
     body = '<div class="gate"><div class="lede">Loading…</div></div>';
   } else if (!open) {
     body = `<div class="gate"><div>
       <div class="eyebrow">${esc(CONFIG.PLANNER)} only</div>
       <div class="h1">Enter <em>PIN</em></div>
-      <input class="pin" id="pin" type="password" inputmode="numeric" autocomplete="off" maxlength="8" placeholder="····" value="${esc(app.pinDraft)}" aria-label="Planner PIN">
-      <div class="hint ${app.pinErr ? 'err' : ''}">${app.pinErr ? 'Not it. Try again.' : 'Family members don’t need this.'}</div>
-      <div style="margin-top:20px"><a href="#/" class="tiny" style="text-decoration:underline">Back to the trip</a></div>
+      <input class="pin" id="pin" type="password" inputmode="numeric" autocomplete="off" enterkeyhint="go" maxlength="8" placeholder="····" value="${esc(app.pinDraft)}" aria-label="Planner PIN">
+      <div><button class="btn unlock" data-act="unlock">Unlock</button></div>
+      <div class="hint ${app.pinErr || app.pinShort ? 'err' : ''}">${app.pinErr ? 'Not it. Try again.' : app.pinShort ? 'PIN is 4 to 8 digits.' : 'Family members don’t need this.'}</div>
+      <div class="pnote laptop">The planner is laptop-only; open it on a bigger screen.</div>
+      <div style="margin-top:20px"><a href="#/" class="back">Back to the trip</a></div>
     </div></div>`;
   } else {
     const votes = buildVotes(S, CONFIG.PLANNER);
     const items = app.plannerItems.map(it => ({ ...it, option_ids: it.option_ids || [] }));
+    const liveMeals = new Set(DAYS.flatMap(d => mealsFor(S, votes, d.key).map(m => m.key)));   // the same rule the family screens use
     body = `<div class="pgrid"><div class="pmain">
-      <div class="eyebrow">Bookable items</div>
+      <div class="eyebrow">Bookings</div>
       <div class="ptable">
         <div class="prow h tiny"><span>Item</span><span>Status</span><span>Cost</span><span>Confirmation</span><span></span></div>
         ${items.map(it => `<div class="prow" data-item="${esc(it.id)}">
@@ -921,6 +994,7 @@ function viewPlanner() {
           <span><input class="conf" data-act="conf" data-id="${esc(it.id)}" value="${esc(it.conf)}" placeholder="—" aria-label="Confirmation for ${esc(it.item)}"></span>
           <span class="acts">
             ${it.status === 'Open' ? `<button class="act" data-act="status" data-id="${esc(it.id)}" data-status="Booked">Mark booked</button>` : it.status === 'Booked' ? `<button class="act soft" data-act="status" data-id="${esc(it.id)}" data-status="Paid">Mark paid</button>` : ''}
+            ${it.status !== 'Open' ? `<button class="act soft" data-act="status" data-id="${esc(it.id)}" data-status="Open">Back to open</button>` : ''}
             <button class="act soft" data-act="lock" data-id="${esc(it.id)}" data-locked="${it.locked ? '0' : '1'}">${it.locked ? 'Unlock' : 'Lock'}</button>
           </span>
         </div>`).join('')}
@@ -936,7 +1010,7 @@ function viewPlanner() {
       </div>
       <div class="pnote">Once a leave time is set, My trip says “van leaves the Airbnb 9:15”; until then, “${RIDES_UNSET}”</div>
       <div class="eyebrow sec">Votes</div>
-      <div class="vlist">${votes.map(v => `<div class="vl" data-vote="${v.id}"><b>${esc(v.title)}</b><span>${v.closed ? `Decided — ${esc(v.winner.label)}` : esc(v.tally.map(c => `${c.label} ${c.count}`).join(', ') + ` — closes ${v.closes}`)}</span>
+      <div class="vlist">${votes.map(v => `<div class="vl" data-vote="${v.id}"><b>${esc(v.title)}</b><span>${v.closed ? `Decided — ${esc(v.winner.label)}` : esc(v.tally.map(c => `${c.label} ${c.count}`).join(', ') + ` — answer by ${v.closes}`)}</span>
         <button class="act ${v.closed ? 'soft' : ''}" data-act="closevote" data-vote="${v.id}" data-closed="${v.closed ? '0' : '1'}">${v.closed ? 'Reopen' : 'Close vote'}</button></div>`).join('')}</div>
       <div class="eyebrow sec">Change log</div>
       <div class="log">${S.log.map(l => `<div>${esc(l.text)} <span>· ${esc(l.when)}</span></div>`).join('') || '<div><span>Nothing yet.</span></div>'}</div>
@@ -948,14 +1022,14 @@ function viewPlanner() {
         ${PEOPLE.map(p => {
           const kid = isKid(p), fr = optName(S.picks[p]);
           const sat = VOTES[0].choices.find(c => c.id === S.votes.saturday[p]);
-          const duties = MEALS.flatMap(m => rolesOf(m).filter(r => S.meals[m.key][r].includes(p)).map(r => `${m.title.slice(0, 3)} ${jobName(m, r)}`));
+          const duties = MEALS.filter(m => liveMeals.has(m.key)).flatMap(m => rolesOf(m).filter(r => S.meals[m.key][r].includes(p)).map(r => `${DAYS.find(d => d.key === m.day).name.slice(0, 3)} ${jobName(m, r)}`));
           return `<div class="rrow" data-person="${esc(p)}"><span class="n">${esc(p)}</span>
             <span class="fri ${fr ? '' : 'empty'}"><span style="overflow:hidden;text-overflow:ellipsis">${esc(fr)}</span>${fr ? `<button class="act x" data-act="clearpick" data-person="${esc(p)}" title="Clear ${esc(p)}’s pick">×</button>` : ''}</span>
             <span class="${kid || sat ? '' : 'empty'}">${kid ? '—' : sat ? esc(sat.label.replace('Breckenridge ', '').replace('Downstairs at ', '')) : ''}</span>
             <span class="${kid || duties.length ? '' : 'empty'}" style="color:var(--muted)">${kid ? '—' : esc(duties.join(', '))}</span></div>`;
         }).join('')}
       </div>
-      <div class="pnote">Sand cells are unanswered. Kids don’t vote. Only you see confirmation numbers. Tap × to clear a mistaken pick.</div>
+      <div class="pnote">Tan cells are unanswered. Kids don’t vote. Only you see confirmation numbers. Tap × to clear a mistaken pick.</div>
       <div style="margin-top:20px"><button class="act soft" data-act="changepin">Change PIN</button></div>
     </aside></div>`;
   }
@@ -975,12 +1049,14 @@ async function planner(fn) {
 }
 
 async function tryPin(v) {
-  app.pinDraft = v;
-  if (v.length < 4) { app.pinErr = false; render(); return; }
+  v = String(v || '').replace(/\D/g, '').slice(0, 8); app.pinDraft = v;
+  if (v.length < 4) { app.pinErr = false; app.pinShort = true; render(); return; }
+  app.pinShort = false;
   let ok = false;
-  try { ok = await store.verifyPin(v) === true; } catch (e) { say('Couldn’t check the PIN: ' + e.message); }
+  try { ok = await store.verifyPin(v) === true; }
+  catch (e) { say('Couldn’t check the PIN. Check your signal.'); return; }   // a network miss is not a wrong PIN
   if (ok) { app.pin = v; ss.set('breck-pin', v); app.pinDraft = ''; app.pinErr = false; await refresh(); }
-  else { app.pinErr = true; app.pinDraft = ''; render(); }
+  else { app.pinErr = true; render(); const p = document.getElementById('pin'); if (p) p.focus(); }   // the digits stay in the box
 }
 
 function setPick(u, next, S) {
@@ -997,12 +1073,18 @@ document.addEventListener('click', e => {
   if (!el || el.tagName === 'INPUT') return;
   const S = app.state, u = app.user, d = el.dataset;
   switch (d.act) {
-    case 'signin': app.user = d.name; ls.set('breck-user', d.name); go('choose'); render(); break;
-    case 'signout': app.user = null; ls.set('breck-user', null); go('who'); render(); break;
+    case 'signin': app.user = d.name; ls.set('breck-user', d.name); app.jump = S && !S.picks[d.name] ? 'friday' : null; if (!app.jump) window.scrollTo(0, 0); history.replaceState(null, '', '#/choose'); render(); break;   // no history entry: back leaves the site cleanly
+    case 'nav': {
+      // A tab or link: the next screen starts at the top. Links back to the roster replace the entry, like sign-in, so back never lands on a stale Choose.
+      if (el.getAttribute('href') === '#/who') { e.preventDefault(); history.replaceState(null, '', '#/who'); window.scrollTo(0, 0); app.pinDraft = ''; render(); break; }
+      app.navTop = true; break;
+    }
+    case 'unlock': tryPin(app.pinDraft); break;
     case 'todo': app.jump = d.target; if (route() === 'choose') render(); else go('choose'); break;
     case 'pick': {
       const id = d.opt, prev = S.picks[u];
-      setPick(u, prev === id ? null : id, S);
+      if (prev === id) { say('Already in. Tap another card to change.'); break; }   // the green button is a status, not an undo
+      setPick(u, id, S);
       break;
     }
     case 'variant': {
@@ -1028,7 +1110,15 @@ document.addEventListener('click', e => {
     }
     case 'status': planner((pin, who) => store.setStatus(pin, d.id, d.status, who)); break;
     case 'lock': planner((pin, who) => store.setLocked(pin, d.id, d.locked === '1', who)); break;
-    case 'closevote': planner((pin, who) => store.closeVote(pin, d.vote, d.closed === '1', who)); break;
+    case 'closevote': {
+      if (d.closed === '1') {
+        const v = buildVotes(S, CONFIG.PLANNER).find(v => v.id === d.vote);
+        const names = v.top.map(c => c.label), tied = names.length > 2 ? names.slice(0, -1).join(', ') + ' and ' + names[names.length - 1] : names.join(' and ');
+        const msg = v.none ? `Nobody has voted yet. Close as ${v.winner.label}?` : v.top.length > 1 ? `${tied} are tied at ${v.top[0].count}. Close as ${v.winner.label}?` : '';
+        if (msg && !confirm(msg)) break;
+      }
+      planner((pin, who) => store.closeVote(pin, d.vote, d.closed === '1', who)); break;
+    }
     case 'clearpick': if (confirm(`Clear ${d.person}’s Friday pick (${optName(S.picks[d.person])})?`)) planner((pin, who) => store.clearPick(pin, d.person, who)); break;
     case 'changepin': {
       const v = (prompt('New PIN (4–8 digits)') || '').trim();
@@ -1036,37 +1126,54 @@ document.addEventListener('click', e => {
       planner(async pin => { await store.setPin(pin, v); app.pin = v; ss.set('breck-pin', v); say('PIN changed.'); });
       break;
     }
-    case 'lockplanner': app.pin = null; ss.set('breck-pin', null); app.plannerItems = null; app.pinDraft = ''; app.pinErr = false; render(); break;
+    case 'lockplanner': app.pin = null; ss.set('breck-pin', null); app.plannerItems = null; app.pinDraft = ''; app.pinErr = false; app.pinShort = false; render(); break;
   }
 });
 document.addEventListener('input', e => {
-  if (e.target.id === 'pin') {
+  if (e.target.id === 'pin') {   // the PIN is checked on Enter or Unlock, never mid-typing
     const v = e.target.value.replace(/\D/g, '').slice(0, 8);
-    e.target.value = v;
-    if (v.length === 4) tryPin(v); else app.pinDraft = v;
+    e.target.value = v; app.pinDraft = v; app.pinShort = false;
   }
 });
 document.addEventListener('keydown', e => {
-  if (e.key === 'Enter' && e.target.id === 'pin') tryPin(e.target.value);
+  if (e.key === 'Enter' && e.target.id === 'pin') { e.preventDefault(); tryPin(e.target.value); }
   if (e.key === 'Enter' && e.target.classList.contains('conf')) e.target.blur();
 });
-document.addEventListener('change', e => {
-  // Saves run on a timeout so a Tab or click to the next box lands before the redraw (render() then leaves the focused box alone).
-  if (e.target.classList.contains('ride-in')) {
+// Planner boxes save when the person leaves them (Enter blurs). Saving on 'change' alone misses a value that a redraw put back into the box.
+document.addEventListener('focusout', e => {
+  if (app.redrawing) return;   // the box is being replaced by a redraw, not left by the person
+  const t = e.target;
+  if (!t || !t.classList || !app.pin) return;
+  if (t.classList.contains('ride-in')) {
     // A ride row saves as one JSON value: { driver, leave, dest }; an unchanged row is not re-saved.
-    const row = e.target.closest('.ride'), key = row.dataset.ride, v = {};
+    const row = t.closest('.ride'); if (!row) return;
+    const key = row.dataset.ride, v = {};
     row.querySelectorAll('input').forEach(i => { v[i.dataset.field] = i.value.trim(); });
     const prev = (app.state && app.state.rides[key]) || {};
     if (['driver', 'leave', 'dest'].every(f => (prev[f] || '') === v[f])) return;
     const word = RIDES.find(r => r.key === key).word;
     const said = [v.driver && `${v.driver} drives`, v.leave && `leaves ${v.leave}`, v.dest].filter(Boolean).join(', ') || 'cleared';
-    setTimeout(() => planner(async (pin, who) => { await store.setSetting(pin, key, JSON.stringify(v)); await store.log(`${who} settled the ${word} ride: ${said}`); }), 0);
-  } else if (e.target.classList.contains('conf')) {
-    const id = e.target.dataset.id, conf = e.target.value.trim();
-    setTimeout(() => planner(pin => store.setConf(pin, id, conf)), 0);
+    // On a timeout so a Tab or click to the next box lands before the redraw.
+    setTimeout(() => { if (app.pin) planner(async (pin, who) => { await store.setSetting(pin, key, JSON.stringify(v)); await store.log(`${who} settled the ${word} ride: ${said}`); }); }, 0);
+  } else if (t.classList.contains('conf') && t.dataset.id) {
+    const id = t.dataset.id, conf = t.value.trim();
+    const cur = (app.plannerItems || []).find(i => i.id === id);
+    if (cur && (cur.conf || '') === conf) return;
+    setTimeout(() => { if (app.pin) planner(pin => store.setConf(pin, id, conf)); }, 0);
   }
 });
-window.addEventListener('hashchange', () => { if (route() !== 'planner') { app.pinDraft = ''; app.pinErr = false; } if (!app.jump) window.scrollTo(0, 0); render(); });
+history.scrollRestoration = 'manual';   // the page puts each screen back where it was (see below)
+window.addEventListener('scroll', () => { app.pos[route() || 'choose'] = window.scrollY; }, { passive: true });
+window.addEventListener('hashchange', () => {
+  const r = route();
+  if (r !== 'planner') { app.pinDraft = ''; app.pinErr = false; app.pinShort = false; app.plannerItems = null; }   // confirmation numbers live only on the planner screen
+  const jumped = !!app.jump;   // a to-do link scrolls to its section; render() clears the flag
+  if (app.navTop) window.scrollTo(0, 0);   // a tab or link starts at the top
+  render();
+  if (!app.navTop && !jumped) window.scrollTo(0, app.pos[r || 'choose'] || 0);   // back and forward return to where that screen was
+  app.navTop = false;
+  if (r === 'planner' && app.pin && !app.plannerItems) refresh();
+});
 
 render();
 refresh();
