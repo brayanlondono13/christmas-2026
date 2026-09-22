@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Breckenridge 2026</title>
+<meta name="description" content="Family Christmas 2026 in Breckenridge: the trip, your choices, and your own itinerary.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Manrope:wght@400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --page:#EFEAE4; --card:#FAFAF9; --ink:#1C1917; --muted:#78716C; --line:#E7E2DC; --line2:#EFEAE4; --line3:#DDD6CE; --sand:#F5F0EB;
+  --accent:#B45309; --green:#365314; --red:#7F1D1D; --ghost:#D6CFC7; --num:#D6CFC7;
+  --sans:Manrope,system-ui,sans-serif; --serif:'Source Serif 4',Georgia,serif; --display:Fraunces,Georgia,serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--page);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+input{outline:none;font:inherit}
+button{font:inherit;cursor:pointer;background:none;border:0;padding:0;color:inherit}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.rise{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
+
+/* type */
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--accent)}
+.eyebrow.muted{color:var(--muted)}
+.h1{font-family:var(--display);font-size:40px;font-weight:500;letter-spacing:-.01em;line-height:1.05;margin-top:8px}
+.h1 em{font-style:italic;font-weight:300}
+.lede{font-family:var(--serif);font-size:15px;line-height:1.55;color:var(--muted);margin-top:10px;text-wrap:pretty}
+.label{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--muted)}
+.tiny{font-family:var(--sans);font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--muted)}
+.ext{color:var(--accent);text-decoration:underline;text-underline-offset:2px;white-space:nowrap}
+
+/* phone shell */
+.shell{max-width:480px;margin:0 auto;min-height:100vh;background:var(--card);display:flex;flex-direction:column}
+@media(min-width:481px){.shell{border-left:1px solid var(--line3);border-right:1px solid var(--line3)}}
+.shell.nav{padding-bottom:calc(64px + env(safe-area-inset-bottom))}
+.top{position:sticky;top:0;z-index:5;background:rgba(250,250,249,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .bar{display:flex;justify-content:space-between;align-items:center;padding:14px 20px}
+.brand{font-family:var(--display);font-style:italic;font-size:17px}
+.top .brand{cursor:pointer}
+.todo{background:var(--sand);border-top:1px solid var(--line);padding:9px 20px;font-size:12px;line-height:1.4;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.todo a{text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+.todo.done{color:var(--green);font-weight:600}
+.tabbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;display:flex;background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom);z-index:6}
+@media(min-width:481px){.tabbar{border-left:1px solid var(--line3);border-right:1px solid var(--line3)}}
+.tabbar a{flex:1;height:56px;display:flex;align-items:center;justify-content:center;font-family:var(--sans);font-size:11px;font-weight:600;color:var(--muted)}
+.tabbar a span{padding:4px 2px;border-bottom:2px solid transparent}
+.tabbar a.on{color:var(--ink)}
+.tabbar a.on span{border-bottom-color:var(--green)}
+.pad{padding:28px 20px 40px}
+section[id]{scroll-margin-top:96px}
+
+/* who's this */
+.who{padding:56px 24px 32px;min-height:100vh;display:flex;flex-direction:column}
+.who .h1{font-size:42px;margin-top:10px}
+.hh{margin-top:18px}
+.hh-h{display:flex;gap:6px;align-items:baseline;padding-bottom:6px;border-bottom:1px solid var(--line);font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
+.hh-h .fam{color:var(--muted)}
+.person{display:flex;justify-content:space-between;align-items:center;min-height:44px;border-bottom:1px solid var(--line2);cursor:pointer;font-size:16px;font-weight:500;width:100%;text-align:left}
+.person:hover{background:var(--sand)}
+.person.kid{padding-left:16px}
+.who-foot{margin-top:auto;padding-top:32px;text-align:center;font-size:12px;color:var(--muted)}
+.who-foot a{color:var(--ink);text-decoration:underline;cursor:pointer}
+
+/* trip info */
+.facts{margin-top:22px;font-size:14px;font-weight:600;letter-spacing:.01em}
+.copy{font-family:var(--serif);font-size:15px;line-height:1.6;color:var(--ink);margin-top:20px;text-wrap:pretty}
+.box{margin-top:32px;border:1px solid var(--line);padding:16px 16px 14px}
+.box p{font-family:var(--serif);font-size:15px;line-height:1.55;margin:8px 0 0}
+.assume{margin-top:30px}
+.assume h3{font-family:var(--sans);font-size:14px;font-weight:600;margin:0 0 10px}
+.assume ul{margin:0;padding-left:18px}
+.assume li{font-family:var(--serif);font-size:15px;line-height:1.55;margin:0 0 9px;text-wrap:pretty}
+
+/* choose */
+.day{padding:26px 20px 14px}
+.day-h{display:flex;align-items:baseline;gap:14px}
+.daynum{font-family:var(--display);font-size:44px;font-weight:300;color:var(--num);line-height:1;letter-spacing:-.02em}
+.dayname{font-family:var(--display);font-size:22px;font-weight:500;line-height:1.1}
+.daydate{margin-top:4px}
+.grp{margin-top:16px}
+.grp+.grp{margin-top:22px}
+.grp-h{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:6px;border-bottom:1px solid var(--line);font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+.grp-h.all{border-bottom:1.5px solid var(--ink);color:var(--ink)}
+.grp-h.ask{color:var(--accent)}
+.grp-h .sub{font-weight:600;letter-spacing:.08em;text-transform:none;font-size:11px;color:var(--muted)}
+.lrow{display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:11px 0;border-bottom:1px dotted var(--line3)}
+.lrow b{display:block;font-size:14px;font-weight:600;line-height:1.35}
+.lrow i{display:block;font-family:var(--serif);font-style:normal;font-size:13px;line-height:1.5;color:var(--muted);margin-top:1px}
+.lrow .tiny{flex:none}
+.cards{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+.card{background:#fff;border:1px solid var(--line);border-radius:4px;padding:14px 14px 12px}
+.card.mine{border-color:var(--green)}
+.card.dim{opacity:.5}
+.card-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.card-name{font-size:15px;font-weight:600;line-height:1.3;padding-top:1px}
+.card-price{flex:none;text-align:right;font-size:13px;font-weight:600;line-height:1.3}
+.card-price .amt{display:block;font-size:15px}
+.card-price .ontop{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--muted);margin-top:1px}
+.card-desc{font-family:var(--serif);font-size:14px;line-height:1.5;color:var(--muted);margin-top:6px}
+.card-extra{font-family:var(--serif);font-size:13px;line-height:1.5;color:var(--ink);margin-top:6px}
+.card-cons{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.5}
+.card-going{font-size:12px;margin-top:8px;line-height:1.5}
+.card-due{font-size:11px;color:var(--muted);margin-top:8px}
+.radios{display:flex;gap:14px;margin-top:10px;flex-wrap:wrap}
+.radio{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--ink);cursor:pointer;min-height:28px}
+.radio i{width:14px;height:14px;border-radius:50%;border:1.5px solid var(--ink);display:inline-block;flex:none;position:relative}
+.radio.on i::after{content:'';position:absolute;inset:2.5px;border-radius:50%;background:var(--ink)}
+.radio.dis{color:var(--muted);cursor:default}
+.radio.dis i{border-color:var(--ghost)}
+.btn{margin-top:12px;width:100%;height:44px;display:flex;align-items:center;justify-content:center;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;text-align:center;padding:0 12px;border:1px solid var(--ink);color:var(--ink);background:transparent;cursor:pointer}
+.btn.in{color:var(--card);background:var(--green);border-color:var(--green)}
+.btn.full{color:var(--accent);border-color:var(--accent)}
+.btn.kid{color:var(--muted)}
+.btn.off{color:var(--muted);border-color:var(--ghost);cursor:default}
+.pill{display:inline-block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--green);border:1px solid var(--green);padding:3px 9px;border-radius:999px}
+.pill.lock{color:var(--red);border-color:var(--red)}
+.pills{margin-top:12px;display:flex}
+.note{font-family:var(--serif);font-size:13px;line-height:1.55;color:var(--muted);margin-top:14px;text-wrap:pretty}
+.daynote{font-family:var(--serif);font-size:13px;line-height:1.5;color:var(--muted);margin-top:10px;text-wrap:pretty}
+.vrow{padding:11px 0 6px;border-bottom:1px dotted var(--line3)}
+.vrow-h{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+.vrow-h b{font-size:14px;font-weight:600;line-height:1.35}
+.crow{display:flex;gap:12px;align-items:flex-start}
+.crow .ext{flex:none;margin-top:12px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+.choice{margin-top:10px;display:block;flex:1;min-width:0;text-align:left}
+.choice.can{cursor:pointer}
+.choice-l{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:13px}
+.choice-l .r{display:flex;gap:10px;align-items:baseline}
+.choice-l .you{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--green);font-weight:700}
+.choice-d{font-family:var(--serif);font-size:12px;line-height:1.4;color:var(--muted);margin-top:1px}
+.choice.my .choice-l{font-weight:700}
+.bar{height:3px;background:var(--line2);margin-top:5px;border-radius:2px}
+.bar i{display:block;height:3px;background:var(--green);border-radius:2px;transition:width .3s}
+.meal{padding:11px 0 10px;border-bottom:1px dotted var(--line3)}
+.meal-h{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+.meal-h b{font-size:14px;font-weight:600;line-height:1.35}
+.roles{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.role{display:flex;align-items:center;gap:8px}
+.role>span{min-width:72px;flex:none;font-size:12px;color:var(--muted)}
+.meal-note{font-family:var(--serif);font-size:13px;line-height:1.5;color:var(--muted);margin-top:4px;text-wrap:pretty}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:11px;font-weight:600;padding:3px 9px;border-radius:999px;line-height:1.4;background:var(--sand);color:var(--ink);border:1px solid transparent;cursor:default}
+.chip.me{border-color:var(--green);cursor:pointer}
+.chip.open{background:transparent;color:var(--muted);border:1px dashed var(--ghost)}
+.chip.can{cursor:pointer}
+
+/* my trip */
+.me-top{display:flex;gap:6px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
+.me-top .u{color:var(--accent)}
+.me-top button{color:var(--muted);letter-spacing:inherit;text-transform:inherit;font-weight:inherit;font-size:inherit}
+.me-top button:hover{color:var(--ink)}
+.money{margin-top:22px;border:1px solid var(--line);padding:14px;font-size:14px;font-weight:600;line-height:1.5}
+.money small{display:block;font-weight:400;font-size:12px;color:var(--muted);margin-top:2px}
+.itin{padding:26px 20px 10px;border-top:1px solid var(--line)}
+.itin .rows{margin-top:12px;border-top:1px solid var(--line)}
+.it{display:grid;grid-template-columns:76px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line2)}
+.it .t{font-size:12px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.4}
+.it .k{font-family:var(--display);font-style:italic;font-size:13px;margin-top:3px;color:var(--accent)}
+.it b{display:block;font-size:15px;font-weight:600;line-height:1.35}
+.it i{display:block;font-family:var(--serif);font-style:normal;font-size:14px;line-height:1.5;color:var(--muted);margin-top:2px}
+.kv{display:flex;gap:8px;margin-top:8px;font-size:11px;line-height:1.5}
+.kv+.kv{margin-top:3px}
+.kv span{width:76px;flex:none;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.kv em{font-style:normal;color:var(--ink)}
+
+/* planner */
+.pshell{min-height:100vh;background:var(--card);display:flex;flex-direction:column}
+.pbar{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 36px;background:var(--red);color:var(--card);flex:none}
+.pbar .brand{font-size:20px}
+.pbar .sub{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;opacity:.8;margin-left:18px}
+.pbar .r{display:flex;align-items:center;gap:24px;font-size:12px}
+.pbar .lock{font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;border:1px solid rgba(250,250,249,.5);padding:6px 10px;cursor:pointer;color:inherit}
+.gate{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 20px}
+.gate>div{width:360px;text-align:center}
+.pin{margin-top:24px;width:180px;padding:12px 0;text-align:center;font-size:28px;letter-spacing:.5em;font-weight:600;background:#fff;border:1px solid var(--line3);border-radius:4px}
+.hint{font-family:var(--serif);font-size:14px;line-height:1.5;color:var(--muted);margin-top:14px}
+.hint.err{color:var(--accent)}
+.pgrid{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:32px;padding:32px 36px 40px;min-width:1180px}
+.pmain{min-width:0}
+.ptable{margin-top:12px;border-top:1px solid var(--ink)}
+.prow{display:grid;grid-template-columns:minmax(0,1fr) 78px 150px 110px 170px;gap:10px;padding:12px 0;border-bottom:1px solid var(--line2);align-items:center;font-size:12px}
+.prow.h{padding:10px 0;border-bottom:1px solid var(--line)}
+.prow .name b{display:block;font-weight:600}
+.prow .name i{display:block;font-style:normal;color:var(--muted);font-size:11px;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tag{font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--sand);white-space:nowrap}
+.tag.booked{color:var(--green)}
+.tag.locked{color:var(--red)}
+.conf{width:100%;font-size:12px;font-variant-numeric:tabular-nums;padding:5px 6px;border:1px solid var(--line);border-radius:3px;background:#fff}
+.acts{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+.act{font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--ink);border:1px solid var(--ink);padding:5px 8px;cursor:pointer;white-space:nowrap}
+.act.soft{color:var(--muted);border-color:var(--ghost)}
+.act.x{padding:2px 5px;border-color:transparent;color:var(--muted)}
+.act.x:hover{color:var(--red)}
+.sec{margin-top:36px}
+.vlist{margin-top:12px;border-top:1px solid var(--ink)}
+.vl{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid var(--line2);font-size:12px}
+.vl b{font-weight:600;width:170px;flex:none}
+.vl span{color:var(--muted);flex:1}
+.hr{display:grid;grid-template-columns:minmax(0,1fr) 110px;gap:10px;padding:8px 0;border-bottom:1px solid var(--line2);font-size:12px}
+.hr b{font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+.rides{margin-top:12px;border-top:1px solid var(--ink)}
+.ride{display:grid;grid-template-columns:56px 1fr 1fr 1fr;gap:10px;padding:10px 0;border-bottom:1px solid var(--line2);align-items:center;font-size:12px}
+.ride.h{padding:10px 0;border-bottom:1px solid var(--line)}
+.ride b{font-weight:600}
+.log{margin-top:12px;border-top:1px solid var(--ink)}
+.log div{padding:9px 0;border-bottom:1px solid var(--line2);font-size:12px;line-height:1.5}
+.log div span{color:var(--muted)}
+.resp{margin-top:12px;border-top:1px solid var(--ink)}
+.rrow{display:grid;grid-template-columns:64px 1fr 76px 96px;gap:6px;padding:3px 0;border-bottom:1px solid var(--line2);font-size:11px;align-items:stretch}
+.rrow.h{padding:10px 0;border-bottom:1px solid var(--line)}
+.rrow>span{padding:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rrow>span.n{font-weight:600;padding:6px 0}
+.rrow>span:last-child{white-space:normal}
+.rrow>span.empty{background:var(--sand)}
+.rrow>span.fri{display:flex;justify-content:space-between;align-items:center;gap:4px}
+.pnote{font-family:var(--serif);font-size:13px;line-height:1.5;color:var(--muted);margin-top:12px}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:var(--card);font-size:12px;padding:10px 14px;border-radius:4px;z-index:20;max-width:90vw}
+.demo{position:fixed;right:10px;bottom:calc(66px + env(safe-area-inset-bottom));font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--accent);background:var(--card);border:1px solid var(--accent);padding:3px 8px;border-radius:999px;z-index:20;opacity:.9}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+/* ============================================================
+   CONFIG — leave the key blank to run in demo mode (in-browser
+   state, seeded, nothing leaves the phone).
+   ============================================================ */
+const CONFIG = {
+  SUPABASE_URL: 'https://loxatsgwyaznuzldinto.supabase.co',
+  SUPABASE_ANON_KEY: 'sb_publishable_pF_udd7tZ4dWg_nI0wtPpQ_ZVyred4y',
+  POLL_MS: 15000,          // family pages re-read the trip this often, and whenever the app comes back to the foreground
+  PLANNER: 'Bray',
+};
+
+/* ---------- the trip (static: edit here as things get booked) ---------- */
+const HH = [
+  { parent: 'Bray', family: 'Londono', members: ['Bray'] },
+  { parent: 'Brian & Sandra', family: 'Levinus', members: ['Brian', 'Sandra'] },
+  { parent: 'Manny & Ivy', family: 'Zambrano', members: ['Manny', 'Ivy'] },
+  { parent: 'Natalia & Anthony', family: 'Martinez', members: ['Natalia', 'Anthony', 'Camila'] },
+  { parent: 'Luis & Anna', family: 'Zambrano', members: ['Luis', 'Anna'] },
+  { parent: 'Hailey & Dacian', family: 'Miron', members: ['Hailey', 'Dacian', 'Mateo'] },
+  { parent: 'Isaiah & Leah', family: 'Levinus', members: ['Isaiah', 'Leah'] },
+];
+const AGES = { Camila: 5, Mateo: 2 };
+const PEOPLE = HH.flatMap(h => h.members);
+const ADULTS = PEOPLE.filter(p => !AGES[p]);
+const isKid = p => AGES[p] != null && AGES[p] < 13;
+const household = p => HH.find(h => h.members.includes(p));
+
+const PER_ADULT = 1250;   // the budget each adult's plan fits inside; nothing collected yet
+const PLAN_ROOM = 3300;   // planning headroom inside that budget, planner-only
+const GOOD_TIMES_SEATS = 5;   // the SUV: snowmobiles and dog sledding share these seats (driver included)
+const KID_FLIGHTS = { Camila: 250 };   // a kid's plane seat, paid from the planning headroom
+
+// pot: 'personal' = extra on top (cost), 'group' = in the $1,250, 'free' = free.
+// A snowmobile pick is stored as option_id "snowmobile:shared" / "snowmobile:solo".
+// cap / capGroup: snowmobile and dog sledding share the SUV's 5 seats (one waitlist, keyed 'goodtimes'); the snowcat has its own 8.
+// ride: which car takes you on Friday ('suv' or 'van'); the planner settles drivers and leave times (My trip shows them).
+const OPTS = [
+  { id: 'ski', name: 'Ski / snowboard', pot: 'personal', cost: 225, desc: 'Epic Day Pass plus rental and helmet at Breckenridge Ski Resort.', constraints: 'Ages 5+', minAge: 5, due: 'Nov 28', time: '9:00 AM', place: 'Breckenridge Ski Resort', bring: 'layers, goggles, sunscreen', ride: 'van', url: 'https://www.breckenridge.com/plan-your-trip/lift-access/tickets.aspx' },
+  { id: 'snowmobile', name: 'Snowmobile', pot: 'personal', desc: 'Guided tour with Good Times Adventures, about 2 hours.', constraints: '15+ to drive, 18+ with a passenger, passengers 5+', minAge: 5, cap: GOOD_TIMES_SEATS, capGroup: 'goodtimes', seats: `${GOOD_TIMES_SEATS} seats in the SUV`,
+    variants: [{ id: 'shared', label: 'Share a sled', cost: 188.5, name: 'Snowmobile, sharing a sled' }, { id: 'solo', label: 'My own sled', cost: 284, minAge: 15, name: 'Snowmobile, own sled' }],
+    due: 'Oct 15', time: '10:00 AM', place: 'Good Times Adventures, Tiger Road', bring: 'goggles, warm gloves, a license if you drive', ride: 'suv', url: 'https://goodtimesadventures.com/' },
+  { id: 'dog', name: 'Dog sledding', pot: 'personal', cost: 211, desc: 'Drive a team of huskies through the Swan River valley.', constraints: 'Ages 5+, 275 lb limit', minAge: 5, cap: GOOD_TIMES_SEATS, capGroup: 'goodtimes', seats: `${GOOD_TIMES_SEATS} seats in the SUV`, due: 'Oct 15', time: '10:00 AM', place: 'Good Times Adventures, Tiger Road', bring: 'warm layers and a camera', ride: 'suv', url: 'https://goodtimesadventures.com/' },
+  { id: 'snowcat', name: 'Snowcat', pot: 'group', desc: '90-minute heated snowcat ride to Josie’s Cabin with s’mores and drinks.', extra: 'In the $1,250 for the first 8.', cap: 8, due: 'Oct 3', time: '1:00 PM', place: 'Breckenridge Nordic Center', bring: 'layers and sunglasses', ride: 'van', url: 'https://www.breckenridgenordic.com/' },
+  { id: 'nordic', name: 'Snowshoe or cross-country ski', pot: 'group', desc: 'Nordic Center trail pass and rental. Pick which at the counter.', constraints: 'Kids 12 and under: free trail pass', due: 'Nov 15', time: '10:00 AM', place: 'Breckenridge Nordic Center', bring: 'waterproof boots, layers and water', ride: 'van', url: 'https://www.breckenridgenordic.com/' },
+  { id: 'gondola', name: 'Main Street + free gondola', pot: 'free', desc: 'Bakeries and galleries, then the BreckConnect Gondola up to Peak 7 and 8.', due: null, time: 'Anytime', place: 'Main Street, then the BreckConnect Gondola', bring: 'a camera', transport: 'Walk from the Airbnb, or catch the van' },
+];
+// Waitlists are keyed by cap group (the snowcat by its own id). Names for the ones that aren't an option.
+const WAIT_NAMES = { goodtimes: 'SUV seat' };
+const FRIDAY_NOTE = `SUV goes to Good Times (${GOOD_TIMES_SEATS} seats). The van shuttles everyone else into town — resort gondola, Nordic Center, Main Street.`;
+// The planner settles who drives and when; stored in settings as ride_van / ride_suv (JSON: driver, leave, dest).
+const RIDES = [{ key: 'ride_van', label: 'Van', word: 'van' }, { key: 'ride_suv', label: 'SUV', word: 'SUV' }];
+const RIDES_UNSET = 'Rides get settled after Oct 3.';
+const VOTES = [
+  { id: 'saturday', day: 'sat', title: 'Saturday dinner', closes: 'Oct 10', time: '6:30 PM', choices: [
+    { id: 'cookin', label: 'Cook in', desc: 'at the Airbnb', place: 'the Airbnb kitchen' },
+    { id: 'brewery', label: 'Breckenridge Brewery', desc: 'pub food, big tables', place: 'Breckenridge Brewery, Main Street', url: 'https://www.breckbrew.com/visit/breckenridge/food/' },
+    { id: 'erics', label: "Downstairs at Eric's", desc: 'burgers and pizza, arcade downstairs', place: "Downstairs at Eric's, Main Street", url: 'http://www.downstairsaterics.com/new/wp-content/uploads/2024/03/Erics-Menu-Web-03.11.24.pdf' },
+    { id: 'micasa', label: 'Mi Casa', desc: 'Mexican, margaritas', place: 'Mi Casa, Park Avenue', url: 'https://www.micasabreck.com/menu' },
+    { id: 'rootstalk', label: 'Rootstalk', desc: 'chef’s tasting menu, the splurge', place: 'Rootstalk, Main Street', url: 'https://www.rootstalkbreck.com/dinner-menu' },
+    { id: 'lafrancaise', label: 'La Française', desc: 'French bistro', place: 'La Française Bistrot, Main Street', url: 'https://www.lafrancaisebistrot.com/menus' },
+  ] },
+];
+// Travel times stay "Morning" / "Afternoon" until flights are booked.
+const LOCKED = {
+  thu: [
+    { time: 'Morning', title: 'Land in Denver, drive up', place: 'Denver airport to the Airbnb, 2–2.5 hours on I-70', bring: 'ID, a water bottle, layers for the drive', transport: '12-passenger van and SUV from the airport' },
+    { time: 'Around noon', title: 'Lunch on the way (on you)', place: 'Frisco or Main Street', bring: '', transport: '' },
+    { time: 'Afternoon', title: 'Groceries at City Market', place: 'Main Street or Carter Park with the kids', bring: '', transport: '' },
+    { time: '4:00 PM', title: 'Check in at the Airbnb, hot tub', place: 'The Airbnb, 221 S Pine St', bring: 'a swimsuit', transport: '' },
+    { time: '6:30 PM', title: 'Thursday dinner — pizza or takeout', place: 'Bray orders, we split it', bring: '', transport: '' },
+  ],
+  fri: [
+    { time: '4:30 PM', title: 'Everyone back at the Airbnb', place: 'Hot tub, firepit, games, dinner', bring: '', transport: '' },
+  ],
+  sat: [
+    { time: '9:00 AM', title: 'Main Street morning', place: 'La Francaise bakery first, then the galleries', bring: 'walking boots', transport: 'Walk from the Airbnb' },
+    { time: '2:00 PM', title: 'Tubing at Frisco Adventure Park', place: 'Frisco, 20 minutes away', bring: 'snow pants, waterproof boots, gloves', transport: 'Van and SUV, leaving 1:15' },
+    { time: 'Dark', title: 'Main Street holiday lights', place: 'On the way back from Frisco', bring: 'a warm hat', transport: 'Van and SUV' },
+    { time: '8:00 PM', title: 'White elephant and movie night', place: 'Great room', bring: 'a wrapped $20–25 gift', transport: '' },
+  ],
+  sun: [
+    { time: '9:30 AM', title: 'Sledding at Carter Park', place: 'A short walk from the Airbnb', bring: 'sleds and snow pants', transport: 'Walk' },
+    { time: '1:00 PM', title: 'Ice skating', place: 'Stephen C. West Arena, $13–20 at the door', bring: 'thick socks and gloves', transport: 'Van and SUV' },
+    { time: 'Afternoon', title: 'Open afternoon', place: 'The Airbnb, Main Street, Blue River, or Sapphire Point', bring: '', transport: '' },
+    { time: '6:30 PM', title: 'Farewell dinner, cook in', place: 'The Airbnb, our last night', bring: '', transport: '' },
+  ],
+  mon: [
+    { time: 'Afternoon', title: 'Fly home', place: 'Check out of the Airbnb, drive to Denver', bring: 'everything you came with', transport: '12-passenger van and SUV' },
+  ],
+};
+const DAYS = [
+  { key: 'thu', num: '01', name: 'Thursday', date: 'December 10', note: 'Earlier if the host allows early check-in — asking.' },
+  { key: 'fri', num: '02', name: 'Friday', date: 'December 11' },
+  { key: 'sat', num: '03', name: 'Saturday', date: 'December 12' },
+  { key: 'sun', num: '04', name: 'Sunday', date: 'December 13' },
+  { key: 'mon', num: '05', name: 'Monday', date: 'December 14' },
+];
+// Meal sign-ups. Thursday is takeout (a locked row above), so it has no sign-up; Saturday's appears only if Cook in wins the vote.
+// roles defaults to ROLES; roleLabels renames a job on screen; cookIn adds the fallback line; shopTime/shopTransport shape the shopper's My trip row.
+const COOK_IN_NOTE = 'Cook in if 2 people take Cooking by Nov 15. Otherwise we order in and split it.';
+const MEALS = [
+  { key: 'fribf', day: 'fri', title: 'Friday breakfast', time: '8:00 AM', roles: ['Shopping'], roleLabels: { Shopping: 'City Market run' }, shopTime: '8:00 AM', shopTransport: 'Either car, before the Friday rides leave' },
+  { key: 'fri', day: 'fri', title: 'Friday dinner', time: '6:30 PM', cookIn: true },
+  { key: 'sat', day: 'sat', title: 'Saturday dinner', time: '6:30 PM', cookIn: true, needsVote: 'saturday', winner: 'cookin' },
+  { key: 'sun', day: 'sun', title: 'Sunday dinner', time: '6:30 PM', cookIn: true },
+];
+const ROLES = ['Cooking', 'Shopping', 'Cleanup'];
+const SLOTS = 2;
+const rolesOf = m => m.roles || ROLES;
+const roleLabel = (m, r) => (m.roleLabels && m.roleLabels[r]) || r;
+const jobName = (m, r) => (m.roleLabels && m.roleLabels[r]) ? m.roleLabels[r] : r.toLowerCase();   // in sentences: "cleanup", "City Market run"
+// Trip info: what we're assuming, in Bray's words.
+const ASSUMPTIONS = [
+  'Kids aren’t charged. Camila’s plane seat and tubing come out of the shared budget; Mateo flies on a lap.',
+  'Flights are about $250 each and aren’t booked. If fares move, the $1,250 moves.',
+  'The Airbnb is $8,400 for four nights. Check-in is 4 PM, checkout 11 AM. Early check-in only if the host says yes.',
+  'Two cars: a 12-seat van and an SUV, about $1,300 together. On Friday only snowmobiles and dog sledding need a car; everything else that day is in town. Other days we all move together.',
+  'Food isn’t in the $1,250. Groceries get split; at restaurants everyone pays their own.',
+  'Cook-in nights only happen if two people sign up to cook. Otherwise we order in and split it.',
+  'The snowcat is $800 for 8 people. If more than 8 want it, a second ride is another $800 and still fits the budget.',
+  'Prices are from the websites in September and can change. Tubing and the snowcat need reservations; if you don’t answer by the date on the card, you’ll get whatever’s left.',
+  'Weather can cancel anything outdoors. The backups are the Rec Center, the escape room, Main Street, or the house.',
+  'Ages: snowmobile drivers 15+, 18+ with a passenger; passengers and dog sled 5+.',
+];
+
+/* ---------- helpers ---------- */
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const money = n => '$' + Math.round(Number(n)).toLocaleString('en-US');
+const plus = n => '+' + money(n);
+const fmtWhen = iso => { const d = new Date(iso); return isNaN(d) ? '' : d.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }); };
+const ls = { get: k => { try { return localStorage.getItem(k); } catch { return null; } }, set: (k, v) => { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch {} } };
+const ss = { get: k => { try { return sessionStorage.getItem(k); } catch { return null; } }, set: (k, v) => { try { v == null ? sessionStorage.removeItem(k) : sessionStorage.setItem(k, v); } catch {} } };
+
+// A stored pick is an option id, or "option:variant" for options with variants.
+function parsePick(id) {
+  if (!id) return null;
+  const [oid, vid] = String(id).split(':');
+  const opt = OPTS.find(o => o.id === oid);
+  if (!opt) return null;
+  const variant = opt.variants ? (opt.variants.find(v => v.id === vid) || opt.variants[0]) : null;
+  return { opt, variant, id: opt.variants ? `${opt.id}:${variant.id}` : opt.id };
+}
+const pickKey = (o, vid) => o.variants ? `${o.id}:${vid || o.variants[0].id}` : o.id;
+const optKeys = o => o.variants ? o.variants.map(v => pickKey(o, v.id)) : [o.id];
+const optName = id => { const p = parsePick(id); return p ? (p.variant ? p.variant.name : p.opt.name) : ''; };
+const pickCost = id => { const p = parsePick(id); return p && p.opt.pot === 'personal' ? (p.variant ? p.variant.cost : p.opt.cost) || 0 : 0; };
+const isOpt = (id, o) => { const p = parsePick(id); return !!p && p.opt.id === o.id; };
+
+// Names as a sentence. The signed-in person is "you" (or their name, when a parent is tapping for a kid).
+function sentence(names, u) {
+  const me = isKid(u) ? u : 'you';
+  const others = names.filter(n => n !== u);
+  const a = names.includes(u) ? [...others, me] : others;
+  if (!a.length) return 'No one yet.';
+  if (a.length === 1) return a[0] === me ? `Just ${me} so far.` : `${a[0]}.`;
+  return a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1] + '.';
+}
+
+// Sort key for a time label: Morning < clock times < Afternoon < Dark < Evening < Anytime.
+const VAGUE = { 'Morning': 6 * 60, 'Around noon': 12 * 60, 'Afternoon': 13 * 60, 'Dark': 17 * 60 + 30, 'Evening': 18 * 60, 'Anytime': 23 * 60 + 58, '—': 23 * 60 + 59 };
+function minutes(t) {
+  if (VAGUE[t] != null) return VAGUE[t];
+  const m = /^(\d{1,2}):(\d{2})\s*(AM|PM)$/i.exec(String(t).trim());
+  if (!m) return 23 * 60 + 57;
+  let h = +m[1] % 12; if (/pm/i.test(m[3])) h += 12;
+  return h * 60 + +m[2];
+}
+
+/* ============================================================
+   STORES — both return the same normalized state from load():
+   { picks, waitlist, votes, meals, items, closed, log, rides }
+   ============================================================ */
+function normalize(rows) {
+  const picks = {}, waitlist = {}, votes = {}, meals = {}, closed = {}, rides = {};
+  for (const r of rows.picks) if (r.option_id) picks[r.person] = r.option_id;
+  for (const r of rows.waitlist) (waitlist[r.option_id] ||= []).push(r.person);
+  for (const r of rows.votes) (votes[r.vote_id] ||= {})[r.person] = r.choice_id;
+  for (const m of MEALS) meals[m.key] = Object.fromEntries(rolesOf(m).map(r => [r, []]));
+  for (const r of rows.meals) { const m = meals[r.meal_key]; if (m && m[r.role] && !m[r.role].includes(r.person)) m[r.role].push(r.person); }
+  for (const v of VOTES) votes[v.id] ||= {};
+  for (const r of rows.voteState) closed[r.vote_id] = !!r.closed;
+  for (const r of rows.settings || []) { try { rides[r.key] = JSON.parse(r.value); } catch { rides[r.key] = null; } }
+  const items = rows.items.map(it => ({ ...it, option_ids: it.option_ids || [], locked: !!it.locked })).sort((a, b) => a.sort - b.sort || a.id.localeCompare(b.id));
+  const log = rows.log.map(l => ({ text: l.text, when: fmtWhen(l.created_at) }));
+  return { picks, waitlist, votes, meals, items, closed, log, rides };
+}
+
+class SupabaseStore {
+  constructor(url, key) {
+    this.base = url.replace(/\/+$/, '') + '/rest/v1';
+    this.headers = { apikey: key, Authorization: 'Bearer ' + key, 'Content-Type': 'application/json' };
+  }
+  async req(path, opts = {}) {
+    const r = await fetch(this.base + path, { ...opts, headers: { ...this.headers, ...(opts.headers || {}) } });
+    if (!r.ok) {
+      let msg = `${r.status} ${r.statusText}`;
+      try { const j = await r.json(); msg = j.message || j.hint || j.details || msg; } catch {}
+      throw new Error(msg);
+    }
+    const t = await r.text();
+    return t ? JSON.parse(t) : null;
+  }
+  get(path) { return this.req(path); }
+  post(path, body, prefer) { return this.req(path, { method: 'POST', body: JSON.stringify(body), headers: prefer ? { Prefer: prefer } : {} }); }
+  del(path) { return this.req(path, { method: 'DELETE', headers: { Prefer: 'return=minimal' } }); }
+  rpc(fn, args) { return this.req('/rpc/' + fn, { method: 'POST', body: JSON.stringify(args) }); }
+  async load() {
+    const [picks, waitlist, votes, meals, items, voteState, log, settings] = await Promise.all([
+      this.get('/picks?select=person,option_id'),
+      this.get('/waitlist?select=option_id,person&order=created_at'),
+      this.get('/votes?select=vote_id,person,choice_id'),
+      this.get('/meal_slots?select=meal_key,role,person&order=created_at'),
+      this.get('/items_public?select=*&order=sort,id'),
+      this.get('/vote_state?select=vote_id,closed'),
+      this.get('/change_log?select=text,created_at&order=id.desc&limit=40'),
+      this.get('/settings_public?select=key,value').catch(() => []),   // rides; tolerate a project that hasn't run the Round 3 SQL yet
+    ]);
+    return normalize({ picks, waitlist, votes, meals, items, voteState, log, settings });
+  }
+  setPick(person, id) {
+    return id
+      ? this.post('/picks', { person, option_id: id, updated_at: new Date().toISOString() }, 'resolution=merge-duplicates,return=minimal')
+      : this.del('/picks?person=eq.' + encodeURIComponent(person));
+  }
+  setWait(id, person, on) {
+    return on
+      ? this.post('/waitlist', { option_id: id, person }, 'resolution=ignore-duplicates,return=minimal')
+      : this.del(`/waitlist?option_id=eq.${encodeURIComponent(id)}&person=eq.${encodeURIComponent(person)}`);
+  }
+  vote(vid, person, cid) { return this.post('/votes', { vote_id: vid, person, choice_id: cid, updated_at: new Date().toISOString() }, 'resolution=merge-duplicates,return=minimal'); }
+  setMeal(key, role, person, on) {
+    return on
+      ? this.post('/meal_slots', { meal_key: key, role, person }, 'resolution=ignore-duplicates,return=minimal')
+      : this.del(`/meal_slots?meal_key=eq.${encodeURIComponent(key)}&role=eq.${encodeURIComponent(role)}&person=eq.${encodeURIComponent(person)}`);
+  }
+  log(text) { return this.post('/change_log', { text }, 'return=minimal'); }
+  verifyPin(pin) { return this.rpc('planner_verify', { p_pin: pin }); }
+  plannerItems(pin) { return this.rpc('planner_items', { p_pin: pin }); }
+  setStatus(pin, id, status, who) { return this.rpc('planner_set_status', { p_pin: pin, p_id: id, p_status: status, p_who: who }); }
+  setLocked(pin, id, locked, who) { return this.rpc('planner_set_locked', { p_pin: pin, p_id: id, p_locked: locked, p_who: who }); }
+  setConf(pin, id, conf) { return this.rpc('planner_set_conf', { p_pin: pin, p_id: id, p_conf: conf }); }
+  closeVote(pin, vid, closed, who) { return this.rpc('planner_close_vote', { p_pin: pin, p_vote_id: vid, p_closed: closed, p_who: who }); }
+  clearPick(pin, person, who) { return this.rpc('planner_clear_pick', { p_pin: pin, p_person: person, p_who: who }); }
+  setPin(pin, newPin) { return this.rpc('planner_set_pin', { p_pin: pin, p_new_pin: newPin }); }
+  setSetting(pin, key, value) { return this.rpc('planner_set_setting', { p_pin: pin, p_key: key, p_value: value }); }
+}
+
+// Stand-in with the same surface, seeded like the design and saved to this browser only. PIN is 2026.
+class DemoStore {
+  constructor() {
+    this.pin = '2026';
+    this.seed();
+    try { const saved = JSON.parse(localStorage.getItem('breck-demo') || 'null'); if (saved && saved.v === 4) Object.assign(this, saved); } catch {}
+  }
+  save() { const { picks, waitlist, votes, meals, items, voteState, logRows, nextId, pin, settings } = this; try { localStorage.setItem('breck-demo', JSON.stringify({ v: 4, picks, waitlist, votes, meals, items, voteState, logRows, nextId, pin, settings })); } catch {} }
+  seed() {
+    const now = Date.now(), ago = h => new Date(now - h * 3600e3).toISOString();
+    this.picks = { Bray: 'ski', Brian: 'snowmobile:shared', Sandra: 'snowmobile:shared', Manny: 'snowmobile:solo', Ivy: 'dog', Natalia: 'snowcat', Anthony: 'snowcat', Camila: 'snowcat', Luis: 'snowcat', Anna: 'snowcat', Hailey: 'snowcat', Isaiah: 'snowcat', Leah: 'snowcat' };
+    this.waitlist = [];
+    this.votes = { saturday: { Bray: 'cookin', Brian: 'cookin', Sandra: 'cookin', Natalia: 'cookin', Anthony: 'cookin', Luis: 'cookin', Anna: 'cookin', Manny: 'brewery', Ivy: 'brewery', Hailey: 'erics' } };
+    this.meals = [{ meal_key: 'fri', role: 'Cooking', person: 'Anna' }, { meal_key: 'fri', role: 'Cooking', person: 'Ivy' }, { meal_key: 'fribf', role: 'Shopping', person: 'Luis' }];
+    this.items = [
+      { id: 'snowcat', sort: 1, item: 'Private snowcat · Nordic Center', status: 'Open', when_label: 'Fri Dec 11 · 1:00 PM', cost_label: '$800 · group fund', fund: 800, link: 'breckenridgenordic.com', conf: '', locked: false, option_ids: ['snowcat'] },
+      { id: 'tubing', sort: 2, item: 'Tubing · Frisco Adventure Park', status: 'Booked', when_label: 'Sat Dec 12 · 2:00 PM', cost_label: '$572 · group fund', fund: 572, link: 'townoffrisco.com', conf: 'FAP-88213', locked: false, option_ids: [] },
+      { id: 'skating', sort: 3, item: 'Ice skating · Stephen C. West Arena', status: 'Open', when_label: 'Sun Dec 13 · 1:00 PM', cost_label: '$260 reserve · group fund', fund: 260, link: 'walk-in', conf: '', locked: false, option_ids: [] },
+      { id: 'ski', sort: 5, item: 'Epic Day Passes', status: 'Open', when_label: 'Fri Dec 11', cost_label: '~$141 pp + gear · personal', fund: 0, link: 'epicpass.com', conf: '', locked: false, option_ids: ['ski'] },
+      { id: 'snowmobile', sort: 6, item: 'Snowmobile tours · Good Times', status: 'Open', when_label: 'Fri Dec 11 · 10:00 AM', cost_label: '$188.50–284 pp · personal', fund: 0, link: 'goodtimesadventures.com', conf: '', locked: false, option_ids: ['snowmobile:shared', 'snowmobile:solo'] },
+      { id: 'dog', sort: 7, item: 'Dog sledding · Good Times', status: 'Open', when_label: 'Fri Dec 11 · 10:00 AM', cost_label: '$211 pp · personal', fund: 0, link: 'goodtimesadventures.com', conf: '', locked: false, option_ids: ['dog'] },
+      { id: 'satdinner', sort: 8, item: 'Saturday dinner reservation', status: 'Open', when_label: 'Sat Dec 12 · 6:30 PM', cost_label: 'you pay', fund: 0, link: 'after the vote', conf: '', locked: false, option_ids: [] },
+    ];
+    this.voteState = { saturday: false };
+    this.settings = {};   // ride_van / ride_suv once the planner settles them
+    this.logRows = [
+      { id: 3, text: 'Manny changed Friday: Snowshoe or cross-country ski → Snowmobile, own sled', created_at: ago(20) },
+      { id: 2, text: 'Bray marked Tubing · Frisco Adventure Park booked', created_at: ago(70) },
+      { id: 1, text: 'Natalia picked Snowcat for Camila', created_at: ago(120) },
+    ];
+    this.nextId = 4;
+  }
+  async load() {
+    return normalize({
+      picks: Object.entries(this.picks).map(([person, option_id]) => ({ person, option_id })),
+      waitlist: this.waitlist,
+      votes: Object.entries(this.votes).flatMap(([vote_id, m]) => Object.entries(m).map(([person, choice_id]) => ({ vote_id, person, choice_id }))),
+      meals: this.meals,
+      items: this.items.map(({ conf, ...pub }) => pub),
+      voteState: Object.entries(this.voteState).map(([vote_id, closed]) => ({ vote_id, closed })),
+      settings: Object.entries(this.settings).map(([key, value]) => ({ key, value })),
+      log: [...this.logRows].sort((a, b) => b.id - a.id).slice(0, 40),
+    });
+  }
+  async setPick(person, id) { if (id) this.picks[person] = id; else delete this.picks[person]; this.save(); }
+  async setWait(id, person, on) {
+    this.waitlist = this.waitlist.filter(w => !(w.option_id === id && w.person === person));
+    if (on) this.waitlist.push({ option_id: id, person });
+    this.save();
+  }
+  async vote(vid, person, cid) { (this.votes[vid] ||= {})[person] = cid; this.save(); }
+  async setMeal(key, role, person, on) {
+    this.meals = this.meals.filter(m => !(m.meal_key === key && m.role === role && m.person === person));
+    if (on) this.meals.push({ meal_key: key, role, person });
+    this.save();
+  }
+  async log(text) { this.logRows.push({ id: this.nextId++, text, created_at: new Date().toISOString() }); this.save(); }
+  check(pin) { if (pin !== this.pin) throw new Error('bad pin'); }
+  async verifyPin(pin) { return pin === this.pin; }
+  async plannerItems(pin) { this.check(pin); return this.items.map(it => ({ ...it })); }
+  item(id) { const it = this.items.find(i => i.id === id); if (!it) throw new Error('no such item'); return it; }
+  async setStatus(pin, id, status, who) { this.check(pin); const it = this.item(id); it.status = status; await this.log(`${who} marked ${it.item} ${status.toLowerCase()}`); }
+  async setLocked(pin, id, locked, who) { this.check(pin); const it = this.item(id); it.locked = locked; await this.log(`${who} ${locked ? 'locked' : 'unlocked'} ${it.item}`); }
+  async setConf(pin, id, conf) { this.check(pin); this.item(id).conf = conf; this.save(); }
+  async closeVote(pin, vid, closed, who) { this.check(pin); this.voteState[vid] = closed; await this.log(`${who} ${closed ? 'closed' : 'reopened'} the ${vid} vote`); }
+  async clearPick(pin, person, who) { this.check(pin); delete this.picks[person]; await this.log(`${who} cleared ${person}'s Friday pick`); }
+  async setPin(pin, newPin) { this.check(pin); if (!/^[0-9]{4,8}$/.test(newPin)) throw new Error('pin must be 4–8 digits'); this.pin = newPin; this.save(); }
+  async setSetting(pin, key, value) { this.check(pin); this.settings[key] = value; this.save(); }
+}
+
+const DEMO = !(CONFIG.SUPABASE_URL && CONFIG.SUPABASE_ANON_KEY);
+const store = DEMO ? new DemoStore() : new SupabaseStore(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
+
+/* ============================================================
+   APP STATE
+   ============================================================ */
+const app = {
+  state: null,            // normalized family state
+  user: ls.get('breck-user'),
+  pin: ss.get('breck-pin'),
+  plannerItems: null,     // items incl. confirmation numbers, only after the PIN
+  pinDraft: '', pinErr: false,
+  variant: {},            // snowmobile radio per person, before they pick
+  jump: null,             // section to scroll to after the next render
+  toast: '', lastHtml: '',
+};
+if (app.user && !PEOPLE.includes(app.user)) { app.user = null; ls.set('breck-user', null); }
+
+// Routes: #/info · #/choose · #/me · #/planner · #/who. Old hashes keep working.
+function route() {
+  const h = (location.hash || '').replace(/^#\/?/, '').split('?')[0];
+  const alias = { plan: 'info', trip: 'info', days: 'choose', mine: 'me' };
+  const r = alias[h] || h;
+  return ['info', 'choose', 'me', 'planner', 'who'].includes(r) ? r : '';
+}
+function go(r) { location.hash = '#/' + r; }
+
+function say(msg) {
+  app.toast = msg; render();
+  clearTimeout(say.t); say.t = setTimeout(() => { app.toast = ''; render(); }, 4000);
+}
+
+async function refresh() {
+  try {
+    app.state = await store.load();
+    if (app.pin) {
+      try { app.plannerItems = await store.plannerItems(app.pin); }
+      catch (e) { if (/bad pin/i.test(e.message)) { app.pin = null; ss.set('breck-pin', null); app.plannerItems = null; } else throw e; }
+    }
+  } catch (e) { say('Couldn’t reach the trip: ' + e.message); }
+  render();
+}
+
+// Family action: show it at once, write it, log it, then re-read the truth.
+async function act(fn, logText, optimistic) {
+  if (optimistic && app.state) { optimistic(app.state); render(); }
+  try { await fn(); if (logText) await store.log(logText); }
+  catch (e) { say('That didn’t save: ' + e.message); }
+  await refresh();
+}
+
+/* ============================================================
+   DERIVED VIEWS
+   ============================================================ */
+function frozenBy(S, o) {
+  const keys = optKeys(o);
+  const it = S.items.find(it => it.option_ids.some(k => keys.includes(k)) && (it.locked || it.status !== 'Open'));
+  return it ? (it.status !== 'Open' ? 'Booked' : 'Locked') : '';
+}
+// Which snowmobile variant the card should show for this person: their pick if they have one, else the radio they tapped, else the first.
+function variantFor(S, u, o) {
+  const p = parsePick(S.picks[u]);
+  if (p && p.opt.id === o.id) return p.variant.id;
+  return app.variant[u] || o.variants[0].id;
+}
+function priceHtml(o, cost) {
+  if (o.pot === 'group') return 'In the $1,250';
+  if (o.pot === 'free') return 'Free';
+  return `<span class="amt">${plus(cost)}</span><span class="ontop">on top</span>`;
+}
+
+const capKey = o => o.capGroup || o.id;
+// Everyone whose Friday pick sits in the same seat pool as option o (the SUV for Good Times; the snowcat itself).
+function poolOf(S, o) {
+  if (o.cap == null) return [];
+  return PEOPLE.filter(p => { const pp = parsePick(S.picks[p]); return !!pp && pp.opt.cap != null && capKey(pp.opt) === capKey(o); });
+}
+function buildOptions(S, u) {
+  const age = AGES[u], kid = isKid(u);
+  return OPTS.map(o => {
+    const names = PEOPLE.filter(p => isOpt(S.picks[p], o));
+    const mine = isOpt(S.picks[u], o);
+    const pool = poolOf(S, o), key = capKey(o);
+    const full = o.cap != null && pool.filter(p => p !== u).length >= o.cap;   // your own seat never blocks you (switching sled or card)
+    const wait = (S.waitlist[key] || []).includes(u);
+    const frozen = frozenBy(S, o);
+    const vid = o.variants ? variantFor(S, u, o) : null;
+    const variant = o.variants ? o.variants.find(v => v.id === vid) : null;
+    const unit = o.capGroup ? 'seat' : 'spot', fullWord = o.capGroup ? 'SUV is full' : 'Full';
+    let inel = '';
+    if (o.minAge && age != null && age < o.minAge) inel = o.minAge >= 15 ? 'Adults only' : `Ages ${o.minAge} and up`;
+    let btn = null;  // { label, cls, action }
+    if (inel) btn = { label: inel, cls: 'off' };
+    else if (frozen) btn = null;
+    else if (mine) btn = { label: kid ? `${u}’s in ✓` : 'You’re in ✓', cls: 'in', action: 'pick' };
+    else if (full) btn = { label: wait ? 'On the list — tap to leave' : `${fullWord} — add ${kid ? u : 'me'} if a ${unit} opens`, cls: 'full', action: 'wait' };
+    else btn = { label: kid ? `Pick this for ${u}` : 'Pick this', cls: kid ? 'kid' : '', action: 'pick' };
+    const radios = o.variants ? o.variants.map(v => ({
+      ...v, on: v.id === vid, dis: !!(v.minAge && age != null && age < v.minAge),
+      text: `${v.label} · ${plus(v.cost)}`,
+    })) : null;
+    const waiting = S.waitlist[key] || [];
+    return {
+      ...o, names, mine, full, wait, frozen, inel, btn, radios, pickId: pickKey(o, vid), waitKey: key,
+      priceHtml: priceHtml(o, variant ? variant.cost : o.cost),
+      going: (o.cap ? (o.capGroup ? `${pool.length} of ${o.cap} SUV seats taken. ` : `${pool.length} of ${o.cap} spots. `) : '') + sentence(names, u) + (waiting.length ? ` Waiting: ${waiting.join(', ')}.` : ''),
+      deadline: o.due ? `Answer by ${o.due}` : '',
+    };
+  });
+}
+
+function buildVotes(S, u) {
+  const kid = isKid(u);
+  return VOTES.map(v => {
+    const tally = v.choices.map(ch => ({ ...ch, count: ADULTS.filter(p => S.votes[v.id][p] === ch.id).length }));
+    const total = tally.reduce((a, c) => a + c.count, 0) || 1;
+    const max = Math.max(...tally.map(c => c.count));
+    const winner = tally.find(c => c.count === max);
+    const closed = !!S.closed[v.id], my = S.votes[v.id][u];
+    const can = !closed && !kid;
+    return {
+      ...v, closed, winner, tally, can, my,
+      right: closed ? `Decided — ${winner.label}` : kid ? 'Parents vote.' : `vote by ${v.closes}`,
+      choices: tally.map(c => ({ ...c, pct: Math.round(c.count / total * 100), my: c.id === my })),
+    };
+  });
+}
+
+function mealsFor(S, votes, dayKey) {
+  return MEALS.filter(m => {
+    if (m.day !== dayKey) return false;
+    if (!m.needsVote) return true;
+    const v = votes.find(v => v.id === m.needsVote);
+    return v && v.closed && v.winner.id === m.winner;
+  });
+}
+// Closed votes whose winner is somewhere to go become a locked row.
+function decided(votes, dayKey) {
+  return votes.filter(v => v.day === dayKey && v.closed && v.winner.id !== 'cookin')
+    .map(v => ({ time: v.time, title: `${v.title} — ${v.winner.label}`, place: v.winner.place, bring: '', transport: 'Walk to Main Street' }));
+}
+
+// "Getting there" for a Friday pick: the settled ride once the planner has set a leave time, otherwise a placeholder.
+function rideLine(S, o) {
+  if (!o.ride) return o.transport || '';
+  const r = RIDES.find(x => x.key === (o.ride === 'suv' ? 'ride_suv' : 'ride_van'));
+  const v = (S.rides || {})[r.key];
+  if (!v || !v.leave) return RIDES_UNSET;
+  return `${r.word} leaves the Airbnb ${v.leave}${v.driver ? `, ${v.driver} drives` : ''}`;
+}
+const waitName = key => WAIT_NAMES[key] || optName(key);
+
+// What this person still owes the group. Kids only owe a Friday pick (a parent taps it).
+function todos(S, u) {
+  const kid = isKid(u), out = [];
+  if (!S.picks[u]) out.push({ target: 'friday', label: kid ? `pick ${u}’s Friday` : 'pick your Friday' });
+  if (!kid) for (const v of VOTES) if (!S.closed[v.id] && !S.votes[v.id][u]) out.push({ target: 'vote', label: `vote on ${v.title}` });
+  return out;
+}
+
+// Extras for an adult: their own Friday add-on plus their kids' (shown in full on each parent, not split).
+function extrasFor(S, u) {
+  const h = household(u) || { members: [u] };
+  const own = pickCost(S.picks[u]);
+  const kids = h.members.filter(isKid).reduce((a, k) => a + pickCost(S.picks[k]), 0);
+  return own + kids;
+}
+function moneyLine(S, u) {
+  if (isKid(u)) return 'With parents.';
+  const x = extrasFor(S, u), total = PER_ADULT + x;
+  return `${money(PER_ADULT)} + ${money(x)} extras = ${x ? 'about ' : ''}${money(total)}. Nothing due yet.`;
+}
+
+const itemsFund = S => S.items.reduce((a, it) => a + (it.fund || 0), 0);
+const KID_FLIGHT_TOTAL = Object.values(KID_FLIGHTS).reduce((a, b) => a + b, 0);
+const roomLeft = S => PLAN_ROOM - itemsFund(S) - KID_FLIGHT_TOTAL;
+const unchosen = S => PEOPLE.filter(p => !S.picks[p]);
+
+/* ============================================================
+   RENDER
+   ============================================================ */
+function render() {
+  const r = route();
+  let html;
+  if (r === 'planner') html = viewPlanner();
+  else if (!app.user || r === 'who') html = viewWho();
+  else if (!app.state) html = shell(r || 'choose', '<div class="pad"><div class="lede">Loading…</div></div>');
+  else if (r === 'info') html = shell('info', viewInfo());
+  else if (r === 'me') html = shell('me', viewMe());
+  else html = shell('choose', viewChoose());
+  if (app.toast) html += `<div class="toast" role="status">${esc(app.toast)}</div>`;
+  if (DEMO) html += '<div class="demo" title="No Supabase key set">Demo</div>';
+  if (html !== app.lastHtml) {
+    // Don't yank the DOM out from under someone typing a confirmation number.
+    const ae = document.activeElement;
+    if (ae && ae.classList && ae.classList.contains('conf')) return;
+    const y = window.scrollY;
+    document.getElementById('app').innerHTML = html;
+    app.lastHtml = html;
+    window.scrollTo(0, y);
+  }
+  if (app.jump) { const el = document.getElementById('sec-' + app.jump); app.jump = null; if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+}
+
+const TABS = [['info', 'Trip info'], ['choose', 'Choose'], ['me', 'My trip']];
+function shell(tab, body) {
+  const t = ([k, l]) => `<a href="#/${k}" class="${tab === k ? 'on' : ''}"><span>${l}</span></a>`;
+  return `<div class="shell nav"><div class="top"><div class="bar"><a class="brand" href="#/who" title="Switch person">Breckenridge 2026</a><span class="tiny">${esc(app.user || '')}</span></div>${todoStrip()}</div>${body}<nav class="tabbar" aria-label="Sections">${TABS.map(t).join('')}</nav></div>`;
+}
+function todoStrip() {
+  if (!app.state) return '';
+  const t = todos(app.state, app.user);
+  if (!t.length) return '<div class="todo done">You’re set.</div>';
+  return `<div class="todo">${t.length} thing${t.length === 1 ? '' : 's'} to do: ${t.map(x => `<a data-act="todo" data-target="${x.target}">${esc(x.label)}</a>`).join(' · ')}</div>`;
+}
+
+function viewWho() {
+  return `<div class="shell"><div class="who">
+    <div class="eyebrow rise">Family Christmas 2026</div>
+    <div class="h1 rise" style="animation-delay:.06s">Who’s <em>this?</em></div>
+    <div class="lede rise" style="animation-delay:.12s">Tap your name, then pick your Friday and vote on Saturday dinner. Parents, tap your kid’s name to pick for them.</div>
+    ${HH.map((h, i) => `<div class="hh rise" style="animation-delay:${180 + i * 70}ms">
+      <div class="hh-h"><span>${esc(h.parent)}</span><span class="fam">· ${esc(h.family)}</span></div>
+      ${h.members.map(n => `<button class="person ${isKid(n) ? 'kid' : ''}" data-act="signin" data-name="${esc(n)}"><span>${esc(n)}</span><span class="tiny">${AGES[n] ? `age ${AGES[n]}` : n === app.user ? 'that’s you' : ''}</span></button>`).join('')}
+    </div>`).join('')}
+    <div class="who-foot">${esc(CONFIG.PLANNER)}? <a href="#/planner">Enter PIN.</a></div>
+  </div></div>`;
+}
+
+function viewInfo() {
+  return `<div class="pad">
+    <div class="eyebrow">Trip info</div>
+    <div class="h1">The <em>Trip</em></div>
+    <div class="facts">Dec 10–14 · ${PEOPLE.length} of us · ${money(PER_ADULT)} per adult</div>
+    <div class="copy">Everything marked ‘In the $1,250’ is already in that number. Anything with a + is extra and yours. Nothing’s collected yet — once we’ve decided, I’ll book what needs booking and tell you what you owe and when.</div>
+    <div class="assume"><h3>What we’re assuming</h3><ul>${ASSUMPTIONS.map(a => `<li>${esc(a)}</li>`).join('')}</ul></div>
+    <div class="box"><div class="label">If weather turns</div><p>Rec Center, Escape Room, Main Street, or the Airbnb. Check hours first.</p></div>
+  </div>`;
+}
+
+function viewChoose() {
+  const S = app.state, u = app.user, kid = isKid(u);
+  const options = buildOptions(S, u), votes = buildVotes(S, u);
+  const head = `<div class="pad" style="padding-bottom:8px">
+    <div class="eyebrow">Choose</div>
+    <div class="h1">Five <em>Days</em></div>
+    <div class="lede">${kid ? `Pick ${esc(u)}’s Friday. Parents vote on Saturday dinner. Everything else is set.` : 'Pick your Friday. Vote on Saturday dinner. Everything else is set.'}</div>
+  </div>`;
+  const days = DAYS.map(d => {
+    const locked = [...(LOCKED[d.key] || []), ...decided(votes, d.key)].sort((a, b) => minutes(a.time) - minutes(b.time));
+    const vs = votes.filter(v => v.day === d.key && !v.closed);
+    const ms = mealsFor(S, votes, d.key);
+    let out = `<section class="day" id="day-${d.key}"><div class="day-h"><span class="daynum">${d.num}</span><div><div class="dayname">${d.name}</div><div class="label daydate">${d.date}</div></div></div>`;
+    if (locked.length) out += `<div class="grp"><div class="grp-h all">We’re all doing this</div>${locked.map(it => `<div class="lrow"><div style="min-width:0"><b>${esc(it.title)}</b><i>${esc(it.place)}</i></div><span class="tiny">${esc(it.time)}</span></div>`).join('')}${d.note ? `<div class="daynote">${esc(d.note)}</div>` : ''}</div>`;
+    if (d.key === 'fri') out += `<section class="grp" id="sec-friday">
+      <div class="grp-h ask"><span>Friday — pick one</span><span class="tiny">for ${esc(u)}</span></div>
+      <div class="cards">${options.map(cardHtml).join('')}</div>
+      <div class="note">${esc(FRIDAY_NOTE)}</div>
+    </section>`;
+    if (vs.length) out += `<section class="grp" id="sec-vote"><div class="grp-h ask">Vote</div>${vs.map(v => `<div class="vrow">
+      <div class="vrow-h"><b>${esc(v.title)}</b><span class="tiny">${esc(v.right)}</span></div>
+      ${v.choices.map(c => `<div class="crow"><button class="choice ${v.can ? 'can' : ''} ${c.my ? 'my' : ''}" ${v.can ? `data-act="vote" data-vote="${v.id}" data-choice="${c.id}"` : 'disabled'}>
+        <div class="choice-l"><span>${esc(c.label)}</span><span class="r"><span class="you">${c.my ? 'you' : ''}</span><span>${c.count}</span></span></div>
+        ${c.desc ? `<div class="choice-d">${esc(c.desc)}</div>` : ''}
+        <div class="bar"><i style="width:${c.pct}%"></i></div>
+      </button>${c.url ? `<a class="ext" href="${esc(c.url)}" target="_blank" rel="noopener">Menu ↗</a>` : ''}</div>`).join('')}
+    </div>`).join('')}</section>`;
+    if (ms.length) out += `<div class="grp"><div class="grp-h"><span>Who’s on meals</span><span class="sub">(2 per job)</span></div>${ms.map(m => mealHtml(S, m, u)).join('')}</div>`;
+    return out + '</section>';
+  }).join('');
+  return head + days + '<div style="height:24px"></div>';
+}
+
+function cardHtml(o) {
+  let action = '';
+  if (o.frozen) action = `<div class="pills"><span class="pill ${o.frozen === 'Locked' ? 'lock' : ''}">${o.frozen}</span></div>`;
+  else if (o.btn && o.btn.action) action = `<button class="btn ${o.btn.cls}" data-act="${o.btn.action}" data-opt="${o.btn.action === 'pick' ? o.pickId : o.waitKey}">${esc(o.btn.label)}</button>`;
+  else if (o.btn) action = `<div class="btn ${o.btn.cls}" data-opt="${o.id}">${esc(o.btn.label)}</div>`;
+  const radios = o.radios && !o.inel && !o.frozen ? `<div class="radios">${o.radios.map(r => r.dis
+    ? `<span class="radio dis" title="15+ to drive"><i></i>${esc(r.text)}</span>`
+    : `<button class="radio ${r.on ? 'on' : ''}" data-act="variant" data-opt="${o.id}" data-variant="${r.id}" aria-pressed="${r.on}"><i></i>${esc(r.text)}</button>`).join('')}</div>` : '';
+  const foot = [o.deadline, o.url ? `<a class="ext" href="${esc(o.url)}" target="_blank" rel="noopener">More ↗</a>` : ''].filter(Boolean).join(' · ');
+  return `<article class="card ${o.mine ? 'mine' : ''} ${o.inel ? 'dim' : ''}" data-card="${o.id}">
+    <div class="card-top"><span class="card-name">${esc(o.name)}</span><span class="card-price">${o.priceHtml}</span></div>
+    <div class="card-desc">${esc(o.desc)}</div>
+    ${o.extra ? `<div class="card-extra">${esc(o.extra)}</div>` : ''}
+    ${radios}
+    ${o.constraints ? `<div class="card-cons">${esc(o.constraints)}</div>` : ''}
+    ${o.seats ? `<div class="card-cons">${esc(o.seats)}</div>` : ''}
+    <div class="card-going">${esc(o.going)}</div>
+    ${action}
+    ${foot ? `<div class="card-due">${foot}</div>` : ''}
+  </article>`;
+}
+
+function mealHtml(S, m, u) {
+  const kid = isKid(u);
+  return `<div class="meal" data-meal="${m.key}"><div class="meal-h"><b>${esc(m.title)}</b><span class="tiny">${esc(m.time)}</span></div>${m.cookIn ? `<div class="meal-note">${esc(COOK_IN_NOTE)}</div>` : ''}<div class="roles">${rolesOf(m).map(role => {
+    const names = S.meals[m.key][role], chips = [];
+    for (let i = 0; i < SLOTS; i++) {
+      const n = names[i];
+      if (n) chips.push(n === u && !kid
+        ? `<button class="chip me" data-act="meal" data-meal="${m.key}" data-role="${role}" data-on="0">You</button>`
+        : `<span class="chip">${esc(n)}</span>`);
+      else chips.push(!kid && !names.includes(u)
+        ? `<button class="chip open can" data-act="meal" data-meal="${m.key}" data-role="${role}" data-on="1">open</button>`
+        : `<span class="chip open">open</span>`);
+    }
+    return `<div class="role"><span>${esc(roleLabel(m, role))}</span><div class="chips">${chips.join('')}</div></div>`;
+  }).join('')}</div></div>`;
+}
+
+function viewMe() {
+  const S = app.state, u = app.user, kid = isKid(u);
+  const votes = buildVotes(S, u);
+  const my = parsePick(S.picks[u]);
+  const mk = (it, kind) => ({ ...it, kind });
+  const days = DAYS.map(d => {
+    const items = [...(LOCKED[d.key] || []), ...decided(votes, d.key)].map(it => mk(it, ''));
+    if (d.key === 'fri') {
+      const waiting = Object.keys(S.waitlist).filter(k => (S.waitlist[k] || []).includes(u)).map(waitName);
+      const who = kid ? `${u}’s` : 'yours';
+      items.push(my
+        ? mk({ time: my.opt.time, title: optName(my.id), place: my.opt.place, bring: my.opt.bring, transport: rideLine(S, my.opt) }, who)
+        : waiting.length
+          ? mk({ time: '—', title: `Waitlisted: ${waiting.join(', ')}`, place: 'Pick a backup on Choose in case a spot doesn’t open.', bring: '', transport: '' }, who)
+          : mk({ time: '—', title: 'No Friday pick yet', place: kid ? `Pick for ${u} on Choose.` : 'Pick one on Choose. Snowcat answers by Oct 3.', bring: '', transport: '' }, who));
+    }
+    votes.filter(v => v.day === d.key && !v.closed).forEach(v => items.push(mk({ time: v.time, title: v.title, place: kid ? 'Parents vote.' : `Vote by ${v.closes}`, bring: '', transport: '' }, 'vote')));
+    mealsFor(S, votes, d.key).forEach(m => rolesOf(m).forEach(role => {
+      if (!S.meals[m.key][role].includes(u)) return;
+      const shop = role === 'Shopping';
+      items.push(mk({ time: shop ? (m.shopTime || '4:30 PM') : m.time, title: `${m.title} — ${jobName(m, role)}`, place: shop ? 'City Market, Breckenridge' : 'the Airbnb kitchen', bring: shop ? 'the list' : '', transport: shop ? (m.shopTransport || 'SUV') : '' }, 'you’re on'));
+    }));
+    items.sort((a, b) => minutes(a.time) - minutes(b.time));
+    return { ...d, items };
+  });
+  const kidsWithExtras = kid ? [] : (household(u) || { members: [] }).members.filter(k => isKid(k) && pickCost(S.picks[k]));
+  return `<div class="pad" style="padding-bottom:20px">
+    <div class="me-top"><span class="u">${esc(u)}</span><button data-act="signout">· not you?</button></div>
+    <div class="h1">${kid ? `${esc(u)}’s` : 'My'} <em>Trip</em></div>
+    <div class="money" data-money>${esc(moneyLine(S, u))}${kidsWithExtras.length ? `<small>Extras include ${kidsWithExtras.map(k => `${k}’s ${optName(S.picks[k])} (${plus(pickCost(S.picks[k]))})`).join(' and ')}.</small>` : ''}</div>
+  </div>` + days.map(d => `<section class="itin"><div class="day-h"><span class="daynum">${d.num}</span><div><div class="dayname">${d.name}</div><div class="label daydate">${d.date}</div></div></div>
+    <div class="rows">${d.items.map(it => `<div class="it"><div><div class="t">${esc(it.time)}</div>${it.kind ? `<div class="k">${esc(it.kind)}</div>` : ''}</div><div style="min-width:0"><b>${esc(it.title)}</b><i>${esc(it.place)}</i>
+      ${it.bring ? `<div class="kv"><span>Bring</span><em>${esc(it.bring)}</em></div>` : ''}
+      ${it.transport ? `<div class="kv"><span>Getting there</span><em>${esc(it.transport)}</em></div>` : ''}
+    </div></div>`).join('')}</div>${d.note ? `<div class="daynote">${esc(d.note)}</div>` : ''}</section>`).join('') + '<div style="height:24px"></div>';
+}
+
+function viewPlanner() {
+  const S = app.state, open = !!app.pin && !!app.plannerItems && !!S;
+  let summary = '', body;
+  if (open) {
+    const nOpen = buildVotes(S, CONFIG.PLANNER).filter(v => !v.closed).length;
+    summary = `Room left inside the $1,250 plan: ${money(roomLeft(S))}. ${unchosen(S).length} haven’t picked Friday. ${nOpen} vote${nOpen === 1 ? '' : 's'} open.`;
+  }
+  if (!open && app.pin && !S) {
+    body = '<div class="gate"><div class="lede">Loading…</div></div>';
+  } else if (!open) {
+    body = `<div class="gate"><div>
+      <div class="eyebrow">${esc(CONFIG.PLANNER)} only</div>
+      <div class="h1">Enter <em>PIN</em></div>
+      <input class="pin" id="pin" type="password" inputmode="numeric" autocomplete="off" maxlength="8" placeholder="····" value="${esc(app.pinDraft)}" aria-label="Planner PIN">
+      <div class="hint ${app.pinErr ? 'err' : ''}">${app.pinErr ? 'Not it. Try again.' : 'Family members don’t need this.'}</div>
+      <div style="margin-top:20px"><a href="#/" class="tiny" style="text-decoration:underline">Back to the trip</a></div>
+    </div></div>`;
+  } else {
+    const votes = buildVotes(S, CONFIG.PLANNER);
+    const items = app.plannerItems.map(it => ({ ...it, option_ids: it.option_ids || [] }));
+    body = `<div class="pgrid"><div class="pmain">
+      <div class="eyebrow">Bookable items</div>
+      <div class="ptable">
+        <div class="prow h tiny"><span>Item</span><span>Status</span><span>Cost</span><span>Confirmation</span><span></span></div>
+        ${items.map(it => `<div class="prow" data-item="${esc(it.id)}">
+          <div class="name"><b>${esc(it.item)}</b><i>${esc(it.when_label)}${it.link ? ` · ${esc(it.link)}` : ''}</i></div>
+          <span><span class="tag ${it.locked ? 'locked' : it.status !== 'Open' ? 'booked' : ''}">${it.locked ? 'Locked' : esc(it.status)}</span></span>
+          <span>${esc(it.cost_label)}</span>
+          <span><input class="conf" data-act="conf" data-id="${esc(it.id)}" value="${esc(it.conf)}" placeholder="—" aria-label="Confirmation for ${esc(it.item)}"></span>
+          <span class="acts">
+            ${it.status === 'Open' ? `<button class="act" data-act="status" data-id="${esc(it.id)}" data-status="Booked">Mark booked</button>` : it.status === 'Booked' ? `<button class="act soft" data-act="status" data-id="${esc(it.id)}" data-status="Paid">Mark paid</button>` : ''}
+            <button class="act soft" data-act="lock" data-id="${esc(it.id)}" data-locked="${it.locked ? '0' : '1'}">${it.locked ? 'Unlock' : 'Lock'}</button>
+          </span>
+        </div>`).join('')}
+      </div>
+      <div class="hr"><span>Items from the ${money(PLAN_ROOM)} headroom</span><b>${money(itemsFund(S))}</b></div>
+      ${Object.entries(KID_FLIGHTS).map(([k, v]) => `<div class="hr"><span>${esc(k)}’s flight</span><b>${money(v)}</b></div>`).join('')}
+      <div class="hr"><span>Room left</span><b>${money(roomLeft(S))}</b></div>
+      <div class="eyebrow sec">Rides</div>
+      <div class="rides">
+        <div class="ride h tiny"><span>Car</span><span>Driver</span><span>Leaves the Airbnb</span><span>Going to</span></div>
+        ${RIDES.map(r => { const v = S.rides[r.key] || {}; const inp = (f, ph) => `<input class="conf ride-in" data-field="${f}" value="${esc(v[f] || '')}" placeholder="${ph}" aria-label="${r.label} ${f}">`;
+          return `<div class="ride" data-ride="${r.key}"><b>${r.label}</b>${inp('driver', 'e.g. Manny')}${inp('leave', 'e.g. 9:15')}${inp('dest', r.key === 'ride_suv' ? 'e.g. Good Times' : 'e.g. Nordic Center')}</div>`; }).join('')}
+      </div>
+      <div class="pnote">Once a leave time is set, My trip says “van leaves the Airbnb 9:15”; until then, “${RIDES_UNSET}”</div>
+      <div class="eyebrow sec">Votes</div>
+      <div class="vlist">${votes.map(v => `<div class="vl" data-vote="${v.id}"><b>${esc(v.title)}</b><span>${v.closed ? `Decided — ${esc(v.winner.label)}` : esc(v.tally.map(c => `${c.label} ${c.count}`).join(', ') + ` — closes ${v.closes}`)}</span>
+        <button class="act ${v.closed ? 'soft' : ''}" data-act="closevote" data-vote="${v.id}" data-closed="${v.closed ? '0' : '1'}">${v.closed ? 'Reopen' : 'Close vote'}</button></div>`).join('')}</div>
+      <div class="eyebrow sec">Change log</div>
+      <div class="log">${S.log.map(l => `<div>${esc(l.text)} <span>· ${esc(l.when)}</span></div>`).join('') || '<div><span>Nothing yet.</span></div>'}</div>
+    </div>
+    <aside>
+      <div class="eyebrow">Responses</div>
+      <div class="resp">
+        <div class="rrow h tiny"><span>Name</span><span>Friday</span><span>Sat</span><span>Meals</span></div>
+        ${PEOPLE.map(p => {
+          const kid = isKid(p), fr = optName(S.picks[p]);
+          const sat = VOTES[0].choices.find(c => c.id === S.votes.saturday[p]);
+          const duties = MEALS.flatMap(m => rolesOf(m).filter(r => S.meals[m.key][r].includes(p)).map(r => `${m.title.slice(0, 3)} ${jobName(m, r)}`));
+          return `<div class="rrow" data-person="${esc(p)}"><span class="n">${esc(p)}</span>
+            <span class="fri ${fr ? '' : 'empty'}"><span style="overflow:hidden;text-overflow:ellipsis">${esc(fr)}</span>${fr ? `<button class="act x" data-act="clearpick" data-person="${esc(p)}" title="Clear ${esc(p)}’s pick">×</button>` : ''}</span>
+            <span class="${kid || sat ? '' : 'empty'}">${kid ? '—' : sat ? esc(sat.label.replace('Breckenridge ', '').replace('Downstairs at ', '')) : ''}</span>
+            <span class="${kid || duties.length ? '' : 'empty'}" style="color:var(--muted)">${kid ? '—' : esc(duties.join(', '))}</span></div>`;
+        }).join('')}
+      </div>
+      <div class="pnote">Sand cells are unanswered. Kids don’t vote. Only you see confirmation numbers. Tap × to clear a mistaken pick.</div>
+      <div style="margin-top:20px"><button class="act soft" data-act="changepin">Change PIN</button></div>
+    </aside></div>`;
+  }
+  return `<div class="pshell"><div class="pbar"><div><span class="brand">Breckenridge 2026</span><span class="sub">Planner</span></div><div class="r"><span>${esc(summary)}</span>${open ? `<button class="lock" data-act="lockplanner">Lock</button>` : `<a class="lock" href="#/">Family view</a>`}</div></div><div style="flex:1;overflow:auto">${body}</div></div>`;
+}
+
+/* ============================================================
+   EVENTS
+   ============================================================ */
+async function planner(fn) {
+  try { await fn(app.pin, CONFIG.PLANNER); }
+  catch (e) {
+    if (/bad pin/i.test(e.message)) { app.pin = null; ss.set('breck-pin', null); app.plannerItems = null; app.pinErr = true; }
+    say('That didn’t save: ' + e.message);
+  }
+  await refresh();
+}
+
+async function tryPin(v) {
+  app.pinDraft = v;
+  if (v.length < 4) { app.pinErr = false; render(); return; }
+  let ok = false;
+  try { ok = await store.verifyPin(v) === true; } catch (e) { say('Couldn’t check the PIN: ' + e.message); }
+  if (ok) { app.pin = v; ss.set('breck-pin', v); app.pinDraft = ''; app.pinErr = false; await refresh(); }
+  else { app.pinErr = true; app.pinDraft = ''; render(); }
+}
+
+function setPick(u, next, S) {
+  const prev = S.picks[u];
+  const nextOpt = parsePick(next), nextKey = nextOpt ? capKey(nextOpt.opt) : null;
+  const wasWaiting = !!nextOpt && (S.waitlist[nextKey] || []).includes(u);
+  act(async () => { await store.setPick(u, next); if (next && wasWaiting) await store.setWait(nextKey, u, false); },
+    next ? (prev ? `${u} changed Friday: ${optName(prev)} → ${optName(next)}` : `${u} picked Friday: ${optName(next)}`) : `${u} cleared Friday: ${optName(prev)}`,
+    st => { if (next) st.picks[u] = next; else delete st.picks[u]; if (next && wasWaiting) st.waitlist[nextKey] = st.waitlist[nextKey].filter(n => n !== u); });
+}
+
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-act]');
+  if (!el || el.tagName === 'INPUT') return;
+  const S = app.state, u = app.user, d = el.dataset;
+  switch (d.act) {
+    case 'signin': app.user = d.name; ls.set('breck-user', d.name); go('choose'); render(); break;
+    case 'signout': app.user = null; ls.set('breck-user', null); go('who'); render(); break;
+    case 'todo': app.jump = d.target; if (route() === 'choose') render(); else go('choose'); break;
+    case 'pick': {
+      const id = d.opt, prev = S.picks[u];
+      setPick(u, prev === id ? null : id, S);
+      break;
+    }
+    case 'variant': {
+      // Switching sleds re-picks if this person is already on the snowmobile; otherwise it just sets the radio.
+      const o = OPTS.find(o => o.id === d.opt), next = pickKey(o, d.variant), prev = S.picks[u];
+      app.variant[u] = d.variant;
+      if (isOpt(prev, o) && prev !== next) setPick(u, next, S); else render();
+      break;
+    }
+    case 'wait': {
+      const id = d.opt, on = !(S.waitlist[id] || []).includes(u);
+      act(() => store.setWait(id, u, on), `${u} ${on ? 'joined' : 'left'} the ${waitName(id)} waitlist`,
+        st => { const w = st.waitlist[id] || []; st.waitlist[id] = on ? [...w, u] : w.filter(n => n !== u); });
+      break;
+    }
+    case 'vote': act(() => store.vote(d.vote, u, d.choice), '', st => { st.votes[d.vote][u] = d.choice; }); break;
+    case 'meal': {
+      const on = d.on === '1', names = S.meals[d.meal][d.role];
+      if (on && names.length >= SLOTS) return;
+      act(() => store.setMeal(d.meal, d.role, u, on), `${u} ${on ? 'took' : 'dropped'} ${jobName(MEALS.find(m => m.key === d.meal), d.role)}, ${MEALS.find(m => m.key === d.meal).title}`,
+        st => { st.meals[d.meal][d.role] = on ? [...names, u] : names.filter(n => n !== u); });
+      break;
+    }
+    case 'status': planner((pin, who) => store.setStatus(pin, d.id, d.status, who)); break;
+    case 'lock': planner((pin, who) => store.setLocked(pin, d.id, d.locked === '1', who)); break;
+    case 'closevote': planner((pin, who) => store.closeVote(pin, d.vote, d.closed === '1', who)); break;
+    case 'clearpick': if (confirm(`Clear ${d.person}’s Friday pick (${optName(S.picks[d.person])})?`)) planner((pin, who) => store.clearPick(pin, d.person, who)); break;
+    case 'changepin': {
+      const v = (prompt('New PIN (4–8 digits)') || '').trim();
+      if (!v) break;
+      planner(async pin => { await store.setPin(pin, v); app.pin = v; ss.set('breck-pin', v); say('PIN changed.'); });
+      break;
+    }
+    case 'lockplanner': app.pin = null; ss.set('breck-pin', null); app.plannerItems = null; app.pinDraft = ''; app.pinErr = false; render(); break;
+  }
+});
+document.addEventListener('input', e => {
+  if (e.target.id === 'pin') {
+    const v = e.target.value.replace(/\D/g, '').slice(0, 8);
+    e.target.value = v;
+    if (v.length === 4) tryPin(v); else app.pinDraft = v;
+  }
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && e.target.id === 'pin') tryPin(e.target.value);
+  if (e.key === 'Enter' && e.target.classList.contains('conf')) e.target.blur();
+});
+document.addEventListener('change', e => {
+  // Saves run on a timeout so a Tab or click to the next box lands before the redraw (render() then leaves the focused box alone).
+  if (e.target.classList.contains('ride-in')) {
+    // A ride row saves as one JSON value: { driver, leave, dest }; an unchanged row is not re-saved.
+    const row = e.target.closest('.ride'), key = row.dataset.ride, v = {};
+    row.querySelectorAll('input').forEach(i => { v[i.dataset.field] = i.value.trim(); });
+    const prev = (app.state && app.state.rides[key]) || {};
+    if (['driver', 'leave', 'dest'].every(f => (prev[f] || '') === v[f])) return;
+    const word = RIDES.find(r => r.key === key).word;
+    const said = [v.driver && `${v.driver} drives`, v.leave && `leaves ${v.leave}`, v.dest].filter(Boolean).join(', ') || 'cleared';
+    setTimeout(() => planner(async (pin, who) => { await store.setSetting(pin, key, JSON.stringify(v)); await store.log(`${who} settled the ${word} ride: ${said}`); }), 0);
+  } else if (e.target.classList.contains('conf')) {
+    const id = e.target.dataset.id, conf = e.target.value.trim();
+    setTimeout(() => planner(pin => store.setConf(pin, id, conf)), 0);
+  }
+});
+window.addEventListener('hashchange', () => { if (route() !== 'planner') { app.pinDraft = ''; app.pinErr = false; } if (!app.jump) window.scrollTo(0, 0); render(); });
+
+render();
+refresh();
+setInterval(() => { if (!document.hidden) refresh(); }, CONFIG.POLL_MS);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) refresh(); });
+</script>
+</body>
+</html>
