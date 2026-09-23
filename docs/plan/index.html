@@ -22,7 +22,7 @@ button{font:inherit;cursor:pointer;background:none;border:0;padding:0;color:inhe
 button,a,.person,.chip,.choice,.radio,.btn{touch-action:manipulation}
 @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 .rise{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
-@media (prefers-reduced-motion:reduce){.rise{animation:none}}
+@media (prefers-reduced-motion:reduce){.rise,.modal .sheet.pop{animation:none}}
 
 /* type */
 .eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--accent)}
@@ -259,6 +259,13 @@ details.more>summary{font-size:13px;font-weight:600;color:var(--muted);padding:1
 .notice{position:fixed;left:50%;bottom:calc(57px + env(safe-area-inset-bottom));transform:translateX(-50%);width:100%;max-width:480px;background:var(--ink);color:var(--card);font-size:13px;line-height:1.4;padding:11px 20px;z-index:19}
 .notice.bare{bottom:0;padding-bottom:calc(11px + env(safe-area-inset-bottom))}
 .notice + .toast{bottom:calc(108px + env(safe-area-inset-bottom))}
+.modal{position:fixed;inset:0;z-index:30;display:flex;align-items:center;justify-content:center;padding:20px}
+.modal .scrim{position:absolute;inset:0;background:rgba(28,25,23,.5)}
+.modal .sheet{position:relative;width:100%;max-width:360px;background:var(--card);border-radius:6px;padding:26px 22px 18px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
+.modal .sheet.pop{animation:rise .35s cubic-bezier(.2,.7,.2,1) both}
+.modal .h1{font-size:34px;margin-top:0}
+.modal .btn{margin-top:18px}
+.modal .btn + .btn{margin-top:8px}
 .notice.bare + .toast.bare{bottom:calc(52px + env(safe-area-inset-bottom))}
 .demo{position:fixed;right:10px;bottom:calc(66px + env(safe-area-inset-bottom));font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--accent);background:var(--card);border:1px solid var(--accent);padding:3px 8px;border-radius:999px;z-index:20;opacity:.9}
 </style>
@@ -293,7 +300,7 @@ const isKid = p => AGES[p] != null && AGES[p] < 13;
 const ADULTS = PEOPLE.filter(p => !isKid(p));
 const household = p => HH.find(h => h.members.includes(p));
 
-const PER_ADULT = 1250;   // the budget each adult's plan fits inside; nothing collected yet
+const PER_ADULT = 1250;   // the budget per adult: what each person should plan on for the trip (nothing is collected)
 const PLAN_ROOM = 3300;   // planning headroom inside that budget, planner-only
 const KID_FLIGHTS = { Camila: 250 };   // a kid's plane seat, paid from the planning headroom
 
@@ -310,7 +317,7 @@ const FRIDAY_LATE = 'I’m assigning Fridays now. Check back here.';   // once e
 // A snowmobile pick is stored as option_id "snowmobile:shared" / "snowmobile:solo".
 // ride: which run takes you on Friday ('van', 'snowcat' or 'suv'); the planner sorts out drivers and leave times (My trip shows them).
 // Nothing on the family side is capped; CAP_NOTE is what Bray keeps in mind when assigning (planner only).
-// The snowcat isn't capped: past 8, a second ride still fits the budget (see ASSUMPTIONS).
+// The snowcat isn't capped: past 8, a second ride still fits the budget (the snowcat card says so).
 const CAP_NOTE = 'SUV 5';
 const OPTS = [
   { id: 'ski', name: 'Ski / snowboard', pot: 'personal', cost: 225, desc: 'Lift ticket (Epic Day Pass), rental and helmet at Breckenridge Ski Resort.', constraints: 'Ages 5+', minAge: 5, time: '10:00 AM', place: 'Breckenridge Ski Resort', bring: 'layers, goggles, sunscreen', ride: 'van',
@@ -412,15 +419,11 @@ const jobName = r => r.toLowerCase();   // in sentences: "cooking", "cleaning"
 // Trip info: what we're assuming, in Bray's words.
 const ASSUMPTIONS = [
   DEADLINE_RULE,
-  'Kids don’t pay into the $1,250 and don’t pick a Friday. Camila’s plane seat and tubing come out of the shared budget, and Mateo flies on a lap. On Friday, kids go with one of you. If that’s a + activity, their add-on is on you.',
-  'Flights are about $250 each and aren’t booked. If fares move, the $1,250 moves.',
-  'The Airbnb is $8,400 for four nights. Check-in is 4 PM, checkout 11 AM. Early check-in only if the host says yes.',
-  'Two cars, a 12-seat van and an SUV, about $1,300 together. Most days we all move together.',
-  'Food isn’t in the $1,250. Breakfast and lunch are on you every day. Groceries get split. At restaurants everyone pays their own.',
+  'The Airbnb is $8,400 for four nights. Check-in 4 PM, checkout 11 AM.',
+  'Two cars, a 12-seat van and an SUV, about $1,300 together.',
+  'Breakfast and lunch are on you. Groceries get split. At restaurants everyone pays their own.',
   'Restaurants for 15 need a reservation. If the winner can’t fit us, I’ll pick the runner-up.',
-  'The snowcat is $800 for 8 people. If more than 8 want it, a second ride is another $800 and still fits the budget.',
-  'Prices are from the websites in September and can change. Tubing and the snowcat need reservations.',
-  'Weather can cancel anything outdoors. The backups are the Rec Center, the escape room, Main Street, or the house.',
+  'Prices are from the websites in September and can change.',
   'Ages: snowmobile drivers 15+, 18+ with a passenger. Passengers and dog sledding 5+.',
 ];
 
@@ -655,6 +658,8 @@ const app = {
   pickedAt: null,         // [card, when] of the last pick or move-up: a quick second tap lands on whatever it moved under the finger
   mealAt: null,           // [meal and job, when] of the last sign-up tap, for the same reason
   firstLoad: true,        // the first load of the trip may send a finished person to My trip
+  doneFor: null,          // who the "You're done" pop-up is showing for
+  doneAt: 0,              // when it opened: a double tap's second half mustn't close it
   moreOpen: false,        // "See all the options" open, once a Friday is assigned
   roseAt: null,           // when the roster's entrance started (it plays once per page load)
   jump: null,             // section to scroll to after the next render
@@ -706,18 +711,44 @@ async function refresh() {
 // Family action: show it at once, write it, log it, then re-read the truth. If the write fails, put the screen back and say so.
 async function act(fn, logText, optimistic) {
   loadSeq++;   // a load already in flight is stale now: it must not overwrite the tap
+  const who = app.user, wasLeft = app.state && who ? ownLeft(app.state, who) : 0;
   const before = app.state ? JSON.parse(JSON.stringify(app.state)) : null;
   if (optimistic && app.state) { optimistic(app.state); render(); }
   try {
     await fn();
     if (logText) { try { await store.log(logText); } catch {} }   // a lost log line never turns a saved pick into "didn't save"
     if (app.notice) { app.notice = ''; render(); }   // the bar goes the moment the save lands, not after the reload
+    if (wasLeft && app.state && !ownLeft(app.state, who) && !allClosed(app.state)) finished(who);   // that tap finished their picks and votes
   } catch (e) {
     if (before) app.state = before;
     app.notice = 'That didn’t save. Check your signal and tap again.';
     render();
   }
   await refresh();
+}
+
+// Friday picks and dinner votes still open for this person (a cook-in job is a volunteer ask, so it doesn't count).
+const ownLeft = (S, u) => todos(S, u).filter(x => x.kind !== 'meal').length;
+// The "You're done" pop-up, once per person on this phone.
+function finished(u) {
+  let seen = [];
+  try { seen = JSON.parse(ls.get('breck-done') || '[]'); } catch {}
+  if (!Array.isArray(seen)) seen = [];
+  if (seen.includes(u)) return;
+  ls.set('breck-done', JSON.stringify([...seen, u]));
+  app.doneFor = u; app.doneAt = Date.now(); render();
+}
+function doneModal() {
+  const since = Date.now() - app.doneAt, pop = since < 350 ? ` pop" style="animation-delay:-${since}ms` : '';   // a redraw mid-animation carries on
+  return `<div class="modal" role="dialog" aria-modal="true" aria-labelledby="done-h" data-done>
+    <div class="scrim" data-act="closedone"></div>
+    <div class="sheet${pop}">
+      <div class="h1" id="done-h">You’re <em>done</em></div>
+      <div class="lede">You can still change your answers until ${DEADLINE.replace(' ', '\u00a0')}. Otherwise, your itinerary is in My trip, and I’ll keep it updated there.</div>
+      <a class="btn next" href="#/me" data-act="nav">See My trip</a>
+      <button class="btn" data-act="closedone">Close</button>
+    </div>
+  </div>`;
 }
 
 /* ============================================================
@@ -870,9 +901,9 @@ function moneyLine(S, u) {
   const more = open && pickCost(b) > own ? pickCost(b) - own : 0;
   const hedge = open && (own || more) ? ' if you get your 1st choice' : '';
   const also = more ? ` Your 2nd, ${optName(b)}, would add ${money(more)}${own ? ' more' : ''}.` : '';
-  if (x) return `${money(PER_ADULT)} + ${money(x)} extra${hedge} = about ${money(total)}.${also} Nothing to pay yet.`;
-  if (hedge) return `${money(PER_ADULT)}${hedge}.${also} Nothing to pay yet.`;
-  return `${money(PER_ADULT)}, no extras. Nothing to pay yet.`;
+  if (x) return `Your budget: ${money(PER_ADULT)} + ${money(x)} extra${hedge} = about ${money(total)}.${also}`;
+  if (hedge) return `Your budget: ${money(PER_ADULT)}${hedge}.${also}`;
+  return `Your budget: ${money(PER_ADULT)}, no extras.`;
 }
 
 const itemsFund = S => S.items.reduce((a, it) => a + (it.fund || 0), 0);
@@ -897,6 +928,7 @@ function render() {
   const notice = app.notice || app.loadNotice;
   if (notice) html += `<div class="notice ${bare ? 'bare' : ''}" role="alert">${esc(notice)}</div>`;
   if (app.toast) html += `<div class="toast ${bare ? 'bare' : ''}" role="status">${esc(app.toast)}</div>`;
+  if (app.doneFor && app.doneFor === app.user && !bare && app.state) html += doneModal();
   if (DEMO) html += '<div class="demo" title="No Supabase key set">Demo</div>';
   if (html !== app.lastHtml) {
     // Keep the cursor where it was: remember the focused box, redraw, then put focus, text and caret back.
@@ -915,6 +947,9 @@ function render() {
     else if (r === 'planner' && !app.pin && (!prev || prev === document.body)) { const p = document.getElementById('pin'); if (p) p.focus(); }   // first paint of the gate only
   }
   app.anchor = null;
+  // The pop-up takes the focus, so the keyboard and screen readers land on it.
+  const dlg = document.querySelector('[data-done]');
+  if (dlg && !dlg.contains(document.activeElement)) dlg.querySelector('.btn.next').focus({ preventScroll: true });
   if (app.jump) {
     // Land the section just under the sticky header, however many lines the to-do strip wraps to.
     const el = document.getElementById('sec-' + app.jump), top = document.querySelector('.top'); app.jump = null;
@@ -981,7 +1016,7 @@ function viewInfo() {
     <div class="eyebrow">Trip info</div>
     <div class="h1">The <em>Trip</em></div>
     <div class="facts">Dec 10 to 14 · ${PEOPLE.length} of us · ${money(PER_ADULT)} per adult</div>
-    <div class="copy">Anything marked Included is already in the $1,250. Anything with a + is extra, and you pay it later. Nothing’s collected yet. ${allClosed(app.state) ? 'The votes are in. I’m booking what needs booking and will tell you what you owe and when.' : 'Once everyone’s answered, I’ll book what needs booking and tell you what you owe and when.'}</div>
+    <div class="copy">The $1,250 is the budget per adult: about what you’ll need for the trip, not counting food. Anything marked Included is in it. Anything with a + is extra, on top of it.</div>
     <div class="assume"><h3>What we’re assuming</h3><ul>${assume.map(a => `<li>${esc(a)}</li>`).join('')}</ul></div>
     <div class="box"><div class="label">If weather turns</div><p>Rec Center, Escape Room, Main Street, or the Airbnb. Check hours first.</p></div>
   </div>`;
@@ -994,7 +1029,7 @@ function fridayLine(S, u) {
     const o = parsePick(fin).opt, second = !!b && isOpt(b, o) && !(a && isOpt(a, o));
     return `${esc(`Your Friday: ${optName(fin)}.${second ? ' That was your 2nd choice.' : ''} Times, rides and what to bring are on`)} ${MY_TRIP}.`;
   }
-  if (!a && !b) return esc('Pick your favorite, then a backup in case your 1st doesn’t work out. A + price is extra, paid later. Nothing to pay yet.');
+  if (!a && !b) return esc('Pick your favorite, then a backup in case your 1st doesn’t work out. A + price is extra, on top of your $1,250.');
   if (!a) return esc(`Your 2nd choice: ${optName(b)}. Now pick a 1st.`);
   if (!b) return esc(`Your 1st choice: ${optName(a)}. Now pick a 2nd, in case the 1st doesn’t work out.`);
   return esc(`Your 1st: ${optName(a)}. 2nd: ${optName(b)}. ${fridayUnset(S)}`);
@@ -1167,7 +1202,7 @@ function viewMe() {
     return { ...d, items };
   });
   const kidsWithExtras = (household(u) || { members: [] }).members.filter(k => isKid(k) && pickCost(fridayGuess(S, k)));
-  const co = otherAdults(u)[0];   // a kid's add-on shows in full on both parents' pages; say it's paid once
+  const co = otherAdults(u)[0];   // a kid's add-on shows in full on both parents' pages; say to count it once
   // A row you can act on is one link, title and the line under it, so "Tap here" works wherever it's tapped.
   const row = it => {
     const body = `<b>${esc(it.title)}</b><i>${esc(it.place)}</i>`;
@@ -1176,7 +1211,7 @@ function viewMe() {
   };
   return `<div class="pad" style="padding-bottom:20px">
     <div class="h1">My <em>trip</em></div>
-    <div class="money" data-money>${esc(moneyLine(S, u))}${kidsWithExtras.length ? `<small>${esc(`Extras include ${kidsWithExtras.map(k => `${k}’s ${optName(fridayGuess(S, k))} (${plus(pickCost(fridayGuess(S, k)))})`).join(' and ')}.${co ? ` It’s on ${co}’s page too. You pay it once.` : ''}`)}</small>` : ''}</div>
+    <div class="money" data-money>${esc(moneyLine(S, u))}${kidsWithExtras.length ? `<small>${esc(`Extras include ${kidsWithExtras.map(k => `${k}’s ${optName(fridayGuess(S, k))} (${plus(pickCost(fridayGuess(S, k)))})`).join(' and ')}.${co ? ` It’s on ${co}’s page too; count it once.` : ''}`)}</small>` : ''}</div>
   </div>` + days.map(d => `<section class="itin"><div class="day-h"><span class="daynum">${d.num}</span><div><div class="dayname">${d.name}</div><div class="label daydate">${d.date}</div></div></div>
     <div class="rows">${d.items.map(it => `<div class="it"><div><div class="t">${esc(it.time)}</div>${it.kind ? `<div class="k">${esc(it.kind)}</div>` : ''}</div><div style="min-width:0">${row(it)}
       ${it.bring ? `<div class="kv"><span>Bring</span><em>${esc(it.bring)}</em></div>` : ''}
@@ -1304,6 +1339,8 @@ function setPick(u, rank, next, S) {
 // Within 0.7 s of a pick or move-up (on that card, when one is given).
 const justPicked = card => !!app.pickedAt && Date.now() - app.pickedAt[1] < 700 && (!card || app.pickedAt[0] === card);
 document.addEventListener('click', e => {
+  // The pop-up opens under the finger of the tap that finished: that tap's double can't close it or follow its link.
+  if (app.doneFor && Date.now() - app.doneAt < 400 && e.target.closest('[data-done]')) { e.preventDefault(); return; }
   // Right after a pick, the page can move new things under the finger (the Next button, a vendor link): a quick second tap is ignored.
   if (justPicked() && e.target.closest('.cards a.ext, .btn.next')) { e.preventDefault(); return; }
   const el = e.target.closest('[data-act]');
@@ -1335,6 +1372,7 @@ document.addEventListener('click', e => {
       app.navTop = true; break;
     }
     case 'unlock': tryPin(app.pinDraft); break;
+    case 'closedone': app.doneFor = null; render(); break;
     case 'todo': app.jump = d.target; if (route() === 'choose') render(); else go('choose'); break;
     case 'pick': {
       // Fills the first empty rank. With both taken the button is disabled, so a pick never overrides another card.
@@ -1423,6 +1461,7 @@ document.addEventListener('input', e => {
   }
 });
 document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && app.doneFor) { app.doneFor = null; render(); return; }
   if (e.key === 'Enter' && e.target.id === 'pin') { e.preventDefault(); tryPin(e.target.value); }
   if (e.key === 'Enter' && e.target.classList.contains('conf')) e.target.blur();
 });
@@ -1453,6 +1492,7 @@ history.scrollRestoration = 'manual';   // the page puts each screen back where 
 window.addEventListener('scroll', () => { app.pos[route() || 'choose'] = window.scrollY; }, { passive: true });
 window.addEventListener('hashchange', () => {
   const r = route();
+  app.doneFor = null;   // "See My trip", or any other move, closes the pop-up
   if (r !== 'planner') { app.pinDraft = ''; app.pinErr = false; app.pinShort = false; app.plannerItems = null; }   // confirmation numbers live only on the planner screen
   const jumped = !!app.jump;   // a to-do link scrolls to its section; render() clears the flag
   if (app.navTop) window.scrollTo(0, 0);   // a tab or link starts at the top
