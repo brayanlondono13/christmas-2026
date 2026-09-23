@@ -106,7 +106,7 @@ section[id]{scroll-margin-top:100px}
 .card-desc{font-family:var(--serif);font-size:14px;line-height:1.5;color:var(--muted);margin-top:6px}
 .card-extra{font-family:var(--serif);font-size:13px;line-height:1.5;color:var(--ink);margin-top:6px}
 .card-cons{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.5}
-.card-going{font-size:12px;margin-top:8px;line-height:1.5}
+.card-going{font-size:12px;margin-top:8px;line-height:1.5;color:var(--muted)}
 .card-due{font-size:12px;color:var(--muted);margin-top:4px}
 .card-due .ext{display:inline-block;padding:8px 0}
 .radios{display:flex;gap:14px;margin-top:10px;flex-wrap:wrap}
@@ -121,10 +121,15 @@ section[id]{scroll-margin-top:100px}
 .btn.unlock{width:180px;margin:14px auto 0}
 .btn.kid{color:var(--ink)}
 .btn.off{color:var(--muted);border-color:var(--ghost);cursor:default}
+.btn:disabled{cursor:default}
+.btn.off.sent{text-transform:none;letter-spacing:0;font-size:12px;font-weight:600;line-height:1.3}
+.rm{display:block;margin:2px auto 0;font-size:12px;color:var(--muted);text-decoration:underline;text-underline-offset:3px;padding:10px 12px}
 .pill{display:inline-block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--green);border:1px solid var(--green);padding:3px 9px;border-radius:999px}
 .pill.closed{color:var(--muted);border-color:var(--ghost)}
 .pills{margin-top:12px;display:flex}
 .note{font-family:var(--serif);font-size:13px;line-height:1.55;color:var(--muted);margin-top:14px;text-wrap:pretty}
+.final{font-family:var(--serif);font-size:14px;line-height:1.5;margin-top:10px;font-weight:600;text-wrap:pretty}
+.final.soft{font-weight:400;color:var(--muted)}
 .daynote{font-family:var(--serif);font-size:13px;line-height:1.5;color:var(--muted);margin-top:10px;text-wrap:pretty}
 .vrow{padding:11px 0 6px;border-bottom:1px dotted var(--line3)}
 .vrow-h{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
@@ -213,6 +218,16 @@ section[id]{scroll-margin-top:100px}
 .vl span{color:var(--muted);flex:1}
 .hr{display:grid;grid-template-columns:minmax(0,1fr) 110px;gap:10px;padding:8px 0;border-bottom:1px solid var(--line2);font-size:12px}
 .hr b{font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+.counts{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:12px;margin-top:12px;color:var(--muted)}
+.counts b{color:var(--ink);font-weight:600}
+.assign{margin-top:12px;border-top:1px solid var(--ink)}
+.arow{display:grid;grid-template-columns:84px minmax(0,1fr) minmax(0,1fr) 210px 28px;gap:10px;padding:6px 0;border-bottom:1px solid var(--line2);font-size:12px;align-items:center}
+.arow.h{padding:10px 0;border-bottom:1px solid var(--line)}
+.arow b{font-weight:600}
+.arow>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:5px 6px}
+.arow>span.empty{background:var(--sand)}
+.arow>span:last-child{overflow:visible;text-overflow:clip;padding:0;text-align:center}
+.sel{width:100%;font:inherit;font-size:12px;padding:5px 6px;border:1px solid var(--line);border-radius:3px;background:#fff}
 .rides{margin-top:12px;border-top:1px solid var(--ink)}
 .ride{display:grid;grid-template-columns:56px 1fr 1fr 1fr;gap:10px;padding:10px 0;border-bottom:1px solid var(--line2);align-items:center;font-size:12px}
 .ride.h{padding:10px 0;border-bottom:1px solid var(--line)}
@@ -221,14 +236,12 @@ section[id]{scroll-margin-top:100px}
 .log div{padding:9px 0;border-bottom:1px solid var(--line2);font-size:12px;line-height:1.5}
 .log div span{color:var(--muted)}
 .resp{margin-top:12px;border-top:1px solid var(--ink)}
-.rrow{display:grid;grid-template-columns:64px 1fr 70px 96px;gap:6px;padding:3px 0;border-bottom:1px solid var(--line2);font-size:11px;align-items:stretch}
+.rrow{display:grid;grid-template-columns:64px 62px 62px 62px 1fr;gap:6px;padding:3px 0;border-bottom:1px solid var(--line2);font-size:11px;align-items:stretch}
 .rrow.h{padding:10px 0;border-bottom:1px solid var(--line)}
 .rrow>span{padding:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .rrow>span.n{font-weight:600;padding:6px 0}
 .rrow>span:last-child{white-space:normal}
-.rrow>span.fri>span{white-space:normal}
 .rrow>span.empty{background:var(--sand)}
-.rrow>span.fri{display:flex;justify-content:space-between;align-items:center;gap:4px}
 .pnote{font-family:var(--serif);font-size:13px;line-height:1.5;color:var(--muted);margin-top:12px}
 .toast{position:fixed;left:50%;bottom:calc(76px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:var(--card);font-size:12px;padding:10px 14px;border-radius:4px;z-index:20;max-width:90vw}
 .toast.bare{bottom:20px}
@@ -243,7 +256,7 @@ section[id]{scroll-margin-top:100px}
 <div id="app"></div>
 <script>
 /* ============================================================
-   CONFIG — leave the key blank to run in demo mode (in-browser
+   CONFIG: leave the key blank to run in demo mode (in-browser
    state, seeded, nothing leaves the phone).
    ============================================================ */
 const CONFIG = {
@@ -271,98 +284,115 @@ const household = p => HH.find(h => h.members.includes(p));
 
 const PER_ADULT = 1250;   // the budget each adult's plan fits inside; nothing collected yet
 const PLAN_ROOM = 3300;   // planning headroom inside that budget, planner-only
-const GOOD_TIMES_SEATS = 5;   // the SUV: snowmobiles and dog sledding share these seats (driver included)
 const KID_FLIGHTS = { Camila: 250 };   // a kid's plane seat, paid from the planning headroom
 
-// pot: 'personal' = extra on top (cost), 'group' = in the $1,250, 'free' = free.
+// Friday: everyone picks a 1st and a 2nd choice; Bray assigns the final one in the planner after Oct 3.
+const RANKS = [1, 2];
+const ord = r => r === 1 ? '1st' : '2nd';
+const FRIDAY_UNSET = `${CONFIG.PLANNER}’s sorting out Friday after Oct 3.`;
+
+// pot: 'personal' = extra on top (cost), 'group' = in the $1,250.
 // A snowmobile pick is stored as option_id "snowmobile:shared" / "snowmobile:solo".
-// cap / capGroup: snowmobile and dog sledding share the SUV's 5 seats (one waitlist, keyed 'goodtimes'); the snowcat has its own 8.
-// ride: which car takes you on Friday ('suv' or 'van'); the planner settles drivers and leave times (My trip shows them).
+// ride: which car takes you on Friday ('suv' or 'van'); the planner sorts out drivers and leave times (My trip shows them).
+// Nothing on the family side is capped; CAP_NOTE is what Bray keeps in mind when assigning (planner only).
+const CAP_NOTE = 'snowcat 8, SUV 5';
 const OPTS = [
-  { id: 'ski', name: 'Ski / snowboard', pot: 'personal', cost: 225, desc: 'Lift ticket (Epic Day Pass), rental and helmet at Breckenridge Ski Resort.', constraints: 'Ages 5+', minAge: 5, due: 'Nov 28', time: '9:00 AM', place: 'Breckenridge Ski Resort', bring: 'layers, goggles, sunscreen', ride: 'van', url: 'https://www.breckenridge.com/plan-your-trip/lift-access/tickets.aspx' },
-  { id: 'snowmobile', name: 'Snowmobile', pot: 'personal', desc: 'Guided tour with Good Times Adventures, about 2 hours.', constraints: '15+ to drive, 18+ with a passenger, passengers 5+', minAge: 5, cap: GOOD_TIMES_SEATS, capGroup: 'goodtimes', seats: `${GOOD_TIMES_SEATS} seats in the SUV`,
+  { id: 'ski', name: 'Ski / snowboard', pot: 'personal', cost: 225, desc: 'Lift ticket (Epic Day Pass), rental and helmet at Breckenridge Ski Resort.', constraints: 'Ages 5+', minAge: 5, due: 'Nov 28', time: '9:00 AM', place: 'Breckenridge Ski Resort', bring: 'layers, goggles, sunscreen', ride: 'van',
+    links: [{ label: 'More', href: 'https://www.breckenridge.com/plan-your-trip/lift-access/tickets.aspx' }] },
+  { id: 'snowmobile', name: 'Snowmobile (share or own sled)', pot: 'personal', desc: 'Guided tour with Good Times Adventures, about 2 hours.', constraints: '15+ to drive, 18+ with a passenger, passengers 5+', minAge: 5,
     variants: [{ id: 'shared', label: 'Share a sled', cost: 189, name: 'Snowmobile, sharing a sled' }, { id: 'solo', label: 'My own sled', cost: 284, minAge: 15, name: 'Snowmobile, own sled' }],
-    due: 'Oct 15', time: '10:00 AM', place: 'Good Times Adventures, Tiger Road', bring: 'goggles, warm gloves, a license if you drive', ride: 'suv', url: 'https://goodtimesadventures.com/' },
-  { id: 'dog', name: 'Dog sledding', pot: 'personal', cost: 211, desc: 'Drive a team of huskies through the Swan River valley.', constraints: 'Ages 5+, 275 lb limit', minAge: 5, cap: GOOD_TIMES_SEATS, capGroup: 'goodtimes', seats: `${GOOD_TIMES_SEATS} seats in the SUV`, due: 'Oct 15', time: '10:00 AM', place: 'Good Times Adventures, Tiger Road', bring: 'warm layers and a camera', ride: 'suv', url: 'https://goodtimesadventures.com/' },
-  { id: 'snowcat', name: 'Snowcat', pot: 'group', desc: '90-minute heated snowcat ride to Josie’s Cabin with s’mores and drinks.', extra: 'In the $1,250 for the first 8. Mateo can ride on a lap.', cap: 8, due: 'Oct 3', time: '1:00 PM', place: 'Breckenridge Nordic Center', bring: 'layers and sunglasses', ride: 'van', url: 'https://www.breckenridgenordic.com/' },
-  { id: 'nordic', name: 'Snowshoe or cross-country ski', pot: 'group', desc: 'Nordic Center trail pass and rental. Pick which at the counter.', constraints: 'Kids 12 and under: free trail pass', due: 'Nov 15', time: '10:00 AM', place: 'Breckenridge Nordic Center', bring: 'waterproof boots, layers and water', ride: 'van', url: 'https://www.breckenridgenordic.com/' },
-  { id: 'gondola', name: 'Main Street + free gondola', pot: 'free', desc: 'Bakeries and galleries, then the BreckConnect Gondola up to Peak 7 and 8.', due: null, time: 'Anytime', place: 'Main Street, then the BreckConnect Gondola', bring: 'a camera', transport: 'Walk from the Airbnb, or catch the van' },
+    due: 'Oct 15', time: '10:00 AM', place: 'Good Times Adventures, Tiger Road', bring: 'goggles, warm gloves, a license if you drive', ride: 'suv',
+    links: [{ label: 'More', href: 'https://goodtimesadventures.com/snowmobiling.html' }] },
+  { id: 'dog', name: 'Dog sledding', pot: 'personal', cost: 211, desc: 'Drive a team of huskies through the Swan River valley.', constraints: 'Ages 5+, 275 lb limit', minAge: 5, due: 'Oct 15', time: '10:00 AM', place: 'Good Times Adventures, Tiger Road', bring: 'warm layers and a camera', ride: 'suv',
+    links: [{ label: 'More', href: 'https://goodtimesadventures.com/dogsledding.html' }] },
+  { id: 'snowcat', name: 'Snowcat', pot: 'group', desc: '90-minute heated snowcat ride to Josie’s Cabin with s’mores and drinks.', extra: 'In the $1,250 for the first 8. Mateo can ride on a lap.', due: 'Oct 3', time: '1:00 PM', place: 'Breckenridge Nordic Center', bring: 'layers and sunglasses', ride: 'van',
+    links: [{ label: 'More', href: 'https://www.breckenridgenordic.com/snowcat-rides-in-breckenridge/' }] },
+  { id: 'nordic', name: 'Snowshoe or cross-country ski', pot: 'group', desc: 'Trail pass and rental at the Nordic Center. Pick which one at the counter.', constraints: 'Kids 12 and under: free trail pass', due: 'Nov 15', time: '10:00 AM', place: 'Breckenridge Nordic Center', bring: 'waterproof boots, layers and water', ride: 'van',
+    links: [{ label: 'Snowshoe', href: 'https://www.breckenridgenordic.com/snowshoe-trails-in-breckenridge/' }, { label: 'Cross-country', href: 'https://www.breckenridgenordic.com/cross-country-skiing-in-breckenridge/' }] },
 ];
-// Waitlists are keyed by cap group (the snowcat by its own id). Names for the ones that aren't an option.
-const WAIT_NAMES = { goodtimes: 'SUV seat' };
-const FRIDAY_NOTE = `SUV goes to Good Times (${GOOD_TIMES_SEATS} seats). The van shuttles everyone else into town — resort gondola, Nordic Center, Main Street.`;
-// The planner settles who drives and when; stored in settings as ride_van / ride_suv (JSON: driver, leave, dest).
+const ALL_KEYS = OPTS.flatMap(o => o.variants ? o.variants.map(v => `${o.id}:${v.id}`) : [o.id]);
+// The planner sorts out who drives and when; stored in settings as ride_van / ride_suv (JSON: driver, leave, dest).
 const RIDES = [{ key: 'ride_van', label: 'Van', word: 'van' }, { key: 'ride_suv', label: 'SUV', word: 'SUV' }];
-const RIDES_UNSET = 'Rides get settled after Oct 3.';
+const RIDES_UNSET = 'I’ll sort out who drives after Oct 3.';
+
+// Three dinner votes. Cook in carries the sign-up rule; each restaurant gets one line, what it is and rough price.
+const COOK_IN_RULE = 'If 2 people don’t sign up to cook and 2 to clean by Nov 15, everyone’s on their own that night.';
+const COOK_IN = { id: 'cookin', label: 'Cook in', short: 'Cook in', desc: COOK_IN_RULE, place: 'the Airbnb kitchen' };
+const TOWN = [
+  COOK_IN,
+  { id: 'brewery', label: 'Breckenridge Brewery', short: 'Brewery', desc: 'Pub food, big tables, easy with kids. $$', place: 'Breckenridge Brewery, Main Street', url: 'https://www.breckbrew.com/visit/breckenridge/food/' },
+  { id: 'erics', label: "Downstairs at Eric's", short: "Eric's", desc: 'Burgers, pizza, arcade in the back. $$', place: "Downstairs at Eric's, Main Street", url: 'http://www.downstairsaterics.com/new/wp-content/uploads/2024/03/Erics-Menu-Web-03.11.24.pdf' },
+  { id: 'micasa', label: 'Mi Casa', short: 'Mi Casa', desc: 'Mexican, margaritas. $$', place: 'Mi Casa, Park Avenue', url: 'https://www.micasabreck.com/menu' },
+];
 const VOTES = [
-  { id: 'saturday', day: 'sat', title: 'Saturday dinner', closes: 'Oct 10', time: '6:30 PM', choices: [
-    { id: 'cookin', label: 'Cook in', desc: 'at the Airbnb', place: 'the Airbnb kitchen' },
-    { id: 'brewery', label: 'Breckenridge Brewery', desc: 'pub food, big tables', place: 'Breckenridge Brewery, Main Street', url: 'https://www.breckbrew.com/visit/breckenridge/food/' },
-    { id: 'erics', label: "Downstairs at Eric's", desc: 'burgers, pizza, a kids menu', place: "Downstairs at Eric's, Main Street", url: 'http://www.downstairsaterics.com/new/wp-content/uploads/2024/03/Erics-Menu-Web-03.11.24.pdf' },
-    { id: 'micasa', label: 'Mi Casa', desc: 'Mexican, margaritas', place: 'Mi Casa, Park Avenue', url: 'https://www.micasabreck.com/menu' },
+  { id: 'friday', day: 'fri', title: 'Friday dinner', closes: 'Oct 10', time: '6:30 PM', choices: TOWN },
+  { id: 'saturday', day: 'sat', title: 'Saturday dinner', closes: 'Oct 10', time: '6:30 PM', choices: TOWN },
+  { id: 'sunday', day: 'sun', title: 'Sunday farewell dinner', closes: 'Oct 10', time: '6:30 PM', choices: [
+    COOK_IN,
+    { id: 'rootstalk', label: 'Rootstalk', short: 'Rootstalk', desc: 'Fancy, chef’s tasting style, the splurge. $$$$', place: 'Rootstalk, Main Street', url: 'https://www.rootstalkbreck.com/dinner-menu' },
+    { id: 'lafrancaise', label: 'La Française', short: 'La Française', desc: 'French bistro, small and cozy. $$$', place: 'La Française, Main Street', url: 'https://www.lafrancaisebistrot.com/menus' },
+    { id: 'blueriver', label: 'Blue River Bistro', short: 'Blue River', desc: 'American bistro, live music. $$$', place: 'Blue River Bistro, Main Street', url: 'https://www.blueriverbistro.com/menus' },
   ] },
 ];
 // Travel times stay "Morning" / "Afternoon" until flights are booked.
 const LOCKED = {
   thu: [
-    { time: 'Morning', title: 'Land in Denver, drive up', place: 'Denver airport to the Airbnb, 2–2.5 hours on I-70', bring: 'ID, a water bottle, layers for the drive', transport: '12-passenger van and SUV from the airport' },
+    { time: 'Morning', title: 'Land in Denver, drive up', place: 'Denver airport to the Airbnb, 2 to 2.5 hours on I-70', bring: 'ID, a water bottle, layers for the drive', transport: '12-passenger van and SUV from the airport' },
     { time: 'Around noon', title: 'Lunch on the way (on you)', place: 'Frisco or Main Street', bring: '', transport: '' },
     { time: 'Afternoon', title: 'Groceries at City Market', place: 'Main Street or Carter Park with the kids', bring: '', transport: '' },
     { time: '4:00 PM', title: 'Check in at the Airbnb, hot tub', place: 'The Airbnb', bring: 'a swimsuit', transport: '' },
-    { time: '6:30 PM', title: 'Thursday dinner — pizza or takeout', place: 'Bray orders, we split it', bring: '', transport: '' },
+    { time: '6:30 PM', title: 'Thursday dinner, pizza', place: 'I’ll just order pizza and we split it', bring: '', transport: '' },
   ],
   fri: [
-    { time: 'Afternoon', title: 'Everyone back at the Airbnb', place: 'Hot tub, firepit, games, dinner', bring: '', transport: '' },
+    { time: 'Morning', title: 'Breakfast out, on you', place: 'Main Street', bring: '', transport: '' },
+    { time: 'Evening', title: 'Back at the Airbnb, hot tub, dinner', place: 'The Airbnb', bring: '', transport: '' },
   ],
   sat: [
-    { time: '9:00 AM', title: 'Main Street morning', place: 'La Française bakery first, then the galleries', bring: 'walking boots', transport: 'Walk from the Airbnb' },
+    { time: 'Morning', title: 'Breakfast out, then Main Street', place: 'Get your secret santa gift, ride the free gondola. Breakfast is on you.', bring: 'walking boots', transport: 'Walk from the Airbnb' },
     { time: '2:00 PM', title: 'Tubing at Frisco Adventure Park', place: 'Frisco, 20 minutes away', bring: 'snow pants, waterproof boots, gloves', transport: 'Van and SUV, leaving 1:15' },
-    { time: 'Dark', title: 'Main Street holiday lights', place: 'On the way back from Frisco', bring: 'a warm hat', transport: 'Van and SUV' },
-    { time: '8:00 PM', title: 'White elephant and movie night', place: 'Great room', bring: 'a wrapped $20–25 gift', transport: '' },
+    { time: 'Dark', title: 'Back at the Airbnb by dark', place: 'The Main Street lights are on every night if you want to go see them.', bring: '', transport: 'Van and SUV' },
+    { time: '8:00 PM', title: 'Secret santa and movie night', place: 'Great room', bring: 'your secret santa gift, wrapped, $20 to 25', transport: '' },
   ],
   sun: [
+    { time: 'Morning', title: 'Breakfast out, on you', place: 'Main Street', bring: '', transport: '' },
     { time: '9:30 AM', title: 'Sledding at Carter Park', place: 'A short walk from the Airbnb', bring: 'sleds and snow pants', transport: 'Walk' },
     { time: '1:00 PM', title: 'Ice skating', place: 'Stephen C. West Arena · In the $1,250', bring: 'thick socks and gloves', transport: 'Van and SUV' },
     { time: 'Afternoon', title: 'Open afternoon', place: 'The Airbnb, Main Street, Blue River, or Sapphire Point', bring: '', transport: '' },
-    { time: '6:30 PM', title: 'Farewell dinner, cook in', place: 'The Airbnb, our last night', bring: '', transport: '' },
   ],
   mon: [
     { time: 'Afternoon', title: 'Fly home', place: 'Check out of the Airbnb, drive to Denver', bring: 'everything you came with', transport: '12-passenger van and SUV' },
   ],
 };
 const DAYS = [
-  { key: 'thu', num: '01', name: 'Thursday', date: 'December 10', note: 'Earlier if the host allows early check-in — asking.' },
+  { key: 'thu', num: '01', name: 'Thursday', date: 'December 10', note: 'Earlier if the host says yes to early check-in. I’m asking.' },
   { key: 'fri', num: '02', name: 'Friday', date: 'December 11' },
   { key: 'sat', num: '03', name: 'Saturday', date: 'December 12' },
   { key: 'sun', num: '04', name: 'Sunday', date: 'December 13' },
   { key: 'mon', num: '05', name: 'Monday', date: 'December 14' },
 ];
-// Meal sign-ups. Thursday is takeout (a locked row above), so it has no sign-up; Saturday's appears only if Cook in wins the vote.
-// roles defaults to ROLES; roleLabels renames a job on screen; cookIn adds the fallback line; shopTime/shopTransport shape the shopper's My trip row.
-const COOK_IN_NOTE = 'Cook in if 2 people take Cooking by Nov 15. Otherwise we order in and split it.';
+// Meal sign-ups: Cooking and Cleaning, 2 each. A night's sign-up appears only after Cook in wins that night's vote.
+const MEAL_NOTE = 'Sign up below. 2 to cook and 2 to clean by Nov 15, or everyone’s on their own that night.';
 const MEALS = [
-  { key: 'fribf', day: 'fri', title: 'Friday breakfast', time: '8:00 AM', roles: ['Shopping'], roleLabels: { Shopping: 'City Market run' }, shopTime: '8:00 AM', shopTransport: 'Either car, before the Friday rides leave' },
-  { key: 'fri', day: 'fri', title: 'Friday dinner', time: '6:30 PM', cookIn: true },
-  { key: 'sat', day: 'sat', title: 'Saturday dinner', time: '6:30 PM', cookIn: true, needsVote: 'saturday', winner: 'cookin' },
-  { key: 'sun', day: 'sun', title: 'Farewell dinner', time: '6:30 PM', cookIn: true },
+  { key: 'fri', day: 'fri', title: 'Friday dinner', time: '6:30 PM', needsVote: 'friday' },
+  { key: 'sat', day: 'sat', title: 'Saturday dinner', time: '6:30 PM', needsVote: 'saturday' },
+  { key: 'sun', day: 'sun', title: 'Sunday farewell dinner', time: '6:30 PM', needsVote: 'sunday' },
 ];
-const ROLES = ['Cooking', 'Shopping', 'Cleanup'];
+const ROLES = ['Cooking', 'Cleaning'];
 const SLOTS = 2;
-const rolesOf = m => m.roles || ROLES;
-const roleLabel = (m, r) => (m.roleLabels && m.roleLabels[r]) || r;
-const jobName = (m, r) => (m.roleLabels && m.roleLabels[r]) ? m.roleLabels[r] : r.toLowerCase();   // in sentences: "cleanup", "City Market run"
+const jobName = r => r.toLowerCase();   // in sentences: "cooking", "cleaning"
 // Trip info: what we're assuming, in Bray's words.
 const ASSUMPTIONS = [
-  'Kids aren’t charged. Camila’s plane seat and tubing come out of the shared budget; Mateo flies on a lap.',
+  'Kids aren’t charged. Camila’s plane seat and tubing come out of the shared budget. Mateo flies on a lap.',
   'Flights are about $250 each and aren’t booked. If fares move, the $1,250 moves.',
   'The Airbnb is $8,400 for four nights. Check-in is 4 PM, checkout 11 AM. Early check-in only if the host says yes.',
-  'Two cars: a 12-seat van and an SUV, about $1,300 together. On Friday only snowmobiles and dog sledding need a car; everything else that day is in town. Other days we all move together.',
-  'Food isn’t in the $1,250. Groceries get split; at restaurants everyone pays their own.',
-  'Cook-in nights only happen if two people sign up to cook. Otherwise we order in and split it.',
+  'Two cars, a 12-seat van and an SUV, about $1,300 together. Most days we all move together.',
+  'Food isn’t in the $1,250. Groceries get split. At restaurants everyone pays their own.',
+  COOK_IN_RULE,
+  'Restaurants for 15 need a reservation. If the winner can’t fit us, I’ll pick the runner-up.',
   'The snowcat is $800 for 8 people. If more than 8 want it, a second ride is another $800 and still fits the budget.',
-  'Prices are from the websites in September and can change. Tubing and the snowcat need reservations; if you don’t answer by the date on the card, you’ll get whatever’s left.',
+  'Prices are from the websites in September and can change. Tubing and the snowcat need reservations. If you don’t answer by the date on the card, you’ll get whatever’s left.',
   'Weather can cancel anything outdoors. The backups are the Rec Center, the escape room, Main Street, or the house.',
-  'Ages: snowmobile drivers 15+, 18+ with a passenger; passengers and dog sled 5+.',
+  'Ages: snowmobile drivers 15+, 18+ with a passenger. Passengers and dog sledding 5+.',
 ];
 
 /* ---------- helpers ---------- */
@@ -383,23 +413,20 @@ function parsePick(id) {
   return { opt, variant, id: opt.variants ? `${opt.id}:${variant.id}` : opt.id };
 }
 const pickKey = (o, vid) => o.variants ? `${o.id}:${vid || o.variants[0].id}` : o.id;
-const optKeys = o => o.variants ? o.variants.map(v => pickKey(o, v.id)) : [o.id];
 const optName = id => { const p = parsePick(id); return p ? (p.variant ? p.variant.name : p.opt.name) : ''; };
 const pickCost = id => { const p = parsePick(id); return p && p.opt.pot === 'personal' ? (p.variant ? p.variant.cost : p.opt.cost) || 0 : 0; };
 const isOpt = (id, o) => { const p = parsePick(id); return !!p && p.opt.id === o.id; };
 
-// Names as a sentence. The signed-in person is "you" (or their name, when a parent is tapping for a kid).
-function sentence(names, u) {
-  const me = isKid(u) ? u : 'you';
-  const others = names.filter(n => n !== u);
-  const a = names.includes(u) ? [...others, me] : others;
-  if (!a.length) return 'No one yet.';
-  if (a.length === 1) return a[0] === me ? `Just ${me} so far.` : `${a[0]}.`;
-  return a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1] + '.';
-}
+// This person's picks: { 1: id, 2: id }. rankOf: which rank a card holds for them (0 if none). openRank: the first empty rank (0 if both taken).
+const pickOf = (S, u, rank) => (S.picks[u] || {})[rank] || null;
+const rankOf = (S, u, o) => RANKS.find(r => isOpt(pickOf(S, u, r), o)) || 0;
+const openRank = (S, u) => RANKS.find(r => !pickOf(S, u, r)) || 0;
+const hasBoth = (S, u) => RANKS.every(r => pickOf(S, u, r));
+// What this person's Friday costs for now: the assignment once Bray has made it, else their 1st choice (or 2nd if that's all they have).
+const fridayGuess = (S, u) => S.assigned[u] || pickOf(S, u, 1) || pickOf(S, u, 2) || null;
 
-// Sort key for a time label: Morning < clock times < Afternoon < Dark < Evening < Anytime.
-const VAGUE = { 'Morning': 6 * 60, 'Around noon': 12 * 60, 'Afternoon': 13 * 60, 'Dark': 17 * 60 + 30, 'Evening': 18 * 60, 'Anytime': 23 * 60 + 58, '—': 23 * 60 + 59 };
+// Sort key for a time label: '' (a placeholder row) < Morning < clock times < Afternoon < Dark < Evening < Anytime.
+const VAGUE = { '': -1, 'Morning': 6 * 60, 'Around noon': 12 * 60, 'Afternoon': 13 * 60, 'Dark': 17 * 60 + 30, 'Evening': 18 * 60, 'Anytime': 23 * 60 + 58 };
 function minutes(t) {
   if (VAGUE[t] != null) return VAGUE[t];
   const m = /^(\d{1,2}):(\d{2})\s*(AM|PM)$/i.exec(String(t).trim());
@@ -409,22 +436,22 @@ function minutes(t) {
 }
 
 /* ============================================================
-   STORES — both return the same normalized state from load():
-   { picks, waitlist, votes, meals, items, closed, log, rides }
+   STORES: both return the same normalized state from load():
+   { picks, assigned, votes, meals, items, closed, log, rides }
    ============================================================ */
 function normalize(rows) {
-  const picks = {}, waitlist = {}, votes = {}, meals = {}, closed = {}, rides = {};
-  for (const r of rows.picks) if (r.option_id) picks[r.person] = r.option_id;
-  for (const r of rows.waitlist) (waitlist[r.option_id] ||= []).push(r.person);
+  const picks = {}, assigned = {}, votes = {}, meals = {}, closed = {}, rides = {};
+  for (const r of rows.picks) if (r.option_id && RANKS.includes(+r.rank)) (picks[r.person] ||= {})[+r.rank] = r.option_id;
+  for (const r of rows.assignments || []) if (r.option_id) assigned[r.person] = r.option_id;
   for (const r of rows.votes) (votes[r.vote_id] ||= {})[r.person] = r.choice_id;
-  for (const m of MEALS) meals[m.key] = Object.fromEntries(rolesOf(m).map(r => [r, []]));
+  for (const m of MEALS) meals[m.key] = Object.fromEntries(ROLES.map(r => [r, []]));
   for (const r of rows.meals) { const m = meals[r.meal_key]; if (m && m[r.role] && !m[r.role].includes(r.person)) m[r.role].push(r.person); }
   for (const v of VOTES) votes[v.id] ||= {};
   for (const r of rows.voteState) closed[r.vote_id] = !!r.closed;
   for (const r of rows.settings || []) { try { rides[r.key] = JSON.parse(r.value); } catch { rides[r.key] = null; } }
-  const items = rows.items.map(it => ({ ...it, option_ids: it.option_ids || [], locked: !!it.locked })).sort((a, b) => a.sort - b.sort || a.id.localeCompare(b.id));
+  const items = rows.items.map(it => ({ ...it })).sort((a, b) => a.sort - b.sort || a.id.localeCompare(b.id));
   const log = rows.log.map(l => ({ text: l.text, when: fmtWhen(l.created_at) }));
-  return { picks, waitlist, votes, meals, items, closed, log, rides };
+  return { picks, assigned, votes, meals, items, closed, log, rides };
 }
 
 class SupabaseStore {
@@ -447,9 +474,9 @@ class SupabaseStore {
   del(path) { return this.req(path, { method: 'DELETE', headers: { Prefer: 'return=minimal' } }); }
   rpc(fn, args) { return this.req('/rpc/' + fn, { method: 'POST', body: JSON.stringify(args) }); }
   async load() {
-    const [picks, waitlist, votes, meals, items, voteState, log, settings] = await Promise.all([
-      this.get('/picks?select=person,option_id'),
-      this.get('/waitlist?select=option_id,person&order=created_at'),
+    const [picks, assignments, votes, meals, items, voteState, log, settings] = await Promise.all([
+      this.get('/picks?select=person,rank,option_id'),
+      this.get('/assignments?select=person,option_id'),
       this.get('/votes?select=vote_id,person,choice_id'),
       this.get('/meal_slots?select=meal_key,role,person&order=created_at'),
       this.get('/items_public?select=*&order=sort,id'),
@@ -457,17 +484,12 @@ class SupabaseStore {
       this.get('/change_log?select=text,created_at&order=id.desc&limit=40'),
       this.get('/settings_public?select=key,value').catch(() => []),   // rides; tolerate a project that hasn't run the Round 3 SQL yet
     ]);
-    return normalize({ picks, waitlist, votes, meals, items, voteState, log, settings });
+    return normalize({ picks, assignments, votes, meals, items, voteState, log, settings });
   }
-  setPick(person, id) {
+  setPick(person, rank, id) {
     return id
-      ? this.post('/picks', { person, option_id: id, updated_at: new Date().toISOString() }, 'resolution=merge-duplicates,return=minimal')
-      : this.del('/picks?person=eq.' + encodeURIComponent(person));
-  }
-  setWait(id, person, on) {
-    return on
-      ? this.post('/waitlist', { option_id: id, person }, 'resolution=ignore-duplicates,return=minimal')
-      : this.del(`/waitlist?option_id=eq.${encodeURIComponent(id)}&person=eq.${encodeURIComponent(person)}`);
+      ? this.post('/picks', { person, rank, option_id: id, updated_at: new Date().toISOString() }, 'resolution=merge-duplicates,return=minimal')
+      : this.del(`/picks?person=eq.${encodeURIComponent(person)}&rank=eq.${rank}`);
   }
   vote(vid, person, cid) { return this.post('/votes', { vote_id: vid, person, choice_id: cid, updated_at: new Date().toISOString() }, 'resolution=merge-duplicates,return=minimal'); }
   setMeal(key, role, person, on) {
@@ -479,10 +501,10 @@ class SupabaseStore {
   verifyPin(pin) { return this.rpc('planner_verify', { p_pin: pin }); }
   plannerItems(pin) { return this.rpc('planner_items', { p_pin: pin }); }
   setStatus(pin, id, status, who) { return this.rpc('planner_set_status', { p_pin: pin, p_id: id, p_status: status, p_who: who }); }
-  setLocked(pin, id, locked, who) { return this.rpc('planner_set_locked', { p_pin: pin, p_id: id, p_locked: locked, p_who: who }); }
   setConf(pin, id, conf) { return this.rpc('planner_set_conf', { p_pin: pin, p_id: id, p_conf: conf }); }
   closeVote(pin, vid, closed, who) { return this.rpc('planner_close_vote', { p_pin: pin, p_vote_id: vid, p_closed: closed, p_who: who }); }
   clearPick(pin, person, who) { return this.rpc('planner_clear_pick', { p_pin: pin, p_person: person, p_who: who }); }
+  assign(pin, person, option, who) { return this.rpc('planner_assign', { p_pin: pin, p_person: person, p_option: option || null, p_who: who }); }
   setPin(pin, newPin) { return this.rpc('planner_set_pin', { p_pin: pin, p_new_pin: newPin }); }
   setSetting(pin, key, value) { return this.rpc('planner_set_setting', { p_pin: pin, p_key: key, p_value: value }); }
 }
@@ -492,37 +514,47 @@ class DemoStore {
   constructor() {
     this.pin = '2026';
     this.seed();
-    try { const saved = JSON.parse(localStorage.getItem('breck-demo') || 'null'); if (saved && saved.v === 4) Object.assign(this, saved); } catch {}
+    try { const saved = JSON.parse(localStorage.getItem('breck-demo') || 'null'); if (saved && saved.v === 5) Object.assign(this, saved); } catch {}
   }
-  save() { const { picks, waitlist, votes, meals, items, voteState, logRows, nextId, pin, settings } = this; try { localStorage.setItem('breck-demo', JSON.stringify({ v: 4, picks, waitlist, votes, meals, items, voteState, logRows, nextId, pin, settings })); } catch {} }
+  save() { const { picks, assignments, votes, meals, items, voteState, logRows, nextId, pin, settings } = this; try { localStorage.setItem('breck-demo', JSON.stringify({ v: 5, picks, assignments, votes, meals, items, voteState, logRows, nextId, pin, settings })); } catch {} }
   seed() {
     const now = Date.now(), ago = h => new Date(now - h * 3600e3).toISOString();
-    this.picks = { Bray: 'ski', Brian: 'snowmobile:shared', Sandra: 'snowmobile:shared', Manny: 'snowmobile:solo', Ivy: 'dog', Natalia: 'snowcat', Anthony: 'snowcat', Camila: 'snowcat', Luis: 'snowcat', Anna: 'snowcat', Hailey: 'snowcat', Isaiah: 'snowcat', Leah: 'snowcat' };
-    this.waitlist = [];
-    this.votes = { saturday: { Bray: 'cookin', Brian: 'cookin', Sandra: 'cookin', Natalia: 'cookin', Anthony: 'cookin', Luis: 'cookin', Anna: 'cookin', Manny: 'brewery', Ivy: 'brewery', Hailey: 'erics' } };
-    this.meals = [{ meal_key: 'fri', role: 'Cooking', person: 'Anna' }, { meal_key: 'fri', role: 'Cooking', person: 'Ivy' }, { meal_key: 'fribf', role: 'Shopping', person: 'Luis' }];
+    this.picks = {
+      Bray: { 1: 'ski', 2: 'nordic' }, Brian: { 1: 'snowmobile:shared', 2: 'snowcat' }, Sandra: { 1: 'snowmobile:shared', 2: 'snowcat' }, Manny: { 1: 'snowmobile:solo', 2: 'dog' }, Ivy: { 1: 'dog', 2: 'snowcat' },
+      Natalia: { 1: 'snowcat', 2: 'nordic' }, Anthony: { 1: 'snowcat', 2: 'ski' }, Camila: { 1: 'snowcat', 2: 'nordic' }, Luis: { 1: 'snowcat', 2: 'nordic' }, Anna: { 1: 'snowcat', 2: 'nordic' },
+      Hailey: { 1: 'snowcat', 2: 'dog' }, Isaiah: { 1: 'snowcat' }, Leah: { 1: 'snowcat', 2: 'ski' },
+    };
+    this.assignments = {};   // person → option id, once Bray assigns Friday
+    this.votes = {
+      friday: { Bray: 'cookin', Brian: 'cookin', Sandra: 'brewery', Natalia: 'cookin', Anthony: 'cookin', Luis: 'cookin', Anna: 'erics', Manny: 'brewery' },
+      saturday: { Bray: 'cookin', Brian: 'cookin', Sandra: 'cookin', Natalia: 'cookin', Anthony: 'cookin', Luis: 'cookin', Anna: 'cookin', Manny: 'brewery', Ivy: 'brewery', Hailey: 'erics' },
+      sunday: { Bray: 'rootstalk', Brian: 'lafrancaise', Sandra: 'lafrancaise', Natalia: 'cookin', Anthony: 'blueriver', Luis: 'rootstalk', Anna: 'rootstalk' },
+    };
+    this.meals = [{ meal_key: 'fri', role: 'Cooking', person: 'Anna' }, { meal_key: 'fri', role: 'Cooking', person: 'Ivy' }];
     this.items = [
-      { id: 'snowcat', sort: 1, item: 'Private snowcat · Nordic Center', status: 'Open', when_label: 'Fri Dec 11 · 1:00 PM', cost_label: '$800 · group fund', fund: 800, link: 'breckenridgenordic.com', conf: '', locked: false, option_ids: ['snowcat'] },
-      { id: 'tubing', sort: 2, item: 'Tubing · Frisco Adventure Park', status: 'Booked', when_label: 'Sat Dec 12 · 2:00 PM', cost_label: '$572 · group fund', fund: 572, link: 'townoffrisco.com', conf: 'FAP-88213', locked: false, option_ids: [] },
-      { id: 'skating', sort: 3, item: 'Ice skating · Stephen C. West Arena', status: 'Open', when_label: 'Sun Dec 13 · 1:00 PM', cost_label: '$260 reserve · group fund', fund: 260, link: 'walk-in', conf: '', locked: false, option_ids: [] },
-      { id: 'ski', sort: 5, item: 'Epic Day Passes', status: 'Open', when_label: 'Fri Dec 11', cost_label: 'about $225 pp · personal', fund: 0, link: 'epicpass.com', conf: '', locked: false, option_ids: ['ski'] },
-      { id: 'snowmobile', sort: 6, item: 'Snowmobile tours · Good Times', status: 'Open', when_label: 'Fri Dec 11 · 10:00 AM', cost_label: '$189–284 pp · personal', fund: 0, link: 'goodtimesadventures.com', conf: '', locked: false, option_ids: ['snowmobile:shared', 'snowmobile:solo'] },
-      { id: 'dog', sort: 7, item: 'Dog sledding · Good Times', status: 'Open', when_label: 'Fri Dec 11 · 10:00 AM', cost_label: '$211 pp · personal', fund: 0, link: 'goodtimesadventures.com', conf: '', locked: false, option_ids: ['dog'] },
-      { id: 'satdinner', sort: 8, item: 'Saturday dinner reservation', status: 'Open', when_label: 'Sat Dec 12 · 6:30 PM', cost_label: 'you pay', fund: 0, link: 'after the vote', conf: '', locked: false, option_ids: [] },
+      { id: 'snowcat', sort: 1, item: 'Private snowcat · Nordic Center', status: 'Open', when_label: 'Fri Dec 11 · 1:00 PM', cost_label: '$800 · group fund', fund: 800, link: 'breckenridgenordic.com', conf: '' },
+      { id: 'tubing', sort: 2, item: 'Tubing · Frisco Adventure Park', status: 'Booked', when_label: 'Sat Dec 12 · 2:00 PM', cost_label: '$572 · group fund', fund: 572, link: 'townoffrisco.com', conf: 'FAP-88213' },
+      { id: 'skating', sort: 3, item: 'Ice skating · Stephen C. West Arena', status: 'Open', when_label: 'Sun Dec 13 · 1:00 PM', cost_label: '$260 reserve · group fund', fund: 260, link: 'walk-in', conf: '' },
+      { id: 'ski', sort: 5, item: 'Epic Day Passes', status: 'Open', when_label: 'Fri Dec 11', cost_label: 'about $225 pp · personal', fund: 0, link: 'epicpass.com', conf: '' },
+      { id: 'snowmobile', sort: 6, item: 'Snowmobile tours · Good Times', status: 'Open', when_label: 'Fri Dec 11 · 10:00 AM', cost_label: '$189 to 284 pp · personal', fund: 0, link: 'goodtimesadventures.com', conf: '' },
+      { id: 'dog', sort: 7, item: 'Dog sledding · Good Times', status: 'Open', when_label: 'Fri Dec 11 · 10:00 AM', cost_label: '$211 pp · personal', fund: 0, link: 'goodtimesadventures.com', conf: '' },
+      { id: 'fridinner', sort: 8, item: 'Friday dinner reservation', status: 'Open', when_label: 'Fri Dec 11 · 6:30 PM', cost_label: 'you pay', fund: 0, link: 'after the vote', conf: '' },
+      { id: 'satdinner', sort: 9, item: 'Saturday dinner reservation', status: 'Open', when_label: 'Sat Dec 12 · 6:30 PM', cost_label: 'you pay', fund: 0, link: 'after the vote', conf: '' },
+      { id: 'sundinner', sort: 10, item: 'Sunday farewell dinner reservation', status: 'Open', when_label: 'Sun Dec 13 · 6:30 PM', cost_label: 'you pay', fund: 0, link: 'after the vote', conf: '' },
     ];
-    this.voteState = { saturday: false };
-    this.settings = {};   // ride_van / ride_suv once the planner settles them
+    this.voteState = { friday: false, saturday: false, sunday: false };
+    this.settings = {};   // ride_van / ride_suv once the planner sorts them out
     this.logRows = [
-      { id: 3, text: 'Manny changed Friday: Snowshoe or cross-country ski → Snowmobile, own sled', created_at: ago(20) },
+      { id: 3, text: 'Manny changed Friday 1st choice: Snowshoe or cross-country ski → Snowmobile, own sled', created_at: ago(20) },
       { id: 2, text: 'Bray marked Tubing · Frisco Adventure Park booked', created_at: ago(70) },
-      { id: 1, text: 'Natalia picked Snowcat for Camila', created_at: ago(120) },
+      { id: 1, text: 'Natalia picked Friday 1st choice for Camila: Snowcat', created_at: ago(120) },
     ];
     this.nextId = 4;
   }
   async load() {
     return normalize({
-      picks: Object.entries(this.picks).map(([person, option_id]) => ({ person, option_id })),
-      waitlist: this.waitlist,
+      picks: Object.entries(this.picks).flatMap(([person, m]) => Object.entries(m).map(([rank, option_id]) => ({ person, rank: +rank, option_id }))),
+      assignments: Object.entries(this.assignments).map(([person, option_id]) => ({ person, option_id })),
       votes: Object.entries(this.votes).flatMap(([vote_id, m]) => Object.entries(m).map(([person, choice_id]) => ({ vote_id, person, choice_id }))),
       meals: this.meals,
       items: this.items.map(({ conf, ...pub }) => pub),
@@ -531,22 +563,10 @@ class DemoStore {
       log: [...this.logRows].sort((a, b) => b.id - a.id).slice(0, 40),
     });
   }
-  // Mirrors the database trigger: a pool that is already full refuses the pick.
-  async setPick(person, id) {
-    if (id) {
-      const o = parsePick(id);
-      if (o && o.opt.cap != null) {
-        const key = capKey(o.opt);
-        const n = Object.entries(this.picks).filter(([p, v]) => { if (p === person) return false; const pp = parsePick(v); return !!pp && pp.opt.cap != null && capKey(pp.opt) === key; }).length;
-        if (n >= o.opt.cap) throw new Error(`full: ${key === 'goodtimes' ? 'the SUV has 5 seats' : 'the snowcat has 8 spots'}`);
-      }
-      this.picks[person] = id;
-    } else delete this.picks[person];
-    this.save();
-  }
-  async setWait(id, person, on) {
-    this.waitlist = this.waitlist.filter(w => !(w.option_id === id && w.person === person));
-    if (on) this.waitlist.push({ option_id: id, person });
+  async setPick(person, rank, id) {
+    const p = this.picks[person] ||= {};
+    if (id) p[rank] = id; else delete p[rank];
+    if (!Object.keys(p).length) delete this.picks[person];
     this.save();
   }
   async vote(vid, person, cid) { (this.votes[vid] ||= {})[person] = cid; this.save(); }
@@ -561,11 +581,15 @@ class DemoStore {
   async plannerItems(pin) { this.check(pin); return this.items.map(it => ({ ...it })); }
   item(id) { const it = this.items.find(i => i.id === id); if (!it) throw new Error('no such item'); return it; }
   async setStatus(pin, id, status, who) { this.check(pin); const it = this.item(id); it.status = status; await this.log(`${who} marked ${it.item} ${status.toLowerCase()}`); }
-  async setLocked(pin, id, locked, who) { this.check(pin); const it = this.item(id); it.locked = locked; await this.log(`${who} ${locked ? 'locked' : 'unlocked'} ${it.item}`); }
   async setConf(pin, id, conf) { this.check(pin); this.item(id).conf = conf; this.save(); }
   async closeVote(pin, vid, closed, who) { this.check(pin); this.voteState[vid] = closed; await this.log(`${who} ${closed ? 'closed' : 'reopened'} the ${(VOTES.find(v => v.id === vid) || { title: vid }).title} vote`); }
-  async clearPick(pin, person, who) { this.check(pin); delete this.picks[person]; await this.log(`${who} cleared ${person}'s Friday pick`); }
-  async setPin(pin, newPin) { this.check(pin); if (!/^[0-9]{4,8}$/.test(newPin)) throw new Error('PIN must be 4–8 digits'); this.pin = newPin; this.save(); }
+  async clearPick(pin, person, who) { this.check(pin); delete this.picks[person]; await this.log(`${who} cleared ${person}’s Friday picks`); }
+  async assign(pin, person, option, who) {
+    this.check(pin);
+    if (option) { this.assignments[person] = option; await this.log(`${who} assigned ${person} Friday: ${optName(option)}`); }
+    else { delete this.assignments[person]; await this.log(`${who} cleared ${person}’s Friday assignment`); }
+  }
+  async setPin(pin, newPin) { this.check(pin); if (!/^[0-9]{4,8}$/.test(newPin)) throw new Error('PIN must be 4 to 8 digits'); this.pin = newPin; this.save(); }
   async setSetting(pin, key, value) { this.check(pin); this.settings[key] = value; this.save(); }
 }
 
@@ -633,7 +657,7 @@ async function act(fn, logText, optimistic) {
     if (app.notice) { app.notice = ''; render(); }   // the bar goes the moment the save lands, not after the reload
   } catch (e) {
     if (before) app.state = before;
-    app.notice = /full/i.test(e.message) ? 'That didn’t save — it just filled up.' : 'That didn’t save. Check your signal and tap again.';
+    app.notice = 'That didn’t save. Check your signal and tap again.';
     render();
   }
   await refresh();
@@ -642,58 +666,40 @@ async function act(fn, logText, optimistic) {
 /* ============================================================
    DERIVED VIEWS
    ============================================================ */
-function frozenBy(S, o) {
-  const keys = optKeys(o);
-  const it = S.items.find(it => it.option_ids.some(k => keys.includes(k)) && (it.locked || it.status !== 'Open'));
-  return it ? (it.status !== 'Open' ? 'Booked' : 'Locked') : '';
-}
 // Which snowmobile variant the card should show for this person: their pick if they have one, else the radio they tapped, else the first.
 function variantFor(S, u, o) {
-  const p = parsePick(S.picks[u]);
-  if (p && p.opt.id === o.id) return p.variant.id;
+  const r = rankOf(S, u, o);
+  if (r) return parsePick(pickOf(S, u, r)).variant.id;
   return app.variant[u] || o.variants[0].id;
 }
 function priceHtml(o, cost) {
   if (o.pot === 'group') return 'In the $1,250';
-  if (o.pot === 'free') return 'Free';
   return `<span class="amt">${plus(cost)}</span><span class="ontop">on top</span>`;
 }
+const countOf = (S, o, rank) => PEOPLE.filter(p => isOpt(pickOf(S, p, rank), o)).length;
 
-const capKey = o => o.capGroup || o.id;
-// Everyone whose Friday pick sits in the same seat pool as option o (the SUV for Good Times; the snowcat itself).
-function poolOf(S, o) {
-  if (o.cap == null) return [];
-  return PEOPLE.filter(p => { const pp = parsePick(S.picks[p]); return !!pp && pp.opt.cap != null && capKey(pp.opt) === capKey(o); });
-}
 function buildOptions(S, u) {
-  const age = AGES[u], kid = isKid(u);
+  const age = AGES[u], kid = isKid(u), both = hasBoth(S, u), whose = kid ? `${u}’s` : 'Your';
   return OPTS.map(o => {
-    const names = PEOPLE.filter(p => isOpt(S.picks[p], o));
-    const mine = isOpt(S.picks[u], o);
-    const pool = poolOf(S, o), key = capKey(o);
-    const full = o.cap != null && pool.filter(p => p !== u).length >= o.cap;   // your own seat never blocks you (switching sled or card)
-    const wait = (S.waitlist[key] || []).includes(u);
-    const frozen = frozenBy(S, o);
+    const rank = rankOf(S, u, o), mine = rank > 0;
+    const firsts = countOf(S, o, 1), seconds = countOf(S, o, 2);
     const vid = o.variants ? variantFor(S, u, o) : null;
     const variant = o.variants ? o.variants.find(v => v.id === vid) : null;
-    const unit = o.capGroup ? 'seat' : 'spot', fullWord = o.capGroup ? 'SUV is full' : 'Full';
     let inel = '';
     if (o.minAge && age != null && age < o.minAge) inel = o.minAge >= 15 ? 'Adults only' : `Ages ${o.minAge} and up`;
-    let btn = null;  // { label, cls, action }
-    if (inel) btn = { label: inel, cls: 'off' };
-    else if (frozen) btn = null;
-    else if (mine) btn = { label: kid ? `${u}’s in ✓` : 'You’re in ✓', cls: 'in', action: 'pick' };
-    else if (full) btn = { label: wait ? 'On the list — tap to leave' : `${fullWord} — add ${kid ? u : 'me'} if a ${unit} opens`, cls: 'full', action: 'wait' };
-    else btn = { label: kid ? `Pick this for ${u}` : 'Pick this', cls: kid ? 'kid' : '', action: 'pick' };
+    let btn;  // { label, cls, action | status | dis }
+    if (inel) btn = { label: inel, cls: 'off', dis: true };
+    else if (mine) btn = { label: `${whose} ${ord(rank)} choice`, cls: 'in', status: true, rank };
+    else if (both) btn = { label: `${kid ? `${u}’s` : 'You’ve'} got 2 picks. Remove one to change.`, cls: 'off sent', dis: true };
+    else btn = { label: kid ? `Pick this for ${u}` : 'Pick this', cls: kid ? 'kid' : '', action: 'pick', rank: openRank(S, u) };
     const radios = o.variants ? o.variants.map(v => ({
       ...v, on: v.id === vid, dis: !!(v.minAge && age != null && age < v.minAge),
       text: `${v.label} · ${plus(v.cost)}`,
     })) : null;
-    const waiting = S.waitlist[key] || [];
     return {
-      ...o, names, mine, full, wait, frozen, inel, btn, radios, pickId: pickKey(o, vid), waitKey: key,
+      ...o, mine, rank, inel, btn, radios, pickId: pickKey(o, vid),
       priceHtml: priceHtml(o, variant ? variant.cost : o.cost),
-      going: (o.cap ? (o.capGroup ? `${pool.length} of ${o.cap} SUV seats taken. ` : `${pool.length} of ${o.cap} spots. `) : '') + sentence(names, u) + (waiting.length ? ` Waiting: ${waiting.join(', ')}.` : ''),
+      going: `${firsts} first choice${firsts === 1 ? '' : 's'}, ${seconds} second`,
       deadline: o.due ? `Answer by ${o.due}` : '',
     };
   });
@@ -710,28 +716,28 @@ function buildVotes(S, u) {
     const can = !closed && !kid;
     return {
       ...v, closed, winner, tally, can, my,
-      right: closed ? `Decided — ${winner.label}` : kid ? '' : `Answer by ${v.closes}`,
+      right: closed ? `Decided: ${winner.label}` : kid ? '' : `Answer by ${v.closes}`,
       top: tally.filter(c => c.count === max), none: max === 0,
       choices: tally.map(c => ({ ...c, pct: Math.round(c.count / total * 100), my: c.id === my })),
     };
   });
 }
 
+// A night's sign-up shows only after Cook in has won that night's vote.
 function mealsFor(S, votes, dayKey) {
   return MEALS.filter(m => {
     if (m.day !== dayKey) return false;
-    if (!m.needsVote) return true;
     const v = votes.find(v => v.id === m.needsVote);
-    return v && v.closed && v.winner.id === m.winner;
+    return v && v.closed && v.winner.id === 'cookin';
   });
 }
 // A closed vote becomes a locked row: the restaurant, or the cook-in at the Airbnb.
 function decided(votes, dayKey) {
   return votes.filter(v => v.day === dayKey && v.closed)
-    .map(v => ({ time: v.time, title: `${v.title} — ${v.winner.label}`, place: v.winner.place, bring: '', transport: v.winner.id === 'cookin' ? '' : 'Walk from the Airbnb' }));
+    .map(v => ({ time: v.time, title: `${v.title}: ${v.winner.label}`, place: v.winner.place, bring: '', transport: v.winner.id === 'cookin' ? '' : 'Walk from the Airbnb' }));
 }
 
-// "Getting there" for a Friday pick: the settled ride once the planner has set a leave time, otherwise a placeholder.
+// "Getting there" for an assigned Friday: the ride once the planner has set a leave time, otherwise a placeholder.
 function rideLine(S, o) {
   if (!o.ride) return o.transport || '';
   const r = RIDES.find(x => x.key === (o.ride === 'suv' ? 'ride_suv' : 'ride_van'));
@@ -739,38 +745,33 @@ function rideLine(S, o) {
   if (!v || !v.leave) return RIDES_UNSET;
   return `${r.word} leaves the Airbnb ${v.leave}${v.driver ? `, ${v.driver} drives` : ''}`;
 }
-const waitName = key => WAIT_NAMES[key] || optName(key);
 
-// What this person still owes the group. Kids only owe a Friday pick (a parent taps it). A waitlist with a free spot is a to-do too.
+// What this person still owes the group. Kids only owe Friday picks (a parent taps them).
 function todos(S, u) {
   const kid = isKid(u), out = [];
-  if (!S.picks[u]) out.push({ target: 'friday', label: kid ? `pick ${u}’s Friday` : 'pick your Friday' });
-  for (const key of Object.keys(S.waitlist)) {
-    if (!(S.waitlist[key] || []).includes(u)) continue;
-    const o = OPTS.find(o => o.cap != null && capKey(o) === key);
-    if (o && poolOf(S, o).filter(p => p !== u).length < o.cap) out.push({ target: 'friday', label: key === 'goodtimes' ? 'an SUV seat opened — take it' : `a ${o.name} spot opened — take it` });
-  }
-  if (!kid) for (const v of VOTES) if (!S.closed[v.id] && !S.votes[v.id][u]) out.push({ target: 'vote', label: `vote on ${v.title}` });
+  if (!hasBoth(S, u)) out.push({ target: 'friday', label: kid ? `pick a 1st and 2nd choice for ${u}’s Friday` : 'pick a 1st and 2nd choice for Friday' });
+  if (!kid) for (const v of VOTES) if (!S.closed[v.id] && !S.votes[v.id][u]) out.push({ target: 'vote-' + v.day, label: `vote on ${v.title}` });
   return out;
 }
 
 // Extras for an adult: their own Friday add-on plus their kids' (shown in full on each parent, not split).
 function extrasFor(S, u) {
   const h = household(u) || { members: [u] };
-  const own = pickCost(S.picks[u]);
-  const kids = h.members.filter(isKid).reduce((a, k) => a + pickCost(S.picks[k]), 0);
-  return own + kids;
+  return h.members.filter(p => p === u || isKid(p)).reduce((a, p) => a + pickCost(fridayGuess(S, p)), 0);
 }
 function moneyLine(S, u) {
   if (isKid(u)) return 'With parents.';
   const x = extrasFor(S, u), total = PER_ADULT + x;
-  return x ? `${money(PER_ADULT)} + ${money(x)} extras = about ${money(total)}. Nothing due yet.` : `${money(PER_ADULT)}, no extras. Nothing due yet.`;
+  const h = household(u) || { members: [u] };
+  const sure = h.members.filter(p => p === u || isKid(p)).every(p => S.assigned[p] || !pickCost(fridayGuess(S, p)));
+  return x ? `${money(PER_ADULT)} + ${money(x)} extras${sure ? '' : ' if the 1st choices go through'} = about ${money(total)}. Nothing due yet.` : `${money(PER_ADULT)}, no extras. Nothing due yet.`;
 }
 
 const itemsFund = S => S.items.reduce((a, it) => a + (it.fund || 0), 0);
 const KID_FLIGHT_TOTAL = Object.values(KID_FLIGHTS).reduce((a, b) => a + b, 0);
 const roomLeft = S => PLAN_ROOM - itemsFund(S) - KID_FLIGHT_TOTAL;
-const unchosen = S => PEOPLE.filter(p => !S.picks[p]);
+const unchosen = S => PEOPLE.filter(p => !hasBoth(S, p));
+const unassigned = S => PEOPLE.filter(p => !S.assigned[p]);
 
 /* ============================================================
    RENDER
@@ -830,7 +831,7 @@ function viewWho() {
   return `<div class="shell"><div class="who">
     <div class="eyebrow rise">Family Christmas 2026</div>
     <div class="h1 rise" style="animation-delay:.06s">Who’s <em>this?</em></div>
-    <div class="lede rise" style="animation-delay:.12s">Tap your name, then pick your Friday and vote on Saturday dinner. Parents, tap your kid’s name to pick for them.</div>
+    <div class="lede rise" style="animation-delay:.12s">Tap your name. Then pick your Friday and vote on dinners. Parents, tap your kid’s name to pick for them.</div>
     ${HH.map((h, i) => `<div class="hh rise" style="animation-delay:${180 + i * 70}ms">
       <div class="hh-h"><span>${esc(h.parent)}</span><span class="fam">· ${esc(h.family)}</span></div>
       ${h.members.map(n => `<button class="person ${isKid(n) ? 'kid' : ''}" data-act="signin" data-name="${esc(n)}"><span>${esc(n)}</span><span class="tiny">${AGES[n] ? `age ${AGES[n]}` : n === app.user ? 'that’s you' : ''}</span></button>`).join('')}
@@ -843,11 +844,17 @@ function viewInfo() {
   return `<div class="pad">
     <div class="eyebrow">Trip info</div>
     <div class="h1">The <em>Trip</em></div>
-    <div class="facts">Dec 10–14 · ${PEOPLE.length} of us · ${money(PER_ADULT)} per adult</div>
-    <div class="copy">Everything marked ‘In the $1,250’ is already in that number. Anything with a + is extra and yours. Skiing is the one thing outside the $1,250. Nothing’s collected yet — once we’ve decided, I’ll book what needs booking and tell you what you owe and when.</div>
+    <div class="facts">Dec 10 to 14 · ${PEOPLE.length} of us · ${money(PER_ADULT)} per adult</div>
+    <div class="copy">Everything marked ‘In the $1,250’ is already in that number. Anything with a + is extra and on you. Nothing’s collected yet. Once everyone’s answered, I’ll book what needs booking and tell you what you owe and when.</div>
     <div class="assume"><h3>What we’re assuming</h3><ul>${ASSUMPTIONS.map(a => `<li>${esc(a)}</li>`).join('')}</ul></div>
     <div class="box"><div class="label">If weather turns</div><p>Rec Center, Escape Room, Main Street, or the Airbnb. Check hours first.</p></div>
   </div>`;
+}
+
+// "Your Friday: Snowcat" once Bray has assigned it; the placeholder before.
+function finalLine(S, u) {
+  const fin = S.assigned[u];
+  return fin ? `${isKid(u) ? `${u}’s` : 'Your'} Friday: ${optName(fin)}` : FRIDAY_UNSET;
 }
 
 function viewChoose() {
@@ -856,7 +863,7 @@ function viewChoose() {
   const head = `<div class="pad" style="padding-bottom:8px">
     <div class="eyebrow">Choose</div>
     <div class="h1">Five <em>Days</em></div>
-    <div class="lede">${!todos(S, u).length ? (kid ? `${esc(u)}’s Friday is picked. Everything else is set.` : 'You’ve picked and voted. Everything else is set.') : kid ? `Pick ${esc(u)}’s Friday. Parents vote on Saturday dinner. Everything else is set.` : 'Pick your Friday. Vote on Saturday dinner. Everything else is set.'}</div>
+    <div class="lede">${!todos(S, u).length ? (kid ? `${esc(u)}’s Friday is picked. Everything else is set.` : 'You’ve picked and voted. Everything else is set.') : kid ? `Pick a 1st and 2nd choice for ${esc(u)}’s Friday. Parents vote on dinners from their own name.` : 'Pick a 1st and 2nd choice for Friday. Vote on the three dinners. Everything else is set.'}</div>
   </div>`;
   const days = DAYS.map(d => {
     const locked = [...(LOCKED[d.key] || []), ...decided(votes, d.key)].sort((a, b) => minutes(a.time) - minutes(b.time));
@@ -865,41 +872,40 @@ function viewChoose() {
     let out = `<section class="day" id="day-${d.key}"><div class="day-h"><span class="daynum">${d.num}</span><div><div class="dayname">${d.name}</div><div class="label daydate">${d.date}</div></div></div>`;
     if (locked.length) out += `<div class="grp"><div class="grp-h all">We’re all doing this</div>${locked.map(it => `<div class="lrow"><div style="min-width:0"><b>${esc(it.title)}</b><i>${esc(it.place)}</i></div><span class="tiny">${esc(it.time)}</span></div>`).join('')}${d.note ? `<div class="daynote">${esc(d.note)}</div>` : ''}</div>`;
     if (d.key === 'fri') out += `<section class="grp" id="sec-friday">
-      <div class="grp-h ask"><span>Friday — pick one</span><span class="tiny">for ${esc(u)}</span></div>
+      <div class="grp-h ask"><span>Friday, pick a 1st and 2nd</span><span class="tiny">for ${esc(u)}</span></div>
+      <div class="final ${S.assigned[u] ? '' : 'soft'}" data-final>${esc(finalLine(S, u))}</div>
       <div class="cards">${options.map(cardHtml).join('')}</div>
-      <div class="note">${esc(FRIDAY_NOTE)}</div>
     </section>`;
-    if (vs.length) out += `<section class="grp" id="sec-vote"><div class="grp-h ask">Vote</div>${vs.map(v => `<div class="vrow ${kid ? 'kid' : ''}">
+    if (vs.length) out += `<section class="grp" id="sec-vote-${d.key}"><div class="grp-h ask">Vote</div>${vs.map(v => `<div class="vrow ${kid ? 'kid' : ''}" data-vote="${v.id}">
       <div class="vrow-h"><b>${esc(v.title)}</b>${v.right ? `<span class="vrow-r">${esc(v.right)}</span>` : ''}</div>
-      ${kid ? '<div class="vrow-note">Parents vote on Saturday dinner from their own name.</div>' : ''}
+      ${kid ? '<div class="vrow-note">Parents vote from their own name.</div>' : ''}
       ${v.choices.map(c => `<div class="crow"><button class="choice ${v.can ? 'can' : ''} ${c.my ? 'my' : ''}" ${v.can ? `data-act="vote" data-vote="${v.id}" data-choice="${c.id}"` : 'disabled'}>
         <div class="choice-l"><span class="lbl"><i class="dot"></i><span>${esc(c.label)}</span></span><span class="r"><span class="you">${c.my ? 'you' : ''}</span><span>${c.count}</span></span></div>
         ${c.desc ? `<div class="choice-d">${esc(c.desc)}</div>` : ''}
         <div class="meter"><i style="width:${c.pct}%"></i></div>
       </button>${c.url ? `<a class="ext" href="${esc(c.url)}" target="_blank" rel="noopener">Menu ↗</a>` : ''}</div>`).join('')}
     </div>`).join('')}</section>`;
-    if (ms.length && !kid) out += `<div class="grp"><div class="grp-h"><span>Who’s on meals</span><span class="sub">(2 per job)</span></div>${ms.map(m => mealHtml(S, m, u)).join('')}</div>`;
+    if (ms.length && !kid) out += `<div class="grp">${ms.map(m => mealHtml(S, m, u)).join('')}</div>`;
     return out + '</section>';
   }).join('');
   return head + days + '<div style="height:24px"></div>';
 }
 
 function cardHtml(o) {
-  let action = '';
-  if (o.frozen) action = `<div class="pills"><span class="pill ${o.frozen === 'Locked' ? 'closed' : ''}">${o.frozen === 'Locked' ? 'Closed' : 'Booked'}${o.mine ? ' · yours' : ''}</span></div>${o.mine ? '' : `<div class="card-cons">${o.frozen === 'Locked' ? 'Closed, no new picks.' : 'Already booked, no new picks.'}</div>`}`;
-  else if (o.btn && o.btn.action) action = `<button class="btn ${o.btn.cls}" data-act="${o.btn.action}" data-opt="${o.btn.action === 'pick' ? o.pickId : o.waitKey}">${esc(o.btn.label)}</button>`;
-  else if (o.btn) action = `<div class="btn ${o.btn.cls}" data-opt="${o.id}">${esc(o.btn.label)}</div>`;
-  const radios = o.radios && !o.inel && !o.frozen ? `<div class="radios">${o.radios.map(r => r.dis
+  let action;
+  if (o.btn.action) action = `<button class="btn ${o.btn.cls}" data-act="pick" data-opt="${o.pickId}" data-rank="${o.btn.rank}">${esc(o.btn.label)}</button>`;
+  else if (o.btn.status) action = `<div class="btn ${o.btn.cls}" data-rank="${o.btn.rank}">${esc(o.btn.label)}</div><button class="rm" data-act="unpick" data-opt="${o.id}" data-rank="${o.btn.rank}">Remove</button>`;
+  else action = `<button class="btn ${o.btn.cls}" disabled>${esc(o.btn.label)}</button>`;
+  const radios = o.radios && !o.inel ? `<div class="radios">${o.radios.map(r => r.dis
     ? `<span class="radio dis"><i></i>${esc(r.text)} · 15+ only</span>`
     : `<button class="radio ${r.on ? 'on' : ''}" data-act="variant" data-opt="${o.id}" data-variant="${r.id}" aria-pressed="${r.on}"><i></i>${esc(r.text)}</button>`).join('')}</div>` : '';
-  const foot = [!o.frozen && o.deadline, o.url ? `<a class="ext" href="${esc(o.url)}" target="_blank" rel="noopener">More ↗</a>` : ''].filter(Boolean).join(' · ');
+  const foot = [o.deadline, ...(o.links || []).map(l => `<a class="ext" href="${esc(l.href)}" target="_blank" rel="noopener">${esc(l.label)} ↗</a>`)].filter(Boolean).join(' · ');
   return `<article class="card ${o.mine ? 'mine' : ''} ${o.inel ? 'dim' : ''}" data-card="${o.id}">
     <div class="card-top"><span class="card-name">${esc(o.name)}</span><span class="card-price">${o.priceHtml}</span></div>
     <div class="card-desc">${esc(o.desc)}</div>
     ${o.extra ? `<div class="card-extra">${esc(o.extra)}</div>` : ''}
     ${radios}
     ${o.constraints ? `<div class="card-cons">${esc(o.constraints)}</div>` : ''}
-    ${o.seats ? `<div class="card-cons">${esc(o.seats)}</div>` : ''}
     <div class="card-going">${esc(o.going)}</div>
     ${action}
     ${foot ? `<div class="card-due">${foot}</div>` : ''}
@@ -907,7 +913,7 @@ function cardHtml(o) {
 }
 
 function mealHtml(S, m, u) {
-  return `<div class="meal" data-meal="${m.key}"><div class="meal-h"><b>${esc(m.title)}</b><span class="tiny">${esc(m.time)}</span></div>${m.cookIn ? `<div class="meal-note">${esc(COOK_IN_NOTE)}</div>` : ''}<div class="roles">${rolesOf(m).map(role => {
+  return `<div class="meal" data-meal="${m.key}"><div class="meal-h"><b>${esc(m.title)}, cook in</b><span class="tiny">${esc(m.time)}</span></div><div class="meal-note">${esc(MEAL_NOTE)}</div><div class="roles">${ROLES.map(role => {
     const names = S.meals[m.key][role], mine = names.includes(u), chips = [];
     for (let i = 0; i < Math.max(SLOTS, names.length); i++) {   // everyone signed up is shown, even a third person from a stale tap
       const n = names[i];
@@ -918,41 +924,42 @@ function mealHtml(S, m, u) {
         ? `<button class="chip open can" data-act="meal" data-meal="${m.key}" data-role="${role}" data-on="1">+ me</button>`
         : `<span class="chip open">open</span>`);
     }
-    return `<div class="role"><span>${esc(roleLabel(m, role))}</span><div class="chips">${chips.join('')}</div></div>`;
+    return `<div class="role"><span>${esc(role)}</span><div class="chips">${chips.join('')}</div></div>`;
   }).join('')}</div></div>`;
 }
 
 function viewMe() {
   const S = app.state, u = app.user, kid = isKid(u);
   const votes = buildVotes(S, u);
-  const my = parsePick(S.picks[u]);
   const mk = (it, kind) => ({ ...it, kind });
+  // A person's Friday row: the assigned option once Bray has made the call, else what they've picked so far.
+  const fridayRow = (p, who) => {
+    const fin = parsePick(S.assigned[p]);
+    if (fin) return mk({ time: fin.opt.time, title: `${who === 'yours' ? 'Your' : who} Friday: ${optName(fin.id)}`, place: fin.opt.place, bring: fin.opt.bring, transport: rideLine(S, fin.opt) }, who);
+    const a = pickOf(S, p, 1), b = pickOf(S, p, 2);
+    const picks = a || b ? `${a ? `1st choice ${optName(a)}` : 'No 1st choice yet'}. ${b ? `2nd choice ${optName(b)}` : 'No 2nd choice yet'}.` : '';
+    if (!hasBoth(S, p)) return mk({ time: '', title: picks ? `${who === 'yours' ? 'Your' : who} Friday picks` : `No Friday picks yet${who === 'yours' ? '' : ` for ${p}`}`, place: picks ? `${picks} ${who === 'yours' ? 'Tap Choose and pick the other.' : `Tap ${p}’s name on the roster and pick.`}` : who === 'yours' ? 'Tap Choose and pick a 1st and 2nd choice.' : `Tap ${p}’s name on the roster and pick a 1st and 2nd choice.`, bring: '', transport: '', href: who === 'yours' ? '#/choose' : '#/who' }, who);
+    return mk({ time: '', title: FRIDAY_UNSET, place: picks, bring: '', transport: '' }, who);
+  };
   const days = DAYS.map(d => {
     const items = [...(LOCKED[d.key] || []), ...decided(votes, d.key)].map(it => mk(it, ''));
     if (d.key === 'fri') {
-      const waiting = Object.keys(S.waitlist).filter(k => (S.waitlist[k] || []).includes(u)).map(waitName);
-      const who = kid ? `${u}’s` : 'yours';
-      if (my) {
-        items.push(mk({ time: my.opt.time, title: optName(my.id), place: my.opt.place, bring: my.opt.bring, transport: rideLine(S, my.opt) }, who));
-        if (waiting.length) items.push(mk({ time: '—', title: `Still waiting on ${waiting.join(', ')}`, place: 'You’ll see it at the top of the page if a spot opens.', bring: '', transport: '', href: '#/choose' }, who));
-      } else if (waiting.length) items.push(mk({ time: '—', title: `On the list for ${waiting.join(', ')}`, place: 'Pick a backup below in case a spot doesn’t open.', bring: '', transport: '', href: '#/choose' }, who));
-      else items.push(mk({ time: '—', title: 'No Friday pick yet', place: kid ? `Tap Choose below and pick for ${u}.` : 'Tap Choose below and pick one. Answer by Oct 3 if you want the snowcat.', bring: '', transport: '', href: '#/choose' }, who));
+      items.push(fridayRow(u, kid ? `${u}’s` : 'yours'));
       // A parent sees each kid's Friday too.
-      if (!kid) for (const k of (household(u) || { members: [] }).members.filter(isKid)) { const kp = parsePick(S.picks[k]); if (kp) items.push(mk({ time: kp.opt.time, title: optName(kp.id), place: kp.opt.place, bring: kp.opt.bring, transport: rideLine(S, kp.opt) }, `${k}’s`)); }
+      if (!kid) for (const k of (household(u) || { members: [] }).members.filter(isKid)) items.push(fridayRow(k, `${k}’s`));
     }
     votes.filter(v => v.day === d.key && !v.closed).forEach(v => items.push(mk({ time: v.time, title: v.title, place: kid ? 'Parents vote from their own name.' : `Answer by ${v.closes}`, bring: '', transport: '' }, 'vote')));
-    mealsFor(S, votes, d.key).forEach(m => rolesOf(m).forEach(role => {
+    mealsFor(S, votes, d.key).forEach(m => ROLES.forEach(role => {
       if (!S.meals[m.key][role].includes(u)) return;
-      const shop = role === 'Shopping';
-      items.push(mk({ time: shop ? (m.shopTime || 'Afternoon') : m.time, title: `${m.title} — ${jobName(m, role)}`, place: shop ? 'City Market, Breckenridge' : 'the Airbnb kitchen', bring: shop ? 'the list' : '', transport: shop ? (m.shopTransport || 'SUV') : '' }, 'you’re on'));
+      items.push(mk({ time: m.time, title: `${m.title}, ${jobName(role)}`, place: 'the Airbnb kitchen', bring: '', transport: '' }, 'you’re on'));
     }));
     items.sort((a, b) => minutes(a.time) - minutes(b.time));
     return { ...d, items };
   });
-  const kidsWithExtras = kid ? [] : (household(u) || { members: [] }).members.filter(k => isKid(k) && pickCost(S.picks[k]));
+  const kidsWithExtras = kid ? [] : (household(u) || { members: [] }).members.filter(k => isKid(k) && pickCost(fridayGuess(S, k)));
   return `<div class="pad" style="padding-bottom:20px">
     <div class="h1">${kid ? `${esc(u)}’s` : 'My'} <em>trip</em></div>
-    <div class="money" data-money>${esc(moneyLine(S, u))}${kidsWithExtras.length ? `<small>Extras include ${kidsWithExtras.map(k => `${k}’s ${optName(S.picks[k])} (${plus(pickCost(S.picks[k]))})`).join(' and ')}.</small>` : ''}</div>
+    <div class="money" data-money>${esc(moneyLine(S, u))}${kidsWithExtras.length ? `<small>Extras include ${kidsWithExtras.map(k => `${k}’s ${optName(fridayGuess(S, k))} (${plus(pickCost(fridayGuess(S, k)))})`).join(' and ')}.</small>` : ''}</div>
   </div>` + days.map(d => `<section class="itin"><div class="day-h"><span class="daynum">${d.num}</span><div><div class="dayname">${d.name}</div><div class="label daydate">${d.date}</div></div></div>
     <div class="rows">${d.items.map(it => `<div class="it"><div><div class="t">${esc(it.time)}</div>${it.kind ? `<div class="k">${esc(it.kind)}</div>` : ''}</div><div style="min-width:0"><b>${it.href ? `<a href="${it.href}" data-act="nav">${esc(it.title)}</a>` : esc(it.title)}</b><i>${esc(it.place)}</i>
       ${it.bring ? `<div class="kv"><span>Bring</span><em>${esc(it.bring)}</em></div>` : ''}
@@ -965,7 +972,7 @@ function viewPlanner() {
   let summary = '', body;
   if (open) {
     const nOpen = buildVotes(S, CONFIG.PLANNER).filter(v => !v.closed).length;
-    summary = `Room left inside the $1,250 plan: ${money(roomLeft(S))}. ${unchosen(S).length} haven’t picked Friday. ${nOpen} vote${nOpen === 1 ? '' : 's'} open.`;
+    summary = `Room left inside the $1,250 plan: ${money(roomLeft(S))}. ${unchosen(S).length} haven’t picked both Friday choices. ${unassigned(S).length} to assign. ${nOpen} vote${nOpen === 1 ? '' : 's'} open.`;
   }
   if (!open && app.pin && (!S || !app.plannerItems)) {
     body = '<div class="gate"><div class="lede">Loading…</div></div>';
@@ -981,36 +988,47 @@ function viewPlanner() {
     </div></div>`;
   } else {
     const votes = buildVotes(S, CONFIG.PLANNER);
-    const items = app.plannerItems.map(it => ({ ...it, option_ids: it.option_ids || [] }));
+    const items = app.plannerItems;
     const liveMeals = new Set(DAYS.flatMap(d => mealsFor(S, votes, d.key).map(m => m.key)));   // the same rule the family screens use
+    const finals = o => PEOPLE.filter(p => isOpt(S.assigned[p], o)).length;
     body = `<div class="pgrid"><div class="pmain">
       <div class="eyebrow">Bookings</div>
       <div class="ptable">
         <div class="prow h tiny"><span>Item</span><span>Status</span><span>Cost</span><span>Confirmation</span><span></span></div>
         ${items.map(it => `<div class="prow" data-item="${esc(it.id)}">
           <div class="name"><b>${esc(it.item)}</b><i>${esc(it.when_label)}${it.link ? ` · ${esc(it.link)}` : ''}</i></div>
-          <span><span class="tag ${it.locked ? 'locked' : it.status !== 'Open' ? 'booked' : ''}">${it.locked ? 'Locked' : esc(it.status)}</span></span>
+          <span><span class="tag ${it.status !== 'Open' ? 'booked' : ''}">${esc(it.status)}</span></span>
           <span>${esc(it.cost_label)}</span>
-          <span><input class="conf" data-act="conf" data-id="${esc(it.id)}" value="${esc(it.conf)}" placeholder="—" aria-label="Confirmation for ${esc(it.item)}"></span>
+          <span><input class="conf" data-act="conf" data-id="${esc(it.id)}" value="${esc(it.conf)}" placeholder="none yet" aria-label="Confirmation for ${esc(it.item)}"></span>
           <span class="acts">
             ${it.status === 'Open' ? `<button class="act" data-act="status" data-id="${esc(it.id)}" data-status="Booked">Mark booked</button>` : it.status === 'Booked' ? `<button class="act soft" data-act="status" data-id="${esc(it.id)}" data-status="Paid">Mark paid</button>` : ''}
             ${it.status !== 'Open' ? `<button class="act soft" data-act="status" data-id="${esc(it.id)}" data-status="Open">Back to open</button>` : ''}
-            <button class="act soft" data-act="lock" data-id="${esc(it.id)}" data-locked="${it.locked ? '0' : '1'}">${it.locked ? 'Unlock' : 'Lock'}</button>
           </span>
         </div>`).join('')}
       </div>
       <div class="hr"><span>Items from the ${money(PLAN_ROOM)} headroom</span><b>${money(itemsFund(S))}</b></div>
       ${Object.entries(KID_FLIGHTS).map(([k, v]) => `<div class="hr"><span>${esc(k)}’s flight</span><b>${money(v)}</b></div>`).join('')}
       <div class="hr"><span>Room left</span><b>${money(roomLeft(S))}</b></div>
+      <div class="eyebrow sec">Assign Friday</div>
+      <div class="counts">${OPTS.map(o => `<span data-count="${o.id}"><b>${esc(o.name)}</b> ${countOf(S, o, 1)} first, ${countOf(S, o, 2)} second, ${finals(o)} final</span>`).join('')}</div>
+      <div class="pnote">Caps to keep in mind: ${CAP_NOTE} (the SUV is snowmobiles and dog sledding together). The family sees “${esc(FRIDAY_UNSET)}” until you pick a Final.</div>
+      <div class="assign">
+        <div class="arow h tiny"><span>Name</span><span>1st</span><span>2nd</span><span>Final</span><span></span></div>
+        ${PEOPLE.map(p => { const a = pickOf(S, p, 1), b = pickOf(S, p, 2), fin = S.assigned[p] || '';
+          return `<div class="arow" data-assign="${esc(p)}"><b>${esc(p)}</b>
+            <span class="${a ? '' : 'empty'}">${esc(optName(a))}</span><span class="${b ? '' : 'empty'}">${esc(optName(b))}</span>
+            <select class="sel" data-act="assign" data-person="${esc(p)}" aria-label="Final for ${esc(p)}"><option value="">Not yet</option>${ALL_KEYS.map(k => `<option value="${k}" ${fin === k ? 'selected' : ''}>${esc(optName(k))}</option>`).join('')}</select>
+            <span>${a || b ? `<button class="act x" data-act="clearpick" data-person="${esc(p)}" title="Clear ${esc(p)}’s picks">×</button>` : ''}</span></div>`; }).join('')}
+      </div>
       <div class="eyebrow sec">Rides</div>
       <div class="rides">
         <div class="ride h tiny"><span>Car</span><span>Driver</span><span>Leaves the Airbnb</span><span>Going to</span></div>
         ${RIDES.map(r => { const v = S.rides[r.key] || {}; const inp = (f, ph) => `<input class="conf ride-in" data-field="${f}" value="${esc(v[f] || '')}" placeholder="${ph}" aria-label="${r.label} ${f}">`;
           return `<div class="ride" data-ride="${r.key}"><b>${r.label}</b>${inp('driver', 'e.g. Manny')}${inp('leave', 'e.g. 9:15')}${inp('dest', r.key === 'ride_suv' ? 'e.g. Good Times' : 'e.g. Nordic Center')}</div>`; }).join('')}
       </div>
-      <div class="pnote">Once a leave time is set, My trip says “van leaves the Airbnb 9:15”; until then, “${RIDES_UNSET}”</div>
+      <div class="pnote">Once a leave time is set, My trip says “van leaves the Airbnb 9:15”. Until then, “${RIDES_UNSET}”</div>
       <div class="eyebrow sec">Votes</div>
-      <div class="vlist">${votes.map(v => `<div class="vl" data-vote="${v.id}"><b>${esc(v.title)}</b><span>${v.closed ? `Decided — ${esc(v.winner.label)}` : esc(v.tally.map(c => `${c.label} ${c.count}`).join(', ') + ` — answer by ${v.closes}`)}</span>
+      <div class="vlist">${votes.map(v => `<div class="vl" data-vote="${v.id}"><b>${esc(v.title)}</b><span>${v.closed ? `Decided: ${esc(v.winner.label)}` : esc(v.tally.map(c => `${c.label} ${c.count}`).join(', ') + `, answer by ${v.closes}`)}</span>
         <button class="act ${v.closed ? 'soft' : ''}" data-act="closevote" data-vote="${v.id}" data-closed="${v.closed ? '0' : '1'}">${v.closed ? 'Reopen' : 'Close vote'}</button></div>`).join('')}</div>
       <div class="eyebrow sec">Change log</div>
       <div class="log">${S.log.map(l => `<div>${esc(l.text)} <span>· ${esc(l.when)}</span></div>`).join('') || '<div><span>Nothing yet.</span></div>'}</div>
@@ -1018,18 +1036,16 @@ function viewPlanner() {
     <aside>
       <div class="eyebrow">Responses</div>
       <div class="resp">
-        <div class="rrow h tiny"><span>Name</span><span>Friday</span><span>Sat</span><span>Meals</span></div>
+        <div class="rrow h tiny"><span>Name</span><span>Fri</span><span>Sat</span><span>Sun</span><span>Meals</span></div>
         ${PEOPLE.map(p => {
-          const kid = isKid(p), fr = optName(S.picks[p]);
-          const sat = VOTES[0].choices.find(c => c.id === S.votes.saturday[p]);
-          const duties = MEALS.filter(m => liveMeals.has(m.key)).flatMap(m => rolesOf(m).filter(r => S.meals[m.key][r].includes(p)).map(r => `${DAYS.find(d => d.key === m.day).name.slice(0, 3)} ${jobName(m, r)}`));
-          return `<div class="rrow" data-person="${esc(p)}"><span class="n">${esc(p)}</span>
-            <span class="fri ${fr ? '' : 'empty'}"><span style="overflow:hidden;text-overflow:ellipsis">${esc(fr)}</span>${fr ? `<button class="act x" data-act="clearpick" data-person="${esc(p)}" title="Clear ${esc(p)}’s pick">×</button>` : ''}</span>
-            <span class="${kid || sat ? '' : 'empty'}">${kid ? '—' : sat ? esc(sat.label.replace('Breckenridge ', '').replace('Downstairs at ', '')) : ''}</span>
-            <span class="${kid || duties.length ? '' : 'empty'}" style="color:var(--muted)">${kid ? '—' : esc(duties.join(', '))}</span></div>`;
+          const kid = isKid(p);
+          const cell = v => { const c = v.choices.find(c => c.id === S.votes[v.id][p]); return `<span class="${kid || c ? '' : 'empty'}">${kid ? '·' : c ? esc(c.short) : ''}</span>`; };
+          const duties = MEALS.filter(m => liveMeals.has(m.key)).flatMap(m => ROLES.filter(r => S.meals[m.key][r].includes(p)).map(r => `${DAYS.find(d => d.key === m.day).name.slice(0, 3)} ${jobName(r)}`));
+          return `<div class="rrow" data-person="${esc(p)}"><span class="n">${esc(p)}</span>${VOTES.map(cell).join('')}
+            <span class="${kid || duties.length ? '' : 'empty'}" style="color:var(--muted)">${kid ? '·' : esc(duties.join(', '))}</span></div>`;
         }).join('')}
       </div>
-      <div class="pnote">Tan cells are unanswered. Kids don’t vote. Only you see confirmation numbers. Tap × to clear a mistaken pick.</div>
+      <div class="pnote">Tan cells are unanswered. Kids don’t vote. Only you see confirmation numbers. Friday picks are in Assign Friday on the left.</div>
       <div style="margin-top:20px"><button class="act soft" data-act="changepin">Change PIN</button></div>
     </aside></div>`;
   }
@@ -1059,21 +1075,21 @@ async function tryPin(v) {
   else { app.pinErr = true; render(); const p = document.getElementById('pin'); if (p) p.focus(); }   // the digits stay in the box
 }
 
-function setPick(u, next, S) {
-  const prev = S.picks[u];
-  const nextOpt = parsePick(next), nextKey = nextOpt ? capKey(nextOpt.opt) : null;
-  const wasWaiting = !!nextOpt && (S.waitlist[nextKey] || []).includes(u);
-  act(async () => { await store.setPick(u, next); if (next && wasWaiting) await store.setWait(nextKey, u, false); },
-    next ? (prev ? `${u} changed Friday: ${optName(prev)} → ${optName(next)}` : `${u} picked Friday: ${optName(next)}`) : `${u} cleared Friday: ${optName(prev)}`,
-    st => { if (next) st.picks[u] = next; else delete st.picks[u]; if (next && wasWaiting) st.waitlist[nextKey] = st.waitlist[nextKey].filter(n => n !== u); });
+// Set or clear one rank of a person's Friday picks. Never touches the other rank.
+function setPick(u, rank, next, S) {
+  const prev = pickOf(S, u, rank);
+  if (prev === next) return;
+  act(() => store.setPick(u, rank, next),
+    next ? (prev ? `${u} changed Friday ${ord(rank)} choice: ${optName(prev)} → ${optName(next)}` : `${u} picked Friday ${ord(rank)} choice: ${optName(next)}`) : `${u} removed Friday ${ord(rank)} choice: ${optName(prev)}`,
+    st => { const p = st.picks[u] ||= {}; if (next) p[rank] = next; else delete p[rank]; });
 }
 
 document.addEventListener('click', e => {
   const el = e.target.closest('[data-act]');
-  if (!el || el.tagName === 'INPUT') return;
+  if (!el || el.tagName === 'INPUT' || el.tagName === 'SELECT') return;
   const S = app.state, u = app.user, d = el.dataset;
   switch (d.act) {
-    case 'signin': app.user = d.name; ls.set('breck-user', d.name); app.jump = S && !S.picks[d.name] ? 'friday' : null; if (!app.jump) window.scrollTo(0, 0); history.replaceState(null, '', '#/choose'); render(); break;   // no history entry: back leaves the site cleanly
+    case 'signin': app.user = d.name; ls.set('breck-user', d.name); app.jump = S && !hasBoth(S, d.name) ? 'friday' : null; if (!app.jump) window.scrollTo(0, 0); history.replaceState(null, '', '#/choose'); render(); break;   // no history entry: back leaves the site cleanly
     case 'nav': {
       // A tab or link: the next screen starts at the top. Links back to the roster replace the entry, like sign-in, so back never lands on a stale Choose.
       if (el.getAttribute('href') === '#/who') { e.preventDefault(); history.replaceState(null, '', '#/who'); window.scrollTo(0, 0); app.pinDraft = ''; render(); break; }
@@ -1082,34 +1098,29 @@ document.addEventListener('click', e => {
     case 'unlock': tryPin(app.pinDraft); break;
     case 'todo': app.jump = d.target; if (route() === 'choose') render(); else go('choose'); break;
     case 'pick': {
-      const id = d.opt, prev = S.picks[u];
-      if (prev === id) { say('Already in. Tap another card to change.'); break; }   // the green button is a status, not an undo
-      setPick(u, id, S);
+      // Fills the first empty rank. With both taken the button is disabled, so a pick never overrides another card.
+      const rank = openRank(S, u), o = parsePick(d.opt);
+      if (!rank || !o || rankOf(S, u, o.opt)) break;
+      setPick(u, rank, o.id, S);
       break;
     }
+    case 'unpick': setPick(u, +d.rank, null, S); break;
     case 'variant': {
-      // Switching sleds re-picks if this person is already on the snowmobile; otherwise it just sets the radio.
-      const o = OPTS.find(o => o.id === d.opt), next = pickKey(o, d.variant), prev = S.picks[u];
+      // Switching sleds re-picks the same rank if this person already has the snowmobile; otherwise it just sets the radio.
+      const o = OPTS.find(o => o.id === d.opt), next = pickKey(o, d.variant), rank = rankOf(S, u, o);
       app.variant[u] = d.variant;
-      if (isOpt(prev, o) && prev !== next) setPick(u, next, S); else render();
-      break;
-    }
-    case 'wait': {
-      const id = d.opt, on = !(S.waitlist[id] || []).includes(u);
-      act(() => store.setWait(id, u, on), `${u} ${on ? 'joined' : 'left'} the ${waitName(id)} waitlist`,
-        st => { const w = st.waitlist[id] || []; st.waitlist[id] = on ? [...w, u] : w.filter(n => n !== u); });
+      if (rank) setPick(u, rank, next, S); else render();
       break;
     }
     case 'vote': act(() => store.vote(d.vote, u, d.choice), '', st => { st.votes[d.vote][u] = d.choice; }); break;
     case 'meal': {
       const on = d.on === '1', names = S.meals[d.meal][d.role];
       if (on && names.length >= SLOTS) return;
-      act(() => store.setMeal(d.meal, d.role, u, on), `${u} ${on ? 'took' : 'dropped'} ${jobName(MEALS.find(m => m.key === d.meal), d.role)}, ${MEALS.find(m => m.key === d.meal).title}`,
+      act(() => store.setMeal(d.meal, d.role, u, on), `${u} ${on ? 'took' : 'dropped'} ${jobName(d.role)}, ${MEALS.find(m => m.key === d.meal).title}`,
         st => { st.meals[d.meal][d.role] = on ? [...names, u] : names.filter(n => n !== u); });
       break;
     }
     case 'status': planner((pin, who) => store.setStatus(pin, d.id, d.status, who)); break;
-    case 'lock': planner((pin, who) => store.setLocked(pin, d.id, d.locked === '1', who)); break;
     case 'closevote': {
       if (d.closed === '1') {
         const v = buildVotes(S, CONFIG.PLANNER).find(v => v.id === d.vote);
@@ -1119,15 +1130,24 @@ document.addEventListener('click', e => {
       }
       planner((pin, who) => store.closeVote(pin, d.vote, d.closed === '1', who)); break;
     }
-    case 'clearpick': if (confirm(`Clear ${d.person}’s Friday pick (${optName(S.picks[d.person])})?`)) planner((pin, who) => store.clearPick(pin, d.person, who)); break;
+    case 'clearpick': {
+      const a = pickOf(S, d.person, 1), b = pickOf(S, d.person, 2);
+      if (confirm(`Clear ${d.person}’s Friday picks (${[a, b].filter(Boolean).map(optName).join(', ')})?`)) planner((pin, who) => store.clearPick(pin, d.person, who));
+      break;
+    }
     case 'changepin': {
-      const v = (prompt('New PIN (4–8 digits)') || '').trim();
+      const v = (prompt('New PIN (4 to 8 digits)') || '').trim();
       if (!v) break;
       planner(async pin => { await store.setPin(pin, v); app.pin = v; ss.set('breck-pin', v); say('PIN changed.'); });
       break;
     }
     case 'lockplanner': app.pin = null; ss.set('breck-pin', null); app.plannerItems = null; app.pinDraft = ''; app.pinErr = false; app.pinShort = false; render(); break;
   }
+});
+// The Final dropdown in Assign Friday saves on change.
+document.addEventListener('change', e => {
+  const t = e.target;
+  if (t.tagName === 'SELECT' && t.dataset.act === 'assign' && app.pin) planner((pin, who) => store.assign(pin, t.dataset.person, t.value || null, who));
 });
 document.addEventListener('input', e => {
   if (e.target.id === 'pin') {   // the PIN is checked on Enter or Unlock, never mid-typing
@@ -1154,7 +1174,7 @@ document.addEventListener('focusout', e => {
     const word = RIDES.find(r => r.key === key).word;
     const said = [v.driver && `${v.driver} drives`, v.leave && `leaves ${v.leave}`, v.dest].filter(Boolean).join(', ') || 'cleared';
     // On a timeout so a Tab or click to the next box lands before the redraw.
-    setTimeout(() => { if (app.pin) planner(async (pin, who) => { await store.setSetting(pin, key, JSON.stringify(v)); await store.log(`${who} settled the ${word} ride: ${said}`); }); }, 0);
+    setTimeout(() => { if (app.pin) planner(async (pin, who) => { await store.setSetting(pin, key, JSON.stringify(v)); await store.log(`${who} sorted out the ${word} ride: ${said}`); }); }, 0);
   } else if (t.classList.contains('conf') && t.dataset.id) {
     const id = t.dataset.id, conf = t.value.trim();
     const cur = (app.plannerItems || []).find(i => i.id === id);
