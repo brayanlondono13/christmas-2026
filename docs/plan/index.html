@@ -319,8 +319,7 @@ const RIDES = [{ key: 'ride_van', label: 'Van', word: 'van' }, { key: 'ride_suv'
 const RIDES_UNSET = `I’ll sort out who drives after ${DEADLINE}.`;
 
 // Three dinner votes. Cook in carries the sign-up rule; each restaurant gets one line, what it is and rough price.
-const COOK_IN_RULE = 'If 2 people don’t sign up to cook and 2 to clean by Nov 15, everyone’s on their own that night.';
-const COOK_IN = { id: 'cookin', label: 'Cook in', short: 'Cook in', desc: COOK_IN_RULE, place: 'the Airbnb kitchen' };
+const COOK_IN = { id: 'cookin', label: 'Cook in', short: 'Cook in', desc: 'At the Airbnb, groceries split.', place: 'the Airbnb kitchen' };
 const TOWN = [
   COOK_IN,
   { id: 'brewery', label: 'Breckenridge Brewery', short: 'Brewery', desc: 'Pub food, big tables, easy with kids. $$', place: 'Breckenridge Brewery, Main Street', url: 'https://www.breckbrew.com/visit/breckenridge/food/' },
@@ -379,7 +378,7 @@ const DAYS = [
   { key: 'mon', num: '05', name: 'Monday', date: 'December 14' },
 ];
 // Meal sign-ups: Cooking and Cleaning, 2 each. A night's sign-up appears only after Cook in wins that night's vote.
-const MEAL_NOTE = 'Sign up below. 2 to cook and 2 to clean by Nov 15, or everyone’s on their own that night.';
+const MEAL_NOTE = 'Sign up below. We need 2 to cook and 2 to clean.';
 const MEALS = [
   { key: 'fri', day: 'fri', title: 'Friday dinner', time: '6:30 PM', needsVote: 'friday' },
   { key: 'sat', day: 'sat', title: 'Saturday dinner', time: '6:30 PM', needsVote: 'saturday' },
@@ -396,7 +395,6 @@ const ASSUMPTIONS = [
   'The Airbnb is $8,400 for four nights. Check-in is 4 PM, checkout 11 AM. Early check-in only if the host says yes.',
   'Two cars, a 12-seat van and an SUV, about $1,300 together. Most days we all move together.',
   'Food isn’t in the $1,250. Groceries get split. At restaurants everyone pays their own.',
-  COOK_IN_RULE,
   'Restaurants for 15 need a reservation. If the winner can’t fit us, I’ll pick the runner-up.',
   'The snowcat is $800 for 8 people. If more than 8 want it, a second ride is another $800 and still fits the budget.',
   'Prices are from the websites in September and can change. Tubing and the snowcat need reservations.',
