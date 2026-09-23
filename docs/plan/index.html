@@ -300,7 +300,7 @@ const FRIDAY_UNSET = `${CONFIG.PLANNER}’s sorting out Friday after ${DEADLINE}
 // Nothing on the family side is capped; CAP_NOTE is what Bray keeps in mind when assigning (planner only).
 const CAP_NOTE = 'snowcat 8, SUV 5';
 const OPTS = [
-  { id: 'ski', name: 'Ski / snowboard', pot: 'personal', cost: 225, desc: 'Lift ticket (Epic Day Pass), rental and helmet at Breckenridge Ski Resort.', constraints: 'Ages 5+', minAge: 5, time: '9:00 AM', place: 'Breckenridge Ski Resort', bring: 'layers, goggles, sunscreen', ride: 'van',
+  { id: 'ski', name: 'Ski / snowboard', pot: 'personal', cost: 225, desc: 'Lift ticket (Epic Day Pass), rental and helmet at Breckenridge Ski Resort.', constraints: 'Ages 5+', minAge: 5, time: '10:00 AM', place: 'Breckenridge Ski Resort', bring: 'layers, goggles, sunscreen', ride: 'van',
     links: [{ label: 'More', href: 'https://www.breckenridge.com/plan-your-trip/lift-access/tickets.aspx' }] },
   { id: 'snowmobile', name: 'Snowmobile (share or own sled)', pot: 'personal', desc: 'Guided tour with Good Times Adventures, about 2 hours.', constraints: '15+ to drive, 18+ with a passenger, passengers 5+', minAge: 5,
     variants: [{ id: 'shared', label: 'Share a sled', cost: 189, name: 'Snowmobile, sharing a sled' }, { id: 'solo', label: 'My own sled', cost: 284, minAge: 15, name: 'Snowmobile, own sled' }],
@@ -346,23 +346,27 @@ const LOCKED = {
   thu: [
     { time: 'Morning', title: 'Land in Denver, drive up', place: 'Denver airport to the Airbnb, 2 to 2.5 hours on I-70', bring: 'ID, a water bottle, layers for the drive', transport: '12-passenger van and SUV from the airport' },
     { time: 'Around noon', title: 'Lunch on the way (on you)', place: 'Frisco or Main Street', bring: '', transport: '' },
-    { time: 'Afternoon', title: 'Groceries at City Market', place: 'Main Street or Carter Park with the kids', bring: '', transport: '' },
+    { time: 'Afternoon', title: 'Groceries at City Market', place: 'The big run only if we’re cooking in. Either way we’re there 3 full days, so grab snacks, drinks, coffee, whatever you’ll want at the house. Everyone else can hang out on Main Street or at Carter Park with the kids.', bring: '', transport: '' },
     { time: '4:00 PM', title: 'Check in at the Airbnb, hot tub', place: 'The Airbnb', bring: 'a swimsuit', transport: '' },
     { time: '6:30 PM', title: 'Thursday dinner, pizza', place: 'I’ll just order pizza and we split it', bring: '', transport: '' },
   ],
   fri: [
     { time: 'Morning', title: 'Breakfast out, on you', place: 'Main Street', bring: '', transport: '' },
+    { time: 'Around noon', title: 'Lunch, on you', place: 'Wherever your Friday puts you. Skiers eat on the mountain.', bring: '', transport: '' },
     { time: 'Evening', title: 'Back at the Airbnb, hot tub, dinner', place: 'The Airbnb', bring: '', transport: '' },
   ],
   sat: [
-    { time: 'Morning', title: 'Breakfast out, then Main Street', place: 'Get your secret santa gift, ride the free gondola. Breakfast is on you.', bring: 'walking boots', transport: 'Walk from the Airbnb' },
+    { time: 'Morning', title: 'Breakfast out, on you', place: 'Main Street', bring: '', transport: '' },
+    { time: '10:00 AM', title: 'Main Street', place: 'Get your white elephant gift, ride the free gondola.', bring: 'walking boots', transport: 'Walk from the Airbnb' },
+    { time: 'Around noon', title: 'Lunch on Main Street, on you', place: 'Eat before we leave for tubing at 1:15.', bring: '', transport: '' },
     { time: '2:00 PM', title: 'Tubing at Frisco Adventure Park', place: 'Frisco, 20 minutes away', bring: 'snow pants, waterproof boots, gloves', transport: 'Van and SUV, leaving 1:15' },
     { time: 'Dark', title: 'Back at the Airbnb by dark', place: 'The Main Street lights are on every night if you want to go see them.', bring: '', transport: 'Van and SUV' },
-    { time: '8:00 PM', title: 'Secret santa and movie night', place: 'Great room', bring: 'your secret santa gift, wrapped, $20 to 25', transport: '' },
+    { time: '8:00 PM', title: 'White elephant and movie night', place: 'Great room', bring: 'a wrapped gift, $20 to 25', transport: '' },
   ],
   sun: [
     { time: 'Morning', title: 'Breakfast out, on you', place: 'Main Street', bring: '', transport: '' },
-    { time: '9:30 AM', title: 'Sledding at Carter Park', place: 'A short walk from the Airbnb', bring: 'sleds and snow pants', transport: 'Walk' },
+    { time: '10:00 AM', title: 'Sledding at Carter Park', place: 'A short walk from the Airbnb. We’re buying sleds.', bring: 'snow pants and gloves', transport: 'Walk' },
+    { time: 'Around noon', title: 'Lunch, on you', place: 'Main Street, on the way to skating', bring: '', transport: '' },
     { time: '1:00 PM', title: 'Ice skating', place: 'Stephen C. West Arena · In the $1,250', bring: 'thick socks and gloves', transport: 'Van and SUV' },
     { time: 'Afternoon', title: 'Open afternoon', place: 'The Airbnb, Main Street, Blue River, or Sapphire Point', bring: '', transport: '' },
   ],
@@ -394,7 +398,7 @@ const ASSUMPTIONS = [
   'Flights are about $250 each and aren’t booked. If fares move, the $1,250 moves.',
   'The Airbnb is $8,400 for four nights. Check-in is 4 PM, checkout 11 AM. Early check-in only if the host says yes.',
   'Two cars, a 12-seat van and an SUV, about $1,300 together. Most days we all move together.',
-  'Food isn’t in the $1,250. Groceries get split. At restaurants everyone pays their own.',
+  'Food isn’t in the $1,250. Breakfast and lunch are on you every day. Groceries get split. At restaurants everyone pays their own.',
   'Restaurants for 15 need a reservation. If the winner can’t fit us, I’ll pick the runner-up.',
   'The snowcat is $800 for 8 people. If more than 8 want it, a second ride is another $800 and still fits the budget.',
   'Prices are from the websites in September and can change. Tubing and the snowcat need reservations.',
