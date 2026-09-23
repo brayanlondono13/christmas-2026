@@ -317,7 +317,7 @@ const FRIDAY_LATE = 'I’m assigning Fridays now. Check back here.';   // once e
 // A snowmobile pick is stored as option_id "snowmobile:shared" / "snowmobile:solo".
 // ride: which run takes you on Friday ('van', 'snowcat' or 'suv'); the planner sorts out drivers and leave times (My trip shows them).
 // Nothing on the family side is capped; CAP_NOTE is what Bray keeps in mind when assigning (planner only).
-// The snowcat isn't capped: past 8, a second ride still fits the budget (the snowcat card says so).
+// The snowcat isn't capped: past 8, a second ride still fits the budget (planner only; the family isn't told).
 const CAP_NOTE = 'SUV 5';
 const OPTS = [
   { id: 'ski', name: 'Ski / snowboard', pot: 'personal', cost: 225, desc: 'Lift ticket (Epic Day Pass), rental and helmet at Breckenridge Ski Resort.', constraints: 'Ages 5+', minAge: 5, time: '10:00 AM', place: 'Breckenridge Ski Resort', bring: 'layers, goggles, sunscreen', ride: 'van',
@@ -328,7 +328,7 @@ const OPTS = [
     links: [{ label: 'Website', href: 'https://goodtimesadventures.com/snowmobiling.html' }] },
   { id: 'dog', name: 'Dog sledding', pot: 'personal', cost: 211, desc: 'Drive a team of huskies through the Swan River valley.', constraints: 'Ages 5+, 275 lb limit', minAge: 5, time: '10:00 AM', place: 'Good Times Adventures, Tiger Road', bring: 'warm layers and a camera', ride: 'suv',
     links: [{ label: 'Website', href: 'https://goodtimesadventures.com/dogsledding.html' }] },
-  { id: 'snowcat', name: 'Snowcat', pot: 'group', desc: '90-minute heated snowcat ride to Josie’s Cabin with s’mores and drinks.', extra: 'Holds 8 per ride. If more than 8 of us want it, a second ride is still included. Mateo can ride on a lap.', time: '1:00 PM', place: 'Breckenridge Nordic Center', bring: 'layers and sunglasses', ride: 'snowcat',
+  { id: 'snowcat', name: 'Snowcat', pot: 'group', desc: '90-minute heated snowcat ride to Josie’s Cabin with s’mores and drinks.', extra: 'Holds 8 per ride. Mateo can ride on a lap.', time: '1:00 PM', place: 'Breckenridge Nordic Center', bring: 'layers and sunglasses', ride: 'snowcat',
     links: [{ label: 'Website', href: 'https://www.breckenridgenordic.com/snowcat-rides-in-breckenridge/' }] },
   { id: 'nordic', name: 'Snowshoe or cross-country ski', pot: 'group', desc: 'Trail pass and rental at the Nordic Center. Pick which one at the counter.', constraints: 'Kids 12 and under: free trail pass', time: '10:00 AM', place: 'Breckenridge Nordic Center', bring: 'waterproof boots, layers and water', ride: 'van',
     links: [{ label: 'Snowshoe', href: 'https://www.breckenridgenordic.com/snowshoe-trails-in-breckenridge/' }, { label: 'Cross-country', href: 'https://www.breckenridgenordic.com/cross-country-skiing-in-breckenridge/' }] },
