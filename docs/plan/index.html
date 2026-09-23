@@ -286,10 +286,13 @@ const PER_ADULT = 1250;   // the budget each adult's plan fits inside; nothing c
 const PLAN_ROOM = 3300;   // planning headroom inside that budget, planner-only
 const KID_FLIGHTS = { Camila: 250 };   // a kid's plane seat, paid from the planning headroom
 
-// Friday: everyone picks a 1st and a 2nd choice; Bray assigns the final one in the planner after Oct 3.
+// One deadline for everything: DEADLINE. After it Bray goes with the majority (or chooses, if not enough people answered).
+const DEADLINE = 'Oct 1';
+const DEADLINE_RULE = `Everything is due ${DEADLINE}. After that I go with the majority. If not enough people answered, I’ll choose myself.`;
+// Friday: everyone picks a 1st and a 2nd choice; Bray assigns the final one in the planner after the deadline.
 const RANKS = [1, 2];
 const ord = r => r === 1 ? '1st' : '2nd';
-const FRIDAY_UNSET = `${CONFIG.PLANNER}’s sorting out Friday after Oct 3.`;
+const FRIDAY_UNSET = `${CONFIG.PLANNER}’s sorting out Friday after ${DEADLINE}.`;
 
 // pot: 'personal' = extra on top (cost), 'group' = in the $1,250.
 // A snowmobile pick is stored as option_id "snowmobile:shared" / "snowmobile:solo".
@@ -297,23 +300,23 @@ const FRIDAY_UNSET = `${CONFIG.PLANNER}’s sorting out Friday after Oct 3.`;
 // Nothing on the family side is capped; CAP_NOTE is what Bray keeps in mind when assigning (planner only).
 const CAP_NOTE = 'snowcat 8, SUV 5';
 const OPTS = [
-  { id: 'ski', name: 'Ski / snowboard', pot: 'personal', cost: 225, desc: 'Lift ticket (Epic Day Pass), rental and helmet at Breckenridge Ski Resort.', constraints: 'Ages 5+', minAge: 5, due: 'Nov 28', time: '9:00 AM', place: 'Breckenridge Ski Resort', bring: 'layers, goggles, sunscreen', ride: 'van',
+  { id: 'ski', name: 'Ski / snowboard', pot: 'personal', cost: 225, desc: 'Lift ticket (Epic Day Pass), rental and helmet at Breckenridge Ski Resort.', constraints: 'Ages 5+', minAge: 5, time: '9:00 AM', place: 'Breckenridge Ski Resort', bring: 'layers, goggles, sunscreen', ride: 'van',
     links: [{ label: 'More', href: 'https://www.breckenridge.com/plan-your-trip/lift-access/tickets.aspx' }] },
   { id: 'snowmobile', name: 'Snowmobile (share or own sled)', pot: 'personal', desc: 'Guided tour with Good Times Adventures, about 2 hours.', constraints: '15+ to drive, 18+ with a passenger, passengers 5+', minAge: 5,
     variants: [{ id: 'shared', label: 'Share a sled', cost: 189, name: 'Snowmobile, sharing a sled' }, { id: 'solo', label: 'My own sled', cost: 284, minAge: 15, name: 'Snowmobile, own sled' }],
-    due: 'Oct 15', time: '10:00 AM', place: 'Good Times Adventures, Tiger Road', bring: 'goggles, warm gloves, a license if you drive', ride: 'suv',
+    time: '10:00 AM', place: 'Good Times Adventures, Tiger Road', bring: 'goggles, warm gloves, a license if you drive', ride: 'suv',
     links: [{ label: 'More', href: 'https://goodtimesadventures.com/snowmobiling.html' }] },
-  { id: 'dog', name: 'Dog sledding', pot: 'personal', cost: 211, desc: 'Drive a team of huskies through the Swan River valley.', constraints: 'Ages 5+, 275 lb limit', minAge: 5, due: 'Oct 15', time: '10:00 AM', place: 'Good Times Adventures, Tiger Road', bring: 'warm layers and a camera', ride: 'suv',
+  { id: 'dog', name: 'Dog sledding', pot: 'personal', cost: 211, desc: 'Drive a team of huskies through the Swan River valley.', constraints: 'Ages 5+, 275 lb limit', minAge: 5, time: '10:00 AM', place: 'Good Times Adventures, Tiger Road', bring: 'warm layers and a camera', ride: 'suv',
     links: [{ label: 'More', href: 'https://goodtimesadventures.com/dogsledding.html' }] },
-  { id: 'snowcat', name: 'Snowcat', pot: 'group', desc: '90-minute heated snowcat ride to Josie’s Cabin with s’mores and drinks.', extra: 'In the $1,250 for the first 8. Mateo can ride on a lap.', due: 'Oct 3', time: '1:00 PM', place: 'Breckenridge Nordic Center', bring: 'layers and sunglasses', ride: 'van',
+  { id: 'snowcat', name: 'Snowcat', pot: 'group', desc: '90-minute heated snowcat ride to Josie’s Cabin with s’mores and drinks.', extra: 'In the $1,250 for the first 8. Mateo can ride on a lap.', time: '1:00 PM', place: 'Breckenridge Nordic Center', bring: 'layers and sunglasses', ride: 'van',
     links: [{ label: 'More', href: 'https://www.breckenridgenordic.com/snowcat-rides-in-breckenridge/' }] },
-  { id: 'nordic', name: 'Snowshoe or cross-country ski', pot: 'group', desc: 'Trail pass and rental at the Nordic Center. Pick which one at the counter.', constraints: 'Kids 12 and under: free trail pass', due: 'Nov 15', time: '10:00 AM', place: 'Breckenridge Nordic Center', bring: 'waterproof boots, layers and water', ride: 'van',
+  { id: 'nordic', name: 'Snowshoe or cross-country ski', pot: 'group', desc: 'Trail pass and rental at the Nordic Center. Pick which one at the counter.', constraints: 'Kids 12 and under: free trail pass', time: '10:00 AM', place: 'Breckenridge Nordic Center', bring: 'waterproof boots, layers and water', ride: 'van',
     links: [{ label: 'Snowshoe', href: 'https://www.breckenridgenordic.com/snowshoe-trails-in-breckenridge/' }, { label: 'Cross-country', href: 'https://www.breckenridgenordic.com/cross-country-skiing-in-breckenridge/' }] },
 ];
 const ALL_KEYS = OPTS.flatMap(o => o.variants ? o.variants.map(v => `${o.id}:${v.id}`) : [o.id]);
 // The planner sorts out who drives and when; stored in settings as ride_van / ride_suv (JSON: driver, leave, dest).
 const RIDES = [{ key: 'ride_van', label: 'Van', word: 'van' }, { key: 'ride_suv', label: 'SUV', word: 'SUV' }];
-const RIDES_UNSET = 'I’ll sort out who drives after Oct 3.';
+const RIDES_UNSET = `I’ll sort out who drives after ${DEADLINE}.`;
 
 // Three dinner votes. Cook in carries the sign-up rule; each restaurant gets one line, what it is and rough price.
 const COOK_IN_RULE = 'If 2 people don’t sign up to cook and 2 to clean by Nov 15, everyone’s on their own that night.';
@@ -325,9 +328,14 @@ const TOWN = [
   { id: 'micasa', label: 'Mi Casa', short: 'Mi Casa', desc: 'Mexican, margaritas. $$', place: 'Mi Casa, Park Avenue', url: 'https://www.micasabreck.com/menu' },
 ];
 const VOTES = [
-  { id: 'friday', day: 'fri', title: 'Friday dinner', closes: 'Oct 10', time: '6:30 PM', choices: TOWN },
-  { id: 'saturday', day: 'sat', title: 'Saturday dinner', closes: 'Oct 10', time: '6:30 PM', choices: TOWN },
-  { id: 'sunday', day: 'sun', title: 'Sunday farewell dinner', closes: 'Oct 10', time: '6:30 PM', choices: [
+  { id: 'friday', day: 'fri', title: 'Friday dinner', time: '6:30 PM', choices: TOWN },
+  { id: 'saturday', day: 'sat', title: 'Saturday dinner', time: '6:30 PM', choices: [
+    COOK_IN,
+    { id: 'hearthstone', label: 'Hearthstone', short: 'Hearthstone', desc: 'Steaks and seafood in an old Victorian house. $$$$', place: 'Hearthstone, Ridge Street', url: 'https://www.hearthstonebreck.com/menus/' },
+    { id: 'bold', label: 'Bold', short: 'Bold', desc: 'American, big menu, kids menu. $$$', place: 'Bold, Main Street', url: 'https://www.boldbreck.com/menu/' },
+    { id: 'radicato', label: 'Radicato', short: 'Radicato', desc: 'Italian, Rootstalk’s sister spot. $$$$', place: 'Radicato, Main Street', url: 'https://www.radicatobreck.com/dinner' },
+  ] },
+  { id: 'sunday', day: 'sun', title: 'Sunday farewell dinner', time: '6:30 PM', choices: [
     COOK_IN,
     { id: 'rootstalk', label: 'Rootstalk', short: 'Rootstalk', desc: 'Fancy, chef’s tasting style, the splurge. $$$$', place: 'Rootstalk, Main Street', url: 'https://www.rootstalkbreck.com/dinner-menu' },
     { id: 'lafrancaise', label: 'La Française', short: 'La Française', desc: 'French bistro, small and cozy. $$$', place: 'La Française, Main Street', url: 'https://www.lafrancaisebistrot.com/menus' },
@@ -382,6 +390,7 @@ const SLOTS = 2;
 const jobName = r => r.toLowerCase();   // in sentences: "cooking", "cleaning"
 // Trip info: what we're assuming, in Bray's words.
 const ASSUMPTIONS = [
+  DEADLINE_RULE,
   'Kids aren’t charged. Camila’s plane seat and tubing come out of the shared budget. Mateo flies on a lap.',
   'Flights are about $250 each and aren’t booked. If fares move, the $1,250 moves.',
   'The Airbnb is $8,400 for four nights. Check-in is 4 PM, checkout 11 AM. Early check-in only if the host says yes.',
@@ -390,7 +399,7 @@ const ASSUMPTIONS = [
   COOK_IN_RULE,
   'Restaurants for 15 need a reservation. If the winner can’t fit us, I’ll pick the runner-up.',
   'The snowcat is $800 for 8 people. If more than 8 want it, a second ride is another $800 and still fits the budget.',
-  'Prices are from the websites in September and can change. Tubing and the snowcat need reservations. If you don’t answer by the date on the card, you’ll get whatever’s left.',
+  'Prices are from the websites in September and can change. Tubing and the snowcat need reservations.',
   'Weather can cancel anything outdoors. The backups are the Rec Center, the escape room, Main Street, or the house.',
   'Ages: snowmobile drivers 15+, 18+ with a passenger. Passengers and dog sledding 5+.',
 ];
@@ -527,7 +536,7 @@ class DemoStore {
     this.assignments = {};   // person → option id, once Bray assigns Friday
     this.votes = {
       friday: { Bray: 'cookin', Brian: 'cookin', Sandra: 'brewery', Natalia: 'cookin', Anthony: 'cookin', Luis: 'cookin', Anna: 'erics', Manny: 'brewery' },
-      saturday: { Bray: 'cookin', Brian: 'cookin', Sandra: 'cookin', Natalia: 'cookin', Anthony: 'cookin', Luis: 'cookin', Anna: 'cookin', Manny: 'brewery', Ivy: 'brewery', Hailey: 'erics' },
+      saturday: { Bray: 'cookin', Brian: 'cookin', Sandra: 'cookin', Natalia: 'cookin', Anthony: 'cookin', Luis: 'cookin', Anna: 'cookin', Manny: 'hearthstone', Ivy: 'hearthstone', Hailey: 'bold' },
       sunday: { Bray: 'rootstalk', Brian: 'lafrancaise', Sandra: 'lafrancaise', Natalia: 'cookin', Anthony: 'blueriver', Luis: 'rootstalk', Anna: 'rootstalk' },
     };
     this.meals = [{ meal_key: 'fri', role: 'Cooking', person: 'Anna' }, { meal_key: 'fri', role: 'Cooking', person: 'Ivy' }];
@@ -700,7 +709,6 @@ function buildOptions(S, u) {
       ...o, mine, rank, inel, btn, radios, pickId: pickKey(o, vid),
       priceHtml: priceHtml(o, variant ? variant.cost : o.cost),
       going: `${firsts} first choice${firsts === 1 ? '' : 's'}, ${seconds} second`,
-      deadline: o.due ? `Answer by ${o.due}` : '',
     };
   });
 }
@@ -716,7 +724,7 @@ function buildVotes(S, u) {
     const can = !closed && !kid;
     return {
       ...v, closed, winner, tally, can, my,
-      right: closed ? `Decided: ${winner.label}` : kid ? '' : `Answer by ${v.closes}`,
+      right: closed ? `Decided: ${winner.label}` : '',
       top: tally.filter(c => c.count === max), none: max === 0,
       choices: tally.map(c => ({ ...c, pct: Math.round(c.count / total * 100), my: c.id === my })),
     };
@@ -750,7 +758,7 @@ function rideLine(S, o) {
 function todos(S, u) {
   const kid = isKid(u), out = [];
   if (!hasBoth(S, u)) out.push({ target: 'friday', label: kid ? `pick a 1st and 2nd choice for ${u}’s Friday` : 'pick a 1st and 2nd choice for Friday' });
-  if (!kid) for (const v of VOTES) if (!S.closed[v.id] && !S.votes[v.id][u]) out.push({ target: 'vote-' + v.day, label: `vote on ${v.title}` });
+  if (!kid) for (const v of VOTES) if (!S.closed[v.id] && !v.choices.some(c => c.id === S.votes[v.id][u])) out.push({ target: 'vote-' + v.day, label: `vote on ${v.title}` });
   return out;
 }
 
@@ -831,7 +839,7 @@ function viewWho() {
   return `<div class="shell"><div class="who">
     <div class="eyebrow rise">Family Christmas 2026</div>
     <div class="h1 rise" style="animation-delay:.06s">Who’s <em>this?</em></div>
-    <div class="lede rise" style="animation-delay:.12s">Tap your name. Then pick your Friday and vote on dinners. Parents, tap your kid’s name to pick for them.</div>
+    <div class="lede rise" style="animation-delay:.12s">Tap your name. Then pick your Friday and vote on dinners, all by ${DEADLINE}. Parents, tap your kid’s name to pick for them.</div>
     ${HH.map((h, i) => `<div class="hh rise" style="animation-delay:${180 + i * 70}ms">
       <div class="hh-h"><span>${esc(h.parent)}</span><span class="fam">· ${esc(h.family)}</span></div>
       ${h.members.map(n => `<button class="person ${isKid(n) ? 'kid' : ''}" data-act="signin" data-name="${esc(n)}"><span>${esc(n)}</span><span class="tiny">${AGES[n] ? `age ${AGES[n]}` : n === app.user ? 'that’s you' : ''}</span></button>`).join('')}
@@ -863,7 +871,7 @@ function viewChoose() {
   const head = `<div class="pad" style="padding-bottom:8px">
     <div class="eyebrow">Choose</div>
     <div class="h1">Five <em>Days</em></div>
-    <div class="lede">${!todos(S, u).length ? (kid ? `${esc(u)}’s Friday is picked. Everything else is set.` : 'You’ve picked and voted. Everything else is set.') : kid ? `Pick a 1st and 2nd choice for ${esc(u)}’s Friday. Parents vote on dinners from their own name.` : 'Pick a 1st and 2nd choice for Friday. Vote on the three dinners. Everything else is set.'}</div>
+    <div class="lede">${!todos(S, u).length ? (kid ? `${esc(u)}’s Friday is picked. Everything else is set.` : 'You’ve picked and voted. Everything else is set.') : kid ? `Pick a 1st and 2nd choice for ${esc(u)}’s Friday by ${DEADLINE}. Parents vote on dinners from their own name.` : `Pick a 1st and 2nd choice for Friday and vote on the three dinners. ${DEADLINE_RULE}`}</div>
   </div>`;
   const days = DAYS.map(d => {
     const locked = [...(LOCKED[d.key] || []), ...decided(votes, d.key)].sort((a, b) => minutes(a.time) - minutes(b.time));
@@ -899,7 +907,7 @@ function cardHtml(o) {
   const radios = o.radios && !o.inel ? `<div class="radios">${o.radios.map(r => r.dis
     ? `<span class="radio dis"><i></i>${esc(r.text)} · 15+ only</span>`
     : `<button class="radio ${r.on ? 'on' : ''}" data-act="variant" data-opt="${o.id}" data-variant="${r.id}" aria-pressed="${r.on}"><i></i>${esc(r.text)}</button>`).join('')}</div>` : '';
-  const foot = [o.deadline, ...(o.links || []).map(l => `<a class="ext" href="${esc(l.href)}" target="_blank" rel="noopener">${esc(l.label)} ↗</a>`)].filter(Boolean).join(' · ');
+  const foot = [...(o.links || []).map(l => `<a class="ext" href="${esc(l.href)}" target="_blank" rel="noopener">${esc(l.label)} ↗</a>`)].filter(Boolean).join(' · ');
   return `<article class="card ${o.mine ? 'mine' : ''} ${o.inel ? 'dim' : ''}" data-card="${o.id}">
     <div class="card-top"><span class="card-name">${esc(o.name)}</span><span class="card-price">${o.priceHtml}</span></div>
     <div class="card-desc">${esc(o.desc)}</div>
@@ -948,7 +956,7 @@ function viewMe() {
       // A parent sees each kid's Friday too.
       if (!kid) for (const k of (household(u) || { members: [] }).members.filter(isKid)) items.push(fridayRow(k, `${k}’s`));
     }
-    votes.filter(v => v.day === d.key && !v.closed).forEach(v => items.push(mk({ time: v.time, title: v.title, place: kid ? 'Parents vote from their own name.' : `Answer by ${v.closes}`, bring: '', transport: '' }, 'vote')));
+    votes.filter(v => v.day === d.key && !v.closed).forEach(v => items.push(mk({ time: v.time, title: v.title, place: kid ? 'Parents vote from their own name.' : `Vote on Choose by ${DEADLINE}.`, bring: '', transport: '' }, 'vote')));
     mealsFor(S, votes, d.key).forEach(m => ROLES.forEach(role => {
       if (!S.meals[m.key][role].includes(u)) return;
       items.push(mk({ time: m.time, title: `${m.title}, ${jobName(role)}`, place: 'the Airbnb kitchen', bring: '', transport: '' }, 'you’re on'));
@@ -1028,7 +1036,7 @@ function viewPlanner() {
       </div>
       <div class="pnote">Once a leave time is set, My trip says “van leaves the Airbnb 9:15”. Until then, “${RIDES_UNSET}”</div>
       <div class="eyebrow sec">Votes</div>
-      <div class="vlist">${votes.map(v => `<div class="vl" data-vote="${v.id}"><b>${esc(v.title)}</b><span>${v.closed ? `Decided: ${esc(v.winner.label)}` : esc(v.tally.map(c => `${c.label} ${c.count}`).join(', ') + `, answer by ${v.closes}`)}</span>
+      <div class="vlist">${votes.map(v => `<div class="vl" data-vote="${v.id}"><b>${esc(v.title)}</b><span>${v.closed ? `Decided: ${esc(v.winner.label)}` : esc(v.tally.map(c => `${c.label} ${c.count}`).join(', ') )}</span>
         <button class="act ${v.closed ? 'soft' : ''}" data-act="closevote" data-vote="${v.id}" data-closed="${v.closed ? '0' : '1'}">${v.closed ? 'Reopen' : 'Close vote'}</button></div>`).join('')}</div>
       <div class="eyebrow sec">Change log</div>
       <div class="log">${S.log.map(l => `<div>${esc(l.text)} <span>· ${esc(l.when)}</span></div>`).join('') || '<div><span>Nothing yet.</span></div>'}</div>
