@@ -22,6 +22,7 @@ button{font:inherit;cursor:pointer;background:none;border:0;padding:0;color:inhe
 button,a,.person,.chip,.choice,.radio,.btn{touch-action:manipulation}
 @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 .rise{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
+@media (prefers-reduced-motion:reduce){.rise{animation:none}}
 
 /* type */
 .eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--accent)}
@@ -44,8 +45,9 @@ button,a,.person,.chip,.choice,.radio,.btn{touch-action:manipulation}
 .top .r{display:flex;align-items:center;gap:14px}
 .top .topname{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--muted);text-decoration:underline;text-underline-offset:3px;padding:14px 0;margin:-14px 0;cursor:pointer}   /* 44px to tap, without making the bar taller */
 .top .topname b{color:var(--ink);font-weight:600}
-.todo{background:var(--sand);border-top:1px solid var(--line);padding:9px 20px;font-size:12px;line-height:1.4;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.todo a{text-decoration:underline;text-underline-offset:2px;cursor:pointer;padding:10px 0}
+.todo{background:var(--sand);border-top:1px solid var(--line);padding:5px 20px;font-size:13px;line-height:1.45;color:var(--ink)}   /* wraps: every to-do stays visible */
+.todo a{display:inline-block;text-decoration:underline;text-underline-offset:2px;cursor:pointer;padding:7px 0;margin:-2px 0}   /* inline-block: a wrapped line's tap area never covers the line above */
+.todo .nw{white-space:nowrap}   /* the dot stays with the link before it */
 .todo.done{color:var(--green);font-weight:600}
 .tabbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;display:flex;background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom);z-index:6}
 @media(min-width:481px){.tabbar{border-left:1px solid var(--line3);border-right:1px solid var(--line3)}}
@@ -64,7 +66,9 @@ section[id]{scroll-margin-top:100px}
 .hh-h .fam{color:var(--muted)}
 .person{display:flex;justify-content:space-between;align-items:center;min-height:44px;border-bottom:1px solid var(--line2);cursor:pointer;font-size:16px;font-weight:500;width:100%;text-align:left}
 .person:hover{background:var(--sand)}
-.person.kid{padding-left:16px}
+.person.kid{padding-left:16px;cursor:default;color:var(--muted)}   /* kids don't pick: a name, not a button */
+.person.kid:hover{background:none}
+.person .ok{color:var(--green)}
 .who-foot{margin-top:auto;padding-top:32px;text-align:center;font-size:12px;color:var(--muted)}
 .who-foot a{color:var(--ink);text-decoration:underline;cursor:pointer;padding:12px 0}
 
@@ -107,36 +111,41 @@ section[id]{scroll-margin-top:100px}
 .card-extra{font-family:var(--serif);font-size:13px;line-height:1.5;color:var(--ink);margin-top:6px}
 .card-cons{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.5}
 .card-going{font-size:12px;margin-top:8px;line-height:1.5;color:var(--muted)}
+.card-going:empty{display:none}   /* launch day: no "0 first choices, 0 second" */
 .card-due{font-size:12px;color:var(--muted);margin-top:4px}
 .card-due .ext{display:inline-block;padding:8px 0}
-.radios{display:flex;gap:14px;margin-top:10px;flex-wrap:wrap}
+.radios{display:flex;gap:0 14px;margin-top:10px;flex-wrap:wrap}   /* stacked on a narrow phone, the 44px rows are spacing enough */
 .radio{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--ink);cursor:pointer;min-height:44px}
 .radio i{width:14px;height:14px;border-radius:50%;border:1.5px solid var(--ink);display:inline-block;flex:none;position:relative}
 .radio.on i::after{content:'';position:absolute;inset:2.5px;border-radius:50%;background:var(--ink)}
 .radio.dis{color:var(--muted);cursor:default}
 .radio.dis i{border-color:var(--ghost)}
 .btn{margin-top:12px;width:100%;height:44px;display:flex;align-items:center;justify-content:center;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;text-align:center;padding:0 12px;border:1px solid var(--ink);color:var(--ink);background:transparent;cursor:pointer}
-.btn.in{color:var(--card);background:var(--green);border-color:var(--green)}
+.btn.in{color:var(--green);background:transparent;border-color:transparent;height:auto;padding:12px 0 0;cursor:default}   /* a status, not a button */
+.btn.in::before{content:'\2713\00a0'}
+.btn.next{background:var(--ink);border-color:var(--ink);color:var(--card)}
 .btn.full{color:var(--accent);border-color:var(--accent);text-transform:none;letter-spacing:0;font-size:13px;font-weight:600}
 .btn.unlock{width:180px;margin:14px auto 0}
-.btn.kid{color:var(--ink)}
 .btn.off{color:var(--muted);border-color:var(--ghost);cursor:default}
 .btn:disabled{cursor:default}
 .btn.off.sent{text-transform:none;letter-spacing:0;font-size:12px;font-weight:600;line-height:1.3}
-.rm{display:block;margin:2px auto 0;font-size:12px;color:var(--muted);text-decoration:underline;text-underline-offset:3px;padding:10px 12px}
+.rm,.up{font-size:12px;color:var(--muted);text-decoration:underline;text-underline-offset:3px;padding:13px 12px}
+.picked{display:flex;justify-content:center;flex-wrap:wrap;gap:0 8px;margin-top:2px}
 .pill{display:inline-block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--green);border:1px solid var(--green);padding:3px 9px;border-radius:999px}
 .pill.closed{color:var(--muted);border-color:var(--ghost)}
 .pills{margin-top:12px;display:flex}
 .note{font-family:var(--serif);font-size:13px;line-height:1.55;color:var(--muted);margin-top:14px;text-wrap:pretty}
 .final{font-family:var(--serif);font-size:14px;line-height:1.5;margin-top:10px;font-weight:600;text-wrap:pretty}
 .final.soft{font-weight:400;color:var(--muted)}
+.final a,.lede a{color:var(--ink);font-weight:600;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+details.more{margin-top:12px}
+details.more>summary{font-size:13px;font-weight:600;color:var(--muted);padding:13px 0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
 .daynote{font-family:var(--serif);font-size:13px;line-height:1.5;color:var(--muted);margin-top:10px;text-wrap:pretty}
 .vrow{padding:11px 0 6px;border-bottom:1px dotted var(--line3)}
 .vrow-h{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
 .vrow-h b{font-size:14px;font-weight:600;line-height:1.35}
 .vrow-r{flex:none;font-size:12px;color:var(--muted)}
 .vrow-note{font-family:var(--serif);font-size:13px;line-height:1.5;color:var(--muted);margin-top:4px}
-.vrow.kid .choice{opacity:.5}
 .crow{display:flex;gap:12px;align-items:flex-start}
 .crow .ext{flex:none;margin-top:6px;padding:8px 0;font-size:12px;font-weight:600}
 .choice{margin-top:10px;display:block;flex:1;min-width:0;text-align:left}
@@ -173,7 +182,9 @@ section[id]{scroll-margin-top:100px}
 .it .t{font-size:12px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.4}
 .it .k{font-family:var(--display);font-style:italic;font-size:13px;margin-top:3px;color:var(--muted)}
 .it b{display:block;font-size:15px;font-weight:600;line-height:1.35}
-.it b a{text-decoration:underline;text-underline-offset:3px}
+.it b a{text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.it .rowlink{display:block;cursor:pointer}   /* a row you can act on: the whole row is the link */
+.it .rowlink b{text-decoration:underline;text-underline-offset:3px}
 .it i{display:block;font-family:var(--serif);font-style:normal;font-size:14px;line-height:1.5;color:var(--muted);margin-top:2px}
 .kv{display:flex;gap:8px;margin-top:8px;font-size:11px;line-height:1.5}
 .kv+.kv{margin-top:3px}
@@ -229,7 +240,7 @@ section[id]{scroll-margin-top:100px}
 .arow>span:last-child{overflow:visible;text-overflow:clip;padding:0;text-align:center}
 .sel{width:100%;font:inherit;font-size:12px;padding:5px 6px;border:1px solid var(--line);border-radius:3px;background:#fff}
 .rides{margin-top:12px;border-top:1px solid var(--ink)}
-.ride{display:grid;grid-template-columns:56px 1fr 1fr 1fr;gap:10px;padding:10px 0;border-bottom:1px solid var(--line2);align-items:center;font-size:12px}
+.ride{display:grid;grid-template-columns:96px 1fr 1fr 1fr;gap:10px;padding:10px 0;border-bottom:1px solid var(--line2);align-items:center;font-size:12px}
 .ride.h{padding:10px 0;border-bottom:1px solid var(--line)}
 .ride b{font-weight:600}
 .log{margin-top:12px;border-top:1px solid var(--ink)}
@@ -276,10 +287,10 @@ const HH = [
   { parent: 'Hailey & Dacian', family: 'Miron', members: ['Hailey', 'Dacian', 'Mateo'] },
   { parent: 'Isaiah & Leah', family: 'Levinus', members: ['Isaiah', 'Leah'] },
 ];
-const AGES = { Camila: 5, Mateo: 2 };
+const AGES = { Camila: 5, Mateo: 2 };   // kids don't pick or vote: they go with a parent on Friday, and Bray sets their Friday in the planner
 const PEOPLE = HH.flatMap(h => h.members);
-const ADULTS = PEOPLE.filter(p => !AGES[p]);
 const isKid = p => AGES[p] != null && AGES[p] < 13;
+const ADULTS = PEOPLE.filter(p => !isKid(p));
 const household = p => HH.find(h => h.members.includes(p));
 
 const PER_ADULT = 1250;   // the budget each adult's plan fits inside; nothing collected yet
@@ -292,31 +303,38 @@ const DEADLINE_RULE = `Everything is due ${DEADLINE}. After that I go with the m
 // Friday: everyone picks a 1st and a 2nd choice; Bray assigns the final one in the planner after the deadline.
 const RANKS = [1, 2];
 const ord = r => r === 1 ? '1st' : '2nd';
-const FRIDAY_UNSET = `${CONFIG.PLANNER}’s sorting out Friday after ${DEADLINE}.`;
+const FRIDAY_UNSET = `I’ll assign Fridays after ${DEADLINE}.`;
+const FRIDAY_LATE = 'I’m assigning Fridays now. Check back here.';   // once every vote is closed and a Friday is still unassigned
 
-// pot: 'personal' = extra on top (cost), 'group' = in the $1,250.
+// pot: 'personal' = extra on top (cost), 'group' = in the $1,250. minAge: only for the planner's kid Finals (kids don't pick).
 // A snowmobile pick is stored as option_id "snowmobile:shared" / "snowmobile:solo".
-// ride: which car takes you on Friday ('suv' or 'van'); the planner sorts out drivers and leave times (My trip shows them).
+// ride: which run takes you on Friday ('van', 'snowcat' or 'suv'); the planner sorts out drivers and leave times (My trip shows them).
 // Nothing on the family side is capped; CAP_NOTE is what Bray keeps in mind when assigning (planner only).
-const CAP_NOTE = 'snowcat 8, SUV 5';
+// The snowcat isn't capped: past 8, a second ride still fits the budget (see ASSUMPTIONS).
+const CAP_NOTE = 'SUV 5';
 const OPTS = [
   { id: 'ski', name: 'Ski / snowboard', pot: 'personal', cost: 225, desc: 'Lift ticket (Epic Day Pass), rental and helmet at Breckenridge Ski Resort.', constraints: 'Ages 5+', minAge: 5, time: '10:00 AM', place: 'Breckenridge Ski Resort', bring: 'layers, goggles, sunscreen', ride: 'van',
-    links: [{ label: 'More', href: 'https://www.breckenridge.com/plan-your-trip/lift-access/tickets.aspx' }] },
-  { id: 'snowmobile', name: 'Snowmobile (share or own sled)', pot: 'personal', desc: 'Guided tour with Good Times Adventures, about 2 hours.', constraints: '15+ to drive, 18+ with a passenger, passengers 5+', minAge: 5,
-    variants: [{ id: 'shared', label: 'Share a sled', cost: 189, name: 'Snowmobile, sharing a sled' }, { id: 'solo', label: 'My own sled', cost: 284, minAge: 15, name: 'Snowmobile, own sled' }],
+    links: [{ label: 'Website', href: 'https://www.breckenridge.com/plan-your-trip/lift-access/tickets.aspx' }] },
+  { id: 'snowmobile', name: 'Snowmobile', pot: 'personal', desc: 'Guided tour with Good Times Adventures, about 2 hours. Share a snowmobile with someone, or go solo for more.', constraints: '15+ to drive, 18+ with a passenger, passengers 5+', minAge: 5,
+    variants: [{ id: 'shared', label: 'Share a snowmobile', cost: 189, each: true, name: 'Snowmobile, shared' }, { id: 'solo', label: 'Go solo', cost: 284, minAge: 15, name: 'Snowmobile, solo' }],
     time: '10:00 AM', place: 'Good Times Adventures, Tiger Road', bring: 'goggles, warm gloves, a license if you drive', ride: 'suv',
-    links: [{ label: 'More', href: 'https://goodtimesadventures.com/snowmobiling.html' }] },
+    links: [{ label: 'Website', href: 'https://goodtimesadventures.com/snowmobiling.html' }] },
   { id: 'dog', name: 'Dog sledding', pot: 'personal', cost: 211, desc: 'Drive a team of huskies through the Swan River valley.', constraints: 'Ages 5+, 275 lb limit', minAge: 5, time: '10:00 AM', place: 'Good Times Adventures, Tiger Road', bring: 'warm layers and a camera', ride: 'suv',
-    links: [{ label: 'More', href: 'https://goodtimesadventures.com/dogsledding.html' }] },
-  { id: 'snowcat', name: 'Snowcat', pot: 'group', desc: '90-minute heated snowcat ride to Josie’s Cabin with s’mores and drinks.', extra: 'In the $1,250 for the first 8. Mateo can ride on a lap.', time: '1:00 PM', place: 'Breckenridge Nordic Center', bring: 'layers and sunglasses', ride: 'van',
-    links: [{ label: 'More', href: 'https://www.breckenridgenordic.com/snowcat-rides-in-breckenridge/' }] },
+    links: [{ label: 'Website', href: 'https://goodtimesadventures.com/dogsledding.html' }] },
+  { id: 'snowcat', name: 'Snowcat', pot: 'group', desc: '90-minute heated snowcat ride to Josie’s Cabin with s’mores and drinks.', extra: 'Holds 8 per ride. If more than 8 of us want it, a second ride is still included. Mateo can ride on a lap.', time: '1:00 PM', place: 'Breckenridge Nordic Center', bring: 'layers and sunglasses', ride: 'snowcat',
+    links: [{ label: 'Website', href: 'https://www.breckenridgenordic.com/snowcat-rides-in-breckenridge/' }] },
   { id: 'nordic', name: 'Snowshoe or cross-country ski', pot: 'group', desc: 'Trail pass and rental at the Nordic Center. Pick which one at the counter.', constraints: 'Kids 12 and under: free trail pass', time: '10:00 AM', place: 'Breckenridge Nordic Center', bring: 'waterproof boots, layers and water', ride: 'van',
     links: [{ label: 'Snowshoe', href: 'https://www.breckenridgenordic.com/snowshoe-trails-in-breckenridge/' }, { label: 'Cross-country', href: 'https://www.breckenridgenordic.com/cross-country-skiing-in-breckenridge/' }] },
 ];
 const ALL_KEYS = OPTS.flatMap(o => o.variants ? o.variants.map(v => `${o.id}:${v.id}`) : [o.id]);
-// The planner sorts out who drives and when; stored in settings as ride_van / ride_suv (JSON: driver, leave, dest).
-const RIDES = [{ key: 'ride_van', label: 'Van', word: 'van' }, { key: 'ride_suv', label: 'SUV', word: 'SUV' }];
-const RIDES_UNSET = `I’ll sort out who drives after ${DEADLINE}.`;
+// The planner sorts out who drives and when; stored in settings as ride_van / ride_snowcat / ride_suv (JSON: driver, leave, dest).
+// The snowcat is at 1:00 PM, so it gets its own van run, apart from the 10 AM ski and Nordic drop.
+const RIDES = [
+  { key: 'ride_van', label: 'Van', word: 'van', dest: 'e.g. Nordic Center' },
+  { key: 'ride_snowcat', label: 'Snowcat van', word: 'van', log: 'snowcat van', dest: 'e.g. Nordic Center' },
+  { key: 'ride_suv', label: 'SUV', word: 'SUV', dest: 'e.g. Good Times' },
+];
+const RIDES_UNSET = 'I’ll post who drives and when we leave, right here.';
 
 // Three dinner votes. Cook in carries the sign-up rule; each restaurant gets one line, what it is and rough price.
 const COOK_IN = { id: 'cookin', label: 'Cook in', short: 'Cook in', desc: 'At the Airbnb, groceries split.', place: 'the Airbnb kitchen' };
@@ -332,7 +350,7 @@ const VOTES = [
     COOK_IN,
     { id: 'hearthstone', label: 'Hearthstone', short: 'Hearthstone', desc: 'Steaks and seafood in an old Victorian house. $$$$', place: 'Hearthstone, Ridge Street', url: 'https://www.hearthstonebreck.com/menus/' },
     { id: 'bold', label: 'Bold', short: 'Bold', desc: 'American, big menu, kids menu. $$$', place: 'Bold, Main Street', url: 'https://www.boldbreck.com/menu/' },
-    { id: 'radicato', label: 'Radicato', short: 'Radicato', desc: 'Italian, Rootstalk’s sister spot. $$$$', place: 'Radicato, Main Street', url: 'https://www.radicatobreck.com/dinner' },
+    { id: 'radicato', label: 'Radicato', short: 'Radicato', desc: 'Italian, fancy, same owners as Rootstalk. $$$$', place: 'Radicato, Main Street', url: 'https://www.radicatobreck.com/dinner' },
   ] },
   { id: 'sunday', day: 'sun', title: 'Sunday farewell dinner', time: '6:30 PM', choices: [
     COOK_IN,
@@ -353,7 +371,7 @@ const LOCKED = {
   fri: [
     { time: 'Morning', title: 'Breakfast out, on you', place: 'Main Street', bring: '', transport: '' },
     { time: 'Around noon', title: 'Lunch, on you', place: 'Wherever your Friday puts you. Skiers eat on the mountain.', bring: '', transport: '' },
-    { time: 'Evening', title: 'Back at the Airbnb, hot tub, dinner', place: 'The Airbnb', bring: '', transport: '' },
+    { time: 'Evening', title: 'Back at the Airbnb, hot tub', place: 'The Airbnb', bring: '', transport: '' },
   ],
   sat: [
     { time: 'Morning', title: 'Breakfast out, on you', place: 'Main Street', bring: '', transport: '' },
@@ -367,7 +385,7 @@ const LOCKED = {
     { time: 'Morning', title: 'Breakfast out, on you', place: 'Main Street', bring: '', transport: '' },
     { time: '10:00 AM', title: 'Sledding at Carter Park', place: 'A short walk from the Airbnb. We’re buying sleds.', bring: 'snow pants and gloves', transport: 'Walk' },
     { time: 'Around noon', title: 'Lunch, on you', place: 'Main Street, on the way to skating', bring: '', transport: '' },
-    { time: '1:00 PM', title: 'Ice skating', place: 'Stephen C. West Arena · In the $1,250', bring: 'thick socks and gloves', transport: 'Van and SUV' },
+    { time: '1:00 PM', title: 'Ice skating', place: 'Stephen C. West Arena · Included', bring: 'thick socks and gloves', transport: 'Van and SUV' },
     { time: 'Afternoon', title: 'Open afternoon', place: 'The Airbnb, Main Street, Blue River, or Sapphire Point', bring: '', transport: '' },
   ],
   mon: [
@@ -382,7 +400,7 @@ const DAYS = [
   { key: 'mon', num: '05', name: 'Monday', date: 'December 14' },
 ];
 // Meal sign-ups: Cooking and Cleaning, 2 each. A night's sign-up appears only after Cook in wins that night's vote.
-const MEAL_NOTE = 'Sign up below. We need 2 to cook and 2 to clean.';
+const MEAL_NOTE = 'Cook in won. I need 2 to cook and 2 to clean up. Tap + me.';
 const MEALS = [
   { key: 'fri', day: 'fri', title: 'Friday dinner', time: '6:30 PM', needsVote: 'friday' },
   { key: 'sat', day: 'sat', title: 'Saturday dinner', time: '6:30 PM', needsVote: 'saturday' },
@@ -394,7 +412,7 @@ const jobName = r => r.toLowerCase();   // in sentences: "cooking", "cleaning"
 // Trip info: what we're assuming, in Bray's words.
 const ASSUMPTIONS = [
   DEADLINE_RULE,
-  'Kids aren’t charged. Camila’s plane seat and tubing come out of the shared budget. Mateo flies on a lap.',
+  'Kids don’t pay into the $1,250 and don’t pick a Friday. Camila’s plane seat and tubing come out of the shared budget, and Mateo flies on a lap. On Friday, kids go with one of you. If that’s a + activity, their add-on is on you.',
   'Flights are about $250 each and aren’t booked. If fares move, the $1,250 moves.',
   'The Airbnb is $8,400 for four nights. Check-in is 4 PM, checkout 11 AM. Early check-in only if the host says yes.',
   'Two cars, a 12-seat van and an SUV, about $1,300 together. Most days we all move together.',
@@ -434,7 +452,7 @@ const rankOf = (S, u, o) => RANKS.find(r => isOpt(pickOf(S, u, r), o)) || 0;
 const openRank = (S, u) => RANKS.find(r => !pickOf(S, u, r)) || 0;
 const hasBoth = (S, u) => RANKS.every(r => pickOf(S, u, r));
 // What this person's Friday costs for now: the assignment once Bray has made it, else their 1st choice (or 2nd if that's all they have).
-const fridayGuess = (S, u) => S.assigned[u] || pickOf(S, u, 1) || pickOf(S, u, 2) || null;
+const fridayGuess = (S, u) => S.assigned[u] || (isKid(u) ? null : pickOf(S, u, 1) || pickOf(S, u, 2)) || null;   // a kid counts only once assigned
 
 // Sort key for a time label: '' (a placeholder row) < Morning < clock times < Afternoon < Dark < Evening < Anytime.
 const VAGUE = { '': -1, 'Morning': 6 * 60, 'Around noon': 12 * 60, 'Afternoon': 13 * 60, 'Dark': 17 * 60 + 30, 'Evening': 18 * 60, 'Anytime': 23 * 60 + 58 };
@@ -452,8 +470,8 @@ function minutes(t) {
    ============================================================ */
 function normalize(rows) {
   const picks = {}, assigned = {}, votes = {}, meals = {}, closed = {}, rides = {};
-  for (const r of rows.picks) if (r.option_id && RANKS.includes(+r.rank)) (picks[r.person] ||= {})[+r.rank] = r.option_id;
-  for (const r of rows.assignments || []) if (r.option_id) assigned[r.person] = r.option_id;
+  for (const r of rows.picks) if (r.option_id && RANKS.includes(+r.rank) && !isKid(r.person)) (picks[r.person] ||= {})[+r.rank] = r.option_id;   // kids don't pick; old kid rows are ignored
+  for (const r of rows.assignments || []) if (parsePick(r.option_id)) assigned[r.person] = r.option_id;   // an option since taken off the list counts as not assigned
   for (const r of rows.votes) (votes[r.vote_id] ||= {})[r.person] = r.choice_id;
   for (const m of MEALS) meals[m.key] = Object.fromEntries(ROLES.map(r => [r, []]));
   for (const r of rows.meals) { const m = meals[r.meal_key]; if (m && m[r.role] && !m[r.role].includes(r.person)) m[r.role].push(r.person); }
@@ -502,6 +520,12 @@ class SupabaseStore {
       ? this.post('/picks', { person, rank, option_id: id, updated_at: new Date().toISOString() }, 'resolution=merge-duplicates,return=minimal')
       : this.del(`/picks?person=eq.${encodeURIComponent(person)}&rank=eq.${rank}`);
   }
+  // "Make it my 1st choice": one request either way, so a swap is never half done. With no old 1st, the 2nd's rank is just changed.
+  async movePicks(person, first, second) {
+    const at = new Date().toISOString();
+    if (second) return this.post('/picks', [{ person, rank: 1, option_id: first, updated_at: at }, { person, rank: 2, option_id: second, updated_at: at }], 'resolution=merge-duplicates,return=minimal');
+    return this.req(`/picks?person=eq.${encodeURIComponent(person)}&rank=eq.2`, { method: 'PATCH', body: JSON.stringify({ rank: 1, updated_at: at }), headers: { Prefer: 'return=minimal' } });
+  }
   vote(vid, person, cid) { return this.post('/votes', { vote_id: vid, person, choice_id: cid, updated_at: new Date().toISOString() }, 'resolution=merge-duplicates,return=minimal'); }
   setMeal(key, role, person, on) {
     return on
@@ -525,14 +549,14 @@ class DemoStore {
   constructor() {
     this.pin = '2026';
     this.seed();
-    try { const saved = JSON.parse(localStorage.getItem('breck-demo') || 'null'); if (saved && saved.v === 5) Object.assign(this, saved); } catch {}
+    try { const saved = JSON.parse(localStorage.getItem('breck-demo') || 'null'); if (saved && saved.v === 6) Object.assign(this, saved); } catch {}
   }
-  save() { const { picks, assignments, votes, meals, items, voteState, logRows, nextId, pin, settings } = this; try { localStorage.setItem('breck-demo', JSON.stringify({ v: 5, picks, assignments, votes, meals, items, voteState, logRows, nextId, pin, settings })); } catch {} }
+  save() { const { picks, assignments, votes, meals, items, voteState, logRows, nextId, pin, settings } = this; try { localStorage.setItem('breck-demo', JSON.stringify({ v: 6, picks, assignments, votes, meals, items, voteState, logRows, nextId, pin, settings })); } catch {} }
   seed() {
     const now = Date.now(), ago = h => new Date(now - h * 3600e3).toISOString();
     this.picks = {
       Bray: { 1: 'ski', 2: 'nordic' }, Brian: { 1: 'snowmobile:shared', 2: 'snowcat' }, Sandra: { 1: 'snowmobile:shared', 2: 'snowcat' }, Manny: { 1: 'snowmobile:solo', 2: 'dog' }, Ivy: { 1: 'dog', 2: 'snowcat' },
-      Natalia: { 1: 'snowcat', 2: 'nordic' }, Anthony: { 1: 'snowcat', 2: 'ski' }, Camila: { 1: 'snowcat', 2: 'nordic' }, Luis: { 1: 'snowcat', 2: 'nordic' }, Anna: { 1: 'snowcat', 2: 'nordic' },
+      Natalia: { 1: 'snowcat', 2: 'nordic' }, Anthony: { 1: 'snowcat', 2: 'ski' }, Luis: { 1: 'snowcat', 2: 'nordic' }, Anna: { 1: 'snowcat', 2: 'nordic' },
       Hailey: { 1: 'snowcat', 2: 'dog' }, Isaiah: { 1: 'snowcat' }, Leah: { 1: 'snowcat', 2: 'ski' },
     };
     this.assignments = {};   // person → option id, once Bray assigns Friday
@@ -554,11 +578,11 @@ class DemoStore {
       { id: 'sundinner', sort: 10, item: 'Sunday farewell dinner reservation', status: 'Open', when_label: 'Sun Dec 13 · 6:30 PM', cost_label: 'you pay', fund: 0, link: 'after the vote', conf: '' },
     ];
     this.voteState = { friday: false, saturday: false, sunday: false };
-    this.settings = {};   // ride_van / ride_suv once the planner sorts them out
+    this.settings = {};   // ride_van / ride_snowcat / ride_suv once the planner sorts them out
     this.logRows = [
-      { id: 3, text: 'Manny changed Friday 1st choice: Snowshoe or cross-country ski → Snowmobile, own sled', created_at: ago(20) },
+      { id: 3, text: 'Manny changed Friday 1st choice: Snowshoe or cross-country ski → Snowmobile, solo', created_at: ago(20) },
       { id: 2, text: 'Bray marked Tubing · Frisco Adventure Park booked', created_at: ago(70) },
-      { id: 1, text: 'Natalia picked Friday 1st choice for Camila: Snowcat', created_at: ago(120) },
+      { id: 1, text: 'Anna picked Friday 1st choice: Snowcat', created_at: ago(120) },
     ];
     this.nextId = 4;
   }
@@ -578,6 +602,11 @@ class DemoStore {
     const p = this.picks[person] ||= {};
     if (id) p[rank] = id; else delete p[rank];
     if (!Object.keys(p).length) delete this.picks[person];
+    this.save();
+  }
+  async movePicks(person, first, second) {
+    const p = this.picks[person] ||= {};
+    p[1] = first; if (second) p[2] = second; else delete p[2];
     this.save();
   }
   async vote(vid, person, cid) { (this.votes[vid] ||= {})[person] = cid; this.save(); }
@@ -619,13 +648,28 @@ const app = {
   pos: {},                // scroll position per screen, so back and forward return to where each was
   redrawing: false,       // true while a redraw swaps the DOM (a box losing focus then is not a person leaving it)
   variant: {},            // snowmobile radio per person, before they pick
+  handoff: readHandoff(),   // who handed this phone over, oldest first; the last one gets "Back to"
+  lastPick: null,         // the card just picked: the Next button sits under it
+  revealNext: false,      // after a pick, scroll the Next button into view if it landed under the tab bar
+  anchor: null,           // the card or dinner just tapped: the redraw keeps it under the finger
+  pickedAt: null,         // [card, when] of the last pick or move-up: a quick second tap lands on whatever it moved under the finger
+  mealAt: null,           // [meal and job, when] of the last sign-up tap, for the same reason
+  firstLoad: true,        // the first load of the trip may send a finished person to My trip
+  moreOpen: false,        // "See all the options" open, once a Friday is assigned
+  roseAt: null,           // when the roster's entrance started (it plays once per page load)
   jump: null,             // section to scroll to after the next render
   navTop: false,          // a tab or link was tapped: the next screen starts at the top (back/forward keeps its place)
   toast: '', lastHtml: '',
   notice: '',             // a save that failed; stays on screen until a save succeeds
   loadNotice: '',         // the trip couldn't be loaded; stays until it can
 };
-if (app.user && !PEOPLE.includes(app.user)) { app.user = null; ls.set('breck-user', null); }
+if (app.user && (!PEOPLE.includes(app.user) || isKid(app.user))) { app.user = null; ls.set('breck-user', null); }
+function readHandoff() {
+  // Stored as a JSON list; an older page stored one name.
+  let v = ls.get('breck-parent'), list = [];
+  try { list = v ? (v.trim().startsWith('[') ? JSON.parse(v) : [v]) : []; } catch { list = []; }
+  return Array.isArray(list) ? list.filter(n => ADULTS.includes(n)) : [];
+}
 
 // Routes: #/info · #/choose · #/me · #/planner · #/who. Old hashes keep working.
 function route() {
@@ -653,6 +697,8 @@ async function refresh() {
     }
     if (seq !== loadSeq) return;   // a newer load is in flight; let it win instead of showing stale data
     app.state = st; app.plannerItems = route() === 'planner' ? items : null; app.loadNotice = '';
+    // Opening the bare link after the deadline with nothing left to do: start on My trip, where the plan is.
+    if (app.firstLoad) { app.firstLoad = false; if (!route() && app.user && allClosed(st) && !todos(st, app.user).length) history.replaceState(null, '', '#/me'); }
   } catch (e) { if (seq === loadSeq) app.loadNotice = 'Couldn’t load the trip. Check your signal.'; }
   render();
 }
@@ -684,46 +730,43 @@ function variantFor(S, u, o) {
   return app.variant[u] || o.variants[0].id;
 }
 function priceHtml(o, cost) {
-  if (o.pot === 'group') return 'In the $1,250';
-  return `<span class="amt">${plus(cost)}</span><span class="ontop">on top</span>`;
+  if (o.pot === 'group') return 'Included';
+  return `<span class="amt">${plus(cost)}</span><span class="ontop">extra</span>`;
 }
 const countOf = (S, o, rank) => PEOPLE.filter(p => isOpt(pickOf(S, p, rank), o)).length;
+const going = (S, o) => PEOPLE.filter(p => isOpt(S.assigned[p], o)).length;
 
+// Once Bray has assigned a Friday, the cards stop taking picks: the assigned one reads "Your Friday", the rest have no button.
 function buildOptions(S, u) {
-  const age = AGES[u], kid = isKid(u), both = hasBoth(S, u), whose = kid ? `${u}’s` : 'Your';
+  const both = hasBoth(S, u), fin = parsePick(S.assigned[u]);
   return OPTS.map(o => {
-    const rank = rankOf(S, u, o), mine = rank > 0;
+    const rank = rankOf(S, u, o), final = !!fin && fin.opt.id === o.id, mine = fin ? final : rank > 0;
     const firsts = countOf(S, o, 1), seconds = countOf(S, o, 2);
-    const vid = o.variants ? variantFor(S, u, o) : null;
+    const vid = o.variants ? (final ? fin.variant.id : variantFor(S, u, o)) : null;
     const variant = o.variants ? o.variants.find(v => v.id === vid) : null;
-    let inel = '';
-    if (o.minAge && age != null && age < o.minAge) inel = o.minAge >= 15 ? 'Adults only' : `Ages ${o.minAge} and up`;
-    let btn;  // { label, cls, action | status | dis }
-    if (inel) btn = { label: inel, cls: 'off', dis: true };
-    else if (mine) btn = { label: `${whose} ${ord(rank)} choice`, cls: 'in', status: true, rank };
-    else if (both) btn = { label: `${kid ? `${u}’s` : 'You’ve'} got 2 picks. Remove one to change.`, cls: 'off sent', dis: true };
-    else btn = { label: kid ? `Pick this for ${u}` : 'Pick this', cls: kid ? 'kid' : '', action: 'pick', rank: openRank(S, u) };
-    const radios = o.variants ? o.variants.map(v => ({
-      ...v, on: v.id === vid, dis: !!(v.minAge && age != null && age < v.minAge),
-      text: `${v.label} · ${plus(v.cost)}`,
-    })) : null;
+    let btn;  // { label, cls, action | status | dis }, or null: no button
+    if (fin) btn = final ? { label: 'Your Friday', cls: 'in', status: true, final: true } : null;
+    else if (mine) btn = { label: `Your ${ord(rank)} choice`, cls: 'in', status: true, rank, up: rank === 2 ? 'Make it my 1st choice' : '' };
+    else if (both) btn = { label: 'You’ve got 2 picks. Remove one to change.', cls: 'off sent', dis: true };
+    else { const r = openRank(S, u); btn = { label: `Pick as my ${ord(r)} choice`, cls: '', action: 'pick', rank: r }; }
+    const radios = o.variants && !fin ? o.variants.map(v => ({ ...v, on: v.id === vid, text: `${v.label} · ${plus(v.cost)}${v.each ? ' each' : ''}` })) : null;
     return {
-      ...o, mine, rank, inel, btn, radios, pickId: pickKey(o, vid),
+      ...o, mine, rank, btn, radios, pickId: pickKey(o, vid),
       priceHtml: priceHtml(o, variant ? variant.cost : o.cost),
-      going: `${firsts} first choice${firsts === 1 ? '' : 's'}, ${seconds} second`,
+      // The family's tally, labelled so it never reads as your own status; once Fridays are assigned, who's going.
+      going: fin ? (going(S, o) ? `${going(S, o)} of us going` : '') : firsts || seconds ? `Family so far: ${firsts} as 1st choice, ${seconds} as 2nd` : '',
     };
   });
 }
 
 function buildVotes(S, u) {
-  const kid = isKid(u);
   return VOTES.map(v => {
     const tally = v.choices.map(ch => ({ ...ch, count: ADULTS.filter(p => S.votes[v.id][p] === ch.id).length }));
     const total = tally.reduce((a, c) => a + c.count, 0) || 1;
     const max = Math.max(...tally.map(c => c.count));
     const winner = tally.find(c => c.count === max);
     const closed = !!S.closed[v.id], my = S.votes[v.id][u];
-    const can = !closed && !kid;
+    const can = !closed;
     return {
       ...v, closed, winner, tally, can, my,
       right: closed ? `Decided: ${winner.label}` : '',
@@ -750,18 +793,69 @@ function decided(votes, dayKey) {
 // "Getting there" for an assigned Friday: the ride once the planner has set a leave time, otherwise a placeholder.
 function rideLine(S, o) {
   if (!o.ride) return o.transport || '';
-  const r = RIDES.find(x => x.key === (o.ride === 'suv' ? 'ride_suv' : 'ride_van'));
+  const r = RIDES.find(x => x.key === `ride_${o.ride}`);
   const v = (S.rides || {})[r.key];
   if (!v || !v.leave) return RIDES_UNSET;
-  return `${r.word} leaves the Airbnb ${v.leave}${v.driver ? `, ${v.driver} drives` : ''}`;
+  return `${r.word} leaves the Airbnb ${v.leave}${v.driver ? (v.driver === app.user ? ', you drive' : `, ${v.driver} drives`) : ''}`;
 }
 
-// What this person still owes the group. Kids only owe Friday picks (a parent taps them).
+const allClosed = S => VOTES.every(v => S.closed[v.id]);   // after the deadline: the copy stops talking about Oct 1
+const fridayOpen = (S, u) => !S.assigned[u] && !hasBoth(S, u);
+const fridayUnset = S => allClosed(S) ? FRIDAY_LATE : FRIDAY_UNSET;
+const otherAdults = u => ((household(u) || { members: [] }).members).filter(p => p !== u && !isKid(p));
+
+// The cook-in night to ask this person about: only if they're on no live cook-in night yet (one job each is plenty) and a job is open.
+function openMeal(S, u) {
+  if (isKid(u)) return null;
+  const votes = buildVotes(S, u), live = DAYS.flatMap(d => mealsFor(S, votes, d.key));
+  if (live.some(m => ROLES.some(r => S.meals[m.key][r].includes(u)))) return null;
+  return live.find(m => ROLES.some(r => S.meals[m.key][r].length < SLOTS)) || null;
+}
+
+// Open cook and clean jobs left on a cook-in night.
+const stillNeed = (S, m) => ROLES.reduce((n, r) => n + Math.max(0, SLOTS - S.meals[m.key][r].length), 0);
+
+// What this person still owes the group, in strip order: their Friday picks, the open votes, and a cook-in job once Cook in
+// wins a night. Kids owe nothing: they don't pick or vote.
 function todos(S, u) {
-  const kid = isKid(u), out = [];
-  if (!hasBoth(S, u)) out.push({ target: 'friday', label: kid ? `pick a 1st and 2nd choice for ${u}’s Friday` : 'pick a 1st and 2nd choice for Friday' });
-  if (!kid) for (const v of VOTES) if (!S.closed[v.id] && !v.choices.some(c => c.id === S.votes[v.id][u])) out.push({ target: 'vote-' + v.day, label: `vote on ${v.title}` });
+  const out = [];
+  if (isKid(u)) return out;
+  if (fridayOpen(S, u)) {
+    const one = pickOf(S, u, 1) || pickOf(S, u, 2), r = ord(openRank(S, u));
+    out.push({ kind: 'friday', target: 'friday', label: one ? `pick a ${r} choice for Friday` : 'pick a 1st and 2nd choice for Friday' });
+  }
+  for (const v of VOTES) if (!S.closed[v.id] && !v.choices.some(c => c.id === S.votes[v.id][u])) out.push({ kind: 'vote', vote: v, target: 'vote-' + v.day, label: `vote on ${v.title}` });
+  const m = openMeal(S, u);
+  if (m) out.push({ kind: 'meal', meal: m, target: 'meal-' + m.key, label: `sign up to cook or clean, ${m.title}` });
   return out;
+}
+// Open votes read as one link to the first of them: "vote on 3 dinners", "vote on Friday and Sunday dinners", "vote on Sunday farewell dinner".
+function voteLabel(vs) {
+  if (vs.length === 1) return `vote on ${vs[0].title}`;
+  if (vs.length === VOTES.length) return `vote on ${vs.length} dinners`;
+  const names = vs.map(v => DAYS.find(d => d.key === v.day).name);
+  return `vote on ${names.slice(0, -1).join(', ')} and ${names[names.length - 1]} dinners`;
+}
+// A to-do as a link: it jumps to its section on Choose.
+function todoLink(x, label = x.label) {
+  return `<a data-act="todo" data-target="${esc(x.target)}">${esc(label)}</a>`;
+}
+function todoLinks(t) {
+  const vs = t.filter(x => x.kind === 'vote');
+  return t.filter(x => x.kind !== 'vote' || x === vs[0]).map(x => x.kind === 'vote' ? todoLink(x, voteLabel(vs.map(y => y.vote))) : todoLink(x));
+}
+// Who handed this phone to u (a spouse), so u's screens can lead back to them.
+const handedBy = u => { const p = app.handoff[app.handoff.length - 1]; return p && p !== u && household(p) === household(u) ? p : null; };
+// The strip once nothing's left: a handed-over phone leads back; an adult hears about their spouse, who answers on their own
+// name (send the link, or hand over the phone). A cook-in job is a volunteer ask, so it never makes a spouse "behind".
+function doneText(S, u) {
+  const now = allClosed(S) ? '' : ' for now';
+  const p = handedBy(u);
+  if (p) return `${esc(u)}’s set. <a data-act="signin" data-name="${esc(p)}">Back to ${esc(p)}</a>`;
+  const others = otherAdults(u);
+  const behind = others.find(p => todos(S, p).some(x => x.kind !== 'meal'));
+  if (behind) return `You’re set${now}. ${esc(behind)} isn’t done yet. Send ${esc(behind)} the link, or hand over the phone: <a data-act="signin" data-name="${esc(behind)}">Switch to ${esc(behind)}</a>`;
+  return `You’re set${now}${others.length ? `, and so ${others.length === 1 ? 'is' : 'are'} ${others.map(esc).join(' and ')}` : ''}.`;
 }
 
 // Extras for an adult: their own Friday add-on plus their kids' (shown in full on each parent, not split).
@@ -770,17 +864,21 @@ function extrasFor(S, u) {
   return h.members.filter(p => p === u || isKid(p)).reduce((a, p) => a + pickCost(fridayGuess(S, p)), 0);
 }
 function moneyLine(S, u) {
-  if (isKid(u)) return 'With parents.';
-  const x = extrasFor(S, u), total = PER_ADULT + x;
-  const h = household(u) || { members: [u] };
-  const sure = h.members.filter(p => p === u || isKid(p)).every(p => S.assigned[p] || !pickCost(fridayGuess(S, p)));
-  return x ? `${money(PER_ADULT)} + ${money(x)} extras${sure ? '' : ' if the 1st choices go through'} = about ${money(total)}. Nothing due yet.` : `${money(PER_ADULT)}, no extras. Nothing due yet.`;
+  const x = extrasFor(S, u), total = PER_ADULT + x;   // a kid's add-on is in x only once assigned, so it's never a guess
+  // Your own Friday until it's assigned: the 1st choice counts, and a 2nd that costs more is named.
+  const own = pickCost(fridayGuess(S, u)), b = pickOf(S, u, 2), open = !S.assigned[u] && !!pickOf(S, u, 1);
+  const more = open && pickCost(b) > own ? pickCost(b) - own : 0;
+  const hedge = open && (own || more) ? ' if you get your 1st choice' : '';
+  const also = more ? ` Your 2nd, ${optName(b)}, would add ${money(more)}${own ? ' more' : ''}.` : '';
+  if (x) return `${money(PER_ADULT)} + ${money(x)} extra${hedge} = about ${money(total)}.${also} Nothing to pay yet.`;
+  if (hedge) return `${money(PER_ADULT)}${hedge}.${also} Nothing to pay yet.`;
+  return `${money(PER_ADULT)}, no extras. Nothing to pay yet.`;
 }
 
 const itemsFund = S => S.items.reduce((a, it) => a + (it.fund || 0), 0);
 const KID_FLIGHT_TOTAL = Object.values(KID_FLIGHTS).reduce((a, b) => a + b, 0);
 const roomLeft = S => PLAN_ROOM - itemsFund(S) - KID_FLIGHT_TOTAL;
-const unchosen = S => PEOPLE.filter(p => !hasBoth(S, p));
+const unchosen = S => ADULTS.filter(p => !hasBoth(S, p));   // kids don't pick
 const unassigned = S => PEOPLE.filter(p => !S.assigned[p]);
 
 /* ============================================================
@@ -804,15 +902,31 @@ function render() {
     // Keep the cursor where it was: remember the focused box, redraw, then put focus, text and caret back.
     const prev = document.activeElement, focus = focusKey(prev);
     const y = window.scrollY;
+    // What was just tapped stays under the finger, even when the to-do strip or the Friday line above it changes height.
+    const was = app.anchor && document.querySelector(app.anchor), wasTop = was ? was.getBoundingClientRect().top : 0;
     app.redrawing = true;
     document.getElementById('app').innerHTML = html;
     app.redrawing = false;
     app.lastHtml = html;
-    window.scrollTo(0, y);
+    if (window.scrollY !== y) window.scrollTo(0, y);   // only if the swap moved it: an unneeded scrollTo would cancel a smooth scroll in flight
+    const now = was && document.querySelector(app.anchor);
+    if (now) window.scrollBy(0, now.getBoundingClientRect().top - wasTop);
     if (focus) { const el = document.querySelector(focus.sel); if (el) { if (el.value !== focus.value) el.value = focus.value; el.focus(); try { el.setSelectionRange(focus.s, focus.e); } catch {} } }
     else if (r === 'planner' && !app.pin && (!prev || prev === document.body)) { const p = document.getElementById('pin'); if (p) p.focus(); }   // first paint of the gate only
   }
-  if (app.jump) { const el = document.getElementById('sec-' + app.jump); app.jump = null; if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  app.anchor = null;
+  if (app.jump) {
+    // Land the section just under the sticky header, however many lines the to-do strip wraps to.
+    const el = document.getElementById('sec-' + app.jump), top = document.querySelector('.top'); app.jump = null;
+    if (el) window.scrollTo({ top: Math.max(0, el.getBoundingClientRect().top + window.scrollY - (top ? top.offsetHeight : 0) - 8), behavior: 'smooth' });
+  }
+  if (app.revealNext) {
+    // The pick that completed both choices: nudge the page so the Next button under the card isn't hidden behind the tab bar.
+    app.revealNext = false;
+    const b = document.querySelector('.btn.next'), bar = document.querySelector('.tabbar');
+    const over = b ? b.getBoundingClientRect().bottom - (window.innerHeight - (bar ? bar.offsetHeight : 0)) + 12 : 0;
+    if (over > 0) window.scrollBy({ top: over, behavior: 'smooth' });
+  }
 }
 // The box that has the cursor, as a selector that survives a redraw.
 function focusKey(ae) {
@@ -828,53 +942,133 @@ const TABS = [['info', 'Trip info'], ['choose', 'Choose'], ['me', 'My trip']];
 function shell(tab, body) {
   const t = ([k, l]) => `<a href="#/${k}" class="${tab === k ? 'on' : ''}" data-act="nav"><span>${l}</span></a>`;
   const planner = app.user === CONFIG.PLANNER ? `<a class="topname" href="#/planner" data-act="nav">planner</a>` : '';
-  return `<div class="shell nav"><div class="top"><div class="bar"><a class="brand" href="#/who" data-act="nav" title="Switch person">Breckenridge 2026</a><span class="r">${planner}<a class="topname" href="#/who" data-act="nav"><b>${esc(app.user || '')}</b> · not you?</a></span></div>${todoStrip()}</div>${body}<nav class="tabbar" aria-label="Sections">${TABS.map(t).join('')}</nav></div>`;
+  return `<div class="shell nav"><div class="top"><div class="bar"><a class="brand" href="#/who" data-act="nav" title="Switch person">Breckenridge 2026</a><span class="r">${planner}<a class="topname" href="#/who" data-act="nav"><b>${esc(app.user || '')}</b> · switch</a></span></div>${todoStrip()}</div>${body}<nav class="tabbar" aria-label="Sections">${TABS.map(t).join('')}</nav></div>`;
 }
 function todoStrip() {
   if (!app.state) return '';
-  const u = app.user, t = todos(app.state, u);
-  if (!t.length) return isKid(u) ? `<div class="todo done">${esc(u)}’s set. <a href="#/who" data-act="nav">Now tap your own name.</a></div>` : '<div class="todo done">You’re set.</div>';
-  return `<div class="todo">${t.length} thing${t.length === 1 ? '' : 's'} to do: ${t.map(x => `<a data-act="todo" data-target="${x.target}">${esc(x.label)}</a>`).join(' · ')}</div>`;
+  const S = app.state, t = todos(S, app.user);
+  if (!t.length) return `<div class="todo done">${doneText(S, app.user)}</div>`;
+  // "1 thing to do" for the last one; otherwise no number, since the three votes share one link.
+  const links = todoLinks(t), by = allClosed(S) ? '' : ` by ${DEADLINE}`, whose = handedBy(app.user) ? ` for ${esc(app.user)}` : '';
+  return `<div class="todo">${t.length === 1 ? `1 thing to do${whose}${by}` : `To do${whose}${by}`}: ${links.map((h, i) => i < links.length - 1 ? `<span class="nw">${h} ·</span>` : h).join(' ')}</div>`;
 }
 
 function viewWho() {
+  const S = app.state;
+  // A name reads "done" once that person has nothing left. Kids are listed by age: they don't pick.
+  const tag = n => isKid(n) ? `age ${AGES[n]}` : [n === app.user ? 'that’s you' : '', S && !todos(S, n).length ? '<span class="ok">✓ done</span>' : ''].filter(Boolean).join(' · ');
+  // The entrance plays once per page load. A redraw mid-way (the trip loading adds the done tags) carries on from where it was.
+  if (app.roseAt == null) app.roseAt = performance.now();
+  const since = performance.now() - app.roseAt;
+  const rise = ms => since > 2000 ? '' : ` rise" style="animation-delay:${Math.round(ms - since)}ms`;
   return `<div class="shell"><div class="who">
-    <div class="eyebrow rise">Family Christmas 2026</div>
-    <div class="h1 rise" style="animation-delay:.06s">Who’s <em>this?</em></div>
-    <div class="lede rise" style="animation-delay:.12s">Tap your name. Then pick your Friday and vote on dinners, all by ${DEADLINE}. Parents, tap your kid’s name to pick for them.</div>
-    ${HH.map((h, i) => `<div class="hh rise" style="animation-delay:${180 + i * 70}ms">
+    <div class="eyebrow${rise(0)}">Family Christmas 2026</div>
+    <div class="h1${rise(60)}">Who’s <em>this?</em></div>
+    <div class="lede${rise(120)}">${S && allClosed(S) ? 'The votes are in. Tap your name to see your plan.' : `Tap your own name. You’ll pick a 1st and 2nd choice for Friday and vote on 3 dinners, all by ${DEADLINE}. Couples, each of you answers on your own name. Kids don’t pick; they go with one of you.`}</div>
+    ${HH.map((h, i) => `<div class="hh${rise(180 + i * 70)}">
       <div class="hh-h"><span>${esc(h.parent)}</span><span class="fam">· ${esc(h.family)}</span></div>
-      ${h.members.map(n => `<button class="person ${isKid(n) ? 'kid' : ''}" data-act="signin" data-name="${esc(n)}"><span>${esc(n)}</span><span class="tiny">${AGES[n] ? `age ${AGES[n]}` : n === app.user ? 'that’s you' : ''}</span></button>`).join('')}
+      ${h.members.map(n => isKid(n)
+        ? `<div class="person kid"><span>${esc(n)}</span><span class="tiny">${tag(n)}</span></div>`
+        : `<button class="person" data-act="signin" data-name="${esc(n)}"><span>${esc(n)}</span><span class="tiny">${tag(n)}</span></button>`).join('')}
     </div>`).join('')}
     <div class="who-foot"><a href="#/planner">${esc(CONFIG.PLANNER)}’s planner →</a></div>
   </div></div>`;
 }
 
 function viewInfo() {
+  const assume = allClosed(app.state) ? ['The votes are in, and I went with the majority.', ...ASSUMPTIONS.slice(1)] : ASSUMPTIONS;
   return `<div class="pad">
     <div class="eyebrow">Trip info</div>
     <div class="h1">The <em>Trip</em></div>
     <div class="facts">Dec 10 to 14 · ${PEOPLE.length} of us · ${money(PER_ADULT)} per adult</div>
-    <div class="copy">Everything marked ‘In the $1,250’ is already in that number. Anything with a + is extra and on you. Nothing’s collected yet. Once everyone’s answered, I’ll book what needs booking and tell you what you owe and when.</div>
-    <div class="assume"><h3>What we’re assuming</h3><ul>${ASSUMPTIONS.map(a => `<li>${esc(a)}</li>`).join('')}</ul></div>
+    <div class="copy">Anything marked Included is already in the $1,250. Anything with a + is extra, and you pay it later. Nothing’s collected yet. ${allClosed(app.state) ? 'The votes are in. I’m booking what needs booking and will tell you what you owe and when.' : 'Once everyone’s answered, I’ll book what needs booking and tell you what you owe and when.'}</div>
+    <div class="assume"><h3>What we’re assuming</h3><ul>${assume.map(a => `<li>${esc(a)}</li>`).join('')}</ul></div>
     <div class="box"><div class="label">If weather turns</div><p>Rec Center, Escape Room, Main Street, or the Airbnb. Check hours first.</p></div>
   </div>`;
 }
 
-// "Your Friday: Snowcat" once Bray has assigned it; the placeholder before.
-function finalLine(S, u) {
-  const fin = S.assigned[u];
-  return fin ? `${isKid(u) ? `${u}’s` : 'Your'} Friday: ${optName(fin)}` : FRIDAY_UNSET;
+// The line under the Friday header, where sign-in lands: what to do with the cards now, and later what was assigned.
+function fridayLine(S, u) {
+  const fin = S.assigned[u], a = pickOf(S, u, 1), b = pickOf(S, u, 2);
+  if (fin) {
+    const o = parsePick(fin).opt, second = !!b && isOpt(b, o) && !(a && isOpt(a, o));
+    return `${esc(`Your Friday: ${optName(fin)}.${second ? ' That was your 2nd choice.' : ''} Times, rides and what to bring are on`)} ${MY_TRIP}.`;
+  }
+  if (!a && !b) return esc('Pick your favorite, then a backup in case your 1st doesn’t work out. A + price is extra, paid later. Nothing to pay yet.');
+  if (!a) return esc(`Your 2nd choice: ${optName(b)}. Now pick a 1st.`);
+  if (!b) return esc(`Your 1st choice: ${optName(a)}. Now pick a 2nd, in case the 1st doesn’t work out.`);
+  return esc(`Your 1st: ${optName(a)}. 2nd: ${optName(b)}. ${fridayUnset(S)}`);
+}
+
+// For a parent whose kid is too young for some options: the kid goes with one of you, so say which options take the kid.
+function kidNote(S, u) {
+  if (S.assigned[u]) return '';
+  return (household(u) || { members: [] }).members.filter(k => isKid(k) && !S.assigned[k]).map(k => {
+    const can = OPTS.filter(o => canDo(k, o)).map(o => o.name);
+    return can.length < OPTS.length ? `<div class="note" data-kidnote>${esc(`${k} goes with one of you. At ${AGES[k]}, ${k} can do ${andList(can.map(n => `the ${n}`))}, but not the others.`)}</div>` : '';
+  }).join('');
+}
+// Can this kid do this option (or this snowmobile choice)? Only the planner's kid Finals and the note above use it.
+const canDo = (k, o, v) => !(o.minAge && AGES[k] < o.minAge) && !(v && v.minAge && AGES[k] < v.minAge);
+
+// The Choose lede, from what's actually left to do.
+const MY_TRIP = '<a href="#/me" data-act="nav">My trip</a>';
+const andList = xs => xs.length > 1 ? `${xs.slice(0, -1).join(', ')} and ${xs[xs.length - 1]}` : xs[0];
+function chooseLede(S, u) {
+  const t = todos(S, u), closed = allClosed(S);
+  const fri = t.find(x => x.kind === 'friday'), vs = t.filter(x => x.kind === 'vote'), meal = t.find(x => x.kind === 'meal');
+  if (fri || vs.length) {
+    if (closed) return esc(`The votes are in, but you still need to pick for Friday. ${FRIDAY_LATE}`);
+    const fresh = fri && !pickOf(S, u, 1) && !pickOf(S, u, 2) && vs.length === VOTES.length;
+    if (fresh) return esc(`Pick a 1st and 2nd choice for Friday and vote on the three dinners. ${DEADLINE_RULE}`);
+    // Part of it is in: say which part, then what's left.
+    const done = !fri ? (S.assigned[u] ? 'Your Friday is set.' : 'Your Friday picks are in.') : !vs.length ? 'Your votes are in.' : '';
+    const left = andList([fri && fri.label, vs.length && voteLabel(vs.map(x => x.vote))].filter(Boolean));
+    return esc(`${done ? `${done} ` : ''}Now ${left}. ${DEADLINE_RULE}`);
+  }
+  if (meal) return `${esc(`Cook in won ${meal.meal.title}. I still need ${stillNeed(S, meal.meal)} more to cook or clean up.`)} ${todoLink(meal, 'Sign up')}`;
+  if (closed) return S.assigned[u] ? `${esc('The votes are in and your Friday is set. Times, rides and what to bring are on')} ${MY_TRIP}.` : esc(`The votes are in. ${FRIDAY_LATE}`);
+  // Done while the votes are open: say back what they chose (and a kid's Friday once it's set), and what can still change.
+  const a = pickOf(S, u, 1), b = pickOf(S, u, 2);
+  // Each choice is a jump link to where it can be changed.
+  const jump = (target, text) => `<a data-act="todo" data-target="${target}">${esc(text)}</a>`;
+  const mine = S.assigned[u] ? esc(`Your Friday is set: ${optName(S.assigned[u])}.`) : `${esc('You’ve picked and voted. Friday: ')}${jump('friday', `${optName(a)}, then ${optName(b)}`)}.`;
+  const kids = (household(u) || { members: [] }).members.filter(k => isKid(k) && S.assigned[k]).map(k => esc(` ${k}’s Friday: ${optName(S.assigned[k])}.`)).join('');
+  const said = buildVotes(S, u).filter(v => !v.closed && v.my).map(v => `${jump('vote-' + v.day, v.choices.find(c => c.my).label)} on ${DAYS.find(d => d.key === v.day).name}`);
+  return `${mine}${kids}${said.length ? ` Your votes: ${andList(said)}.` : ''} ${esc(`You can change ${S.assigned[u] ? 'your dinner votes' : 'anything'} until ${DEADLINE}.`)}`;
+}
+
+// The Next button under the card just picked, once both picks are in: the next to-do, or the way back to whoever handed the phone over.
+function nextButton(S, u) {
+  const t = todos(S, u);
+  if (t.length) {
+    const x = t[0], vs = t.filter(y => y.kind === 'vote');
+    const label = x.kind === 'vote' ? `Next: ${voteLabel(vs.map(y => y.vote))} ↓` : 'Next: sign up to cook or clean ↓';
+    return `<button class="btn next" data-act="todo" data-target="${esc(x.target)}">${esc(label)}</button>`;
+  }
+  const p = handedBy(u);
+  return p ? `<button class="btn next" data-act="signin" data-name="${esc(p)}">Back to ${esc(p)}</button>` : '';
 }
 
 function viewChoose() {
-  const S = app.state, u = app.user, kid = isKid(u);
+  const S = app.state, u = app.user;
   const options = buildOptions(S, u), votes = buildVotes(S, u);
   const head = `<div class="pad" style="padding-bottom:8px">
     <div class="eyebrow">Choose</div>
     <div class="h1">Five <em>Days</em></div>
-    <div class="lede">${!todos(S, u).length ? (kid ? `${esc(u)}’s Friday is picked. Everything else is set.` : 'You’ve picked and voted. Everything else is set.') : kid ? `Pick a 1st and 2nd choice for ${esc(u)}’s Friday by ${DEADLINE}. Parents vote on dinners from their own name.` : `Pick a 1st and 2nd choice for Friday and vote on the three dinners. ${DEADLINE_RULE}`}</div>
+    <div class="lede">${chooseLede(S, u)}</div>
   </div>`;
+  // Friday cards. Once assigned, the Friday is on top and the rest fold away.
+  const fin = parsePick(S.assigned[u]);
+  let fridayCards;
+  if (fin) {
+    const top = options.find(o => o.id === fin.opt.id);
+    fridayCards = `<div class="cards">${cardHtml(top)}</div><details class="more" ${app.moreOpen ? 'open' : ''}><summary>See all the options</summary><div class="cards">${options.filter(o => o !== top).map(cardHtml).join('')}</div></details>`;
+  } else {
+    const after = hasBoth(S, u) ? (options.find(o => o.id === app.lastPick && o.mine) || options.find(o => o.rank === 2) || {}).id : null;
+    const next = after ? nextButton(S, u) : '';
+    fridayCards = `<div class="cards">${options.map(o => cardHtml(o) + (o.id === after ? next : '')).join('')}</div>`;
+  }
   const days = DAYS.map(d => {
     const locked = [...(LOCKED[d.key] || []), ...decided(votes, d.key)].sort((a, b) => minutes(a.time) - minutes(b.time));
     const vs = votes.filter(v => v.day === d.key && !v.closed);
@@ -882,35 +1076,35 @@ function viewChoose() {
     let out = `<section class="day" id="day-${d.key}"><div class="day-h"><span class="daynum">${d.num}</span><div><div class="dayname">${d.name}</div><div class="label daydate">${d.date}</div></div></div>`;
     if (locked.length) out += `<div class="grp"><div class="grp-h all">We’re all doing this</div>${locked.map(it => `<div class="lrow"><div style="min-width:0"><b>${esc(it.title)}</b><i>${esc(it.place)}</i></div><span class="tiny">${esc(it.time)}</span></div>`).join('')}${d.note ? `<div class="daynote">${esc(d.note)}</div>` : ''}</div>`;
     if (d.key === 'fri') out += `<section class="grp" id="sec-friday">
-      <div class="grp-h ask"><span>Friday, pick a 1st and 2nd</span><span class="tiny">for ${esc(u)}</span></div>
-      <div class="final ${S.assigned[u] ? '' : 'soft'}" data-final>${esc(finalLine(S, u))}</div>
-      <div class="cards">${options.map(cardHtml).join('')}</div>
+      <div class="grp-h ask"><span>${fin ? 'Your Friday' : 'Friday, pick a 1st and 2nd'}</span><span class="tiny">for ${esc(u)}</span></div>
+      <div class="final ${hasBoth(S, u) && !fin ? 'soft' : ''}" data-final>${fridayLine(S, u)}</div>
+      ${kidNote(S, u)}
+      ${fridayCards}
     </section>`;
-    if (vs.length) out += `<section class="grp" id="sec-vote-${d.key}"><div class="grp-h ask">Vote</div>${vs.map(v => `<div class="vrow ${kid ? 'kid' : ''}" data-vote="${v.id}">
+    if (vs.length) out += `<section class="grp" id="sec-vote-${d.key}"><div class="grp-h ask">Vote, tap one</div>${vs.map(v => `<div class="vrow" data-vote="${v.id}">
       <div class="vrow-h"><b>${esc(v.title)}</b>${v.right ? `<span class="vrow-r">${esc(v.right)}</span>` : ''}</div>
-      ${kid ? '<div class="vrow-note">Parents vote from their own name.</div>' : ''}
       ${v.choices.map(c => `<div class="crow"><button class="choice ${v.can ? 'can' : ''} ${c.my ? 'my' : ''}" ${v.can ? `data-act="vote" data-vote="${v.id}" data-choice="${c.id}"` : 'disabled'}>
         <div class="choice-l"><span class="lbl"><i class="dot"></i><span>${esc(c.label)}</span></span><span class="r"><span class="you">${c.my ? 'you' : ''}</span><span>${c.count}</span></span></div>
         ${c.desc ? `<div class="choice-d">${esc(c.desc)}</div>` : ''}
         <div class="meter"><i style="width:${c.pct}%"></i></div>
       </button>${c.url ? `<a class="ext" href="${esc(c.url)}" target="_blank" rel="noopener">Menu ↗</a>` : ''}</div>`).join('')}
     </div>`).join('')}</section>`;
-    if (ms.length && !kid) out += `<div class="grp">${ms.map(m => mealHtml(S, m, u)).join('')}</div>`;
+    if (ms.length) out += `<section class="grp" id="sec-meal-${d.key}"><div class="grp-h ask">Sign up to cook or clean</div>${ms.map(m => mealHtml(S, m, u)).join('')}</section>`;
     return out + '</section>';
   }).join('');
   return head + days + '<div style="height:24px"></div>';
 }
 
 function cardHtml(o) {
-  let action;
-  if (o.btn.action) action = `<button class="btn ${o.btn.cls}" data-act="pick" data-opt="${o.pickId}" data-rank="${o.btn.rank}">${esc(o.btn.label)}</button>`;
-  else if (o.btn.status) action = `<div class="btn ${o.btn.cls}" data-rank="${o.btn.rank}">${esc(o.btn.label)}</div><button class="rm" data-act="unpick" data-opt="${o.id}" data-rank="${o.btn.rank}">Remove</button>`;
+  let action = '';
+  if (!o.btn) action = '';   // an assigned Friday: the other cards are for reading only
+  else if (o.btn.action) action = `<button class="btn ${o.btn.cls}" data-act="pick" data-opt="${o.pickId}" data-rank="${o.btn.rank}">${esc(o.btn.label)}</button>`;
+  else if (o.btn.final) action = `<div class="btn ${o.btn.cls}">${esc(o.btn.label)}</div>`;
+  else if (o.btn.status) action = `<div class="btn ${o.btn.cls}" data-rank="${o.btn.rank}">${esc(o.btn.label)}</div><div class="picked">${o.btn.up ? `<button class="up" data-act="promote" data-opt="${o.id}">${esc(o.btn.up)}</button>` : ''}<button class="rm" data-act="unpick" data-opt="${o.id}" data-rank="${o.btn.rank}">Remove</button></div>`;
   else action = `<button class="btn ${o.btn.cls}" disabled>${esc(o.btn.label)}</button>`;
-  const radios = o.radios && !o.inel ? `<div class="radios">${o.radios.map(r => r.dis
-    ? `<span class="radio dis"><i></i>${esc(r.text)} · 15+ only</span>`
-    : `<button class="radio ${r.on ? 'on' : ''}" data-act="variant" data-opt="${o.id}" data-variant="${r.id}" aria-pressed="${r.on}"><i></i>${esc(r.text)}</button>`).join('')}</div>` : '';
+  const radios = o.radios ? `<div class="radios">${o.radios.map(r => `<button class="radio ${r.on ? 'on' : ''}" data-act="variant" data-opt="${o.id}" data-variant="${r.id}" aria-pressed="${r.on}"><i></i>${esc(r.text)}</button>`).join('')}</div>` : '';
   const foot = [...(o.links || []).map(l => `<a class="ext" href="${esc(l.href)}" target="_blank" rel="noopener">${esc(l.label)} ↗</a>`)].filter(Boolean).join(' · ');
-  return `<article class="card ${o.mine ? 'mine' : ''} ${o.inel ? 'dim' : ''}" data-card="${o.id}">
+  return `<article class="card ${o.mine ? 'mine' : ''}" data-card="${o.id}">
     <div class="card-top"><span class="card-name">${esc(o.name)}</span><span class="card-price">${o.priceHtml}</span></div>
     <div class="card-desc">${esc(o.desc)}</div>
     ${o.extra ? `<div class="card-extra">${esc(o.extra)}</div>` : ''}
@@ -939,39 +1133,52 @@ function mealHtml(S, m, u) {
 }
 
 function viewMe() {
-  const S = app.state, u = app.user, kid = isKid(u);
-  const votes = buildVotes(S, u);
+  const S = app.state, u = app.user;
+  const votes = buildVotes(S, u), om = openMeal(S, u);
   const mk = (it, kind) => ({ ...it, kind });
   // A person's Friday row: the assigned option once Bray has made the call, else what they've picked so far.
   const fridayRow = (p, who) => {
-    const fin = parsePick(S.assigned[p]);
-    if (fin) return mk({ time: fin.opt.time, title: `${who === 'yours' ? 'Your' : who} Friday: ${optName(fin.id)}`, place: fin.opt.place, bring: fin.opt.bring, transport: rideLine(S, fin.opt) }, who);
+    const fin = parsePick(S.assigned[p]), yours = who === 'yours';
+    if (fin) return mk({ time: fin.opt.time, title: `${yours ? 'Your' : who} Friday: ${optName(fin.id)}`, place: fin.opt.place, bring: fin.opt.bring, transport: rideLine(S, fin.opt) }, who);
     const a = pickOf(S, p, 1), b = pickOf(S, p, 2);
     const picks = a || b ? `${a ? `1st choice ${optName(a)}` : 'No 1st choice yet'}. ${b ? `2nd choice ${optName(b)}` : 'No 2nd choice yet'}.` : '';
-    if (!hasBoth(S, p)) return mk({ time: '', title: picks ? `${who === 'yours' ? 'Your' : who} Friday picks` : `No Friday picks yet${who === 'yours' ? '' : ` for ${p}`}`, place: picks ? `${picks} ${who === 'yours' ? 'Tap Choose and pick the other.' : `Tap ${p}’s name on the roster and pick.`}` : who === 'yours' ? 'Tap Choose and pick a 1st and 2nd choice.' : `Tap ${p}’s name on the roster and pick a 1st and 2nd choice.`, bring: '', transport: '', href: who === 'yours' ? '#/choose' : '#/who' }, who);
-    return mk({ time: '', title: FRIDAY_UNSET, place: picks, bring: '', transport: '' }, who);
+    // A kid doesn't pick: they go with one of you until Bray sets their Friday.
+    if (!yours) return mk({ time: '', title: `${p}’s Friday`, place: `${p} goes with one of you. Text me which one. If it’s a + activity, ${p}’s add-on is on you. ${fridayUnset(S)}`, bring: '', transport: '' }, who);
+    if (!hasBoth(S, p)) return mk({ time: '', title: picks ? 'Your Friday picks' : 'No Friday picks yet', place: picks ? `${picks} Tap here to pick the other.` : 'Tap here to pick a 1st and 2nd choice.', bring: '', transport: '', todo: 'friday' }, who);
+    return mk({ time: '', title: fridayUnset(S), place: picks, bring: '', transport: '' }, who);
   };
   const days = DAYS.map(d => {
     const items = [...(LOCKED[d.key] || []), ...decided(votes, d.key)].map(it => mk(it, ''));
     if (d.key === 'fri') {
-      items.push(fridayRow(u, kid ? `${u}’s` : 'yours'));
+      items.push(fridayRow(u, 'yours'));
       // A parent sees each kid's Friday too.
-      if (!kid) for (const k of (household(u) || { members: [] }).members.filter(isKid)) items.push(fridayRow(k, `${k}’s`));
+      for (const k of (household(u) || { members: [] }).members.filter(isKid)) items.push(fridayRow(k, `${k}’s`));
     }
-    votes.filter(v => v.day === d.key && !v.closed).forEach(v => items.push(mk({ time: v.time, title: v.title, place: kid ? 'Parents vote from their own name.' : `Vote on Choose by ${DEADLINE}.`, bring: '', transport: '' }, 'vote')));
+    votes.filter(v => v.day === d.key && !v.closed).forEach(v => {
+      const c = v.choices.find(c => c.my);
+      items.push(mk({ time: v.time, title: v.title, place: c ? `Your vote: ${c.label}. You can change it on Choose until ${DEADLINE}.` : `Tap here to vote, by ${DEADLINE}.`, bring: '', transport: '', todo: c ? '' : 'vote-' + v.day }, c ? 'voted' : 'vote'));
+    });
     mealsFor(S, votes, d.key).forEach(m => ROLES.forEach(role => {
       if (!S.meals[m.key][role].includes(u)) return;
       items.push(mk({ time: m.time, title: `${m.title}, ${jobName(role)}`, place: 'the Airbnb kitchen', bring: '', transport: '' }, 'you’re on'));
     }));
+    if (om && om.day === d.key) items.push(mk({ time: om.time, title: 'Sign up to cook or clean', place: `Cook in won ${om.title}. I still need ${stillNeed(S, om)} more.`, bring: '', transport: '', todo: 'meal-' + om.key }, 'sign up'));
     items.sort((a, b) => minutes(a.time) - minutes(b.time));
     return { ...d, items };
   });
-  const kidsWithExtras = kid ? [] : (household(u) || { members: [] }).members.filter(k => isKid(k) && pickCost(fridayGuess(S, k)));
+  const kidsWithExtras = (household(u) || { members: [] }).members.filter(k => isKid(k) && pickCost(fridayGuess(S, k)));
+  const co = otherAdults(u)[0];   // a kid's add-on shows in full on both parents' pages; say it's paid once
+  // A row you can act on is one link, title and the line under it, so "Tap here" works wherever it's tapped.
+  const row = it => {
+    const body = `<b>${esc(it.title)}</b><i>${esc(it.place)}</i>`;
+    const act = it.href ? `href="${it.href}" data-act="nav"` : it.todo ? `data-act="todo" data-target="${esc(it.todo)}"` : '';
+    return act ? `<a class="rowlink" ${act}>${body}</a>` : body;
+  };
   return `<div class="pad" style="padding-bottom:20px">
-    <div class="h1">${kid ? `${esc(u)}’s` : 'My'} <em>trip</em></div>
-    <div class="money" data-money>${esc(moneyLine(S, u))}${kidsWithExtras.length ? `<small>Extras include ${kidsWithExtras.map(k => `${k}’s ${optName(fridayGuess(S, k))} (${plus(pickCost(fridayGuess(S, k)))})`).join(' and ')}.</small>` : ''}</div>
+    <div class="h1">My <em>trip</em></div>
+    <div class="money" data-money>${esc(moneyLine(S, u))}${kidsWithExtras.length ? `<small>${esc(`Extras include ${kidsWithExtras.map(k => `${k}’s ${optName(fridayGuess(S, k))} (${plus(pickCost(fridayGuess(S, k)))})`).join(' and ')}.${co ? ` It’s on ${co}’s page too. You pay it once.` : ''}`)}</small>` : ''}</div>
   </div>` + days.map(d => `<section class="itin"><div class="day-h"><span class="daynum">${d.num}</span><div><div class="dayname">${d.name}</div><div class="label daydate">${d.date}</div></div></div>
-    <div class="rows">${d.items.map(it => `<div class="it"><div><div class="t">${esc(it.time)}</div>${it.kind ? `<div class="k">${esc(it.kind)}</div>` : ''}</div><div style="min-width:0"><b>${it.href ? `<a href="${it.href}" data-act="nav">${esc(it.title)}</a>` : esc(it.title)}</b><i>${esc(it.place)}</i>
+    <div class="rows">${d.items.map(it => `<div class="it"><div><div class="t">${esc(it.time)}</div>${it.kind ? `<div class="k">${esc(it.kind)}</div>` : ''}</div><div style="min-width:0">${row(it)}
       ${it.bring ? `<div class="kv"><span>Bring</span><em>${esc(it.bring)}</em></div>` : ''}
       ${it.transport ? `<div class="kv"><span>Getting there</span><em>${esc(it.transport)}</em></div>` : ''}
     </div></div>`).join('')}</div>${d.note ? `<div class="daynote">${esc(d.note)}</div>` : ''}</section>`).join('') + '<div style="height:24px"></div>';
@@ -1021,20 +1228,20 @@ function viewPlanner() {
       <div class="hr"><span>Room left</span><b>${money(roomLeft(S))}</b></div>
       <div class="eyebrow sec">Assign Friday</div>
       <div class="counts">${OPTS.map(o => `<span data-count="${o.id}"><b>${esc(o.name)}</b> ${countOf(S, o, 1)} first, ${countOf(S, o, 2)} second, ${finals(o)} final</span>`).join('')}</div>
-      <div class="pnote">Caps to keep in mind: ${CAP_NOTE} (the SUV is snowmobiles and dog sledding together). The family sees “${esc(FRIDAY_UNSET)}” until you pick a Final.</div>
+      <div class="pnote">Caps to keep in mind: ${CAP_NOTE} (the SUV is snowmobiles and dog sledding together). The snowcat isn’t capped: 8 a ride, Mateo on a lap; past 8, book a second ride ($800, it fits). Kids don’t pick: give each kid the Final of the parent they go with (a kid on a snowmobile shares one); a kid’s list only has what they’re old enough for. The family sees “${esc(FRIDAY_UNSET)}” until you pick a Final.</div>
       <div class="assign">
         <div class="arow h tiny"><span>Name</span><span>1st</span><span>2nd</span><span>Final</span><span></span></div>
         ${PEOPLE.map(p => { const a = pickOf(S, p, 1), b = pickOf(S, p, 2), fin = S.assigned[p] || '';
           return `<div class="arow" data-assign="${esc(p)}"><b>${esc(p)}</b>
-            <span class="${a ? '' : 'empty'}">${esc(optName(a))}</span><span class="${b ? '' : 'empty'}">${esc(optName(b))}</span>
-            <select class="sel" data-act="assign" data-person="${esc(p)}" aria-label="Final for ${esc(p)}"><option value="">Not yet</option>${ALL_KEYS.map(k => `<option value="${k}" ${fin === k ? 'selected' : ''}>${esc(optName(k))}</option>`).join('')}</select>
+            ${isKid(p) ? `<span>goes with a parent, age ${AGES[p]}</span><span></span>` : `<span class="${a ? '' : 'empty'}">${esc(optName(a))}</span><span class="${b ? '' : 'empty'}">${esc(optName(b))}</span>`}
+            <select class="sel" data-act="assign" data-person="${esc(p)}" aria-label="Final for ${esc(p)}"><option value="">Not yet</option>${ALL_KEYS.filter(k => !isKid(p) || k === fin || (x => canDo(p, x.opt, x.variant))(parsePick(k))).map(k => `<option value="${k}" ${fin === k ? 'selected' : ''}>${esc(optName(k))}</option>`).join('')}</select>
             <span>${a || b ? `<button class="act x" data-act="clearpick" data-person="${esc(p)}" title="Clear ${esc(p)}’s picks">×</button>` : ''}</span></div>`; }).join('')}
       </div>
       <div class="eyebrow sec">Rides</div>
       <div class="rides">
         <div class="ride h tiny"><span>Car</span><span>Driver</span><span>Leaves the Airbnb</span><span>Going to</span></div>
         ${RIDES.map(r => { const v = S.rides[r.key] || {}; const inp = (f, ph) => `<input class="conf ride-in" data-field="${f}" value="${esc(v[f] || '')}" placeholder="${ph}" aria-label="${r.label} ${f}">`;
-          return `<div class="ride" data-ride="${r.key}"><b>${r.label}</b>${inp('driver', 'e.g. Manny')}${inp('leave', 'e.g. 9:15')}${inp('dest', r.key === 'ride_suv' ? 'e.g. Good Times' : 'e.g. Nordic Center')}</div>`; }).join('')}
+          return `<div class="ride" data-ride="${r.key}"><b>${r.label}</b>${inp('driver', 'e.g. Manny')}${inp('leave', 'e.g. 9:15')}${inp('dest', r.dest)}</div>`; }).join('')}
       </div>
       <div class="pnote">Once a leave time is set, My trip says “van leaves the Airbnb 9:15”. Until then, “${RIDES_UNSET}”</div>
       <div class="eyebrow sec">Votes</div>
@@ -1052,7 +1259,7 @@ function viewPlanner() {
           const cell = v => { const c = v.choices.find(c => c.id === S.votes[v.id][p]); return `<span class="${kid || c ? '' : 'empty'}">${kid ? '·' : c ? esc(c.short) : ''}</span>`; };
           const duties = MEALS.filter(m => liveMeals.has(m.key)).flatMap(m => ROLES.filter(r => S.meals[m.key][r].includes(p)).map(r => `${DAYS.find(d => d.key === m.day).name.slice(0, 3)} ${jobName(r)}`));
           return `<div class="rrow" data-person="${esc(p)}"><span class="n">${esc(p)}</span>${VOTES.map(cell).join('')}
-            <span class="${kid || duties.length ? '' : 'empty'}" style="color:var(--muted)">${kid ? '·' : esc(duties.join(', '))}</span></div>`;
+            <span class="${kid || duties.length || !liveMeals.size ? '' : 'empty'}" style="color:var(--muted)">${kid ? '·' : esc(duties.join(', '))}</span></div>`;
         }).join('')}
       </div>
       <div class="pnote">Tan cells are unanswered. Kids don’t vote. Only you see confirmation numbers. Friday picks are in Assign Friday on the left.</div>
@@ -1088,18 +1295,40 @@ async function tryPin(v) {
 // Set or clear one rank of a person's Friday picks. Never touches the other rank.
 function setPick(u, rank, next, S) {
   const prev = pickOf(S, u, rank);
-  if (prev === next) return;
+  if (prev === next) { app.anchor = null; return; }
   act(() => store.setPick(u, rank, next),
     next ? (prev ? `${u} changed Friday ${ord(rank)} choice: ${optName(prev)} → ${optName(next)}` : `${u} picked Friday ${ord(rank)} choice: ${optName(next)}`) : `${u} removed Friday ${ord(rank)} choice: ${optName(prev)}`,
     st => { const p = st.picks[u] ||= {}; if (next) p[rank] = next; else delete p[rank]; });
 }
 
+// Within 0.7 s of a pick or move-up (on that card, when one is given).
+const justPicked = card => !!app.pickedAt && Date.now() - app.pickedAt[1] < 700 && (!card || app.pickedAt[0] === card);
 document.addEventListener('click', e => {
+  // Right after a pick, the page can move new things under the finger (the Next button, a vendor link): a quick second tap is ignored.
+  if (justPicked() && e.target.closest('.cards a.ext, .btn.next')) { e.preventDefault(); return; }
   const el = e.target.closest('[data-act]');
   if (!el || el.tagName === 'INPUT' || el.tagName === 'SELECT') return;
   const S = app.state, u = app.user, d = el.dataset;
   switch (d.act) {
-    case 'signin': app.user = d.name; ls.set('breck-user', d.name); app.jump = S && !hasBoth(S, d.name) ? 'friday' : null; if (!app.jump) window.scrollTo(0, 0); history.replaceState(null, '', '#/choose'); render(); break;   // no history entry: back leaves the site cleanly
+    case 'signin': {
+      if (isKid(d.name)) break;   // kids don't sign in: they don't pick or vote
+      // Handing the phone to your spouse is remembered, so their screens can lead straight back, one step at a time.
+      // Going back pops a step; re-tapping your own name keeps it; anyone outside the household starts over.
+      const next = d.name, prev = app.user, h = app.handoff;
+      if (next === prev) { /* same person: nothing changes */ }
+      else if (h.length && next === h[h.length - 1]) h.pop();
+      else if (prev && !isKid(prev) && household(prev) === household(next)) { const i = h.indexOf(next); if (i >= 0) h.splice(i); h.push(prev); }
+      else if (h.length && household(h[0]) === household(next)) { const i = h.indexOf(next); if (i >= 0) h.splice(i); }   // still inside the household it was handed to
+      else h.length = 0;
+      if (h.some(n => household(n) !== household(next))) h.length = 0;
+      ls.set('breck-parent', h.length ? JSON.stringify(h) : null);
+      app.user = next; ls.set('breck-user', next); app.lastPick = null;
+      // Friday still to pick: land on the cards. Everything decided and nothing left: land on My trip. Otherwise the top of Choose.
+      app.jump = S && fridayOpen(S, next) ? 'friday' : null;
+      if (!app.jump) window.scrollTo(0, 0);
+      history.replaceState(null, '', S && !app.jump && allClosed(S) && !todos(S, next).length ? '#/me' : '#/choose');   // no history entry: back leaves the site cleanly
+      render(); break;
+    }
     case 'nav': {
       // A tab or link: the next screen starts at the top. Links back to the roster replace the entry, like sign-in, so back never lands on a stale Choose.
       if (el.getAttribute('href') === '#/who') { e.preventDefault(); history.replaceState(null, '', '#/who'); window.scrollTo(0, 0); app.pinDraft = ''; render(); break; }
@@ -1110,22 +1339,48 @@ document.addEventListener('click', e => {
     case 'pick': {
       // Fills the first empty rank. With both taken the button is disabled, so a pick never overrides another card.
       const rank = openRank(S, u), o = parsePick(d.opt);
-      if (!rank || !o || rankOf(S, u, o.opt)) break;
+      if (!rank || !o || rankOf(S, u, o.opt) || S.assigned[u]) break;
+      app.lastPick = o.opt.id;   // the Next button goes under this card
+      app.revealNext = true;
+      app.pickedAt = [o.opt.id, Date.now()];
+      app.anchor = `.card[data-card="${o.opt.id}"]`;
       setPick(u, rank, o.id, S);
       break;
     }
-    case 'unpick': setPick(u, +d.rank, null, S); break;
+    case 'unpick': {
+      // A double tap on Pick or "Make it my 1st" lands its second tap here, where the button was: ignore it.
+      if (justPicked(d.opt)) break;
+      app.anchor = `.card[data-card="${d.opt}"]`;
+      setPick(u, +d.rank, null, S); break;
+    }
+    case 'promote': {
+      // "Make it my 1st choice" on the 2nd: the two swap (or the 2nd moves up when there's no 1st).
+      const a = pickOf(S, u, 1), b = pickOf(S, u, 2);
+      if (!b || S.assigned[u] || justPicked(d.opt)) break;
+      app.pickedAt = [d.opt, Date.now()];   // Remove re-centres under the finger: a double tap must not remove what just moved up
+      app.anchor = `.card[data-card="${d.opt}"]`;
+      act(() => store.movePicks(u, b, a),
+        a ? `${u} swapped Friday choices: ${optName(b)} is now 1st, ${optName(a)} 2nd` : `${u} moved ${optName(b)} up to Friday 1st choice`,
+        st => { const p = st.picks[u] ||= {}; p[1] = b; if (a) p[2] = a; else delete p[2]; });
+      break;
+    }
     case 'variant': {
-      // Switching sleds re-picks the same rank if this person already has the snowmobile; otherwise it just sets the radio.
+      // Switching between shared and solo re-picks the same rank if this person already has the snowmobile; otherwise it just sets the radio.
       const o = OPTS.find(o => o.id === d.opt), next = pickKey(o, d.variant), rank = rankOf(S, u, o);
       app.variant[u] = d.variant;
+      app.anchor = `.card[data-card="${o.id}"]`;
       if (rank) setPick(u, rank, next, S); else render();
       break;
     }
-    case 'vote': act(() => store.vote(d.vote, u, d.choice), '', st => { st.votes[d.vote][u] = d.choice; }); break;
+    case 'vote': app.anchor = `.vrow[data-vote="${d.vote}"]`; act(() => store.vote(d.vote, u, d.choice), '', st => { st.votes[d.vote][u] = d.choice; }); break;
     case 'meal': {
       const on = d.on === '1', names = S.meals[d.meal][d.role];
       if (on && names.length >= SLOTS) return;
+      // "+ me" turns into "You ×" under the finger: a double tap must not sign up and straight back off.
+      const key = d.meal + '/' + d.role;
+      if (app.mealAt && app.mealAt[0] === key && Date.now() - app.mealAt[1] < 700) return;
+      app.mealAt = [key, Date.now()];
+      app.anchor = `.meal[data-meal="${d.meal}"]`;
       act(() => store.setMeal(d.meal, d.role, u, on), `${u} ${on ? 'took' : 'dropped'} ${jobName(d.role)}, ${MEALS.find(m => m.key === d.meal).title}`,
         st => { st.meals[d.meal][d.role] = on ? [...names, u] : names.filter(n => n !== u); });
       break;
@@ -1154,6 +1409,8 @@ document.addEventListener('click', e => {
     case 'lockplanner': app.pin = null; ss.set('breck-pin', null); app.plannerItems = null; app.pinDraft = ''; app.pinErr = false; app.pinShort = false; render(); break;
   }
 });
+// "See all the options" stays open or shut across redraws.
+document.addEventListener('toggle', e => { if (e.target.matches && e.target.matches('details.more') && !app.redrawing) app.moreOpen = e.target.open; }, true);
 // The Final dropdown in Assign Friday saves on change.
 document.addEventListener('change', e => {
   const t = e.target;
@@ -1181,7 +1438,7 @@ document.addEventListener('focusout', e => {
     row.querySelectorAll('input').forEach(i => { v[i.dataset.field] = i.value.trim(); });
     const prev = (app.state && app.state.rides[key]) || {};
     if (['driver', 'leave', 'dest'].every(f => (prev[f] || '') === v[f])) return;
-    const word = RIDES.find(r => r.key === key).word;
+    const ride = RIDES.find(r => r.key === key), word = ride.log || ride.word;
     const said = [v.driver && `${v.driver} drives`, v.leave && `leaves ${v.leave}`, v.dest].filter(Boolean).join(', ') || 'cleared';
     // On a timeout so a Tab or click to the next box lands before the redraw.
     setTimeout(() => { if (app.pin) planner(async (pin, who) => { await store.setSetting(pin, key, JSON.stringify(v)); await store.log(`${who} sorted out the ${word} ride: ${said}`); }); }, 0);
