@@ -307,6 +307,9 @@ const KID_FLIGHTS = { Camila: 250 };   // a kid's plane seat, paid from the plan
 // One deadline for everything: DEADLINE. After it Bray goes with the majority (or chooses, if not enough people answered).
 const DEADLINE = 'Oct 1';
 const DEADLINE_RULE = `Everything is due ${DEADLINE}. After that I go with the majority. If not enough people answered, I’ll choose myself.`;
+// A vote reopened after the deadline: a new vote id (so it starts empty and open), its own date, and a one-line why.
+// While it's the only open vote, the copy talks about it instead of DEADLINE. null when there's no revote.
+const REVOTE = { id: 'farewell', by: 'Oct 9', why: 'Blue River Bistro won’t work anymore, so we’re voting again on the Sunday farewell dinner.' };
 // Friday: everyone picks a 1st and a 2nd choice; Bray assigns the final one in the planner after the deadline.
 const RANKS = [1, 2];
 const ord = r => r === 1 ? '1st' : '2nd';
@@ -315,6 +318,7 @@ const FRIDAY_LATE = 'I’m assigning Fridays now. Check back here.';   // once e
 
 // pot: 'personal' = extra on top (cost), 'group' = in the $1,250. minAge: only for the planner's kid Finals (kids don't pick).
 // A snowmobile pick is stored as option_id "snowmobile:shared" / "snowmobile:solo".
+// off: no longer offered (Good Times doesn't open until Dec 22). Kept so old picks still read by name in the planner; no card, not a Final.
 // ride: which run takes you on Friday ('van', 'snowcat' or 'suv'); the planner sorts out drivers and leave times (My trip shows them).
 // Nothing on the family side is capped; CAP_NOTE is what Bray keeps in mind when assigning (planner only).
 // The snowcat isn't capped: past 8, a second ride still fits the budget (planner only; the family isn't told).
@@ -322,24 +326,24 @@ const CAP_NOTE = 'SUV 5';
 const OPTS = [
   { id: 'ski', name: 'Ski / snowboard', pot: 'personal', cost: 225, desc: 'Lift ticket (Epic Day Pass), rental and helmet at Breckenridge Ski Resort.', constraints: 'Ages 5+', minAge: 5, time: '10:00 AM', place: 'Breckenridge Ski Resort', bring: 'layers, goggles, sunscreen', ride: 'van',
     links: [{ label: 'Website', href: 'https://www.breckenridge.com/plan-your-trip/lift-access/tickets.aspx' }] },
-  { id: 'snowmobile', name: 'Snowmobile', pot: 'personal', desc: 'Guided tour with Good Times Adventures, about 2 hours. Share a snowmobile with someone, or go solo for more.', constraints: '15+ to drive, 18+ with a passenger, passengers 5+', minAge: 5,
+  { id: 'snowmobile', off: true, name: 'Snowmobile', pot: 'personal', desc: 'Guided tour with Good Times Adventures, about 2 hours. Share a snowmobile with someone, or go solo for more.', constraints: '15+ to drive, 18+ with a passenger, passengers 5+', minAge: 5,
     variants: [{ id: 'shared', label: 'Share a snowmobile', cost: 189, each: true, name: 'Snowmobile, shared' }, { id: 'solo', label: 'Go solo', cost: 284, minAge: 15, name: 'Snowmobile, solo' }],
     time: '10:00 AM', place: 'Good Times Adventures, Tiger Road', bring: 'goggles, warm gloves, a license if you drive', ride: 'suv',
     links: [{ label: 'Website', href: 'https://goodtimesadventures.com/snowmobiling.html' }] },
-  { id: 'dog', name: 'Dog sledding', pot: 'personal', cost: 211, desc: 'Drive a team of huskies through the Swan River valley.', constraints: 'Ages 5+, 275 lb limit', minAge: 5, time: '10:00 AM', place: 'Good Times Adventures, Tiger Road', bring: 'warm layers and a camera', ride: 'suv',
-    links: [{ label: 'Website', href: 'https://goodtimesadventures.com/dogsledding.html' }] },
-  { id: 'snowcat', name: 'Snowcat', pot: 'group', desc: '90-minute heated snowcat ride to Josie’s Cabin with s’mores and drinks.', extra: 'Holds 8 per ride. Mateo can ride on a lap.', time: '1:00 PM', place: 'Breckenridge Nordic Center', bring: 'layers and sunglasses', ride: 'snowcat',
-    links: [{ label: 'Website', href: 'https://www.breckenridgenordic.com/snowcat-rides-in-breckenridge/' }] },
-  { id: 'nordic', name: 'Snowshoe or cross-country ski', pot: 'group', desc: 'Trail pass and rental at the Nordic Center. Pick which one at the counter.', constraints: 'Kids 12 and under: free trail pass', time: '10:00 AM', place: 'Breckenridge Nordic Center', bring: 'waterproof boots, layers and water', ride: 'van',
-    links: [{ label: 'Snowshoe', href: 'https://www.breckenridgenordic.com/snowshoe-trails-in-breckenridge/' }, { label: 'Cross-country', href: 'https://www.breckenridgenordic.com/cross-country-skiing-in-breckenridge/' }] },
+  { id: 'dog', name: 'Dog sledding', pot: 'personal', cost: 247, desc: 'A private ride with Colorado Dog Sledding: just us, a guide and a team of Iditarod huskies, about 75 minutes.', constraints: 'All ages', time: '10:30 AM', place: 'Colorado Dog Sledding, Silverthorne, 35 minutes away', bring: 'warm layers and a camera', ride: 'suv',
+    links: [{ label: 'Website', href: 'https://coloradodogsledding.com/' }] },
+  { id: 'snowcat', name: 'Snowcat', pot: 'group', desc: '90-minute heated snowcat ride to Josie’s Cabin with s’mores and drinks.', extra: 'Holds 8 per ride. Mateo can ride on a lap.', time: '2:00 PM', place: 'Breckenridge Nordic Center', bring: 'layers and sunglasses', ride: 'snowcat',
+    links: [{ label: 'Details', href: 'https://adventurebot.com/IFrameStoreProductDetail/detail/14ec4601-e267-4b5c-b1a1-55936630d63f' }] },
+  { id: 'nordic', name: 'Snowshoe or cross-country ski', pot: 'group', desc: 'Trail pass and rental at the Nordic Center. Pick which one at the counter.', constraints: 'Kids 12 and under: free trail pass', time: '10:00 AM', place: 'Breckenridge Nordic Center', bring: 'waterproof boots, layers and water', ride: 'van' },   // no links: breckenridgenordic.com is a parked domain for now
 ];
-const ALL_KEYS = OPTS.flatMap(o => o.variants ? o.variants.map(v => `${o.id}:${v.id}`) : [o.id]);
+const LIVE = OPTS.filter(o => !o.off);   // the Friday cards and the planner's Finals
+const ALL_KEYS = LIVE.flatMap(o => o.variants ? o.variants.map(v => `${o.id}:${v.id}`) : [o.id]);
 // The planner sorts out who drives and when; stored in settings as ride_van / ride_snowcat / ride_suv (JSON: driver, leave, dest).
-// The snowcat is at 1:00 PM, so it gets its own van run, apart from the 10 AM ski and Nordic drop.
+// The snowcat is at 2:00 PM, so it gets its own van run, apart from the 10 AM ski and Nordic drop.
 const RIDES = [
   { key: 'ride_van', label: 'Van', word: 'van', dest: 'e.g. Nordic Center' },
   { key: 'ride_snowcat', label: 'Snowcat van', word: 'van', log: 'snowcat van', dest: 'e.g. Nordic Center' },
-  { key: 'ride_suv', label: 'SUV', word: 'SUV', dest: 'e.g. Good Times' },
+  { key: 'ride_suv', label: 'SUV', word: 'SUV', dest: 'e.g. Colorado Dog Sledding' },
 ];
 const RIDES_UNSET = 'I’ll post who drives and when we leave, right here.';
 
@@ -359,11 +363,11 @@ const VOTES = [
     { id: 'bold', label: 'Bold', short: 'Bold', desc: 'American, big menu, kids menu. $$$', place: 'Bold, Main Street', url: 'https://www.boldbreck.com/menu/' },
     { id: 'radicato', label: 'Radicato', short: 'Radicato', desc: 'Italian, fancy, same owners as Rootstalk. $$$$', place: 'Radicato, Main Street', url: 'https://www.radicatobreck.com/dinner' },
   ] },
-  { id: 'sunday', day: 'sun', title: 'Sunday farewell dinner', time: '6:30 PM', choices: [
-    COOK_IN,
-    { id: 'rootstalk', label: 'Rootstalk', short: 'Rootstalk', desc: 'Fancy, chef’s tasting style, the splurge. $$$$', place: 'Rootstalk, Main Street', url: 'https://www.rootstalkbreck.com/dinner-menu' },
-    { id: 'lafrancaise', label: 'La Française', short: 'La Française', desc: 'French bistro, small and cozy. $$$', place: 'La Française, Main Street', url: 'https://www.lafrancaisebistrot.com/menus' },
-    { id: 'blueriver', label: 'Blue River Bistro', short: 'Blue River', desc: 'American bistro, live music. $$$', place: 'Blue River Bistro, Main Street', url: 'https://www.blueriverbistro.com/menus' },
+  // The farewell dinner is a revote (REVOTE): Blue River Bistro only seats 10. All three have a private room for 15 and a kids menu.
+  { id: 'farewell', day: 'sun', title: 'Sunday farewell dinner', time: '6:30 PM', choices: [
+    { id: 'hearthstone', label: 'Hearthstone', short: 'Hearthstone', desc: 'Steaks, game and seafood in an 1883 Victorian house, our own room. $$$$', place: 'Hearthstone, Ridge Street', url: 'https://www.hearthstonebreck.com/menus/dinner/' },
+    { id: 'ember', label: 'Ember', short: 'Ember', desc: 'Creative global food, lively and artsy, our own wine attic room. $$$', place: 'Ember, Adams Avenue', url: 'https://emberbreck.com/menus/entrees/' },
+    { id: 'spencers', label: 'Spencer’s', short: 'Spencer’s', desc: 'Classic steakhouse at Beaver Run, private room, easiest with kids. $$$', place: 'Spencer’s at Beaver Run, Village Road', transport: 'Van and SUV', url: 'https://beaverrun.com/dining/spencers-restaurant/' },
   ] },
 ];
 // Travel times stay "Morning" / "Afternoon" until flights are booked.
@@ -411,7 +415,7 @@ const MEAL_NOTE = 'Cook in won. I need 2 to cook and 2 to clean up. Tap + me.';
 const MEALS = [
   { key: 'fri', day: 'fri', title: 'Friday dinner', time: '6:30 PM', needsVote: 'friday' },
   { key: 'sat', day: 'sat', title: 'Saturday dinner', time: '6:30 PM', needsVote: 'saturday' },
-  { key: 'sun', day: 'sun', title: 'Sunday farewell dinner', time: '6:30 PM', needsVote: 'sunday' },
+  { key: 'sun', day: 'sun', title: 'Sunday farewell dinner', time: '6:30 PM', needsVote: 'farewell' },
 ];
 const ROLES = ['Cooking', 'Cleaning'];
 const SLOTS = 2;
@@ -424,7 +428,7 @@ const ASSUMPTIONS = [
   'Breakfast and lunch are on you. Groceries get split. At restaurants everyone pays their own.',
   'Restaurants for 15 need a reservation. If the winner can’t fit us, I’ll pick the runner-up.',
   'Prices are from the websites in September and can change.',
-  'Ages: snowmobile drivers 15+, 18+ with a passenger. Passengers and dog sledding 5+.',
+  'Ages: dog sledding takes all ages. Tubing riders must be at least 36 inches tall.',
 ];
 
 /* ---------- helpers ---------- */
@@ -552,9 +556,9 @@ class DemoStore {
   constructor() {
     this.pin = '2026';
     this.seed();
-    try { const saved = JSON.parse(localStorage.getItem('breck-demo') || 'null'); if (saved && saved.v === 6) Object.assign(this, saved); } catch {}
+    try { const saved = JSON.parse(localStorage.getItem('breck-demo') || 'null'); if (saved && saved.v === 7) Object.assign(this, saved); } catch {}
   }
-  save() { const { picks, assignments, votes, meals, items, voteState, logRows, nextId, pin, settings } = this; try { localStorage.setItem('breck-demo', JSON.stringify({ v: 6, picks, assignments, votes, meals, items, voteState, logRows, nextId, pin, settings })); } catch {} }
+  save() { const { picks, assignments, votes, meals, items, voteState, logRows, nextId, pin, settings } = this; try { localStorage.setItem('breck-demo', JSON.stringify({ v: 7, picks, assignments, votes, meals, items, voteState, logRows, nextId, pin, settings })); } catch {} }
   seed() {
     const now = Date.now(), ago = h => new Date(now - h * 3600e3).toISOString();
     this.picks = {
@@ -566,21 +570,20 @@ class DemoStore {
     this.votes = {
       friday: { Bray: 'cookin', Brian: 'cookin', Sandra: 'brewery', Natalia: 'cookin', Anthony: 'cookin', Luis: 'cookin', Anna: 'erics', Manny: 'brewery' },
       saturday: { Bray: 'cookin', Brian: 'cookin', Sandra: 'cookin', Natalia: 'cookin', Anthony: 'cookin', Luis: 'cookin', Anna: 'cookin', Manny: 'hearthstone', Ivy: 'hearthstone', Hailey: 'bold' },
-      sunday: { Bray: 'rootstalk', Brian: 'lafrancaise', Sandra: 'lafrancaise', Natalia: 'cookin', Anthony: 'blueriver', Luis: 'rootstalk', Anna: 'rootstalk' },
+      farewell: { Bray: 'hearthstone', Brian: 'ember', Sandra: 'ember', Natalia: 'spencers', Anthony: 'spencers', Luis: 'hearthstone', Anna: 'hearthstone' },
     };
     this.meals = [{ meal_key: 'fri', role: 'Cooking', person: 'Anna' }, { meal_key: 'fri', role: 'Cooking', person: 'Ivy' }];
     this.items = [
-      { id: 'snowcat', sort: 1, item: 'Private snowcat · Nordic Center', status: 'Open', when_label: 'Fri Dec 11 · 1:00 PM', cost_label: '$800 · group fund', fund: 800, link: 'breckenridgenordic.com', conf: '' },
+      { id: 'snowcat', sort: 1, item: 'Private snowcat · Nordic Center', status: 'Open', when_label: 'Fri Dec 11 · 2:00 PM', cost_label: '$800 · group fund', fund: 800, link: 'adventurebot.com, opens Oct 27', conf: '' },
       { id: 'tubing', sort: 2, item: 'Tubing · Frisco Adventure Park', status: 'Booked', when_label: 'Sat Dec 12 · 2:00 PM', cost_label: '$572 · group fund', fund: 572, link: 'townoffrisco.com', conf: 'FAP-88213' },
       { id: 'skating', sort: 3, item: 'Ice skating · Stephen C. West Arena', status: 'Open', when_label: 'Sun Dec 13 · 1:00 PM', cost_label: '$260 reserve · group fund', fund: 260, link: 'walk-in', conf: '' },
       { id: 'ski', sort: 5, item: 'Epic Day Passes', status: 'Open', when_label: 'Fri Dec 11', cost_label: 'about $225 pp · personal', fund: 0, link: 'epicpass.com', conf: '' },
-      { id: 'snowmobile', sort: 6, item: 'Snowmobile tours · Good Times', status: 'Open', when_label: 'Fri Dec 11 · 10:00 AM', cost_label: '$189 to 284 pp · personal', fund: 0, link: 'goodtimesadventures.com', conf: '' },
-      { id: 'dog', sort: 7, item: 'Dog sledding · Good Times', status: 'Open', when_label: 'Fri Dec 11 · 10:00 AM', cost_label: '$211 pp · personal', fund: 0, link: 'goodtimesadventures.com', conf: '' },
+      { id: 'dog', sort: 7, item: 'Dog sledding · Colorado Dog Sledding', status: 'Open', when_label: 'Fri Dec 11 · 10:30 AM', cost_label: '$742 for 3 · personal', fund: 0, link: 'coloradodogsledding.com', conf: '' },
       { id: 'fridinner', sort: 8, item: 'Friday dinner reservation', status: 'Open', when_label: 'Fri Dec 11 · 6:30 PM', cost_label: 'you pay', fund: 0, link: 'after the vote', conf: '' },
       { id: 'satdinner', sort: 9, item: 'Saturday dinner reservation', status: 'Open', when_label: 'Sat Dec 12 · 6:30 PM', cost_label: 'you pay', fund: 0, link: 'after the vote', conf: '' },
       { id: 'sundinner', sort: 10, item: 'Sunday farewell dinner reservation', status: 'Open', when_label: 'Sun Dec 13 · 6:30 PM', cost_label: 'you pay', fund: 0, link: 'after the vote', conf: '' },
     ];
-    this.voteState = { friday: false, saturday: false, sunday: false };
+    this.voteState = { friday: false, saturday: false, farewell: false };
     this.settings = {};   // ride_van / ride_snowcat / ride_suv once the planner sorts them out
     this.logRows = [
       { id: 3, text: 'Manny changed Friday 1st choice: Snowshoe or cross-country ski → Snowmobile, solo', created_at: ago(20) },
@@ -744,7 +747,7 @@ function doneModal() {
     <div class="scrim" data-act="closedone"></div>
     <div class="sheet${pop}">
       <div class="h1" id="done-h">You’re <em>done</em></div>
-      <div class="lede">You can still change your answers until ${DEADLINE.replace(' ', '\u00a0')}. Otherwise, your itinerary is in My trip, and I’ll keep it updated there.</div>
+      <div class="lede">You can still change your answers until ${dueBy(app.state).replace(' ', '\u00a0')}. Otherwise, your itinerary is in My trip, and I’ll keep it updated there.</div>
       <a class="btn next" href="#/me" data-act="nav">See My trip</a>
       <button class="btn" data-act="closedone">Close</button>
     </div>
@@ -770,7 +773,8 @@ const going = (S, o) => PEOPLE.filter(p => isOpt(S.assigned[p], o)).length;
 // Once Bray has assigned a Friday, the cards stop taking picks: the assigned one reads "Your Friday", the rest have no button.
 function buildOptions(S, u) {
   const both = hasBoth(S, u), fin = parsePick(S.assigned[u]);
-  return OPTS.map(o => {
+  // An option that's off shows only to someone still holding it as an unassigned pick, so they can remove it.
+  return OPTS.filter(o => !o.off || (!fin && rankOf(S, u, o))).map(o => {
     const rank = rankOf(S, u, o), final = !!fin && fin.opt.id === o.id, mine = fin ? final : rank > 0;
     const firsts = countOf(S, o, 1), seconds = countOf(S, o, 2);
     const vid = o.variants ? (final ? fin.variant.id : variantFor(S, u, o)) : null;
@@ -818,7 +822,7 @@ function mealsFor(S, votes, dayKey) {
 // A closed vote becomes a locked row: the restaurant, or the cook-in at the Airbnb.
 function decided(votes, dayKey) {
   return votes.filter(v => v.day === dayKey && v.closed)
-    .map(v => ({ time: v.time, title: `${v.title}: ${v.winner.label}`, place: v.winner.place, bring: '', transport: v.winner.id === 'cookin' ? '' : 'Walk from the Airbnb' }));
+    .map(v => ({ time: v.time, title: `${v.title}: ${v.winner.label}`, place: v.winner.place, bring: '', transport: v.winner.id === 'cookin' ? '' : v.winner.transport || 'Walk from the Airbnb' }));
 }
 
 // "Getting there" for an assigned Friday: the ride once the planner has set a leave time, otherwise a placeholder.
@@ -831,8 +835,11 @@ function rideLine(S, o) {
 }
 
 const allClosed = S => VOTES.every(v => S.closed[v.id]);   // after the deadline: the copy stops talking about Oct 1
+// The revote is on: every other vote is closed and REVOTE's isn't. Its date replaces DEADLINE wherever a date is said.
+const revoting = S => !!REVOTE && !!S && !S.closed[REVOTE.id] && VOTES.every(v => v.id === REVOTE.id || S.closed[v.id]);
+const dueBy = S => revoting(S) ? REVOTE.by : DEADLINE;
 const fridayOpen = (S, u) => !S.assigned[u] && !hasBoth(S, u);
-const fridayUnset = S => allClosed(S) ? FRIDAY_LATE : FRIDAY_UNSET;
+const fridayUnset = S => allClosed(S) || revoting(S) ? FRIDAY_LATE : FRIDAY_UNSET;
 const otherAdults = u => ((household(u) || { members: [] }).members).filter(p => p !== u && !isKid(p));
 
 // The cook-in night to ask this person about: only if they're on no live cook-in night yet (one job each is plenty) and a job is open.
@@ -984,7 +991,7 @@ function todoStrip() {
   const S = app.state, t = todos(S, app.user);
   if (!t.length) return `<div class="todo done">${doneText(S, app.user)}</div>`;
   // "1 thing to do" for the last one; otherwise no number, since the three votes share one link.
-  const links = todoLinks(t), by = allClosed(S) ? '' : ` by ${DEADLINE}`, whose = handedBy(app.user) ? ` for ${esc(app.user)}` : '';
+  const links = todoLinks(t), by = allClosed(S) ? '' : ` by ${dueBy(S)}`, whose = handedBy(app.user) ? ` for ${esc(app.user)}` : '';
   return `<div class="todo">${t.length === 1 ? `1 thing to do${whose}${by}` : `To do${whose}${by}`}: ${links.map((h, i) => i < links.length - 1 ? `<span class="nw">${h} ·</span>` : h).join(' ')}</div>`;
 }
 
@@ -999,7 +1006,7 @@ function viewWho() {
   return `<div class="shell"><div class="who">
     <div class="eyebrow${rise(0)}">Family Christmas 2026</div>
     <div class="h1${rise(60)}">Who’s <em>this?</em></div>
-    <div class="lede${rise(120)}">${S && allClosed(S) ? 'The votes are in. Tap your name to see your plan.' : `Tap your own name. You’ll pick a 1st and 2nd choice for Friday and vote on 3 dinners, all by ${DEADLINE}. Couples, each of you answers on your own name. Kids don’t pick; they go with one of you.`}</div>
+    <div class="lede${rise(120)}">${S && allClosed(S) ? 'The votes are in. Tap your name to see your plan.' : revoting(S) ? `The votes are in, except one. ${REVOTE.why} Tap your name and vote by ${REVOTE.by}.` : `Tap your own name. You’ll pick a 1st and 2nd choice for Friday and vote on 3 dinners, all by ${DEADLINE}. Couples, each of you answers on your own name. Kids don’t pick; they go with one of you.`}</div>
     ${HH.map((h, i) => `<div class="hh${rise(180 + i * 70)}">
       <div class="hh-h"><span>${esc(h.parent)}</span><span class="fam">· ${esc(h.family)}</span></div>
       ${h.members.map(n => isKid(n)
@@ -1011,7 +1018,9 @@ function viewWho() {
 }
 
 function viewInfo() {
-  const assume = allClosed(app.state) ? ['The votes are in, and I went with the majority.', ...ASSUMPTIONS.slice(1)] : ASSUMPTIONS;
+  const assume = allClosed(app.state) ? ['The votes are in, and I went with the majority.', ...ASSUMPTIONS.slice(1)]
+    : revoting(app.state) ? [`The votes are in, and I went with the majority. The Sunday farewell dinner is a revote, due ${REVOTE.by}.`, ...ASSUMPTIONS.slice(1)]
+    : ASSUMPTIONS;
   return `<div class="pad">
     <div class="eyebrow">Trip info</div>
     <div class="h1">The <em>Trip</em></div>
@@ -1039,8 +1048,8 @@ function fridayLine(S, u) {
 function kidNote(S, u) {
   if (S.assigned[u]) return '';
   return (household(u) || { members: [] }).members.filter(k => isKid(k) && !S.assigned[k]).map(k => {
-    const can = OPTS.filter(o => canDo(k, o)).map(o => o.name);
-    return can.length < OPTS.length ? `<div class="note" data-kidnote>${esc(`${k} goes with one of you. At ${AGES[k]}, ${k} can do ${andList(can.map(n => `the ${n}`))}, but not the others.`)}</div>` : '';
+    const can = LIVE.filter(o => canDo(k, o)).map(o => o.name);
+    return can.length < LIVE.length ? `<div class="note" data-kidnote>${esc(`${k} goes with one of you. At ${AGES[k]}, ${k} can do ${andList(can.map(n => `the ${n}`))}, but not the others.`)}</div>` : '';
   }).join('');
 }
 // Can this kid do this option (or this snowmobile choice)? Only the planner's kid Finals and the note above use it.
@@ -1054,6 +1063,7 @@ function chooseLede(S, u) {
   const fri = t.find(x => x.kind === 'friday'), vs = t.filter(x => x.kind === 'vote'), meal = t.find(x => x.kind === 'meal');
   if (fri || vs.length) {
     if (closed) return esc(`The votes are in, but you still need to pick for Friday. ${FRIDAY_LATE}`);
+    if (revoting(S) && !fri) return esc(`${S.assigned[u] ? 'Your Friday is set. ' : ''}${REVOTE.why} Vote by ${REVOTE.by}. After that I go with the majority.`);
     const fresh = fri && !pickOf(S, u, 1) && !pickOf(S, u, 2) && vs.length === VOTES.length;
     if (fresh) return esc(`Pick a 1st and 2nd choice for Friday and vote on the three dinners. ${DEADLINE_RULE}`);
     // Part of it is in: say which part, then what's left.
@@ -1070,7 +1080,7 @@ function chooseLede(S, u) {
   const mine = S.assigned[u] ? esc(`Your Friday is set: ${optName(S.assigned[u])}.`) : `${esc('You’ve picked and voted. Friday: ')}${jump('friday', `${optName(a)}, then ${optName(b)}`)}.`;
   const kids = (household(u) || { members: [] }).members.filter(k => isKid(k) && S.assigned[k]).map(k => esc(` ${k}’s Friday: ${optName(S.assigned[k])}.`)).join('');
   const said = buildVotes(S, u).filter(v => !v.closed && v.my).map(v => `${jump('vote-' + v.day, v.choices.find(c => c.my).label)} on ${DAYS.find(d => d.key === v.day).name}`);
-  return `${mine}${kids}${said.length ? ` Your votes: ${andList(said)}.` : ''} ${esc(`You can change ${S.assigned[u] ? 'your dinner votes' : 'anything'} until ${DEADLINE}.`)}`;
+  return `${mine}${kids}${said.length ? ` Your votes: ${andList(said)}.` : ''} ${esc(`You can change ${S.assigned[u] ? 'your dinner votes' : 'anything'} until ${dueBy(S)}.`)}`;
 }
 
 // The Next button under the card just picked, once both picks are in: the next to-do, or the way back to whoever handed the phone over.
@@ -1191,7 +1201,7 @@ function viewMe() {
     }
     votes.filter(v => v.day === d.key && !v.closed).forEach(v => {
       const c = v.choices.find(c => c.my);
-      items.push(mk({ time: v.time, title: v.title, place: c ? `Your vote: ${c.label}. You can change it on Choose until ${DEADLINE}.` : `Tap here to vote, by ${DEADLINE}.`, bring: '', transport: '', todo: c ? '' : 'vote-' + v.day }, c ? 'voted' : 'vote'));
+      items.push(mk({ time: v.time, title: v.title, place: c ? `Your vote: ${c.label}. You can change it on Choose until ${dueBy(S)}.` : `Tap here to vote, by ${dueBy(S)}.`, bring: '', transport: '', todo: c ? '' : 'vote-' + v.day }, c ? 'voted' : 'vote'));
     });
     mealsFor(S, votes, d.key).forEach(m => ROLES.forEach(role => {
       if (!S.meals[m.key][role].includes(u)) return;
@@ -1263,7 +1273,7 @@ function viewPlanner() {
       <div class="hr"><span>Room left</span><b>${money(roomLeft(S))}</b></div>
       <div class="eyebrow sec">Assign Friday</div>
       <div class="counts">${OPTS.map(o => `<span data-count="${o.id}"><b>${esc(o.name)}</b> ${countOf(S, o, 1)} first, ${countOf(S, o, 2)} second, ${finals(o)} final</span>`).join('')}</div>
-      <div class="pnote">Caps to keep in mind: ${CAP_NOTE} (the SUV is snowmobiles and dog sledding together). The snowcat isn’t capped: 8 a ride, Mateo on a lap; past 8, book a second ride ($800, it fits). Kids don’t pick: give each kid the Final of the parent they go with (a kid on a snowmobile shares one); a kid’s list only has what they’re old enough for. The family sees “${esc(FRIDAY_UNSET)}” until you pick a Final.</div>
+      <div class="pnote">Caps to keep in mind: ${CAP_NOTE} (the SUV is dog sledding). The snowcat isn’t capped: 8 a ride, Mateo on a lap; past 8, book a second ride ($800, it fits). Kids don’t pick: give each kid the Final of the parent they go with; a kid’s list only has what they’re old enough for. The family sees “${esc(FRIDAY_UNSET)}” until you pick a Final.</div>
       <div class="assign">
         <div class="arow h tiny"><span>Name</span><span>1st</span><span>2nd</span><span>Final</span><span></span></div>
         ${PEOPLE.map(p => { const a = pickOf(S, p, 1), b = pickOf(S, p, 2), fin = S.assigned[p] || '';
