@@ -37,26 +37,20 @@ button,a,.person,.chip,.choice,.radio,.btn{touch-action:manipulation}
 /* phone shell */
 .shell{max-width:480px;margin:0 auto;min-height:100vh;background:var(--card);display:flex;flex-direction:column}
 @media(min-width:481px){.shell{border-left:1px solid var(--line3);border-right:1px solid var(--line3)}}
-.shell.nav{padding-bottom:calc(64px + env(safe-area-inset-bottom))}
-.top{position:sticky;top:0;z-index:5;background:rgba(250,250,249,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.top .bar{display:flex;justify-content:space-between;align-items:center;padding:14px 20px}
 .brand{font-family:var(--display);font-style:italic;font-size:17px}
-.top .brand{cursor:pointer;padding:12px 0;margin:-12px 0}
-.top .r{display:flex;align-items:center;gap:14px}
-.top .topname{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--muted);text-decoration:underline;text-underline-offset:3px;padding:14px 0;margin:-14px 0;cursor:pointer}   /* 44px to tap, without making the bar taller */
-.top .topname b{color:var(--ink);font-weight:600}
-.todo{background:var(--sand);border-top:1px solid var(--line);padding:5px 20px;font-size:13px;line-height:1.45;color:var(--ink)}   /* wraps: every to-do stays visible */
-.todo a{display:inline-block;text-decoration:underline;text-underline-offset:2px;cursor:pointer;padding:7px 0;margin:-2px 0}   /* inline-block: a wrapped line's tap area never covers the line above */
-.todo .nw{white-space:nowrap}   /* the dot stays with the link before it */
-.todo.done{color:var(--green);font-weight:600}
-.tabbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;display:flex;background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom);z-index:6}
-@media(min-width:481px){.tabbar{border-left:1px solid var(--line3);border-right:1px solid var(--line3)}}
-.tabbar a{flex:1;height:56px;display:flex;align-items:center;justify-content:center;font-family:var(--sans);font-size:11px;font-weight:600;color:var(--muted)}
-.tabbar a span{padding:4px 2px;border-bottom:2px solid transparent}
+/* the top bar: the three tabs on the left, your name on the right */
+.top{position:sticky;top:0;z-index:5;background:rgba(250,250,249,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .bar{display:flex;justify-content:space-between;align-items:center;gap:12px;height:52px;padding:0 16px}
+.tabbar{display:flex;gap:16px}
+.tabbar a{font-family:var(--sans);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--muted);padding:16px 0;white-space:nowrap}
+.tabbar a span{padding-bottom:2px;border-bottom:1.5px solid transparent}
 .tabbar a.on{color:var(--ink)}
-.tabbar a.on span{border-bottom-color:var(--green)}
+.tabbar a.on span{border-bottom-color:var(--ink)}
+.top .topname{font-family:var(--sans);font-size:12px;color:var(--muted);padding:16px 0;white-space:nowrap;cursor:pointer}
+.top .topname b{color:var(--ink);font-weight:700}
+.top .topname u{text-underline-offset:2px}
 .pad{padding:28px 20px 40px}
-section[id]{scroll-margin-top:100px}
+section[id]{scroll-margin-top:64px}
 
 /* who's this */
 .who{padding:56px 24px 32px;min-height:100vh;display:flex;flex-direction:column}
@@ -175,11 +169,99 @@ details.more>summary{font-size:13px;font-weight:600;color:var(--muted);padding:1
 .chip.open{background:transparent;color:var(--muted);border:1px dashed var(--ghost)}
 .chip.can{cursor:pointer}
 
-/* my trip */
+/* choose: only what's still open */
+.choose{padding:32px 16px 48px}
+.h2{font-family:var(--display);font-size:26px;font-weight:500;line-height:1.1;margin-top:6px}
+.h2 em{font-style:italic;font-weight:300}
+.vsec{margin-top:44px}
+.vsec .sub{font-family:var(--serif);font-size:14px;line-height:1.5;color:var(--muted);margin-top:6px;text-wrap:pretty}
+.cdone{margin-top:18px;font-size:13px;line-height:1.5;font-weight:700;color:var(--green)}
+.cdone a{text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+.vrow.menu,.vrow.list{padding:0;border-bottom:0}
+.vsec .meal{padding:0;border-bottom:0}
+.vrow.menu{display:flex;flex-direction:column;gap:12px;margin-top:18px}
+.choice.mcard{margin:0;display:block;width:100%;background:#fff;border:1.5px solid var(--line);padding:24px 18px 18px;text-align:center;cursor:pointer}
+.choice.mcard.my{border-color:var(--ink)}
+.mname{display:block;font-family:var(--display);font-size:28px;font-weight:400;line-height:1.1}
+.mname em{font-style:italic;font-weight:300}
+.mcard .rule{display:block;width:28px;height:1px;background:var(--accent);margin:14px auto}
+.mlines{display:block;font-family:var(--serif);font-size:15px;line-height:1.6;color:#44403C}
+.cta{display:block;margin-top:16px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+.choice.my .cta{color:var(--green)}
+.vrow.list{margin-top:12px;border-top:1px solid var(--line)}
+.vrow.list .crow{align-items:center;border-bottom:1px solid var(--line)}
+.choice.rest{margin:0;display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:58px;padding:10px 0;cursor:pointer}
+.rest .cname{display:block;font-family:var(--display);font-size:22px;line-height:1.2}
+.rest .cdesc{display:block;font-family:var(--serif);font-size:13px;line-height:1.4;color:var(--muted);margin-top:2px}
+.ring{width:24px;height:24px;border-radius:50%;border:1.5px solid #A8A29E;flex:none;display:flex;align-items:center;justify-content:center;color:var(--card);font-size:12px;font-weight:700;font-style:normal}
+.choice.my .ring{background:var(--green);border-color:var(--green)}
+.choice.my .ring::after{content:'\2713'}
+.vrow.list .ext{margin:0;font-size:12px}
+.jobs{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;margin-top:14px}
+.job{height:88px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border:1.5px solid var(--ink);background:var(--card);color:var(--ink);cursor:pointer}
+.job .jn{font-family:var(--display);font-size:22px}
+.job .jm{font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+.job.me{background:var(--ink);color:var(--card)}
+.job:disabled{border-color:var(--ghost);color:var(--muted);cursor:default}
+.who-on{font-family:var(--serif);font-size:13px;line-height:1.5;color:var(--muted);margin-top:10px}
+
+/* my trip: a ticket, what's still open, then the five days as a magazine spread */
+.hero{background:var(--sand);padding:16px}
+.ticket{background:#fff;border-radius:14px;box-shadow:0 1px 0 rgba(28,25,23,.06)}
+.ticket img{display:block;width:100%;height:220px;object-fit:cover;border-radius:14px 14px 0 0;background:var(--line)}
+.tk-body{padding:18px 18px 20px}
+.tk-eye{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--accent)}
+.tk-count{display:flex;align-items:flex-end;gap:12px;margin-top:12px}
+.tk-count .n{font-family:var(--display);font-size:120px;font-weight:300;line-height:.78;letter-spacing:-.04em}
+.tk-count .w{font-family:var(--display);font-size:26px;line-height:1.05;padding-bottom:4px}
+.tk-count .w em{font-style:italic;font-weight:300}
+.tk-perf{position:relative;height:0;border-top:1.5px dashed var(--line);margin:0 14px}
+.tk-perf::before,.tk-perf::after{content:'';position:absolute;top:-10px;width:20px;height:20px;border-radius:50%;background:var(--sand)}
+.tk-perf::before{left:-24px}
+.tk-perf::after{right:-24px}
+.tk-stub{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.1fr) minmax(0,1.1fr);gap:10px;padding:16px 18px 18px}
+.tk-stub span{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+.tk-stub b{display:block;font-size:14px;font-weight:700;margin-top:4px}
+.todo-blk{background:var(--red);color:var(--card);padding:24px 16px 10px}
+.todo-blk .eyebrow{color:var(--sand)}
+.todo-blk .eyebrow+a{margin-top:12px}
+.todo-blk a{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:50px;border-top:1px solid rgba(250,250,249,.22);font-family:var(--serif);font-size:17px;cursor:pointer}
+.todo-blk .arr{font-family:var(--sans);font-size:16px}
+.doneline{padding:16px 16px 0;font-size:13px;line-height:1.5;font-weight:700;color:var(--green)}
+.doneline a{text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+.dbd{padding:44px 16px 0}
+.itin{padding-top:44px}
+.dsp-h{padding:0 16px;display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+.dsp-num{font-family:var(--display);font-size:112px;font-weight:300;color:var(--num);line-height:.8;letter-spacing:-.04em}
+.dsp-dow{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--muted);padding-bottom:4px}
+.dsp-title{padding:14px 16px 0;font-family:var(--display);font-size:34px;font-weight:500;line-height:1.05;letter-spacing:-.01em;text-wrap:pretty}
+.dsp-title em{font-style:italic;font-weight:300}
+.dsp-photo{display:block;width:100%;height:260px;object-fit:cover;background:var(--line);margin-top:20px}
+.moments{padding:6px 16px 0}
+.mo{border-bottom:1px solid var(--line)}
+.mo-row{display:grid;grid-template-columns:76px minmax(0,1fr) 20px;gap:10px;align-items:baseline;padding:16px 0}
+.mo-row.tap{cursor:pointer}
+.mo-t{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+.mo.mine .mo-t{color:var(--accent)}
+.mo-tag{display:block;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--accent);margin-bottom:4px}
+a.mo-tag{cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+.mo-title{font-family:var(--serif);font-size:18px;line-height:1.3}
+.mo-place{font-size:13px;line-height:1.45;color:var(--muted);margin-top:3px}
+.mo-ok{font-size:12px;font-weight:700;color:var(--green);margin-top:6px}
+.mo-plus{font-size:18px;color:var(--accent);text-align:right;line-height:1}
+.mo-det{margin:0 0 16px 86px;background:var(--sand);padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.mo-det div{display:grid;grid-template-columns:50px minmax(0,1fr);gap:8px;align-items:baseline}
+.mo-det span{font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+.mo-det em{font-style:normal;font-family:var(--serif);font-size:15px;line-height:1.4}
+.itin.closing{margin-top:56px;padding:40px 0 44px;background:var(--red);color:var(--card)}
+.closing .dsp-num{color:#A85A55}
+.closing .dsp-dow,.closing .mo-t,.closing .mo-place{color:var(--sand)}
+.closing .mo{border-color:rgba(250,250,249,.22)}
+.closing .mo-plus{color:var(--sand)}
+.closing .mo-det{background:rgba(250,250,249,.1)}
+.closing .mo-det span{color:var(--sand)}
 .money{margin-top:22px;border:1px solid var(--line);padding:14px;font-size:14px;font-weight:600;line-height:1.5}
 .money small{display:block;font-weight:400;font-size:12px;color:var(--muted);margin-top:2px}
-.itin{padding:26px 20px 10px;border-top:1px solid var(--line)}
-.itin .rows{margin-top:12px;border-top:1px solid var(--line)}
 .it{display:grid;grid-template-columns:76px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line2)}
 .it .t{font-size:12px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.4}
 .it .k{font-family:var(--display);font-style:italic;font-size:13px;margin-top:3px;color:var(--muted)}
@@ -256,11 +338,11 @@ details.more>summary{font-size:13px;font-weight:600;color:var(--muted);padding:1
 .rrow>span:last-child{white-space:normal}
 .rrow>span.empty{background:var(--sand)}
 .pnote{font-family:var(--serif);font-size:13px;line-height:1.5;color:var(--muted);margin-top:12px}
-.toast{position:fixed;left:50%;bottom:calc(76px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:var(--card);font-size:12px;padding:10px 14px;border-radius:4px;z-index:20;max-width:90vw}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:var(--card);font-size:12px;padding:10px 14px;border-radius:4px;z-index:20;max-width:90vw}
 .toast.bare{bottom:20px}
-.notice{position:fixed;left:50%;bottom:calc(57px + env(safe-area-inset-bottom));transform:translateX(-50%);width:100%;max-width:480px;background:var(--ink);color:var(--card);font-size:13px;line-height:1.4;padding:11px 20px;z-index:19}
+.notice{position:fixed;left:50%;bottom:0;padding-bottom:calc(11px + env(safe-area-inset-bottom));transform:translateX(-50%);width:100%;max-width:480px;background:var(--ink);color:var(--card);font-size:13px;line-height:1.4;padding:11px 20px;z-index:19}
 .notice.bare{bottom:0;padding-bottom:calc(11px + env(safe-area-inset-bottom))}
-.notice + .toast{bottom:calc(108px + env(safe-area-inset-bottom))}
+.notice + .toast{bottom:calc(60px + env(safe-area-inset-bottom))}
 .modal{position:fixed;inset:0;z-index:30;display:flex;align-items:center;justify-content:center;padding:20px}
 .modal .scrim{position:absolute;inset:0;background:rgba(28,25,23,.5)}
 .modal .sheet{position:relative;width:100%;max-width:360px;background:var(--card);border-radius:6px;padding:26px 22px 18px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
@@ -269,7 +351,7 @@ details.more>summary{font-size:13px;font-weight:600;color:var(--muted);padding:1
 .modal .btn{margin-top:18px}
 .modal .btn + .btn{margin-top:8px}
 .notice.bare + .toast.bare{bottom:calc(52px + env(safe-area-inset-bottom))}
-.demo{position:fixed;right:10px;bottom:calc(66px + env(safe-area-inset-bottom));font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--accent);background:var(--card);border:1px solid var(--accent);padding:3px 8px;border-radius:999px;z-index:20;opacity:.9}
+.demo{position:fixed;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--accent);background:var(--card);border:1px solid var(--accent);padding:3px 8px;border-radius:999px;z-index:20;opacity:.9}
 </style>
 </head>
 <body>
@@ -312,8 +394,8 @@ const DEADLINE_RULE = `Everything is due ${DEADLINE}. After that I go with the m
 // Votes opened after the deadline: each a new vote id (so it starts empty and open) with a one-line why, sharing one date.
 // While only these are open, the copy talks about them and LATE.by instead of DEADLINE.
 const LATE = { by: 'Oct 9', why: {
-  menu: 'Cook in won Saturday. Pick one menu we all make together.',
-  farewell: 'Blue River Bistro can’t seat 15 of us, so we’re voting again.',
+  menu: 'Cook in won Saturday. We all make one of these together.',
+  farewell: 'Blue River can’t seat 15. All three of these have a private room for us.',
 } };
 // Friday: everyone picks a 1st and a 2nd choice; Bray assigns the final one in the planner after the deadline.
 const RANKS = [1, 2];
@@ -328,18 +410,29 @@ const FRIDAY_LATE = 'I’m assigning Fridays now. Check back here.';   // once e
 // Nothing on the family side is capped; CAP_NOTE is what Bray keeps in mind when assigning (planner only).
 // The snowcat isn't capped: past 8, a second ride still fits the budget (planner only; the family isn't told).
 const CAP_NOTE = 'SUV 5';
+// Photos: the brochure's, plus each Friday's from its own booking page.
+const IMG = {
+  town: 'https://gobreck.com/wp-content/uploads/2018/01/DJI_0129-HDR-Pano.jpg',
+  tub: 'https://a0.muscache.com/im/pictures/prohost-api/Hosting-50031257/original/5623b677-09e0-4580-9029-3192043c5c3f.jpeg?im_w=720',
+  tubing: 'https://www.townoffrisco.com/wp-content/uploads/2023/09/Family-in-Tubes-in-Lane_Credit-Joe-Kusumoto_2560x864.jpg',
+  main: 'https://www.uncovercolorado.com/wp-content/uploads/2013/12/Breckenridge-CO-Main-St-1000x500.jpg',
+  ski: 'https://scene7.vailresorts.com/is/image/vailresorts/20240404_BR_Douvalakis_078?wid=1280&resMode=sharp2&fit=constrain,1&fmt=jpg',
+  dog: 'https://cdn.filestackcontent.com/resize=width:1000/xoGdwPHOSyyFxUoQpypR',
+  snowcat: 'https://s3-us-west-1.amazonaws.com/adventurebots3/d1e3046f-3320-46ec-ac13-d91bac8cb9f3.jpg',
+};
+// flourish: Friday's headline on My trip ("Friday, dog sledding"); photo: Friday's spread.
 const OPTS = [
-  { id: 'ski', name: 'Ski / snowboard', pot: 'personal', cost: 225, desc: 'Lift ticket (Epic Day Pass), rental and helmet at Breckenridge Ski Resort.', constraints: 'Ages 5+', minAge: 5, time: '10:00 AM', place: 'Breckenridge Ski Resort', bring: 'layers, goggles, sunscreen', ride: 'van',
+  { id: 'ski', name: 'Ski / snowboard', flourish: 'on the slopes', photo: IMG.ski, pot: 'personal', cost: 225, desc: 'Lift ticket (Epic Day Pass), rental and helmet at Breckenridge Ski Resort.', constraints: 'Ages 5+', minAge: 5, time: '10:00 AM', place: 'Breckenridge Ski Resort', bring: 'layers, goggles, sunscreen', ride: 'van',
     links: [{ label: 'Website', href: 'https://www.breckenridge.com/plan-your-trip/lift-access/tickets.aspx' }] },
-  { id: 'snowmobile', off: true, name: 'Snowmobile', pot: 'personal', desc: 'Guided tour with Good Times Adventures, about 2 hours. Share a snowmobile with someone, or go solo for more.', constraints: '15+ to drive, 18+ with a passenger, passengers 5+', minAge: 5,
+  { id: 'snowmobile', off: true, name: 'Snowmobile', flourish: 'snowmobiles', pot: 'personal', desc: 'Guided tour with Good Times Adventures, about 2 hours. Share a snowmobile with someone, or go solo for more.', constraints: '15+ to drive, 18+ with a passenger, passengers 5+', minAge: 5,
     variants: [{ id: 'shared', label: 'Share a snowmobile', cost: 189, each: true, name: 'Snowmobile, shared' }, { id: 'solo', label: 'Go solo', cost: 284, minAge: 15, name: 'Snowmobile, solo' }],
     time: '10:00 AM', place: 'Good Times Adventures, Tiger Road', bring: 'goggles, warm gloves, a license if you drive', ride: 'suv',
     links: [{ label: 'Website', href: 'https://goodtimesadventures.com/snowmobiling.html' }] },
-  { id: 'dog', name: 'Dog sledding', pot: 'personal', cost: 247, desc: 'A private ride with Colorado Dog Sledding: just us, a guide and a team of Iditarod huskies, about 75 minutes.', constraints: 'All ages', time: '10:30 AM', place: 'Colorado Dog Sledding, Silverthorne, 35 minutes away', bring: 'warm layers and a camera', ride: 'suv',
+  { id: 'dog', name: 'Dog sledding', flourish: 'dog sledding', photo: IMG.dog, pot: 'personal', cost: 247, desc: 'A private ride with Colorado Dog Sledding: just us, a guide and a team of Iditarod huskies, about 75 minutes.', constraints: 'All ages', time: '10:30 AM', place: 'Colorado Dog Sledding, Silverthorne, 35 minutes away', bring: 'warm layers and a camera', ride: 'suv',
     links: [{ label: 'Website', href: 'https://coloradodogsledding.com/' }] },
-  { id: 'snowcat', name: 'Snowcat', pot: 'group', desc: '90-minute heated snowcat ride to Josie’s Cabin with s’mores and drinks.', extra: 'Holds 8 per ride. Mateo can ride on a lap.', time: '2:00 PM', place: 'Breckenridge Nordic Center', bring: 'layers and sunglasses', ride: 'snowcat',
+  { id: 'snowcat', name: 'Snowcat', flourish: 'a snowcat and s’mores', photo: IMG.snowcat, pot: 'group', desc: '90-minute heated snowcat ride to Josie’s Cabin with s’mores and drinks.', extra: 'Holds 8 per ride. Mateo can ride on a lap.', time: '2:00 PM', place: 'Breckenridge Nordic Center', bring: 'layers and sunglasses', ride: 'snowcat',
     links: [{ label: 'Details', href: 'https://adventurebot.com/IFrameStoreProductDetail/detail/14ec4601-e267-4b5c-b1a1-55936630d63f' }] },
-  { id: 'nordic', name: 'Snowshoe or cross-country ski', pot: 'group', desc: 'Trail pass and rental at the Nordic Center. Pick which one at the counter.', constraints: 'Kids 12 and under: free trail pass', time: '10:00 AM', place: 'Breckenridge Nordic Center', bring: 'waterproof boots, layers and water', ride: 'van' },   // no links: breckenridgenordic.com is a parked domain for now
+  { id: 'nordic', name: 'Snowshoe or cross-country ski', flourish: 'on the trails', pot: 'group', desc: 'Trail pass and rental at the Nordic Center. Pick which one at the counter.', constraints: 'Kids 12 and under: free trail pass', time: '10:00 AM', place: 'Breckenridge Nordic Center', bring: 'waterproof boots, layers and water', ride: 'van' },   // no links: breckenridgenordic.com is a parked domain for now
 ];
 const LIVE = OPTS.filter(o => !o.off);   // the Friday cards and the planner's Finals
 const ALL_KEYS = LIVE.flatMap(o => o.variants ? o.variants.map(v => `${o.id}:${v.id}`) : [o.id]);
@@ -361,60 +454,64 @@ const TOWN = [
   { id: 'micasa', label: 'Mi Casa', short: 'Mi Casa', desc: 'Mexican, margaritas. $$', place: 'Mi Casa, Park Avenue', url: 'https://www.micasabreck.com/menu' },
 ];
 const VOTES = [
-  { id: 'friday', day: 'fri', col: 'Fri', title: 'Friday dinner', time: '6:30 PM', choices: TOWN },
-  { id: 'saturday', day: 'sat', col: 'Sat', title: 'Saturday dinner', time: '6:30 PM', choices: [
+  { id: 'friday', day: 'fri', col: 'Fri', eyebrow: 'Friday', head: 'Friday', em: 'dinner', todo: 'Vote on Friday dinner', title: 'Friday dinner', time: '6:30 PM', choices: TOWN },
+  { id: 'saturday', day: 'sat', col: 'Sat', eyebrow: 'Saturday', head: 'Saturday', em: 'dinner', todo: 'Vote on Saturday dinner', title: 'Saturday dinner', time: '6:30 PM', choices: [
     COOK_IN,
     { id: 'hearthstone', label: 'Hearthstone', short: 'Hearthstone', desc: 'Steaks and seafood in an old Victorian house. $$$$', place: 'Hearthstone, Ridge Street', url: 'https://www.hearthstonebreck.com/menus/' },
     { id: 'bold', label: 'Bold', short: 'Bold', desc: 'American, big menu, kids menu. $$$', place: 'Bold, Main Street', url: 'https://www.boldbreck.com/menu/' },
     { id: 'radicato', label: 'Radicato', short: 'Radicato', desc: 'Italian, fancy, same owners as Rootstalk. $$$$', place: 'Radicato, Main Street', url: 'https://www.radicatobreck.com/dinner' },
   ] },
   // The Saturday menu (LATE): one meal everyone makes together, shown once Cook in has won Saturday (`after`). Each choice is
-  // `lines` (starter, main, dessert, one per line) and a short `take`; no baking, since that's a gamble at 9,600 feet.
-  { id: 'menu', after: 'saturday', day: 'sat', col: 'Menu', title: 'Saturday menu', time: '6:30 PM', choices: [
-    { id: 'mexican', label: 'Mexican night', short: 'Mexican', lines: ['Chips, queso and guac', 'Burrito, bowl and taco bar, Moe’s style', 'Churros with dulce de leche'], take: 'Easy to prep ahead. The best all-around pick for 15.', place: 'Chips and queso, a burrito and taco bar, churros' },
-    { id: 'colombian', label: 'Colombian night', short: 'Colombian', lines: ['Empanadas with ají', 'Bandeja paisa: beans, rice, chorizo, maduros, arepas', 'Buñuelos and natilla'], take: 'The most festive, and the most hands-on.', place: 'Empanadas, bandeja paisa, buñuelos and natilla' },
-    { id: 'italian', label: 'Italian night', short: 'Italian', lines: ['Bruschetta', 'Baked ziti, Caesar salad, garlic bread', 'Tiramisu'], take: 'The easiest. Put together in the morning, baked at dinner.', place: 'Bruschetta, baked ziti, tiramisu' },
+  // `lines` (starter, main, dessert, one per line); no baking, since that's a gamble at 9,600 feet.
+  { id: 'menu', after: 'saturday', day: 'sat', col: 'Menu', eyebrow: 'Saturday menu', head: 'What we cook', em: 'together', todo: 'Vote on the Saturday menu', title: 'Saturday menu', time: '6:30 PM', choices: [
+    { id: 'mexican', label: 'Mexican night', short: 'Mexican', lines: ['Chips, queso and guac', 'Burrito, bowl and taco bar, Moe’s style', 'Churros with dulce de leche'], place: 'Chips and queso, a burrito and taco bar, churros' },
+    { id: 'colombian', label: 'Colombian night', short: 'Colombian', lines: ['Empanadas with ají', 'Bandeja paisa: beans, rice, chorizo, maduros, arepas', 'Buñuelos and natilla'], place: 'Empanadas, bandeja paisa, buñuelos and natilla' },
+    { id: 'italian', label: 'Italian night', short: 'Italian', lines: ['Bruschetta', 'Baked ziti, Caesar salad, garlic bread', 'Tiramisu'], place: 'Bruschetta, baked ziti, tiramisu' },
   ] },
   // The farewell dinner is a revote (LATE): Blue River Bistro only seats 10. All three have a private room for 15 and a kids menu.
-  { id: 'farewell', day: 'sun', col: 'Sun', title: 'Sunday farewell dinner', time: '6:30 PM', choices: [
+  { id: 'farewell', day: 'sun', col: 'Sun', eyebrow: 'Sunday', head: 'The farewell', em: 'dinner', todo: 'Vote on the farewell dinner', moment: 'Farewell dinner', title: 'Sunday farewell dinner', time: '6:30 PM', choices: [
     { id: 'hearthstone', label: 'Hearthstone', short: 'Hearthstone', desc: 'Steaks, game and seafood in an 1883 Victorian house, our own room. $$$$', place: 'Hearthstone, Ridge Street', url: 'https://www.hearthstonebreck.com/menus/dinner/' },
     { id: 'ember', label: 'Ember', short: 'Ember', desc: 'Creative global food, lively and artsy, our own wine attic room. $$$', place: 'Ember, Adams Avenue', url: 'https://emberbreck.com/menus/entrees/' },
     { id: 'spencers', label: 'Spencer’s', short: 'Spencer’s', desc: 'Classic steakhouse at Beaver Run, private room, easiest with kids. $$', place: 'Spencer’s at Beaver Run, Village Road', transport: 'Van and SUV', url: 'https://beaverrun.com/dining/spencers-restaurant/' },
   ] },
 ];
-// Travel times stay "Morning" / "Afternoon" until flights are booked.
+// The schedule everyone shares, by day: time, title, the line under it, and what a tap opens (ride, bring).
+// Travel times stay "Morning" until flights are booked; checkout is 11 AM. Walking goes unsaid (Trip info says so once).
 const LOCKED = {
   thu: [
-    { time: 'Morning', title: 'Land in Denver, drive up', place: 'Denver airport to the Airbnb, 2 to 2.5 hours on I-70', bring: 'ID, a water bottle, layers for the drive', transport: '12-passenger van and SUV from the airport' },
-    { time: 'Afternoon', title: 'Groceries at City Market', place: 'Snacks, drinks, coffee and the cook-in groceries. Everyone else can hang out on Main Street.', bring: '', transport: '' },
-    { time: '4:00 PM', title: 'Check in at the Airbnb, hot tub', place: 'The Airbnb', bring: 'a swimsuit', transport: '' },
-    { time: '6:30 PM', title: 'Thursday dinner, pizza', place: 'I’ll just order pizza and we split it', bring: '', transport: '' },
+    { time: 'Morning', title: 'Land in Denver, drive up', place: '2 to 2.5 hours on I-70, lunch on the way', ride: '12-seat van and SUV', bring: 'ID, a water bottle, layers' },
+    { time: 'Afternoon', title: 'Groceries', place: 'City Market. Everyone else can hang out on Main Street.' },
+    { time: '4:00 PM', title: 'Check in, then the hot tub', place: 'Earlier if the host says yes. I’m asking.', bring: 'a swimsuit' },
+    { time: '6:30 PM', title: 'Pizza at the house', place: 'I’ll order, we split it' },
   ],
   fri: [
-    { time: 'Evening', title: 'Back at the Airbnb, hot tub', place: 'The Airbnb', bring: '', transport: '' },
+    { time: 'Evening', title: 'Hot tub' },
   ],
   sat: [
-    { time: '10:00 AM', title: 'Main Street', place: 'Get your white elephant gift, ride the free gondola.', bring: 'walking boots', transport: 'Walk from the Airbnb' },
-    { time: '2:00 PM', title: 'Tubing at Frisco Adventure Park', place: 'Frisco, 20 minutes away', bring: 'snow pants, waterproof boots, gloves', transport: 'Van and SUV, leaving 1:15' },
-    { time: 'Dark', title: 'Back at the Airbnb by dark', place: 'The Main Street lights are on every night if you want to go see them.', bring: '', transport: 'Van and SUV' },
-    { time: '8:00 PM', title: 'White elephant and movie night', place: 'Great room', bring: 'a wrapped gift, $20 to 25', transport: '' },
+    { time: '10:00 AM', title: 'Main Street', place: 'Buy your white elephant gift, ride the free gondola' },
+    { time: '2:00 PM', title: 'Tubing', place: 'Frisco Adventure Park, 20 minutes away', ride: 'Van and SUV, leaving 1:15', bring: 'snow pants, waterproof boots, gloves' },
+    { time: 'Dusk', title: 'Main Street lights', place: 'Back by dark' },
+    { time: '8:00 PM', title: 'White elephant, then a movie', bring: 'a wrapped gift, $20 to 25' },
   ],
   sun: [
-    { time: '10:00 AM', title: 'Sledding at Carter Park', place: 'A short walk from the Airbnb. We’re buying sleds.', bring: 'snow pants and gloves', transport: 'Walk' },
-    { time: '1:00 PM', title: 'Ice skating', place: 'Stephen C. West Arena · Included', bring: 'thick socks and gloves', transport: 'Van and SUV' },
-    { time: 'Afternoon', title: 'Open afternoon', place: 'The Airbnb, Main Street, Blue River, or Sapphire Point', bring: '', transport: '' },
+    { time: '10:00 AM', title: 'Sledding', place: 'Carter Park. We’re buying sleds.', bring: 'snow pants and gloves' },
+    { time: '1:00 PM', title: 'Ice skating', place: 'Stephen C. West Arena', ride: 'Van and SUV', bring: 'thick socks and gloves' },
+    { time: 'Afternoon', title: 'Open', place: 'Main Street, Blue River or Sapphire Point' },
   ],
   mon: [
-    { time: 'Afternoon', title: 'Fly home', place: 'Check out of the Airbnb, drive to Denver', bring: 'everything you came with', transport: '12-passenger van and SUV' },
+    { time: '11:00 AM', title: 'Check out, drive to Denver, fly home', ride: 'Van and SUV', bring: 'everything you came with' },
   ],
 };
+// Each day's headline on My trip is "<name>, <flourish>"; Friday's flourish and photo come from your Friday.
 const DAYS = [
-  { key: 'thu', num: '01', name: 'Thursday', date: 'December 10', note: 'Earlier if the host says yes to early check-in. I’m asking.' },
-  { key: 'fri', num: '02', name: 'Friday', date: 'December 11' },
-  { key: 'sat', num: '03', name: 'Saturday', date: 'December 12' },
-  { key: 'sun', num: '04', name: 'Sunday', date: 'December 13' },
-  { key: 'mon', num: '05', name: 'Monday', date: 'December 14' },
+  { key: 'thu', num: '01', name: 'Thursday', dow: 'Thu', date: 'December 10', short: 'Dec 10', flourish: 'arrival', photo: IMG.tub },
+  { key: 'fri', num: '02', name: 'Friday', dow: 'Fri', date: 'December 11', short: 'Dec 11' },
+  { key: 'sat', num: '03', name: 'Saturday', dow: 'Sat', date: 'December 12', short: 'Dec 12', flourish: 'tubing and a white elephant', photo: IMG.tubing },
+  { key: 'sun', num: '04', name: 'Sunday', dow: 'Sun', date: 'December 13', short: 'Dec 13', flourish: 'farewell', photo: IMG.main },
+  { key: 'mon', num: '05', name: 'Monday', dow: 'Mon', date: 'December 14', short: 'Dec 14', flourish: 'home', closing: true },
 ];
+const TRIP_START = new Date(2026, 11, 10);   // the countdown on the ticket
+const HOUSE = 'Cherry Ridge';
 // Meal sign-ups: a night's sign-up appears only after Cook in wins that night's vote. Then every adult takes one job,
 // Cooking or Cleaning (no cap), and each family needs a cook and a cleaner, so a couple splits them.
 const MEAL_NOTE = 'Everyone takes one job. Each family needs a cook and a cleaner, so couples split it.';
@@ -468,7 +565,9 @@ const hasBoth = (S, u) => RANKS.every(r => pickOf(S, u, r));
 const fridayGuess = (S, u) => S.assigned[u] || (isKid(u) ? null : pickOf(S, u, 1) || pickOf(S, u, 2)) || null;   // a kid counts only once assigned
 
 // Sort key for a time label: '' (a placeholder row) < Morning < clock times < Afternoon < Dark < Evening < Anytime.
-const VAGUE = { '': -1, 'Morning': 6 * 60, 'Around noon': 12 * 60, 'Afternoon': 13 * 60, 'Dark': 17 * 60 + 30, 'Evening': 18 * 60, 'Anytime': 23 * 60 + 58 };
+const VAGUE = { '': -1, 'Morning': 6 * 60, 'Around noon': 12 * 60, 'Afternoon': 13 * 60, 'Dusk': 17 * 60 + 30, 'Dark': 17 * 60 + 30, 'Evening': 18 * 60, 'Anytime': 23 * 60 + 58 };
+const shortTime = t => String(t).replace(':00 ', ' ');   // "10:00 AM" reads "10 AM" on My trip
+const orList = xs => xs.length > 1 ? `${xs.slice(0, -1).join(', ')} or ${xs[xs.length - 1]}` : xs[0];
 function minutes(t) {
   if (VAGUE[t] != null) return VAGUE[t];
   const m = /^(\d{1,2}):(\d{2})\s*(AM|PM)$/i.exec(String(t).trim());
@@ -671,6 +770,7 @@ const app = {
   doneFor: null,          // who the "You're done" pop-up is showing for
   doneAt: 0,              // when it opened: a double tap's second half mustn't close it
   moreOpen: false,        // "See all the options" open, once a Friday is assigned
+  open: {},               // My trip moments opened with + (their ride and what to bring)
   roseAt: null,           // when the roster's entrance started (it plays once per page load)
   jump: null,             // section to scroll to after the next render
   navTop: false,          // a tab or link was tapped: the next screen starts at the top (back/forward keeps its place)
@@ -831,10 +931,11 @@ function mealsFor(S, votes, dayKey) {
     return v && v.closed && v.winner.id === 'cookin';
   });
 }
-// A closed vote becomes a locked row: the restaurant, or the cook-in at the Airbnb.
-function decided(votes, dayKey) {
-  return votes.filter(v => v.day === dayKey && v.closed && v.shown)
-    .map(v => ({ time: v.time, title: `${v.title}: ${v.winner.label}`, place: v.winner.place, bring: '', transport: v.after || v.winner.id === 'cookin' ? '' : v.winner.transport || 'Walk from the Airbnb' }));
+// What My trip's still-to-do says for each thing you owe.
+function todoTitle(S, u, x) {
+  if (x.kind === 'friday') { const one = pickOf(S, u, 1) || pickOf(S, u, 2); return one ? `Pick a ${ord(openRank(S, u))} choice for Friday` : 'Pick your Friday, a 1st and 2nd choice'; }
+  if (x.kind === 'vote') return x.vote.todo || `Vote on ${x.vote.title}`;
+  return `Pick a job for ${DAYS.find(d => d.key === x.meal.day).name} night`;
 }
 
 // "Getting there" for an assigned Friday: the ride once the planner has set a leave time, otherwise a placeholder.
@@ -880,7 +981,7 @@ function todos(S, u) {
     const one = pickOf(S, u, 1) || pickOf(S, u, 2), r = ord(openRank(S, u));
     out.push({ kind: 'friday', target: 'friday', label: one ? `pick a ${r} choice for Friday` : 'pick a 1st and 2nd choice for Friday' });
   }
-  for (const v of shownVotes(S)) if (!S.closed[v.id] && !v.choices.some(c => c.id === S.votes[v.id][u])) out.push({ kind: 'vote', vote: v, target: 'vote-' + v.day, label: `vote on ${v.title}` });
+  for (const v of shownVotes(S)) if (!S.closed[v.id] && !v.choices.some(c => c.id === S.votes[v.id][u])) out.push({ kind: 'vote', vote: v, target: 'vote-' + v.id, label: `vote on ${v.title}` });
   const m = openMeal(S, u);
   if (m) out.push({ kind: 'meal', meal: m, target: 'meal-' + m.key, label: `sign up to cook or clean, ${m.title}` });
   return out;
@@ -892,14 +993,6 @@ function voteLabel(vs) {
   if (vs.length === VOTES.filter(v => !v.after).length) return `vote on ${vs.length} dinners`;
   const names = vs.map(v => DAYS.find(d => d.key === v.day).name);
   return `vote on ${names.slice(0, -1).join(', ')} and ${names[names.length - 1]} dinners`;
-}
-// A to-do as a link: it jumps to its section on Choose.
-function todoLink(x, label = x.label) {
-  return `<a data-act="todo" data-target="${esc(x.target)}">${esc(label)}</a>`;
-}
-function todoLinks(t) {
-  const vs = t.filter(x => x.kind === 'vote');
-  return t.filter(x => x.kind !== 'vote' || x === vs[0]).map(x => x.kind === 'vote' ? todoLink(x, voteLabel(vs.map(y => y.vote))) : todoLink(x));
 }
 // Who handed this phone to u (a spouse), so u's screens can lead back to them.
 const handedBy = u => { const p = app.handoff[app.handoff.length - 1]; return p && p !== u && household(p) === household(u) ? p : null; };
@@ -984,8 +1077,8 @@ function render() {
   if (app.revealNext) {
     // The pick that completed both choices: nudge the page so the Next button under the card isn't hidden behind the tab bar.
     app.revealNext = false;
-    const b = document.querySelector('.btn.next'), bar = document.querySelector('.tabbar');
-    const over = b ? b.getBoundingClientRect().bottom - (window.innerHeight - (bar ? bar.offsetHeight : 0)) + 12 : 0;
+    const b = document.querySelector('.btn.next');
+    const over = b ? b.getBoundingClientRect().bottom - window.innerHeight + 12 : 0;
     if (over > 0) window.scrollBy({ top: over, behavior: 'smooth' });
   }
 }
@@ -1002,16 +1095,7 @@ function focusKey(ae) {
 const TABS = [['info', 'Trip info'], ['choose', 'Choose'], ['me', 'My trip']];
 function shell(tab, body) {
   const t = ([k, l]) => `<a href="#/${k}" class="${tab === k ? 'on' : ''}" data-act="nav"><span>${l}</span></a>`;
-  const planner = app.user === CONFIG.PLANNER ? `<a class="topname" href="#/planner" data-act="nav">planner</a>` : '';
-  return `<div class="shell nav"><div class="top"><div class="bar"><a class="brand" href="#/who" data-act="nav" title="Switch person">Breckenridge 2026</a><span class="r">${planner}<a class="topname" href="#/who" data-act="nav"><b>${esc(app.user || '')}</b> · switch</a></span></div>${todoStrip()}</div>${body}<nav class="tabbar" aria-label="Sections">${TABS.map(t).join('')}</nav></div>`;
-}
-function todoStrip() {
-  if (!app.state) return '';
-  const S = app.state, t = todos(S, app.user);
-  if (!t.length) return `<div class="todo done">${doneText(S, app.user)}</div>`;
-  // "1 thing to do" for the last one; otherwise no number, since the three votes share one link.
-  const links = todoLinks(t), by = allClosed(S) ? '' : ` by ${dueBy(S)}`, whose = handedBy(app.user) ? ` for ${esc(app.user)}` : '';
-  return `<div class="todo">${t.length === 1 ? `1 thing to do${whose}${by}` : `To do${whose}${by}`}: ${links.map((h, i) => i < links.length - 1 ? `<span class="nw">${h} ·</span>` : h).join(' ')}</div>`;
+  return `<div class="shell nav"><div class="top"><div class="bar"><nav class="tabbar" aria-label="Sections">${TABS.map(t).join('')}</nav><a class="topname" href="#/who" data-act="nav"><b>${esc(app.user || '')}</b> · <u>switch</u></a></div></div>${body}</div>`;
 }
 
 function viewWho() {
@@ -1044,10 +1128,18 @@ function viewInfo() {
     <div class="eyebrow">Trip info</div>
     <div class="h1">The <em>Trip</em></div>
     <div class="facts">Dec 10 to 14 · ${PEOPLE.length} of us · ${money(PER_ADULT)} per adult</div>
+    ${moneyBox(app.state, app.user)}
     <div class="copy">The $1,250 is the budget per adult: about what you’ll need for the trip, not counting food. Anything marked Included is in it. Anything with a + is extra, on top of it.</div>
     <div class="assume"><h3>What we’re assuming</h3><ul>${assume.map(a => `<li>${esc(a)}</li>`).join('')}</ul></div>
     <div class="box"><div class="label">If weather turns</div><p>Rec Center, Escape Room, Main Street, or the Airbnb. Check hours first.</p></div>
+    ${app.user === CONFIG.PLANNER ? `<div class="who-foot"><a href="#/planner">${esc(CONFIG.PLANNER)}’s planner →</a></div>` : ''}
   </div>`;
+}
+// Your budget, with a kid's add-on in full on each parent's page (say to count it once).
+function moneyBox(S, u) {
+  const kidsWithExtras = (household(u) || { members: [] }).members.filter(k => isKid(k) && pickCost(fridayGuess(S, k)));
+  const co = otherAdults(u)[0];
+  return `<div class="money" data-money>${esc(moneyLine(S, u))}${kidsWithExtras.length ? `<small>${esc(`Extras include ${kidsWithExtras.map(k => `${k}’s ${optName(fridayGuess(S, k))} (${plus(pickCost(fridayGuess(S, k)))})`).join(' and ')}.${co ? ` It’s on ${co}’s page too; count it once.` : ''}`)}</small>` : ''}</div>`;
 }
 
 // The line under the Friday header, where sign-in lands: what to do with the cards now, and later what was assigned.
@@ -1074,33 +1166,8 @@ function kidNote(S, u) {
 // Can this kid do this option (or this snowmobile choice)? Only the planner's kid Finals and the note above use it.
 const canDo = (k, o, v) => !(o.minAge && AGES[k] < o.minAge) && !(v && v.minAge && AGES[k] < v.minAge);
 
-// The Choose lede, from what's actually left to do.
 const MY_TRIP = '<a href="#/me" data-act="nav">My trip</a>';
 const andList = xs => xs.length > 1 ? `${xs.slice(0, -1).join(', ')} and ${xs[xs.length - 1]}` : xs[0];
-function chooseLede(S, u) {
-  const t = todos(S, u), closed = allClosed(S);
-  const fri = t.find(x => x.kind === 'friday'), vs = t.filter(x => x.kind === 'vote'), meal = t.find(x => x.kind === 'meal');
-  if (fri || vs.length) {
-    if (closed) return esc(`The votes are in, but you still need to pick for Friday. ${FRIDAY_LATE}`);
-    if (revoting(S) && !fri) return esc(`${S.assigned[u] ? 'Your Friday is set. ' : ''}${vs.length === 1 ? 'One vote' : 'Two votes'} left, by ${LATE.by}. After that I go with the majority.`);
-    const fresh = fri && !pickOf(S, u, 1) && !pickOf(S, u, 2) && vs.length === VOTES.filter(v => !v.after).length;
-    if (fresh) return esc(`Pick a 1st and 2nd choice for Friday and vote on the three dinners. ${DEADLINE_RULE}`);
-    // Part of it is in: say which part, then what's left.
-    const done = !fri ? (S.assigned[u] ? 'Your Friday is set.' : 'Your Friday picks are in.') : !vs.length ? 'Your votes are in.' : '';
-    const left = andList([fri && fri.label, vs.length && voteLabel(vs.map(x => x.vote))].filter(Boolean));
-    return esc(`${done ? `${done} ` : ''}Now ${left}. ${DEADLINE_RULE}`);
-  }
-  if (meal) return `${esc(`Cook in won ${meal.meal.title}. ${jobAsk(S, meal.meal, u)}`)} ${todoLink(meal, 'Sign up')}`;
-  if (closed) return S.assigned[u] ? `${esc('The votes are in and your Friday is set. Times, rides and what to bring are on')} ${MY_TRIP}.` : esc(`The votes are in. ${FRIDAY_LATE}`);
-  // Done while the votes are open: say back what they chose (and a kid's Friday once it's set), and what can still change.
-  const a = pickOf(S, u, 1), b = pickOf(S, u, 2);
-  // Each choice is a jump link to where it can be changed.
-  const jump = (target, text) => `<a data-act="todo" data-target="${target}">${esc(text)}</a>`;
-  const mine = S.assigned[u] ? esc(`Your Friday is set: ${optName(S.assigned[u])}.`) : `${esc('You’ve picked and voted. Friday: ')}${jump('friday', `${optName(a)}, then ${optName(b)}`)}.`;
-  const kids = (household(u) || { members: [] }).members.filter(k => isKid(k) && S.assigned[k]).map(k => esc(` ${k}’s Friday: ${optName(S.assigned[k])}.`)).join('');
-  const said = buildVotes(S, u).filter(v => v.shown && !v.closed && v.my).map(v => `${jump('vote-' + v.day, v.choices.find(c => c.my).label)} on ${DAYS.find(d => d.key === v.day).name}`);
-  return `${mine}${kids}${said.length ? ` Your votes: ${andList(said)}.` : ''} ${esc(`You can change ${S.assigned[u] ? 'your dinner votes' : 'anything'} until ${dueBy(S)}.`)}`;
-}
 
 // The Next button under the card just picked, once both picks are in: the next to-do, or the way back to whoever handed the phone over.
 function nextButton(S, u) {
@@ -1114,49 +1181,45 @@ function nextButton(S, u) {
   return p ? `<button class="btn next" data-act="signin" data-name="${esc(p)}">Back to ${esc(p)}</button>` : '';
 }
 
+// Choose holds only what's still open for you: your Friday picks (until Bray sets it), the open votes and your cook-in
+// job. Once Bray closes them there's nothing here, and My trip is the whole trip.
 function viewChoose() {
-  const S = app.state, u = app.user;
-  const options = buildOptions(S, u), votes = buildVotes(S, u);
-  const head = `<div class="pad" style="padding-bottom:8px">
-    <div class="eyebrow">Choose</div>
-    <div class="h1">Five <em>Days</em></div>
-    <div class="lede">${chooseLede(S, u)}</div>
-  </div>`;
-  // Friday cards. Once assigned, the Friday is on top and the rest fold away.
-  const fin = parsePick(S.assigned[u]);
-  let fridayCards;
-  if (fin) {
-    const top = options.find(o => o.id === fin.opt.id);
-    fridayCards = `<div class="cards">${cardHtml(top)}</div><details class="more" ${app.moreOpen ? 'open' : ''}><summary>See all the options</summary><div class="cards">${options.filter(o => o !== top).map(cardHtml).join('')}</div></details>`;
-  } else {
-    const after = hasBoth(S, u) ? (options.find(o => o.id === app.lastPick && o.mine) || options.find(o => o.rank === 2) || {}).id : null;
-    const next = after ? nextButton(S, u) : '';
-    fridayCards = `<div class="cards">${options.map(o => cardHtml(o) + (o.id === after ? next : '')).join('')}</div>`;
-  }
-  // Only what's being decided, by day: the schedule itself lives on My trip. A day with nothing to decide is left out.
-  const days = DAYS.map(d => {
-    const vs = votes.filter(v => v.day === d.key && !v.closed && v.shown);
-    const ms = mealsFor(S, votes, d.key);
-    if (d.key !== 'fri' && !vs.length && !ms.length) return '';
-    let out = `<section class="day" id="day-${d.key}"><div class="day-h"><span class="daynum">${d.num}</span><div><div class="dayname">${d.name}</div><div class="label daydate">${d.date}</div></div></div>`;
-    if (d.key === 'fri') out += `<section class="grp" id="sec-friday">
-      <div class="grp-h ask"><span>${fin ? 'Your Friday' : 'Friday, pick a 1st and 2nd'}</span><span class="tiny">for ${esc(u)}</span></div>
-      <div class="final ${hasBoth(S, u) && !fin ? 'soft' : ''}" data-final>${fridayLine(S, u)}</div>
-      ${kidNote(S, u)}
-      ${fridayCards}
-    </section>`;
-    if (vs.length) out += `<section class="grp" id="sec-vote-${d.key}"><div class="grp-h ask">Vote, tap one</div>${vs.map(v => `<div class="vrow" data-vote="${v.id}">
-      <div class="vrow-h"><b>${esc(v.title)}</b>${v.right ? `<span class="vrow-r">${esc(v.right)}</span>` : ''}</div>${LATE.why[v.id] ? `<div class="meal-note" data-why>${esc(LATE.why[v.id])}</div>` : ''}
-      ${v.choices.map(c => `<div class="crow"><button class="choice ${v.can ? 'can' : ''} ${c.my ? 'my' : ''}" ${v.can ? `data-act="vote" data-vote="${v.id}" data-choice="${c.id}"` : 'disabled'}>
-        <div class="choice-l"><span class="lbl"><i class="dot"></i><span>${esc(c.label)}</span></span><span class="r"><span class="you">${c.my ? 'you' : ''}</span><span>${c.count}</span></span></div>
-        ${c.desc ? `<div class="choice-d">${esc(c.desc)}</div>` : ''}${c.lines ? `<div class="choice-d lines">${c.lines.map(esc).join('<br>')}</div>` : ''}${c.take ? `<div class="choice-take">${esc(c.take)}</div>` : ''}
-        <div class="meter"><i style="width:${c.pct}%"></i></div>
-      </button>${c.url ? `<a class="ext" href="${esc(c.url)}" target="_blank" rel="noopener">Menu ↗</a>` : ''}</div>`).join('')}
-    </div>`).join('')}</section>`;
-    if (ms.length) out += `<section class="grp" id="sec-meal-${d.key}"><div class="grp-h ask">Sign up to cook or clean</div>${ms.map(m => mealHtml(S, m, u)).join('')}</section>`;
-    return out + '</section>';
+  const S = app.state, u = app.user, votes = buildVotes(S, u), t = todos(S, u);
+  const open = votes.filter(v => v.shown && !v.closed);
+  const meals = isKid(u) ? [] : DAYS.flatMap(d => mealsFor(S, votes, d.key));
+  const friday = !isKid(u) && !S.assigned[u] ? fridaySection(S, u) : '';
+  const parts = friday + open.map(voteHtml).join('') + meals.map(m => mealSection(S, m, u)).join('');
+  if (!parts) return `<div class="choose"><div class="eyebrow">Choose</div><div class="h1">All <em>set</em></div><div class="lede">Nothing to choose right now. Your days are on ${MY_TRIP}.</div></div>`;
+  const lede = open.length ? `Votes close ${dueBy(S)}. After that I go with the majority.` : friday ? (allClosed(S) ? FRIDAY_LATE : DEADLINE_RULE) : 'Everyone takes one job. Each family needs a cook and a cleaner.';
+  const done = t.length ? '' : `<div class="cdone">✓ ${doneText(S, u)}</div>`;
+  return `<div class="choose"><div class="eyebrow">Choose</div><div class="h1">Still <em>open</em></div><div class="lede">${esc(lede)}</div>${done}${parts}</div>`;
+}
+// Friday, until Bray sets it: a 1st and a 2nd choice from the cards.
+function fridaySection(S, u) {
+  const options = buildOptions(S, u);
+  const after = hasBoth(S, u) ? (options.find(o => o.id === app.lastPick && o.mine) || options.find(o => o.rank === 2) || {}).id : null;
+  const next = after ? nextButton(S, u) : '';
+  return `<section class="vsec" id="sec-friday"><div class="eyebrow muted">Friday, Dec 11</div><div class="h2">Your <em>Friday</em></div>
+    <div class="final ${hasBoth(S, u) ? 'soft' : ''}" data-final>${fridayLine(S, u)}</div>
+    ${kidNote(S, u)}
+    <div class="cards">${options.map(o => cardHtml(o) + (o.id === after ? next : '')).join('')}</div>
+  </section>`;
+}
+// A vote: a menu is three cards (starter, main, dessert); a restaurant vote is a list with a menu link.
+function voteHtml(v) {
+  const sub = LATE.why[v.id] || '', menu = v.choices.some(c => c.lines);
+  const items = v.choices.map(c => {
+    const act = `data-act="vote" data-vote="${v.id}" data-choice="${c.id}"`;
+    if (menu) {
+      const w = c.label.split(' '), last = w.length > 1 ? w.pop() : '';
+      return `<button class="choice mcard ${c.my ? 'my' : ''}" ${act}><span class="mname">${esc(w.join(' '))}${last ? ` <em>${esc(last)}</em>` : ''}</span><span class="rule"></span><span class="mlines">${c.lines.map(esc).join('<br>')}</span><span class="cta">${c.my ? '✓ Your vote' : 'Vote for this'}</span></button>`;
+    }
+    return `<div class="crow"><button class="choice rest ${c.my ? 'my' : ''}" ${act}><span><span class="cname">${esc(c.label)}</span>${c.desc ? `<span class="cdesc">${esc(c.desc)}</span>` : ''}</span><i class="ring"></i></button>${c.url ? `<a class="ext" href="${esc(c.url)}" target="_blank" rel="noopener">Menu ↗</a>` : ''}</div>`;
   }).join('');
-  return head + days + '<div style="height:24px"></div>';
+  return `<section class="vsec" id="sec-vote-${v.id}"><div class="eyebrow muted">${esc(v.eyebrow || v.title)}</div><div class="h2">${esc(v.head || v.title)}${v.em ? ` <em>${esc(v.em)}</em>` : ''}</div>${sub ? `<div class="sub" data-why>${esc(sub)}</div>` : ''}<div class="vrow ${menu ? 'menu' : 'list'}" data-vote="${v.id}">${items}</div></section>`;
+}
+function mealSection(S, m, u) {
+  return `<section class="vsec" id="sec-meal-${m.key}"><div class="eyebrow muted">${esc(DAYS.find(d => d.key === m.day).name)} night</div><div class="h2">Cook <em>or</em> clean</div>${mealHtml(S, m, u)}</section>`;
 }
 
 function cardHtml(o) {
@@ -1180,69 +1243,101 @@ function cardHtml(o) {
   </article>`;
 }
 
-// Everyone signed up is shown; "+ me" only while you have no job, and only on a role your family still needs.
+// Two big buttons. Yours reads "Yours" (tap to drop it); one your family already has is closed to you; the other switches.
 function mealHtml(S, m, u) {
-  const mine = jobOf(S, m, u), ask = !mine && !isKid(u) && otherAdults(u).some(p => jobOf(S, m, p)) ? ` ${jobAsk(S, m, u)}` : '';
-  return `<div class="meal" data-meal="${m.key}"><div class="meal-h"><b>${esc(m.title)}, cook in</b><span class="tiny">${esc(m.time)}</span></div><div class="meal-note">${esc(MEAL_NOTE + ask)}</div><div class="roles">${ROLES.map(role => {
-    const names = S.meals[m.key][role];
-    const chips = names.map(n => n === u
-      ? `<button class="chip me" data-act="meal" data-meal="${m.key}" data-role="${role}" data-on="0">You ×</button>`
-      : `<span class="chip">${esc(n)}</span>`);
-    if (!mine && !isKid(u) && canTake(S, m, u, role)) chips.push(`<button class="chip open can" data-act="meal" data-meal="${m.key}" data-role="${role}" data-on="1">+ me</button>`);
-    return `<div class="role"><span>${esc(role)}</span><div class="chips">${chips.join('') || '<span class="chip open">nobody yet</span>'}</div></div>`;
-  }).join('')}</div></div>`;
+  const mine = jobOf(S, m, u);
+  const ask = !mine && otherAdults(u).some(p => jobOf(S, m, p)) ? jobAsk(S, m, u) : 'Everyone takes one. Each family needs a cook and a cleaner.';
+  const btns = ROLES.map(role => {
+    const me = mine === role, ok = canTake(S, m, u, role);
+    const holder = !ok && !me ? otherAdults(u).find(p => jobOf(S, m, p) === role) : null;
+    const mark = me ? '✓ Yours' : holder ? `${holder}’s job` : mine ? 'Switch' : 'Sign up';
+    const attrs = me ? `data-act="meal" data-meal="${m.key}" data-role="${role}" data-on="0"` : ok ? `data-act="meal" data-meal="${m.key}" data-role="${role}" data-on="1"` : 'disabled';
+    return `<button class="job ${me ? 'me' : ''}" data-job="${role}" ${attrs}><span class="jn">${esc(role)}</span><span class="jm">${esc(mark)}</span></button>`;
+  }).join('');
+  const who = ROLES.map(r => `${r}: ${S.meals[m.key][r].length ? andList(S.meals[m.key][r]) : 'nobody yet'}`).join(' · ');
+  return `<div class="meal" data-meal="${m.key}"><div class="sub">${esc(ask)}</div><div class="jobs">${btns}</div><div class="who-on">${esc(who)}</div></div>`;
 }
 
+// My trip: a ticket, what's still open, then the five days as a magazine spread. A moment with + opens its ride and bring.
 function viewMe() {
-  const S = app.state, u = app.user;
-  const votes = buildVotes(S, u), om = openMeal(S, u);
-  const mk = (it, kind) => ({ ...it, kind });
-  // A person's Friday row: the assigned option once Bray has made the call, else what they've picked so far.
-  const fridayRow = (p, who) => {
-    const fin = parsePick(S.assigned[p]), yours = who === 'yours';
-    if (fin) return mk({ time: fin.opt.time, title: `${yours ? 'Your' : who} Friday: ${optName(fin.id)}`, place: fin.opt.place, bring: fin.opt.bring, transport: rideLine(S, fin.opt) }, who);
-    const a = pickOf(S, p, 1), b = pickOf(S, p, 2);
-    const picks = a || b ? `${a ? `1st choice ${optName(a)}` : 'No 1st choice yet'}. ${b ? `2nd choice ${optName(b)}` : 'No 2nd choice yet'}.` : '';
-    // A kid doesn't pick: they go with one of you until Bray sets their Friday.
-    if (!yours) return mk({ time: '', title: `${p}’s Friday`, place: `${p} goes with one of you. Text me which one. If it’s a + activity, ${p}’s add-on is on you. ${fridayUnset(S)}`, bring: '', transport: '' }, who);
-    if (!hasBoth(S, p)) return mk({ time: '', title: picks ? 'Your Friday picks' : 'No Friday picks yet', place: picks ? `${picks} Tap here to pick the other.` : 'Tap here to pick a 1st and 2nd choice.', bring: '', transport: '', todo: 'friday' }, who);
-    return mk({ time: '', title: fridayUnset(S), place: picks, bring: '', transport: '' }, who);
-  };
-  const days = DAYS.map(d => {
-    const items = [...(LOCKED[d.key] || []), ...decided(votes, d.key)].map(it => mk(it, ''));
-    if (d.key === 'fri') {
-      items.push(fridayRow(u, 'yours'));
-      // A parent sees each kid's Friday too.
-      for (const k of (household(u) || { members: [] }).members.filter(isKid)) items.push(fridayRow(k, `${k}’s`));
-    }
-    votes.filter(v => v.day === d.key && !v.closed && v.shown).forEach(v => {
-      const c = v.choices.find(c => c.my);
-      items.push(mk({ time: v.time, title: v.title, place: c ? `Your vote: ${c.label}. You can change it on Choose until ${dueBy(S)}.` : `Tap here to vote, by ${dueBy(S)}.`, bring: '', transport: '', todo: c ? '' : 'vote-' + v.day }, c ? 'voted' : 'vote'));
-    });
-    mealsFor(S, votes, d.key).forEach(m => ROLES.forEach(role => {
-      if (!S.meals[m.key][role].includes(u)) return;
-      items.push(mk({ time: m.time, title: `${m.title}, ${jobName(role)}`, place: 'the Airbnb kitchen', bring: '', transport: '' }, 'you’re on'));
-    }));
-    if (om && om.day === d.key) items.push(mk({ time: om.time, title: 'Sign up to cook or clean', place: `Cook in won ${om.title}. ${jobAsk(S, om, u)}`, bring: '', transport: '', todo: 'meal-' + om.key }, 'sign up'));
-    items.sort((a, b) => minutes(a.time) - minutes(b.time));
-    return { ...d, items };
-  });
-  const kidsWithExtras = (household(u) || { members: [] }).members.filter(k => isKid(k) && pickCost(fridayGuess(S, k)));
-  const co = otherAdults(u)[0];   // a kid's add-on shows in full on both parents' pages; say to count it once
-  // A row you can act on is one link, title and the line under it, so "Tap here" works wherever it's tapped.
-  const row = it => {
-    const body = `<b>${esc(it.title)}</b><i>${esc(it.place)}</i>`;
-    const act = it.href ? `href="${it.href}" data-act="nav"` : it.todo ? `data-act="todo" data-target="${esc(it.todo)}"` : '';
-    return act ? `<a class="rowlink" ${act}>${body}</a>` : body;
-  };
-  return `<div class="pad" style="padding-bottom:20px">
-    <div class="h1">My <em>trip</em></div>
-    <div class="money" data-money>${esc(moneyLine(S, u))}${kidsWithExtras.length ? `<small>${esc(`Extras include ${kidsWithExtras.map(k => `${k}’s ${optName(fridayGuess(S, k))} (${plus(pickCost(fridayGuess(S, k)))})`).join(' and ')}.${co ? ` It’s on ${co}’s page too; count it once.` : ''}`)}</small>` : ''}</div>
-  </div>` + days.map(d => `<section class="itin"><div class="day-h"><span class="daynum">${d.num}</span><div><div class="dayname">${d.name}</div><div class="label daydate">${d.date}</div></div></div>
-    <div class="rows">${d.items.map(it => `<div class="it"><div><div class="t">${esc(it.time)}</div>${it.kind ? `<div class="k">${esc(it.kind)}</div>` : ''}</div><div style="min-width:0">${row(it)}
-      ${it.bring ? `<div class="kv"><span>Bring</span><em>${esc(it.bring)}</em></div>` : ''}
-      ${it.transport && !/^walk/i.test(it.transport) ? `<div class="kv"><span>Getting there</span><em>${esc(it.transport)}</em></div>` : ''}
-    </div></div>`).join('')}</div>${d.note ? `<div class="daynote">${esc(d.note)}</div>` : ''}</section>`).join('') + '<div style="height:24px"></div>';
+  const S = app.state, u = app.user, votes = buildVotes(S, u), t = todos(S, u);
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const n = Math.round((TRIP_START - today) / 864e5);
+  const count = n > 0 ? `<span class="n">${n}</span><span class="w">${n === 1 ? 'day' : 'days'} to<br><em>Breckenridge</em></span>` : `<span class="w">Welcome to<br><em>Breckenridge</em></span>`;
+  const ticket = `<div class="hero"><div class="ticket">
+    <img src="${IMG.town}" alt="Breckenridge at dusk">
+    <div class="tk-body"><div class="tk-eye">Family Christmas 2026 · Admit one</div><div class="tk-count" data-countdown>${count}</div></div>
+    <div class="tk-perf"></div>
+    <div class="tk-stub"><div><span>Guest</span><b>${esc(u)}</b></div><div><span>Dates</span><b>Dec 10 to 14</b></div><div><span>House</span><b>${HOUSE}</b></div></div>
+  </div></div>`;
+  const nudge = handedBy(u) || otherAdults(u).some(p => todos(S, p).length);
+  const todo = t.length
+    ? `<div class="todo-blk" data-todo><div class="eyebrow">Still to do${allClosed(S) ? '' : `, by ${dueBy(S)}`}</div>${t.map(x => `<a data-act="todo" data-target="${esc(x.target)}"><span>${esc(todoTitle(S, u, x))}</span><span class="arr">→</span></a>`).join('')}</div>`
+    : nudge ? `<div class="doneline">✓ ${doneText(S, u)}</div>` : '';
+  return `<div class="me">${ticket}${todo}<div class="dbd"><div class="eyebrow">Day by day</div><div class="h1">Your <em>five days</em></div></div>${DAYS.map(d => dayHtml(S, u, votes, d)).join('')}<div style="height:40px"></div></div>`;
+}
+function dayHtml(S, u, votes, d) {
+  const fin = d.key === 'fri' ? parsePick(S.assigned[u]) : null;
+  const flourish = d.key === 'fri' ? (fin ? fin.opt.flourish : 'your pick') : d.flourish;
+  const photo = d.key === 'fri' ? (fin && fin.opt.photo) || IMG.town : d.photo;
+  const ms = [...(LOCKED[d.key] || []).map(m => ({ ...m })), ...(d.key === 'fri' ? fridayMoments(S, u) : []), ...dinnerMoments(S, u, votes, d.key)]
+    .sort((a, b) => minutes(a.time) - minutes(b.time));
+  return `<section class="itin ${d.closing ? 'closing' : ''}" id="day-${d.key}">
+    <div class="dsp-h"><span class="dsp-num">${d.num}</span><span class="dsp-dow">${d.dow} · ${d.short}</span></div>
+    <div class="dsp-title">${d.name}, <em>${esc(flourish)}</em></div>
+    ${photo && !d.closing ? `<img class="dsp-photo" src="${esc(photo)}" alt="" loading="lazy">` : ''}
+    <div class="moments">${ms.map(m => momentHtml(m, `${d.key}-${m.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`)).join('')}</div>
+  </section>`;
+}
+// Your Friday (and a kid's: with you, or their own), as moments.
+function fridayMoments(S, u) {
+  const out = [], fin = parsePick(S.assigned[u]);
+  if (fin) {
+    const cost = pickCost(fin.id);
+    out.push({ time: fin.opt.time, title: optName(fin.id), place: fin.opt.place, ride: rideLine(S, fin.opt), bring: fin.opt.bring, tag: `Your Friday${cost ? ` · ${plus(cost)}` : ''}`, mine: true });
+  } else {
+    const a = pickOf(S, u, 1), b = pickOf(S, u, 2);
+    const picks = [a && `1st choice ${optName(a)}`, b && `2nd choice ${optName(b)}`].filter(Boolean).join('. ');
+    out.push(hasBoth(S, u)
+      ? { time: '', title: 'Your Friday', place: `${picks}. ${fridayUnset(S)}`, mine: true }
+      : { time: '', title: 'Your Friday', place: picks ? `${picks}.` : 'Not picked yet.', tag: 'Pick on Choose', todo: 'friday', mine: true });
+  }
+  for (const k of (household(u) || { members: [] }).members.filter(isKid)) {
+    const kf = parsePick(S.assigned[k]);
+    if (kf && fin && kf.opt.id === fin.opt.id) out[0].place = `${out[0].place}${/[.?!]$/.test(out[0].place) ? '' : '.'} ${k} comes too.`;
+    else if (kf) out.push({ time: kf.opt.time, title: `${k}: ${optName(kf.id)}`, place: kf.opt.place, ride: rideLine(S, kf.opt), bring: kf.opt.bring });
+    else out.push({ time: '', title: `${k}’s Friday`, place: `${k} goes with one of you. Text me which one.` });
+  }
+  return out;
+}
+// A night's dinner: the vote while it's open, then the restaurant, or the cook-in with its menu and your job.
+function dinnerMoments(S, u, votes, dayKey) {
+  const v = votes.find(x => x.day === dayKey && !x.after && x.shown);
+  if (!v) return [];
+  if (!v.closed) {
+    const c = v.choices.find(c => c.my);
+    return [{ time: v.time, title: v.moment || v.title, place: c ? `Your vote: ${c.label}` : `${orList(v.choices.map(c => c.label))}. Being voted on.`, tag: c ? '' : `Vote by ${dueBy(S)}`, todo: c ? '' : 'vote-' + v.id }];
+  }
+  if (v.winner.id !== 'cookin') return [{ time: v.time, title: `Dinner at ${v.winner.label}`, place: (v.winner.place || '').replace(`${v.winner.label}, `, ''), ride: v.winner.transport || '' }];
+  const mv = votes.find(x => x.day === dayKey && x.after && x.shown), m = mealsFor(S, votes, dayKey)[0], job = m && jobOf(S, m, u);
+  const mine = mv && mv.choices.find(c => c.my);
+  const place = !mv ? 'At the house' : mv.closed ? `${mv.winner.label}: ${mv.winner.place}` : mine ? `Your vote: ${mine.label}` : 'Menu being voted on';
+  const out = { time: v.time, title: 'Dinner at the house, cooking together', place };
+  if (job) out.ok = `You’re ${jobName(job)}`;
+  else if (m) { out.tag = 'Pick cooking or cleaning'; out.todo = 'meal-' + m.key; }
+  return [out];
+}
+// A moment: time, an optional copper tag (a link when it's something to do), title, the line under it; + opens ride and bring.
+function momentHtml(m, key) {
+  const det = [m.ride && ['Ride', m.ride], m.bring && ['Bring', m.bring]].filter(Boolean), open = !!app.open[key];
+  const tag = m.tag ? (m.todo ? `<a class="mo-tag" data-act="todo" data-target="${esc(m.todo)}">${esc(m.tag)} →</a>` : `<span class="mo-tag">${esc(m.tag)}</span>`) : '';
+  return `<div class="mo ${m.mine ? 'mine' : ''}" data-key="${key}">
+    <div class="mo-row ${det.length ? 'tap' : ''}" ${det.length ? `data-act="moment" data-key="${key}" role="button" tabindex="0" aria-expanded="${open}"` : ''}>
+      <span class="mo-t">${esc(shortTime(m.time))}</span>
+      <div>${tag}<div class="mo-title">${esc(m.title)}</div>${m.place ? `<div class="mo-place">${esc(m.place)}</div>` : ''}${m.ok ? `<div class="mo-ok">✓ ${esc(m.ok)}</div>` : ''}</div>
+      <span class="mo-plus">${det.length ? (open ? '−' : '+') : ''}</span>
+    </div>${open ? `<div class="mo-det">${det.map(([k, v]) => `<div><span>${k}</span><em>${esc(v)}</em></div>`).join('')}</div>` : ''}
+  </div>`;
 }
 
 function viewPlanner() {
@@ -1406,6 +1501,7 @@ document.addEventListener('click', e => {
     case 'unlock': tryPin(app.pinDraft); break;
     case 'closedone': app.doneFor = null; render(); break;
     case 'todo': app.jump = d.target; if (route() === 'choose') render(); else go('choose'); break;
+    case 'moment': app.open[d.key] = !app.open[d.key]; app.anchor = `.mo[data-key="${d.key}"]`; render(); break;
     case 'pick': {
       // Fills the first empty rank. With both taken the button is disabled, so a pick never overrides another card.
       const rank = openRank(S, u), o = parsePick(d.opt);
@@ -1444,15 +1540,17 @@ document.addEventListener('click', e => {
     }
     case 'vote': app.anchor = `.vrow[data-vote="${d.vote}"]`; act(() => store.vote(d.vote, u, d.choice), '', st => { st.votes[d.vote][u] = d.choice; }); break;
     case 'meal': {
-      const on = d.on === '1', names = S.meals[d.meal][d.role], m = MEALS.find(x => x.key === d.meal);
-      if (on && (jobOf(S, m, u) || !canTake(S, m, u, d.role))) return;   // one job each, and a couple splits cook and clean
+      const on = d.on === '1', m = MEALS.find(x => x.key === d.meal), cur = jobOf(S, m, u);
+      if (on && (cur === d.role || !canTake(S, m, u, d.role))) return;   // one job each, and a couple splits cook and clean
+      const swap = on && cur;   // the other button switches: drop the old job, take the new one
       // "+ me" turns into "You ×" under the finger: a double tap must not sign up and straight back off.
       const key = d.meal + '/' + d.role;
       if (app.mealAt && app.mealAt[0] === key && Date.now() - app.mealAt[1] < 700) return;
       app.mealAt = [key, Date.now()];
       app.anchor = `.meal[data-meal="${d.meal}"]`;
-      act(() => store.setMeal(d.meal, d.role, u, on), `${u} ${on ? 'took' : 'dropped'} ${jobName(d.role)}, ${MEALS.find(m => m.key === d.meal).title}`,
-        st => { st.meals[d.meal][d.role] = on ? [...names, u] : names.filter(n => n !== u); });
+      act(async () => { if (swap) await store.setMeal(d.meal, cur, u, false); await store.setMeal(d.meal, d.role, u, on); },
+        `${u} ${swap ? 'switched to' : on ? 'took' : 'dropped'} ${jobName(d.role)}, ${m.title}`,
+        st => { const ms = st.meals[d.meal]; if (swap) ms[cur] = ms[cur].filter(n => n !== u); ms[d.role] = on ? [...ms[d.role].filter(n => n !== u), u] : ms[d.role].filter(n => n !== u); });
       break;
     }
     case 'status': planner((pin, who) => store.setStatus(pin, d.id, d.status, who)); break;
