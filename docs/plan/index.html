@@ -157,6 +157,8 @@ details.more>summary{font-size:13px;font-weight:600;color:var(--muted);padding:1
 .choice-l .r{display:flex;gap:10px;align-items:baseline}
 .choice-l .you{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);font-weight:700}
 .choice-d{font-family:var(--serif);font-size:12px;line-height:1.4;color:var(--muted);margin-top:1px}
+.choice-d.lines{font-size:13px;line-height:1.55;color:var(--ink)}
+.choice-take{font-family:var(--display);font-style:italic;font-size:13px;line-height:1.4;color:var(--muted);margin-top:4px}
 .choice.my .choice-l{font-weight:700}
 .meter{height:3px;background:var(--line2);margin-top:5px;border-radius:2px}
 .meter i{display:block;height:3px;background:var(--green);border-radius:2px;transition:width .3s}
@@ -310,8 +312,8 @@ const DEADLINE_RULE = `Everything is due ${DEADLINE}. After that I go with the m
 // Votes opened after the deadline: each a new vote id (so it starts empty and open) with a one-line why, sharing one date.
 // While only these are open, the copy talks about them and LATE.by instead of DEADLINE.
 const LATE = { by: 'Oct 9', why: {
-  menu: 'Cook in won Saturday, so we’re picking one menu to make together.',
-  farewell: 'Blue River Bistro won’t work anymore, so we’re voting again on the Sunday farewell dinner.',
+  menu: 'Cook in won Saturday. Pick one menu we all make together.',
+  farewell: 'Blue River Bistro can’t seat 15 of us, so we’re voting again.',
 } };
 // Friday: everyone picks a 1st and a 2nd choice; Bray assigns the final one in the planner after the deadline.
 const RANKS = [1, 2];
@@ -366,12 +368,12 @@ const VOTES = [
     { id: 'bold', label: 'Bold', short: 'Bold', desc: 'American, big menu, kids menu. $$$', place: 'Bold, Main Street', url: 'https://www.boldbreck.com/menu/' },
     { id: 'radicato', label: 'Radicato', short: 'Radicato', desc: 'Italian, fancy, same owners as Rootstalk. $$$$', place: 'Radicato, Main Street', url: 'https://www.radicatobreck.com/dinner' },
   ] },
-  // The Saturday menu (LATE): one meal everyone makes together, shown once Cook in has won Saturday (`after`). Dessert is
-  // store-bought or no-bake, since baking at 9,600 feet is a gamble. Groceries get split; prices are rough, per adult.
+  // The Saturday menu (LATE): one meal everyone makes together, shown once Cook in has won Saturday (`after`). Each choice is
+  // `lines` (starter, main, dessert, one per line) and a short `take`; no baking, since that's a gamble at 9,600 feet.
   { id: 'menu', after: 'saturday', day: 'sat', col: 'Menu', title: 'Saturday menu', time: '6:30 PM', choices: [
-    { id: 'mexican', label: 'Mexican night', short: 'Mexican', desc: 'Chips with queso and guac. A build-your-own bar like Moe’s: burritos, bowls, tacos or nachos, with slow-cooker chicken and carnitas, rice and beans. Churros from the store. About $13 each.', place: 'Chips and queso, a burrito and taco bar, churros' },
-    { id: 'colombian', label: 'Colombian night', short: 'Colombian', desc: 'Empanadas with ají. Bandeja paisa: red beans from the slow cooker, rice, ground beef, chicharrón, chorizo, a fried egg, maduros, arepas and avocado. Buñuelos and natilla, the Christmas classic. About $15 each.', place: 'Empanadas, bandeja paisa, buñuelos and natilla' },
-    { id: 'italian', label: 'Italian night', short: 'Italian', desc: 'Bruschetta. Baked ziti with Caesar salad and garlic bread. Tiramisu, no baking. Put together in the morning, about $12 each.', place: 'Bruschetta, baked ziti, tiramisu' },
+    { id: 'mexican', label: 'Mexican night', short: 'Mexican', lines: ['Chips, queso and guac', 'Burrito, bowl and taco bar, Moe’s style', 'Churros with dulce de leche'], take: 'Easy to prep ahead. The best all-around pick for 15.', place: 'Chips and queso, a burrito and taco bar, churros' },
+    { id: 'colombian', label: 'Colombian night', short: 'Colombian', lines: ['Empanadas with ají', 'Bandeja paisa: beans, rice, chorizo, maduros, arepas', 'Buñuelos and natilla'], take: 'The most festive, and the most hands-on.', place: 'Empanadas, bandeja paisa, buñuelos and natilla' },
+    { id: 'italian', label: 'Italian night', short: 'Italian', lines: ['Bruschetta', 'Baked ziti, Caesar salad, garlic bread', 'Tiramisu'], take: 'The easiest. Put together in the morning, baked at dinner.', place: 'Bruschetta, baked ziti, tiramisu' },
   ] },
   // The farewell dinner is a revote (LATE): Blue River Bistro only seats 10. All three have a private room for 15 and a kids menu.
   { id: 'farewell', day: 'sun', col: 'Sun', title: 'Sunday farewell dinner', time: '6:30 PM', choices: [
@@ -384,28 +386,21 @@ const VOTES = [
 const LOCKED = {
   thu: [
     { time: 'Morning', title: 'Land in Denver, drive up', place: 'Denver airport to the Airbnb, 2 to 2.5 hours on I-70', bring: 'ID, a water bottle, layers for the drive', transport: '12-passenger van and SUV from the airport' },
-    { time: 'Around noon', title: 'Lunch on the way (on you)', place: 'Frisco or Main Street', bring: '', transport: '' },
-    { time: 'Afternoon', title: 'Groceries at City Market', place: 'The big run only if we’re cooking in. Either way we’re there 3 full days, so grab snacks, drinks, coffee, whatever you’ll want at the house. Everyone else can hang out on Main Street or at Carter Park with the kids.', bring: '', transport: '' },
+    { time: 'Afternoon', title: 'Groceries at City Market', place: 'Snacks, drinks, coffee and the cook-in groceries. Everyone else can hang out on Main Street.', bring: '', transport: '' },
     { time: '4:00 PM', title: 'Check in at the Airbnb, hot tub', place: 'The Airbnb', bring: 'a swimsuit', transport: '' },
     { time: '6:30 PM', title: 'Thursday dinner, pizza', place: 'I’ll just order pizza and we split it', bring: '', transport: '' },
   ],
   fri: [
-    { time: 'Morning', title: 'Breakfast out, on you', place: 'Main Street', bring: '', transport: '' },
-    { time: 'Around noon', title: 'Lunch, on you', place: 'Wherever your Friday puts you. Skiers eat on the mountain.', bring: '', transport: '' },
     { time: 'Evening', title: 'Back at the Airbnb, hot tub', place: 'The Airbnb', bring: '', transport: '' },
   ],
   sat: [
-    { time: 'Morning', title: 'Breakfast out, on you', place: 'Main Street', bring: '', transport: '' },
     { time: '10:00 AM', title: 'Main Street', place: 'Get your white elephant gift, ride the free gondola.', bring: 'walking boots', transport: 'Walk from the Airbnb' },
-    { time: 'Around noon', title: 'Lunch on Main Street, on you', place: 'Eat before we leave for tubing at 1:15.', bring: '', transport: '' },
     { time: '2:00 PM', title: 'Tubing at Frisco Adventure Park', place: 'Frisco, 20 minutes away', bring: 'snow pants, waterproof boots, gloves', transport: 'Van and SUV, leaving 1:15' },
     { time: 'Dark', title: 'Back at the Airbnb by dark', place: 'The Main Street lights are on every night if you want to go see them.', bring: '', transport: 'Van and SUV' },
     { time: '8:00 PM', title: 'White elephant and movie night', place: 'Great room', bring: 'a wrapped gift, $20 to 25', transport: '' },
   ],
   sun: [
-    { time: 'Morning', title: 'Breakfast out, on you', place: 'Main Street', bring: '', transport: '' },
     { time: '10:00 AM', title: 'Sledding at Carter Park', place: 'A short walk from the Airbnb. We’re buying sleds.', bring: 'snow pants and gloves', transport: 'Walk' },
-    { time: 'Around noon', title: 'Lunch, on you', place: 'Main Street, on the way to skating', bring: '', transport: '' },
     { time: '1:00 PM', title: 'Ice skating', place: 'Stephen C. West Arena · Included', bring: 'thick socks and gloves', transport: 'Van and SUV' },
     { time: 'Afternoon', title: 'Open afternoon', place: 'The Airbnb, Main Street, Blue River, or Sapphire Point', bring: '', transport: '' },
   ],
@@ -436,6 +431,7 @@ const ASSUMPTIONS = [
   'The Airbnb is $8,400 for four nights. Check-in 4 PM, checkout 11 AM.',
   'Two cars, a 12-seat van and an SUV, about $1,300 together.',
   'Breakfast and lunch are on you. Groceries get split. At restaurants everyone pays their own.',
+  'Anything without a ride listed is a walk from the Airbnb.',
   'Restaurants for 15 need a reservation. If the winner can’t fit us, I’ll pick the runner-up.',
   'Prices are from the websites in September and can change.',
   'Ages: dog sledding takes all ages. Tubing riders must be at least 36 inches tall.',
@@ -1029,7 +1025,7 @@ function viewWho() {
   return `<div class="shell"><div class="who">
     <div class="eyebrow${rise(0)}">Family Christmas 2026</div>
     <div class="h1${rise(60)}">Who’s <em>this?</em></div>
-    <div class="lede${rise(120)}">${S && allClosed(S) ? 'The votes are in. Tap your name to see your plan.' : revoting(S) ? `The votes are in, except ${lateOpen(S).length === 1 ? 'one' : 'two'}. ${lateOpen(S).map(v => LATE.why[v.id]).join(' ')} Tap your name and vote by ${LATE.by}.` : `Tap your own name. You’ll pick a 1st and 2nd choice for Friday and vote on 3 dinners, all by ${DEADLINE}. Couples, each of you answers on your own name. Kids don’t pick; they go with one of you.`}</div>
+    <div class="lede${rise(120)}">${S && allClosed(S) ? 'The votes are in. Tap your name to see your plan.' : revoting(S) ? `The votes are in, except ${lateOpen(S).length === 1 ? 'one' : 'two'}. Tap your name and vote by ${LATE.by}.` : `Tap your own name. You’ll pick a 1st and 2nd choice for Friday and vote on 3 dinners, all by ${DEADLINE}. Couples, each of you answers on your own name. Kids don’t pick; they go with one of you.`}</div>
     ${HH.map((h, i) => `<div class="hh${rise(180 + i * 70)}">
       <div class="hh-h"><span>${esc(h.parent)}</span><span class="fam">· ${esc(h.family)}</span></div>
       ${h.members.map(n => isKid(n)
@@ -1086,7 +1082,7 @@ function chooseLede(S, u) {
   const fri = t.find(x => x.kind === 'friday'), vs = t.filter(x => x.kind === 'vote'), meal = t.find(x => x.kind === 'meal');
   if (fri || vs.length) {
     if (closed) return esc(`The votes are in, but you still need to pick for Friday. ${FRIDAY_LATE}`);
-    if (revoting(S) && !fri) return esc(`${S.assigned[u] ? 'Your Friday is set. ' : ''}${vs.map(x => LATE.why[x.vote.id]).join(' ')} Vote by ${LATE.by}. After that I go with the majority.`);
+    if (revoting(S) && !fri) return esc(`${S.assigned[u] ? 'Your Friday is set. ' : ''}${vs.length === 1 ? 'One vote' : 'Two votes'} left, by ${LATE.by}. After that I go with the majority.`);
     const fresh = fri && !pickOf(S, u, 1) && !pickOf(S, u, 2) && vs.length === VOTES.filter(v => !v.after).length;
     if (fresh) return esc(`Pick a 1st and 2nd choice for Friday and vote on the three dinners. ${DEADLINE_RULE}`);
     // Part of it is in: say which part, then what's left.
@@ -1137,12 +1133,12 @@ function viewChoose() {
     const next = after ? nextButton(S, u) : '';
     fridayCards = `<div class="cards">${options.map(o => cardHtml(o) + (o.id === after ? next : '')).join('')}</div>`;
   }
+  // Only what's being decided, by day: the schedule itself lives on My trip. A day with nothing to decide is left out.
   const days = DAYS.map(d => {
-    const locked = [...(LOCKED[d.key] || []), ...decided(votes, d.key)].sort((a, b) => minutes(a.time) - minutes(b.time));
     const vs = votes.filter(v => v.day === d.key && !v.closed && v.shown);
     const ms = mealsFor(S, votes, d.key);
+    if (d.key !== 'fri' && !vs.length && !ms.length) return '';
     let out = `<section class="day" id="day-${d.key}"><div class="day-h"><span class="daynum">${d.num}</span><div><div class="dayname">${d.name}</div><div class="label daydate">${d.date}</div></div></div>`;
-    if (locked.length) out += `<div class="grp"><div class="grp-h all">We’re all doing this</div>${locked.map(it => `<div class="lrow"><div style="min-width:0"><b>${esc(it.title)}</b><i>${esc(it.place)}</i></div><span class="tiny">${esc(it.time)}</span></div>`).join('')}${d.note ? `<div class="daynote">${esc(d.note)}</div>` : ''}</div>`;
     if (d.key === 'fri') out += `<section class="grp" id="sec-friday">
       <div class="grp-h ask"><span>${fin ? 'Your Friday' : 'Friday, pick a 1st and 2nd'}</span><span class="tiny">for ${esc(u)}</span></div>
       <div class="final ${hasBoth(S, u) && !fin ? 'soft' : ''}" data-final>${fridayLine(S, u)}</div>
@@ -1150,10 +1146,10 @@ function viewChoose() {
       ${fridayCards}
     </section>`;
     if (vs.length) out += `<section class="grp" id="sec-vote-${d.key}"><div class="grp-h ask">Vote, tap one</div>${vs.map(v => `<div class="vrow" data-vote="${v.id}">
-      <div class="vrow-h"><b>${esc(v.title)}</b>${v.right ? `<span class="vrow-r">${esc(v.right)}</span>` : ''}</div>
+      <div class="vrow-h"><b>${esc(v.title)}</b>${v.right ? `<span class="vrow-r">${esc(v.right)}</span>` : ''}</div>${LATE.why[v.id] ? `<div class="meal-note" data-why>${esc(LATE.why[v.id])}</div>` : ''}
       ${v.choices.map(c => `<div class="crow"><button class="choice ${v.can ? 'can' : ''} ${c.my ? 'my' : ''}" ${v.can ? `data-act="vote" data-vote="${v.id}" data-choice="${c.id}"` : 'disabled'}>
         <div class="choice-l"><span class="lbl"><i class="dot"></i><span>${esc(c.label)}</span></span><span class="r"><span class="you">${c.my ? 'you' : ''}</span><span>${c.count}</span></span></div>
-        ${c.desc ? `<div class="choice-d">${esc(c.desc)}</div>` : ''}
+        ${c.desc ? `<div class="choice-d">${esc(c.desc)}</div>` : ''}${c.lines ? `<div class="choice-d lines">${c.lines.map(esc).join('<br>')}</div>` : ''}${c.take ? `<div class="choice-take">${esc(c.take)}</div>` : ''}
         <div class="meter"><i style="width:${c.pct}%"></i></div>
       </button>${c.url ? `<a class="ext" href="${esc(c.url)}" target="_blank" rel="noopener">Menu ↗</a>` : ''}</div>`).join('')}
     </div>`).join('')}</section>`;
@@ -1245,7 +1241,7 @@ function viewMe() {
   </div>` + days.map(d => `<section class="itin"><div class="day-h"><span class="daynum">${d.num}</span><div><div class="dayname">${d.name}</div><div class="label daydate">${d.date}</div></div></div>
     <div class="rows">${d.items.map(it => `<div class="it"><div><div class="t">${esc(it.time)}</div>${it.kind ? `<div class="k">${esc(it.kind)}</div>` : ''}</div><div style="min-width:0">${row(it)}
       ${it.bring ? `<div class="kv"><span>Bring</span><em>${esc(it.bring)}</em></div>` : ''}
-      ${it.transport ? `<div class="kv"><span>Getting there</span><em>${esc(it.transport)}</em></div>` : ''}
+      ${it.transport && !/^walk/i.test(it.transport) ? `<div class="kv"><span>Getting there</span><em>${esc(it.transport)}</em></div>` : ''}
     </div></div>`).join('')}</div>${d.note ? `<div class="daynote">${esc(d.note)}</div>` : ''}</section>`).join('') + '<div style="height:24px"></div>';
 }
 
