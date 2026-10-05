@@ -307,9 +307,12 @@ const KID_FLIGHTS = { Camila: 250 };   // a kid's plane seat, paid from the plan
 // One deadline for everything: DEADLINE. After it Bray goes with the majority (or chooses, if not enough people answered).
 const DEADLINE = 'Oct 1';
 const DEADLINE_RULE = `Everything is due ${DEADLINE}. After that I go with the majority. If not enough people answered, I’ll choose myself.`;
-// A vote reopened after the deadline: a new vote id (so it starts empty and open), its own date, and a one-line why.
-// While it's the only open vote, the copy talks about it instead of DEADLINE. null when there's no revote.
-const REVOTE = { id: 'farewell', by: 'Oct 9', why: 'Blue River Bistro won’t work anymore, so we’re voting again on the Sunday farewell dinner.' };
+// Votes opened after the deadline: each a new vote id (so it starts empty and open) with a one-line why, sharing one date.
+// While only these are open, the copy talks about them and LATE.by instead of DEADLINE.
+const LATE = { by: 'Oct 9', why: {
+  menu: 'Cook in won Saturday, so we’re picking one menu to make together.',
+  farewell: 'Blue River Bistro won’t work anymore, so we’re voting again on the Sunday farewell dinner.',
+} };
 // Friday: everyone picks a 1st and a 2nd choice; Bray assigns the final one in the planner after the deadline.
 const RANKS = [1, 2];
 const ord = r => r === 1 ? '1st' : '2nd';
@@ -356,18 +359,25 @@ const TOWN = [
   { id: 'micasa', label: 'Mi Casa', short: 'Mi Casa', desc: 'Mexican, margaritas. $$', place: 'Mi Casa, Park Avenue', url: 'https://www.micasabreck.com/menu' },
 ];
 const VOTES = [
-  { id: 'friday', day: 'fri', title: 'Friday dinner', time: '6:30 PM', choices: TOWN },
-  { id: 'saturday', day: 'sat', title: 'Saturday dinner', time: '6:30 PM', choices: [
+  { id: 'friday', day: 'fri', col: 'Fri', title: 'Friday dinner', time: '6:30 PM', choices: TOWN },
+  { id: 'saturday', day: 'sat', col: 'Sat', title: 'Saturday dinner', time: '6:30 PM', choices: [
     COOK_IN,
     { id: 'hearthstone', label: 'Hearthstone', short: 'Hearthstone', desc: 'Steaks and seafood in an old Victorian house. $$$$', place: 'Hearthstone, Ridge Street', url: 'https://www.hearthstonebreck.com/menus/' },
     { id: 'bold', label: 'Bold', short: 'Bold', desc: 'American, big menu, kids menu. $$$', place: 'Bold, Main Street', url: 'https://www.boldbreck.com/menu/' },
     { id: 'radicato', label: 'Radicato', short: 'Radicato', desc: 'Italian, fancy, same owners as Rootstalk. $$$$', place: 'Radicato, Main Street', url: 'https://www.radicatobreck.com/dinner' },
   ] },
-  // The farewell dinner is a revote (REVOTE): Blue River Bistro only seats 10. All three have a private room for 15 and a kids menu.
-  { id: 'farewell', day: 'sun', title: 'Sunday farewell dinner', time: '6:30 PM', choices: [
+  // The Saturday menu (LATE): one meal everyone makes together, shown once Cook in has won Saturday (`after`). Dessert is
+  // store-bought or no-bake, since baking at 9,600 feet is a gamble. Groceries get split; prices are rough, per adult.
+  { id: 'menu', after: 'saturday', day: 'sat', col: 'Menu', title: 'Saturday menu', time: '6:30 PM', choices: [
+    { id: 'mexican', label: 'Mexican night', short: 'Mexican', desc: 'Chips with queso and guac. A build-your-own bar like Moe’s: burritos, bowls, tacos or nachos, with slow-cooker chicken and carnitas, rice and beans. Churros from the store. About $13 each.', place: 'Chips and queso, a burrito and taco bar, churros' },
+    { id: 'colombian', label: 'Colombian night', short: 'Colombian', desc: 'Empanadas with ají. Bandeja paisa: red beans from the slow cooker, rice, ground beef, chicharrón, chorizo, a fried egg, maduros, arepas and avocado. Buñuelos and natilla, the Christmas classic. About $15 each.', place: 'Empanadas, bandeja paisa, buñuelos and natilla' },
+    { id: 'italian', label: 'Italian night', short: 'Italian', desc: 'Bruschetta. Baked ziti with Caesar salad and garlic bread. Tiramisu, no baking. Put together in the morning, about $12 each.', place: 'Bruschetta, baked ziti, tiramisu' },
+  ] },
+  // The farewell dinner is a revote (LATE): Blue River Bistro only seats 10. All three have a private room for 15 and a kids menu.
+  { id: 'farewell', day: 'sun', col: 'Sun', title: 'Sunday farewell dinner', time: '6:30 PM', choices: [
     { id: 'hearthstone', label: 'Hearthstone', short: 'Hearthstone', desc: 'Steaks, game and seafood in an 1883 Victorian house, our own room. $$$$', place: 'Hearthstone, Ridge Street', url: 'https://www.hearthstonebreck.com/menus/dinner/' },
     { id: 'ember', label: 'Ember', short: 'Ember', desc: 'Creative global food, lively and artsy, our own wine attic room. $$$', place: 'Ember, Adams Avenue', url: 'https://emberbreck.com/menus/entrees/' },
-    { id: 'spencers', label: 'Spencer’s', short: 'Spencer’s', desc: 'Classic steakhouse at Beaver Run, private room, easiest with kids. $$$', place: 'Spencer’s at Beaver Run, Village Road', transport: 'Van and SUV', url: 'https://beaverrun.com/dining/spencers-restaurant/' },
+    { id: 'spencers', label: 'Spencer’s', short: 'Spencer’s', desc: 'Classic steakhouse at Beaver Run, private room, easiest with kids. $$', place: 'Spencer’s at Beaver Run, Village Road', transport: 'Van and SUV', url: 'https://beaverrun.com/dining/spencers-restaurant/' },
   ] },
 ];
 // Travel times stay "Morning" / "Afternoon" until flights are booked.
@@ -410,15 +420,15 @@ const DAYS = [
   { key: 'sun', num: '04', name: 'Sunday', date: 'December 13' },
   { key: 'mon', num: '05', name: 'Monday', date: 'December 14' },
 ];
-// Meal sign-ups: Cooking and Cleaning, 2 each. A night's sign-up appears only after Cook in wins that night's vote.
-const MEAL_NOTE = 'Cook in won. I need 2 to cook and 2 to clean up. Tap + me.';
+// Meal sign-ups: a night's sign-up appears only after Cook in wins that night's vote. Then every adult takes one job,
+// Cooking or Cleaning (no cap), and each family needs a cook and a cleaner, so a couple splits them.
+const MEAL_NOTE = 'Everyone takes one job. Each family needs a cook and a cleaner, so couples split it.';
 const MEALS = [
   { key: 'fri', day: 'fri', title: 'Friday dinner', time: '6:30 PM', needsVote: 'friday' },
   { key: 'sat', day: 'sat', title: 'Saturday dinner', time: '6:30 PM', needsVote: 'saturday' },
   { key: 'sun', day: 'sun', title: 'Sunday farewell dinner', time: '6:30 PM', needsVote: 'farewell' },
 ];
 const ROLES = ['Cooking', 'Cleaning'];
-const SLOTS = 2;
 const jobName = r => r.toLowerCase();   // in sentences: "cooking", "cleaning"
 // Trip info: what we're assuming, in Bray's words.
 const ASSUMPTIONS = [
@@ -571,6 +581,7 @@ class DemoStore {
       friday: { Bray: 'cookin', Brian: 'cookin', Sandra: 'brewery', Natalia: 'cookin', Anthony: 'cookin', Luis: 'cookin', Anna: 'erics', Manny: 'brewery' },
       saturday: { Bray: 'cookin', Brian: 'cookin', Sandra: 'cookin', Natalia: 'cookin', Anthony: 'cookin', Luis: 'cookin', Anna: 'cookin', Manny: 'hearthstone', Ivy: 'hearthstone', Hailey: 'bold' },
       farewell: { Bray: 'hearthstone', Brian: 'ember', Sandra: 'ember', Natalia: 'spencers', Anthony: 'spencers', Luis: 'hearthstone', Anna: 'hearthstone' },
+      menu: { Bray: 'italian', Sandra: 'italian', Natalia: 'mexican' },   // shows once Cook in wins Saturday
     };
     this.meals = [{ meal_key: 'fri', role: 'Cooking', person: 'Anna' }, { meal_key: 'fri', role: 'Cooking', person: 'Ivy' }];
     this.items = [
@@ -730,8 +741,8 @@ async function act(fn, logText, optimistic) {
   await refresh();
 }
 
-// Friday picks and dinner votes still open for this person (a cook-in job is a volunteer ask, so it doesn't count).
-const ownLeft = (S, u) => todos(S, u).filter(x => x.kind !== 'meal').length;
+// Everything still open for this person: Friday picks, votes and their cook-in job (everyone takes one, so it counts).
+const ownLeft = (S, u) => todos(S, u).length;
 // The "You're done" pop-up, once per person on this phone.
 function finished(u) {
   let seen = [];
@@ -794,16 +805,21 @@ function buildOptions(S, u) {
   });
 }
 
+const tallyOf = (S, v) => v.choices.map(ch => ({ ...ch, count: ADULTS.filter(p => S.votes[v.id][p] === ch.id).length }));
+const winnerOf = (S, v) => { const t = tallyOf(S, v), max = Math.max(...t.map(c => c.count)); return t.find(c => c.count === max); };
+// A vote with `after` (the menu) shows once Cook in has won that vote; until then it's as if it didn't exist.
+const isShown = (S, v) => !v.after || (!!S.closed[v.after] && winnerOf(S, VOTES.find(x => x.id === v.after)).id === 'cookin');
+const shownVotes = S => VOTES.filter(v => isShown(S, v));
 function buildVotes(S, u) {
   return VOTES.map(v => {
-    const tally = v.choices.map(ch => ({ ...ch, count: ADULTS.filter(p => S.votes[v.id][p] === ch.id).length }));
+    const tally = tallyOf(S, v);
     const total = tally.reduce((a, c) => a + c.count, 0) || 1;
     const max = Math.max(...tally.map(c => c.count));
     const winner = tally.find(c => c.count === max);
     const closed = !!S.closed[v.id], my = S.votes[v.id][u];
     const can = !closed;
     return {
-      ...v, closed, winner, tally, can, my,
+      ...v, closed, winner, tally, can, my, shown: isShown(S, v),
       right: closed ? `Decided: ${winner.label}` : '',
       top: tally.filter(c => c.count === max), none: max === 0,
       choices: tally.map(c => ({ ...c, pct: Math.round(c.count / total * 100), my: c.id === my })),
@@ -821,8 +837,8 @@ function mealsFor(S, votes, dayKey) {
 }
 // A closed vote becomes a locked row: the restaurant, or the cook-in at the Airbnb.
 function decided(votes, dayKey) {
-  return votes.filter(v => v.day === dayKey && v.closed)
-    .map(v => ({ time: v.time, title: `${v.title}: ${v.winner.label}`, place: v.winner.place, bring: '', transport: v.winner.id === 'cookin' ? '' : v.winner.transport || 'Walk from the Airbnb' }));
+  return votes.filter(v => v.day === dayKey && v.closed && v.shown)
+    .map(v => ({ time: v.time, title: `${v.title}: ${v.winner.label}`, place: v.winner.place, bring: '', transport: v.after || v.winner.id === 'cookin' ? '' : v.winner.transport || 'Walk from the Airbnb' }));
 }
 
 // "Getting there" for an assigned Friday: the ride once the planner has set a leave time, otherwise a placeholder.
@@ -834,27 +850,33 @@ function rideLine(S, o) {
   return `${r.word} leaves the Airbnb ${v.leave}${v.driver ? (v.driver === app.user ? ', you drive' : `, ${v.driver} drives`) : ''}`;
 }
 
-const allClosed = S => VOTES.every(v => S.closed[v.id]);   // after the deadline: the copy stops talking about Oct 1
-// The revote is on: every other vote is closed and REVOTE's isn't. Its date replaces DEADLINE wherever a date is said.
-const revoting = S => !!REVOTE && !!S && !S.closed[REVOTE.id] && VOTES.every(v => v.id === REVOTE.id || S.closed[v.id]);
-const dueBy = S => revoting(S) ? REVOTE.by : DEADLINE;
+const allClosed = S => shownVotes(S).every(v => S.closed[v.id]);   // after the deadline: the copy stops talking about Oct 1
+// The late votes still open, once every other vote is closed. Their date replaces DEADLINE wherever a date is said.
+const lateOpen = S => { if (!S) return []; const vs = shownVotes(S); return vs.every(v => LATE.why[v.id] || S.closed[v.id]) ? vs.filter(v => LATE.why[v.id] && !S.closed[v.id]) : []; };
+const revoting = S => lateOpen(S).length > 0;
+const dueBy = S => revoting(S) ? LATE.by : DEADLINE;
 const fridayOpen = (S, u) => !S.assigned[u] && !hasBoth(S, u);
 const fridayUnset = S => allClosed(S) || revoting(S) ? FRIDAY_LATE : FRIDAY_UNSET;
 const otherAdults = u => ((household(u) || { members: [] }).members).filter(p => p !== u && !isKid(p));
 
-// The cook-in night to ask this person about: only if they're on no live cook-in night yet (one job each is plenty) and a job is open.
+// The cook-in night to ask this person about: every adult takes one job, and one is plenty (a second cook-in night doesn't ask again).
 function openMeal(S, u) {
   if (isKid(u)) return null;
   const votes = buildVotes(S, u), live = DAYS.flatMap(d => mealsFor(S, votes, d.key));
-  if (live.some(m => ROLES.some(r => S.meals[m.key][r].includes(u)))) return null;
-  return live.find(m => ROLES.some(r => S.meals[m.key][r].length < SLOTS)) || null;
+  if (live.some(m => jobOf(S, m, u))) return null;
+  return live[0] || null;
+}
+// Cook-in jobs. Each family needs a cook and a cleaner: a role is closed to you once every other adult in your family has it
+// (so a couple splits them; someone on their own takes either).
+const jobOf = (S, m, u) => ROLES.find(r => S.meals[m.key][r].includes(u)) || null;
+const canTake = (S, m, u, role) => { const others = otherAdults(u); return !others.length || !others.every(p => jobOf(S, m, p) === role); };
+function jobAsk(S, m, u) {
+  const sp = otherAdults(u).map(p => [p, jobOf(S, m, p)]).find(([, r]) => r);
+  return sp ? `${sp[0]} is ${jobName(sp[1])}, so you’re ${jobName(ROLES.find(r => r !== sp[1]))}.` : 'Everyone takes one job, and each family needs a cook and a cleaner.';
 }
 
-// Open cook and clean jobs left on a cook-in night.
-const stillNeed = (S, m) => ROLES.reduce((n, r) => n + Math.max(0, SLOTS - S.meals[m.key][r].length), 0);
-
 // What this person still owes the group, in strip order: their Friday picks, the open votes, and a cook-in job once Cook in
-// wins a night. Kids owe nothing: they don't pick or vote.
+// wins a night (everyone takes one). Kids owe nothing: they don't pick, vote or take jobs.
 function todos(S, u) {
   const out = [];
   if (isKid(u)) return out;
@@ -862,7 +884,7 @@ function todos(S, u) {
     const one = pickOf(S, u, 1) || pickOf(S, u, 2), r = ord(openRank(S, u));
     out.push({ kind: 'friday', target: 'friday', label: one ? `pick a ${r} choice for Friday` : 'pick a 1st and 2nd choice for Friday' });
   }
-  for (const v of VOTES) if (!S.closed[v.id] && !v.choices.some(c => c.id === S.votes[v.id][u])) out.push({ kind: 'vote', vote: v, target: 'vote-' + v.day, label: `vote on ${v.title}` });
+  for (const v of shownVotes(S)) if (!S.closed[v.id] && !v.choices.some(c => c.id === S.votes[v.id][u])) out.push({ kind: 'vote', vote: v, target: 'vote-' + v.day, label: `vote on ${v.title}` });
   const m = openMeal(S, u);
   if (m) out.push({ kind: 'meal', meal: m, target: 'meal-' + m.key, label: `sign up to cook or clean, ${m.title}` });
   return out;
@@ -870,7 +892,8 @@ function todos(S, u) {
 // Open votes read as one link to the first of them: "vote on 3 dinners", "vote on Friday and Sunday dinners", "vote on Sunday farewell dinner".
 function voteLabel(vs) {
   if (vs.length === 1) return `vote on ${vs[0].title}`;
-  if (vs.length === VOTES.length) return `vote on ${vs.length} dinners`;
+  if (vs.some(v => v.after)) return `vote on ${andList(vs.map(v => v.title))}`;   // the menu isn't a dinner: say each by name
+  if (vs.length === VOTES.filter(v => !v.after).length) return `vote on ${vs.length} dinners`;
   const names = vs.map(v => DAYS.find(d => d.key === v.day).name);
   return `vote on ${names.slice(0, -1).join(', ')} and ${names[names.length - 1]} dinners`;
 }
@@ -885,13 +908,13 @@ function todoLinks(t) {
 // Who handed this phone to u (a spouse), so u's screens can lead back to them.
 const handedBy = u => { const p = app.handoff[app.handoff.length - 1]; return p && p !== u && household(p) === household(u) ? p : null; };
 // The strip once nothing's left: a handed-over phone leads back; an adult hears about their spouse, who answers on their own
-// name (send the link, or hand over the phone). A cook-in job is a volunteer ask, so it never makes a spouse "behind".
+// name (send the link, or hand over the phone). A spouse without a cook-in job is "behind" too: everyone takes one.
 function doneText(S, u) {
   const now = allClosed(S) ? '' : ' for now';
   const p = handedBy(u);
   if (p) return `${esc(u)}’s set. <a data-act="signin" data-name="${esc(p)}">Back to ${esc(p)}</a>`;
   const others = otherAdults(u);
-  const behind = others.find(p => todos(S, p).some(x => x.kind !== 'meal'));
+  const behind = others.find(p => todos(S, p).length);
   if (behind) return `You’re set${now}. ${esc(behind)} isn’t done yet. Send ${esc(behind)} the link, or hand over the phone: <a data-act="signin" data-name="${esc(behind)}">Switch to ${esc(behind)}</a>`;
   return `You’re set${now}${others.length ? `, and so ${others.length === 1 ? 'is' : 'are'} ${others.map(esc).join(' and ')}` : ''}.`;
 }
@@ -1006,7 +1029,7 @@ function viewWho() {
   return `<div class="shell"><div class="who">
     <div class="eyebrow${rise(0)}">Family Christmas 2026</div>
     <div class="h1${rise(60)}">Who’s <em>this?</em></div>
-    <div class="lede${rise(120)}">${S && allClosed(S) ? 'The votes are in. Tap your name to see your plan.' : revoting(S) ? `The votes are in, except one. ${REVOTE.why} Tap your name and vote by ${REVOTE.by}.` : `Tap your own name. You’ll pick a 1st and 2nd choice for Friday and vote on 3 dinners, all by ${DEADLINE}. Couples, each of you answers on your own name. Kids don’t pick; they go with one of you.`}</div>
+    <div class="lede${rise(120)}">${S && allClosed(S) ? 'The votes are in. Tap your name to see your plan.' : revoting(S) ? `The votes are in, except ${lateOpen(S).length === 1 ? 'one' : 'two'}. ${lateOpen(S).map(v => LATE.why[v.id]).join(' ')} Tap your name and vote by ${LATE.by}.` : `Tap your own name. You’ll pick a 1st and 2nd choice for Friday and vote on 3 dinners, all by ${DEADLINE}. Couples, each of you answers on your own name. Kids don’t pick; they go with one of you.`}</div>
     ${HH.map((h, i) => `<div class="hh${rise(180 + i * 70)}">
       <div class="hh-h"><span>${esc(h.parent)}</span><span class="fam">· ${esc(h.family)}</span></div>
       ${h.members.map(n => isKid(n)
@@ -1019,7 +1042,7 @@ function viewWho() {
 
 function viewInfo() {
   const assume = allClosed(app.state) ? ['The votes are in, and I went with the majority.', ...ASSUMPTIONS.slice(1)]
-    : revoting(app.state) ? [`The votes are in, and I went with the majority. The Sunday farewell dinner is a revote, due ${REVOTE.by}.`, ...ASSUMPTIONS.slice(1)]
+    : revoting(app.state) ? [`The votes are in, and I went with the majority. Still open until ${LATE.by}: ${andList(lateOpen(app.state).map(v => `the ${v.title}`))}.`, ...ASSUMPTIONS.slice(1)]
     : ASSUMPTIONS;
   return `<div class="pad">
     <div class="eyebrow">Trip info</div>
@@ -1063,15 +1086,15 @@ function chooseLede(S, u) {
   const fri = t.find(x => x.kind === 'friday'), vs = t.filter(x => x.kind === 'vote'), meal = t.find(x => x.kind === 'meal');
   if (fri || vs.length) {
     if (closed) return esc(`The votes are in, but you still need to pick for Friday. ${FRIDAY_LATE}`);
-    if (revoting(S) && !fri) return esc(`${S.assigned[u] ? 'Your Friday is set. ' : ''}${REVOTE.why} Vote by ${REVOTE.by}. After that I go with the majority.`);
-    const fresh = fri && !pickOf(S, u, 1) && !pickOf(S, u, 2) && vs.length === VOTES.length;
+    if (revoting(S) && !fri) return esc(`${S.assigned[u] ? 'Your Friday is set. ' : ''}${vs.map(x => LATE.why[x.vote.id]).join(' ')} Vote by ${LATE.by}. After that I go with the majority.`);
+    const fresh = fri && !pickOf(S, u, 1) && !pickOf(S, u, 2) && vs.length === VOTES.filter(v => !v.after).length;
     if (fresh) return esc(`Pick a 1st and 2nd choice for Friday and vote on the three dinners. ${DEADLINE_RULE}`);
     // Part of it is in: say which part, then what's left.
     const done = !fri ? (S.assigned[u] ? 'Your Friday is set.' : 'Your Friday picks are in.') : !vs.length ? 'Your votes are in.' : '';
     const left = andList([fri && fri.label, vs.length && voteLabel(vs.map(x => x.vote))].filter(Boolean));
     return esc(`${done ? `${done} ` : ''}Now ${left}. ${DEADLINE_RULE}`);
   }
-  if (meal) return `${esc(`Cook in won ${meal.meal.title}. I still need ${stillNeed(S, meal.meal)} more to cook or clean up.`)} ${todoLink(meal, 'Sign up')}`;
+  if (meal) return `${esc(`Cook in won ${meal.meal.title}. ${jobAsk(S, meal.meal, u)}`)} ${todoLink(meal, 'Sign up')}`;
   if (closed) return S.assigned[u] ? `${esc('The votes are in and your Friday is set. Times, rides and what to bring are on')} ${MY_TRIP}.` : esc(`The votes are in. ${FRIDAY_LATE}`);
   // Done while the votes are open: say back what they chose (and a kid's Friday once it's set), and what can still change.
   const a = pickOf(S, u, 1), b = pickOf(S, u, 2);
@@ -1079,7 +1102,7 @@ function chooseLede(S, u) {
   const jump = (target, text) => `<a data-act="todo" data-target="${target}">${esc(text)}</a>`;
   const mine = S.assigned[u] ? esc(`Your Friday is set: ${optName(S.assigned[u])}.`) : `${esc('You’ve picked and voted. Friday: ')}${jump('friday', `${optName(a)}, then ${optName(b)}`)}.`;
   const kids = (household(u) || { members: [] }).members.filter(k => isKid(k) && S.assigned[k]).map(k => esc(` ${k}’s Friday: ${optName(S.assigned[k])}.`)).join('');
-  const said = buildVotes(S, u).filter(v => !v.closed && v.my).map(v => `${jump('vote-' + v.day, v.choices.find(c => c.my).label)} on ${DAYS.find(d => d.key === v.day).name}`);
+  const said = buildVotes(S, u).filter(v => v.shown && !v.closed && v.my).map(v => `${jump('vote-' + v.day, v.choices.find(c => c.my).label)} on ${DAYS.find(d => d.key === v.day).name}`);
   return `${mine}${kids}${said.length ? ` Your votes: ${andList(said)}.` : ''} ${esc(`You can change ${S.assigned[u] ? 'your dinner votes' : 'anything'} until ${dueBy(S)}.`)}`;
 }
 
@@ -1116,7 +1139,7 @@ function viewChoose() {
   }
   const days = DAYS.map(d => {
     const locked = [...(LOCKED[d.key] || []), ...decided(votes, d.key)].sort((a, b) => minutes(a.time) - minutes(b.time));
-    const vs = votes.filter(v => v.day === d.key && !v.closed);
+    const vs = votes.filter(v => v.day === d.key && !v.closed && v.shown);
     const ms = mealsFor(S, votes, d.key);
     let out = `<section class="day" id="day-${d.key}"><div class="day-h"><span class="daynum">${d.num}</span><div><div class="dayname">${d.name}</div><div class="label daydate">${d.date}</div></div></div>`;
     if (locked.length) out += `<div class="grp"><div class="grp-h all">We’re all doing this</div>${locked.map(it => `<div class="lrow"><div style="min-width:0"><b>${esc(it.title)}</b><i>${esc(it.place)}</i></div><span class="tiny">${esc(it.time)}</span></div>`).join('')}${d.note ? `<div class="daynote">${esc(d.note)}</div>` : ''}</div>`;
@@ -1161,19 +1184,16 @@ function cardHtml(o) {
   </article>`;
 }
 
+// Everyone signed up is shown; "+ me" only while you have no job, and only on a role your family still needs.
 function mealHtml(S, m, u) {
-  return `<div class="meal" data-meal="${m.key}"><div class="meal-h"><b>${esc(m.title)}, cook in</b><span class="tiny">${esc(m.time)}</span></div><div class="meal-note">${esc(MEAL_NOTE)}</div><div class="roles">${ROLES.map(role => {
-    const names = S.meals[m.key][role], mine = names.includes(u), chips = [];
-    for (let i = 0; i < Math.max(SLOTS, names.length); i++) {   // everyone signed up is shown, even a third person from a stale tap
-      const n = names[i];
-      if (n) chips.push(n === u
-        ? `<button class="chip me" data-act="meal" data-meal="${m.key}" data-role="${role}" data-on="0">You ×</button>`
-        : `<span class="chip">${esc(n)}</span>`);
-      else chips.push(!mine
-        ? `<button class="chip open can" data-act="meal" data-meal="${m.key}" data-role="${role}" data-on="1">+ me</button>`
-        : `<span class="chip open">open</span>`);
-    }
-    return `<div class="role"><span>${esc(role)}</span><div class="chips">${chips.join('')}</div></div>`;
+  const mine = jobOf(S, m, u), ask = !mine && !isKid(u) && otherAdults(u).some(p => jobOf(S, m, p)) ? ` ${jobAsk(S, m, u)}` : '';
+  return `<div class="meal" data-meal="${m.key}"><div class="meal-h"><b>${esc(m.title)}, cook in</b><span class="tiny">${esc(m.time)}</span></div><div class="meal-note">${esc(MEAL_NOTE + ask)}</div><div class="roles">${ROLES.map(role => {
+    const names = S.meals[m.key][role];
+    const chips = names.map(n => n === u
+      ? `<button class="chip me" data-act="meal" data-meal="${m.key}" data-role="${role}" data-on="0">You ×</button>`
+      : `<span class="chip">${esc(n)}</span>`);
+    if (!mine && !isKid(u) && canTake(S, m, u, role)) chips.push(`<button class="chip open can" data-act="meal" data-meal="${m.key}" data-role="${role}" data-on="1">+ me</button>`);
+    return `<div class="role"><span>${esc(role)}</span><div class="chips">${chips.join('') || '<span class="chip open">nobody yet</span>'}</div></div>`;
   }).join('')}</div></div>`;
 }
 
@@ -1199,7 +1219,7 @@ function viewMe() {
       // A parent sees each kid's Friday too.
       for (const k of (household(u) || { members: [] }).members.filter(isKid)) items.push(fridayRow(k, `${k}’s`));
     }
-    votes.filter(v => v.day === d.key && !v.closed).forEach(v => {
+    votes.filter(v => v.day === d.key && !v.closed && v.shown).forEach(v => {
       const c = v.choices.find(c => c.my);
       items.push(mk({ time: v.time, title: v.title, place: c ? `Your vote: ${c.label}. You can change it on Choose until ${dueBy(S)}.` : `Tap here to vote, by ${dueBy(S)}.`, bring: '', transport: '', todo: c ? '' : 'vote-' + v.day }, c ? 'voted' : 'vote'));
     });
@@ -1207,7 +1227,7 @@ function viewMe() {
       if (!S.meals[m.key][role].includes(u)) return;
       items.push(mk({ time: m.time, title: `${m.title}, ${jobName(role)}`, place: 'the Airbnb kitchen', bring: '', transport: '' }, 'you’re on'));
     }));
-    if (om && om.day === d.key) items.push(mk({ time: om.time, title: 'Sign up to cook or clean', place: `Cook in won ${om.title}. I still need ${stillNeed(S, om)} more.`, bring: '', transport: '', todo: 'meal-' + om.key }, 'sign up'));
+    if (om && om.day === d.key) items.push(mk({ time: om.time, title: 'Sign up to cook or clean', place: `Cook in won ${om.title}. ${jobAsk(S, om, u)}`, bring: '', transport: '', todo: 'meal-' + om.key }, 'sign up'));
     items.sort((a, b) => minutes(a.time) - minutes(b.time));
     return { ...d, items };
   });
@@ -1233,7 +1253,7 @@ function viewPlanner() {
   const S = app.state, open = !!app.pin && !!app.plannerItems && !!S;
   let summary = '', body;
   if (open) {
-    const nOpen = buildVotes(S, CONFIG.PLANNER).filter(v => !v.closed).length;
+    const nOpen = buildVotes(S, CONFIG.PLANNER).filter(v => v.shown && !v.closed).length;
     summary = `Room left inside the $1,250 plan: ${money(roomLeft(S))}. ${unchosen(S).length} haven’t picked both Friday choices. ${unassigned(S).length} to assign. ${nOpen} vote${nOpen === 1 ? '' : 's'} open.`;
   }
   if (!open && app.pin && (!S || !app.plannerItems)) {
@@ -1252,6 +1272,11 @@ function viewPlanner() {
     const votes = buildVotes(S, CONFIG.PLANNER);
     const items = app.plannerItems;
     const liveMeals = new Set(DAYS.flatMap(d => mealsFor(S, votes, d.key).map(m => m.key)));   // the same rule the family screens use
+    // Responses: a column per vote the family can see (the menu once Cook in has won Saturday).
+    const shownVs = votes.filter(v => v.shown), cols = `grid-template-columns:64px repeat(${shownVs.length},${shownVs.length > 3 ? 54 : 62}px) 1fr`;
+    // Cook-in jobs per live night, then who still has none (everyone takes one, and one on any night is plenty).
+    const live = MEALS.filter(m => liveMeals.has(m.key)), none = ADULTS.filter(p => !live.some(m => jobOf(S, m, p)));
+    const jobsNote = live.length ? `<div class="pnote" data-jobs>${esc(`${live.map(m => `${m.title} jobs: ${S.meals[m.key].Cooking.length} cooking, ${S.meals[m.key].Cleaning.length} cleaning.`).join(' ')} ${none.length ? `No job yet: ${andList(none)}.` : 'Everyone has a job.'}`)}</div>` : '';
     const finals = o => PEOPLE.filter(p => isOpt(S.assigned[p], o)).length;
     body = `<div class="pgrid"><div class="pmain">
       <div class="eyebrow">Bookings</div>
@@ -1290,20 +1315,21 @@ function viewPlanner() {
       </div>
       <div class="pnote">Once a leave time is set, My trip says “van leaves the Airbnb 9:15”. Until then, “${RIDES_UNSET}”</div>
       <div class="eyebrow sec">Votes</div>
-      <div class="vlist">${votes.map(v => `<div class="vl" data-vote="${v.id}"><b>${esc(v.title)}</b><span>${v.closed ? `Decided: ${esc(v.winner.label)}` : esc(v.tally.map(c => `${c.label} ${c.count}`).join(', ') )}</span>
+      <div class="vlist">${votes.filter(v => v.shown).map(v => `<div class="vl" data-vote="${v.id}"><b>${esc(v.title)}</b><span>${v.closed ? `Decided: ${esc(v.winner.label)}` : esc(v.tally.map(c => `${c.label} ${c.count}`).join(', ') )}</span>
         <button class="act ${v.closed ? 'soft' : ''}" data-act="closevote" data-vote="${v.id}" data-closed="${v.closed ? '0' : '1'}">${v.closed ? 'Reopen' : 'Close vote'}</button></div>`).join('')}</div>
+      ${jobsNote}
       <div class="eyebrow sec">Change log</div>
       <div class="log">${S.log.map(l => `<div>${esc(l.text)} <span>· ${esc(l.when)}</span></div>`).join('') || '<div><span>Nothing yet.</span></div>'}</div>
     </div>
     <aside>
       <div class="eyebrow">Responses</div>
       <div class="resp">
-        <div class="rrow h tiny"><span>Name</span><span>Fri</span><span>Sat</span><span>Sun</span><span>Meals</span></div>
+        <div class="rrow h tiny" style="${cols}"><span>Name</span>${shownVs.map(v => `<span>${esc(v.col)}</span>`).join('')}<span>Meals</span></div>
         ${PEOPLE.map(p => {
           const kid = isKid(p);
           const cell = v => { const c = v.choices.find(c => c.id === S.votes[v.id][p]); return `<span class="${kid || c ? '' : 'empty'}">${kid ? '·' : c ? esc(c.short) : ''}</span>`; };
           const duties = MEALS.filter(m => liveMeals.has(m.key)).flatMap(m => ROLES.filter(r => S.meals[m.key][r].includes(p)).map(r => `${DAYS.find(d => d.key === m.day).name.slice(0, 3)} ${jobName(r)}`));
-          return `<div class="rrow" data-person="${esc(p)}"><span class="n">${esc(p)}</span>${VOTES.map(cell).join('')}
+          return `<div class="rrow" data-person="${esc(p)}" style="${cols}"><span class="n">${esc(p)}</span>${shownVs.map(cell).join('')}
             <span class="${kid || duties.length || !liveMeals.size ? '' : 'empty'}" style="color:var(--muted)">${kid ? '·' : esc(duties.join(', '))}</span></div>`;
         }).join('')}
       </div>
@@ -1422,8 +1448,8 @@ document.addEventListener('click', e => {
     }
     case 'vote': app.anchor = `.vrow[data-vote="${d.vote}"]`; act(() => store.vote(d.vote, u, d.choice), '', st => { st.votes[d.vote][u] = d.choice; }); break;
     case 'meal': {
-      const on = d.on === '1', names = S.meals[d.meal][d.role];
-      if (on && names.length >= SLOTS) return;
+      const on = d.on === '1', names = S.meals[d.meal][d.role], m = MEALS.find(x => x.key === d.meal);
+      if (on && (jobOf(S, m, u) || !canTake(S, m, u, d.role))) return;   // one job each, and a couple splits cook and clean
       // "+ me" turns into "You ×" under the finger: a double tap must not sign up and straight back off.
       const key = d.meal + '/' + d.role;
       if (app.mealAt && app.mealAt[0] === key && Date.now() - app.mealAt[1] < 700) return;
