@@ -245,6 +245,8 @@ details.more>summary{font-size:13px;font-weight:600;color:var(--muted);padding:1
 .mo.mine .mo-t{color:var(--accent)}
 .mo-tag{display:block;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--accent);margin-bottom:4px}
 a.mo-tag{cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+.mo-sign{display:block;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--accent);margin-top:6px}
+a.mo-sign{text-decoration:underline;text-underline-offset:2px}
 .mo-title{font-family:var(--serif);font-size:18px;line-height:1.3}
 .mo-place{font-size:13px;line-height:1.45;color:var(--muted);margin-top:3px}
 .mo-ok{font-size:12px;font-weight:700;color:var(--green);margin-top:6px}
@@ -422,13 +424,14 @@ const IMG = {
 };
 // flourish: Friday's headline on My trip ("Friday, dog sledding"); photo: Friday's spread.
 const OPTS = [
-  { id: 'ski', name: 'Ski / snowboard', flourish: 'on the slopes', photo: IMG.ski, pot: 'personal', cost: 225, desc: 'Lift ticket (Epic Day Pass), rental and helmet at Breckenridge Ski Resort.', constraints: 'Ages 5+', minAge: 5, time: '10:00 AM', place: 'Breckenridge Ski Resort', bring: 'layers, goggles, sunscreen', ride: 'van',
+  { id: 'ski', name: 'Ski / snowboard', flourish: 'on the slopes', photo: IMG.ski, pot: 'personal', cost: 225, desc: 'Lift ticket (Epic Day Pass), rental and helmet at Breckenridge Ski Resort.', constraints: 'Ages 5+', minAge: 5, time: '10:00 AM', place: 'Breckenridge Ski Resort', bring: 'layers, goggles, sunscreen', ride: 'van', sign: { label: 'Sign the release in the My Epic app' },
     links: [{ label: 'Website', href: 'https://www.breckenridge.com/plan-your-trip/lift-access/tickets.aspx' }] },
   { id: 'snowmobile', off: true, name: 'Snowmobile', flourish: 'snowmobiles', pot: 'personal', desc: 'Guided tour with Good Times Adventures, about 2 hours. Share a snowmobile with someone, or go solo for more.', constraints: '15+ to drive, 18+ with a passenger, passengers 5+', minAge: 5,
     variants: [{ id: 'shared', label: 'Share a snowmobile', cost: 189, each: true, name: 'Snowmobile, shared' }, { id: 'solo', label: 'Go solo', cost: 284, minAge: 15, name: 'Snowmobile, solo' }],
     time: '10:00 AM', place: 'Good Times Adventures, Tiger Road', bring: 'goggles, warm gloves, a license if you drive', ride: 'suv',
     links: [{ label: 'Website', href: 'https://goodtimesadventures.com/snowmobiling.html' }] },
   { id: 'dog', name: 'Dog sledding', flourish: 'dog sledding', photo: IMG.dog, pot: 'personal', cost: 247, desc: 'A private ride with Colorado Dog Sledding: just us, a guide and a team of Iditarod huskies, about 75 minutes.', constraints: 'All ages', time: '2:00 PM', place: 'Colorado Dog Sledding, Silverthorne, 35 minutes away', bring: 'warm layers and a camera', ride: 'suv',
+    sign: { label: 'Sign the waiver', href: 'https://fareharbor.com/waivers?shortname=coloradodogsledding&bookingUuid=7601b793-7066-4d7f-98f9-82bc79781bd8' },
     links: [{ label: 'Website', href: 'https://coloradodogsledding.com/' }] },
   { id: 'snowcat', name: 'Snowcat', flourish: 'a snowcat and s’mores', photo: IMG.snowcat, pot: 'group', desc: '90-minute heated snowcat ride to Josie’s Cabin with s’mores and drinks.', extra: 'Holds 8 per ride. Mateo can ride on a lap.', time: '2:00 PM', place: 'Breckenridge Nordic Center', bring: 'layers and sunglasses', ride: 'snowcat',
     links: [{ label: 'Details', href: 'https://adventurebot.com/IFrameStoreProductDetail/detail/14ec4601-e267-4b5c-b1a1-55936630d63f' }] },
@@ -489,7 +492,8 @@ const LOCKED = {
   ],
   sat: [
     { time: '10:00 AM', title: 'Main Street', place: 'Buy your white elephant gift, ride the free gondola' },
-    { time: '1:00 PM', title: 'Tubing', place: 'Frisco Adventure Park, 20 minutes away', ride: 'Van and SUV, leaving 12:15', bring: 'snow pants, waterproof boots, gloves' },
+    { time: '1:00 PM', title: 'Tubing', place: 'Frisco Adventure Park, 20 minutes away', ride: 'Van and SUV, leaving 12:15', bring: 'snow pants, waterproof boots, gloves',
+      sign: { label: 'Every adult signs the waiver', href: 'https://waiver.smartwaiver.com/w/25gwssanes9wkpdb1ifm9x/web/' } },
     { time: 'Dusk', title: 'Main Street lights', place: 'Back by dark' },
     { time: '8:00 PM', title: 'White elephant, then a movie', bring: 'a wrapped gift, $20 to 25' },
   ],
@@ -1294,7 +1298,7 @@ function fridayMoments(S, u) {
   const out = [], fin = parsePick(S.assigned[u]);
   if (fin) {
     const cost = pickCost(fin.id);
-    out.push({ time: fin.opt.time, title: optName(fin.id), place: fin.opt.place, ride: rideLine(S, fin.opt), bring: fin.opt.bring, tag: `Your Friday${cost ? ` · ${plus(cost)}` : ''}`, mine: true });
+    out.push({ time: fin.opt.time, title: optName(fin.id), place: fin.opt.place, ride: rideLine(S, fin.opt), bring: fin.opt.bring, sign: fin.opt.sign, tag: `Your Friday${cost ? ` · ${plus(cost)}` : ''}`, mine: true });
   } else {
     const a = pickOf(S, u, 1), b = pickOf(S, u, 2);
     const picks = [a && `1st choice ${optName(a)}`, b && `2nd choice ${optName(b)}`].filter(Boolean).join('. ');
@@ -1305,7 +1309,7 @@ function fridayMoments(S, u) {
   for (const k of (household(u) || { members: [] }).members.filter(isKid)) {
     const kf = parsePick(S.assigned[k]);
     if (kf && fin && kf.opt.id === fin.opt.id) out[0].place = `${out[0].place}${/[.?!]$/.test(out[0].place) ? '' : '.'} ${k} comes too.`;
-    else if (kf) out.push({ time: kf.opt.time, title: `${k}: ${optName(kf.id)}`, place: kf.opt.place, ride: rideLine(S, kf.opt), bring: kf.opt.bring });
+    else if (kf) out.push({ time: kf.opt.time, title: `${k}: ${optName(kf.id)}`, place: kf.opt.place, ride: rideLine(S, kf.opt), bring: kf.opt.bring, sign: kf.opt.sign });
     else out.push({ time: '', title: `${k}’s Friday`, place: `${k} goes with one of you. Text me which one.` });
   }
   return out;
@@ -1327,14 +1331,15 @@ function dinnerMoments(S, u, votes, dayKey) {
   else if (m) { out.tag = 'Pick cooking or cleaning'; out.todo = 'meal-' + m.key; }
   return [out];
 }
-// A moment: time, an optional copper tag (a link when it's something to do), title, the line under it; + opens ride and bring.
+// A moment: time, an optional copper tag (a link when it's something to do), title, the line under it, a waiver to sign; + opens ride and bring.
 function momentHtml(m, key) {
+  const s = m.sign, sign = !s ? '' : s.href ? `<a class="mo-sign" data-act="out" href="${esc(s.href)}" target="_blank" rel="noopener">${esc(s.label)} ↗</a>` : `<span class="mo-sign">${esc(s.label)}</span>`;
   const det = [m.ride && ['Ride', m.ride], m.bring && ['Bring', m.bring]].filter(Boolean), open = !!app.open[key];
   const tag = m.tag ? (m.todo ? `<a class="mo-tag" data-act="todo" data-target="${esc(m.todo)}">${esc(m.tag)} →</a>` : `<span class="mo-tag">${esc(m.tag)}</span>`) : '';
   return `<div class="mo ${m.mine ? 'mine' : ''}" data-key="${key}">
     <div class="mo-row ${det.length ? 'tap' : ''}" ${det.length ? `data-act="moment" data-key="${key}" role="button" tabindex="0" aria-expanded="${open}"` : ''}>
       <span class="mo-t">${esc(shortTime(m.time))}</span>
-      <div>${tag}<div class="mo-title">${esc(m.title)}</div>${m.place ? `<div class="mo-place">${esc(m.place)}</div>` : ''}${m.ok ? `<div class="mo-ok">✓ ${esc(m.ok)}</div>` : ''}</div>
+      <div>${tag}<div class="mo-title">${esc(m.title)}</div>${m.place ? `<div class="mo-place">${esc(m.place)}</div>` : ''}${sign}${m.ok ? `<div class="mo-ok">✓ ${esc(m.ok)}</div>` : ''}</div>
       <span class="mo-plus">${det.length ? (open ? '−' : '+') : ''}</span>
     </div>${open ? `<div class="mo-det">${det.map(([k, v]) => `<div><span>${k}</span><em>${esc(v)}</em></div>`).join('')}</div>` : ''}
   </div>`;
